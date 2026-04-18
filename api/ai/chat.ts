@@ -41,7 +41,12 @@ const SYSTEM_PROMPT = `คุณคือ AI ผู้ช่วยหมอ med 
 - ไม่ใช่ diagnostic tool — เป็นตัวช่วยคิด, ยืนยันด้วยดุลยพินิจแพทย์เสมอ
 - ไม่ทดแทน consult specialty เมื่อเคสซับซ้อน`;
 
-const MODEL = process.env.AI_MODEL ?? 'claude-opus-4-7';
+// ⚠️ DEFAULT = SONNET. Do NOT flip this back to Opus.
+// Sonnet 4.6 is 5× cheaper ($3/$15 per 1M tok vs $15/$75) and is enough
+// for the Thai medical Q&A this app does. Budget target is $10/mo; an
+// Opus default blows past that in ~130 queries. Override only via the
+// AI_MODEL env var on Vercel — not by editing this line.
+const MODEL = process.env.AI_MODEL ?? 'claude-sonnet-4-6';
 
 const MAX_TOKENS_DEFAULT = 1000;
 const MAX_TOKENS_LIMIT = 1500;
