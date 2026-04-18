@@ -1,0 +1,225 @@
+---
+id: nihss
+title: NIH Stroke Scale (NIHSS)
+titleTh: "NIHSS ประเมินความรุนแรง stroke"
+category: score
+subcategory: neurology
+tags:
+  - nihss
+  - stroke
+  - neurology
+  - tpa
+  - severity
+keywords:
+  - NIHSS
+  - NIH Stroke Scale
+  - stroke severity
+  - tPA
+  - thrombectomy
+  - ประเมิน stroke
+related:
+  - stroke-pathway
+  - gcs
+source:
+  name: "NINDS NIH Stroke Scale"
+  year: 1989
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+---
+
+## 🎯 Purpose
+
+ประเมิน **ความรุนแรงของ stroke** — ใช้ตัดสินใจ tPA, thrombectomy, track progress, prognosis
+
+**Range:** 0 (normal) → 42 (severe)
+
+---
+
+## 📊 11 Items (baseline minimum)
+
+### 1a. Level of Consciousness
+- 0 — Alert, responsive
+- 1 — Drowsy, rouses to minor stim
+- 2 — Stuporous, requires repeated/strong stim
+- 3 — Coma, reflex only
+
+### 1b. LOC Questions (age, current month)
+- 0 — Both correct
+- 1 — One correct
+- 2 — Neither correct (intubated/aphasic → score 2)
+
+### 1c. LOC Commands (close eyes, grip fist)
+- 0 — Obeys both
+- 1 — Obeys one
+- 2 — Obeys neither
+
+### 2. Best Gaze (horizontal eye movement)
+- 0 — Normal
+- 1 — Partial palsy
+- 2 — Forced deviation / total palsy
+
+### 3. Visual Field
+- 0 — No visual loss
+- 1 — Partial hemianopia
+- 2 — Complete hemianopia
+- 3 — Bilateral hemianopia (blind)
+
+### 4. Facial Palsy
+- 0 — Normal
+- 1 — Minor (asymmetric smile)
+- 2 — Partial (total lower face)
+- 3 — Complete (both upper + lower)
+
+### 5a & 5b. Motor Arm (each arm, 10 sec)
+Extend arm 90° seated / 45° supine, count drift
+
+- 0 — No drift × 10 sec
+- 1 — Drifts but doesn't hit bed
+- 2 — Some effort against gravity, falls
+- 3 — No effort against gravity, drops
+- 4 — No movement
+- UN — Amputation / joint fusion
+
+### 6a & 6b. Motor Leg (each leg, 5 sec)
+Supine, lift leg 30°
+
+- 0 — No drift × 5 sec
+- 1 — Drifts but doesn't hit bed
+- 2 — Falls to bed within 5 sec
+- 3 — No effort against gravity
+- 4 — No movement
+- UN — Amputation / fusion
+
+### 7. Limb Ataxia
+Finger-nose + heel-shin
+
+- 0 — Absent
+- 1 — Present in 1 limb
+- 2 — Present in 2+ limbs
+- UN — Paralyzed / amputated
+
+### 8. Sensory (pin prick face/arm/leg)
+- 0 — Normal
+- 1 — Mild-moderate loss
+- 2 — Severe/total loss (unaware of being touched)
+
+### 9. Best Language
+Describe picture, read sentences, name objects
+
+- 0 — Normal
+- 1 — Mild aphasia (slow, word-finding)
+- 2 — Severe aphasia (fragmented expression)
+- 3 — Mute / global aphasia / coma
+
+### 10. Dysarthria
+Read list of words
+
+- 0 — Normal
+- 1 — Mild-moderate slurring
+- 2 — Severe / unintelligible
+- UN — Intubated / physical barrier
+
+### 11. Extinction / Inattention (neglect)
+- 0 — No abnormality
+- 1 — Visual / tactile / auditory inattention to 1 side
+- 2 — Severe hemi-inattention across &gt; 1 modality
+
+---
+
+## 🚦 Severity Categories
+
+| Total | Category | Notes |
+|---|---|---|
+| 0 | No stroke symptoms | |
+| 1–4 | **Minor** | Consider tPA case-by-case (disabling deficit?) |
+| 5–15 | **Moderate** | Typical tPA candidate if within window |
+| 16–20 | **Moderate–severe** | Consider thrombectomy (if LVO) |
+| 21–42 | **Severe** | High tPA bleed risk (&gt; 25 relative contra); thrombectomy candidate |
+
+---
+
+## ⚡ Clinical use
+
+### Guides treatment:
+
+**tPA (Alteplase):**
+- NIHSS ≥ 4 typically (but any disabling deficit)
+- NIHSS &gt; 25: relative contraindication (bleed risk)
+
+**Mechanical thrombectomy:**
+- NIHSS ≥ 6 with LVO
+- Window: 0–6 hr standard, 0–24 hr with perfusion imaging (DAWN/DEFUSE-3)
+
+### Trend monitoring:
+- Document q 1 hr × 6 hr post-tPA
+- Then q 2–4 hr × 24 hr
+- **Increase ≥ 4 points** = worsening → CT brain (bleed? re-occlusion?)
+- **Decrease ≥ 4 points** = improving
+
+### Prognosis:
+- NIHSS &lt; 10: 60–70% independent at 1 year
+- NIHSS &gt; 20: 4–16% independent at 1 year
+
+---
+
+## ⚠️ Pitfalls
+
+```
+🚩 Untrained rater = unreliable
+   - Certification recommended (AHA training)
+   - Different raters can differ by 2+ points
+
+🚩 Posterior circulation strokes
+   - NIHSS underestimates
+   - Cerebellar / brainstem signs not well captured
+   - Consider treatment despite low score
+
+🚩 Right hemispheric strokes
+   - Often lower NIHSS (language preserved)
+   - Neglect scored lower weight
+   - May still have large territory
+
+🚩 NIHSS 0 ≠ no stroke
+   - Small deep infarcts, posterior circulation
+   - Clinical judgment + imaging
+
+🚩 Intubated / aphasic
+   - LOC questions = 2 automatically
+   - Language = assess what you can
+   - Document limitations
+
+🚩 Preexisting deficit
+   - Score current assessment
+   - Document old deficit separately
+   - Use "pre-stroke baseline NIHSS" for comparison
+
+🚩 Don't delay tPA for NIHSS
+   - NIHSS is guidance not absolute
+   - Window + clinical decision primary
+```
+
+---
+
+## 📝 Documentation
+
+```
+NIHSS at _____ (time):
+1a LOC: _    1b Qs: _    1c Cmd: _
+2 Gaze: _    3 Field: _  4 Face: _
+5a RArm: _   5b LArm: _
+6a RLeg: _   6b LLeg: _
+7 Ataxia: _  8 Sens: _   9 Lang: _
+10 Dysarth: _  11 Neglect: _
+
+TOTAL: __/42
+```
+
+**Trend (critical in post-tPA):**
+
+```
+Pre-tPA: NIHSS 14
+1 hr post: 12 (improving)
+6 hr post: 10 (improving)
+24 hr post: 8 (independent ambulation)
+```

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import BottomNav from './BottomNav';
+import DisclaimerModal from './DisclaimerModal';
 import ThemeToggle from './ThemeToggle';
 import AIFab from '@/components/ai/AIFab';
 import AiChatSheet from '@/components/ai/AiChatSheet';
@@ -19,6 +20,7 @@ export default function Layout() {
         <AIFab />
         <AiChatSheet />
         <BottomNav />
+        <DisclaimerModal />
       </div>
     </AiChatProvider>
   );
