@@ -22,7 +22,7 @@ export default defineConfig({
     react({ include: /\.(mdx|md|ts|tsx)$/ }),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.svg', 'icon-maskable.svg'],
+      includeAssets: ['icon.svg', 'icon-maskable.svg', 'apple-touch-icon.png', '*.png'],
       manifest: {
         name: 'EM Handbook',
         short_name: 'EM Handbook',
@@ -38,15 +38,27 @@ export default defineConfig({
         dir: 'ltr',
         icons: [
           {
-            src: '/icon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: '/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
             purpose: 'any',
           },
           {
-            src: '/icon-maskable.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: '/icon-maskable-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: '/icon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
             purpose: 'maskable',
           },
         ],
