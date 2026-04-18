@@ -1,4 +1,5 @@
-import { MessageSquare, Wrench } from 'lucide-react';
+import { MessageSquare, Wrench, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAiChat } from '@/components/ai/AiChatProvider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -8,37 +9,44 @@ type ToolCard = {
   title: string;
   description: string;
   comingSoon: boolean;
+  route?: string;
+  action?: 'ai' | 'navigate';
 };
 
 const TOOLS: ToolCard[] = [
   {
     icon: '🤖',
     title: 'ถาม AI',
-    description: 'ถาม AI เกี่ยวกับ dose, protocol, workup, หรือ consult — ตอบเร็ว กระชับ',
+    description:
+      'ถาม AI เกี่ยวกับ dose, protocol, workup, หรือ consult — ตอบเร็ว กระชับ',
     comingSoon: false,
+    action: 'ai',
   },
   {
     icon: '📝',
     title: 'Pre-op Clearance Helper',
-    description: 'ช่วยร่าง pre-op note + คำนวณ RCRI + แนะนำ workup',
-    comingSoon: true,
+    description: 'คำนวณ RCRI + แนะนำ labs + red flags + Thai summary',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/preop',
   },
   {
     icon: '💬',
     title: 'Consult Reply Generator',
-    description: 'ช่วยเขียน consult reply แบบมีโครงสร้าง (CC / HPI / PE / A&P)',
+    description: 'ช่วยเขียน consult reply แบบมีโครงสร้าง (SOAP)',
     comingSoon: true,
   },
   {
     icon: '🫁',
     title: 'Ventilator Quick Start',
-    description: 'คำนวณ initial vent settings, TV, PEEP, FiO₂ target',
+    description: 'คำนวณ IBW + mode + TV + PEEP + FiO₂ target',
     comingSoon: true,
   },
 ];
 
 export default function Tools() {
   const chat = useAiChat();
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-4">
@@ -79,10 +87,19 @@ export default function Tools() {
                 <Wrench className="mr-2 h-4 w-4" aria-hidden />
                 เร็วๆ นี้
               </Button>
-            ) : (
+            ) : tool.action === 'ai' ? (
               <Button size="sm" variant="outline" onClick={chat.open}>
                 <MessageSquare className="mr-2 h-4 w-4" aria-hidden />
                 เปิด AI ช่วยเหลือ
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => tool.route && navigate(tool.route)}
+              >
+                เปิดเครื่องมือ
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
               </Button>
             )}
           </li>
@@ -90,7 +107,7 @@ export default function Tools() {
       </ul>
 
       <p className="rounded-lg border bg-muted/50 p-3 text-xs text-muted-foreground">
-        ⚠️ AI ช่วยร่างเท่านั้น — ตรวจความถูกต้อง + adapt ให้ตรงบริบทคนไข้จริงทุกครั้ง
+        ⚠️ เครื่องมือช่วยร่าง/คำนวณเท่านั้น — ตรวจความถูกต้อง + adapt ให้ตรงบริบทคนไข้จริงทุกครั้ง
       </p>
     </div>
   );
