@@ -1,110 +1,122 @@
-import PieceList from '@/components/home/PieceList';
+import { useNavigate } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
-type SymptomEntry = {
-  emoji: string;
-  label: string;
-  labelTh: string;
-  contentIds: string[];
+type SymptomCard = {
+  id: string;
+  icon: string;
+  title: string;
+  titleTh: string;
+  comingSoon: boolean;
 };
 
-const SYMPTOMS: SymptomEntry[] = [
+// First 5 are real content pieces created in Session 7; remaining 3 stay
+// as "coming soon" stubs until their content is authored.
+const SYMPTOMS: SymptomCard[] = [
   {
-    emoji: '💔',
-    label: 'Chest pain',
-    labelTh: 'เจ็บหน้าอก',
-    contentIds: ['stemi', 'vf-vt', 'svt'],
+    id: 'dyspnea',
+    icon: '🫁',
+    title: 'Dyspnea',
+    titleTh: 'หายใจเหนื่อย',
+    comingSoon: false,
   },
   {
-    emoji: '🧠',
-    label: 'Altered mental status',
-    labelTh: 'ซึม / สับสน',
-    contentIds: [
-      'hypoglycemia',
-      'stroke-pathway',
-      'status-epilepticus',
-      'hyperkalemia',
-      'dka',
-    ],
+    id: 'chest-pain',
+    icon: '💔',
+    title: 'Chest pain',
+    titleTh: 'เจ็บหน้าอก',
+    comingSoon: false,
   },
   {
-    emoji: '💧',
-    label: 'Shock / Hypotension',
-    labelTh: 'ช็อก / ความดันตก',
-    contentIds: [
-      'septic-shock',
-      'anaphylaxis',
-      'norepinephrine-drip',
-      'dopamine-drip',
-    ],
+    id: 'abdominal-pain',
+    icon: '🫃',
+    title: 'Abdominal pain',
+    titleTh: 'ปวดท้อง',
+    comingSoon: false,
   },
   {
-    emoji: '🫁',
-    label: 'Dyspnea / Respiratory',
-    labelTh: 'หายใจเหนื่อย',
-    contentIds: ['anaphylaxis', 'septic-shock'],
+    id: 'altered-mental-status',
+    icon: '🧠',
+    title: 'Altered mental status',
+    titleTh: 'สับสน / ซึม',
+    comingSoon: false,
   },
   {
-    emoji: '🔥',
-    label: 'Fever + suspected sepsis',
-    labelTh: 'ไข้ + สงสัย sepsis',
-    contentIds: ['septic-shock', 'norepinephrine-drip'],
+    id: 'fever',
+    icon: '🔥',
+    title: 'Fever',
+    titleTh: 'ไข้',
+    comingSoon: false,
   },
   {
-    emoji: '⚡',
-    label: 'Seizure',
-    labelTh: 'ชัก',
-    contentIds: ['status-epilepticus', 'hypoglycemia'],
+    id: 'nausea-vomiting',
+    icon: '🤢',
+    title: 'Nausea / vomiting',
+    titleTh: 'คลื่นไส้ อาเจียน',
+    comingSoon: true,
   },
   {
-    emoji: '🩸',
-    label: 'Bleeding',
-    labelTh: 'เลือดออก',
-    contentIds: ['stroke-pathway', 'stemi'],
+    id: 'urinary',
+    icon: '💧',
+    title: 'Urinary symptoms',
+    titleTh: 'ปัสสาวะผิดปกติ',
+    comingSoon: true,
   },
   {
-    emoji: '📈',
-    label: 'Hypertensive crisis',
-    labelTh: 'ความดันสูงวิกฤต',
-    contentIds: [],
-  },
-  {
-    emoji: '🌡',
-    label: 'Electrolyte emergency',
-    labelTh: 'เกลือแร่ผิดปกติ',
-    contentIds: ['hyperkalemia', 'dka'],
-  },
-  {
-    emoji: '🏎',
-    label: 'Bradycardia / Tachycardia',
-    labelTh: 'หัวใจเต้นผิดปกติ',
-    contentIds: ['bradycardia', 'svt', 'vf-vt', 'asystole'],
+    id: 'rash',
+    icon: '🟥',
+    title: 'Rash',
+    titleTh: 'ผื่น',
+    comingSoon: true,
   },
 ];
 
 export default function Symptoms() {
+  const navigate = useNavigate();
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-semibold">ตามอาการ</h1>
         <p className="text-sm text-muted-foreground">
-          เลือกอาการ → ดู protocol / drip ที่เกี่ยวข้อง
+          เลือกอาการเพื่อดู red flags, workup, protocols ที่เกี่ยวข้อง
         </p>
       </div>
 
-      {SYMPTOMS.map((s) => (
-        <section key={s.label}>
-          <h2 className="mb-2 flex flex-wrap items-baseline gap-x-2 text-sm font-medium">
-            <span aria-hidden>{s.emoji}</span>
-            <span>{s.label}</span>
-            <span className="text-xs text-muted-foreground">· {s.labelTh}</span>
-          </h2>
-          <PieceList
-            ids={s.contentIds}
-            variant="row"
-            emptyText="ยังไม่มีเนื้อหา — ลองค้นใน Search หรือถาม AI"
-          />
-        </section>
-      ))}
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {SYMPTOMS.map((s) => {
+          const interactive = !s.comingSoon;
+          return (
+            <li key={s.id}>
+              <button
+                type="button"
+                disabled={!interactive}
+                onClick={() => interactive && navigate(`/content/${s.id}`)}
+                className={cn(
+                  'flex h-full w-full flex-col items-start gap-1 rounded-lg border bg-card p-3 text-left transition-colors',
+                  interactive && 'hover:bg-accent',
+                  !interactive && 'cursor-not-allowed opacity-60',
+                )}
+                aria-label={`${s.title} / ${s.titleTh}${s.comingSoon ? ' — เร็วๆ นี้' : ''}`}
+              >
+                <span className="text-2xl" aria-hidden>
+                  {s.icon}
+                </span>
+                <span className="text-sm font-medium leading-tight">
+                  {s.titleTh}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {s.title}
+                </span>
+                {s.comingSoon && (
+                  <span className="mt-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-normal text-muted-foreground">
+                    เร็วๆ นี้
+                  </span>
+                )}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
