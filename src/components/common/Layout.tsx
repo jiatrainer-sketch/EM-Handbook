@@ -3,8 +3,10 @@ import Header from './Header';
 import BottomNav from './BottomNav';
 import ThemeToggle from './ThemeToggle';
 import AIFab from '@/components/ai/AIFab';
+import { useSearchShortcut } from '@/hooks/useSearchShortcut';
 
 export default function Layout() {
+  useSearchShortcut();
   return (
     <div className="min-h-dvh">
       <Header right={<ThemeToggle />} />
