@@ -2,12 +2,21 @@
 id: smoke-test
 title: MDX Smoke Test
 category: reference
-tags: [dev]
-source: "dev only"
+tags: [dev, fixture]
+keywords: [smoke, test, mdx]
+related: [smoke-test, does-not-exist]
+source: "Dev fixture — not clinical content"
 last_reviewed: "2025-04"
+confidence: high
 ---
 
 # MDX loader works
 
-This file exists only to verify the MDX pipeline. It will be removed once
-real content lands in `src/content/{scores,drips,orders,ladders,protocols}/`.
+This file exists only to verify the MDX pipeline. It exercises:
+
+- Frontmatter parsing (id, title, category, tags, related, source, last_reviewed)
+- GFM features (this list, **bold**, _italic_, `code`)
+- Related-link rendering (one valid id, one missing id)
+
+It will be removed once real content lands in
+`src/content/{scores,drips,orders,ladders,protocols}/`.
