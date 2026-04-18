@@ -1,4 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import ContentFooter from '@/components/content/ContentFooter';
+import ContentHeader from '@/components/content/ContentHeader';
+import RelatedLinks from '@/components/content/RelatedLinks';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { getContent } from '@/lib/content';
 
 export default function Content() {
@@ -7,23 +12,39 @@ export default function Content() {
 
   if (!entry) {
     return (
-      <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">ไม่พบเนื้อหา</h1>
-        <p className="text-sm text-muted-foreground">id: {id ?? '-'}</p>
-      </div>
+      <Card>
+        <CardContent className="space-y-3 pt-6 text-center">
+          <h1 className="text-xl font-semibold">ไม่พบเนื้อหา</h1>
+          <p className="text-sm text-muted-foreground">
+            ไม่พบ content id <code className="font-mono">{id ?? '-'}</code>
+          </p>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/">← กลับหน้าหลัก</Link>
+          </Button>
+        </CardContent>
+      </Card>
     );
   }
 
   const { meta, Component } = entry;
+
   return (
-    <article className="space-y-3">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">{meta.title}</h1>
-        <p className="text-xs uppercase text-muted-foreground">{meta.category}</p>
-      </header>
-      <div className="prose prose-sm max-w-none dark:prose-invert">
+    <article className="space-y-6">
+      <ContentHeader
+        title={meta.title}
+        category={meta.category}
+        confidence={meta.confidence}
+      />
+
+      <div className="prose prose-sm max-w-none dark:prose-invert prose-headings:scroll-mt-20">
         <Component />
       </div>
+
+      {meta.related && meta.related.length > 0 ? (
+        <RelatedLinks ids={meta.related} />
+      ) : null}
+
+      <ContentFooter source={meta.source} lastReviewed={meta.last_reviewed} />
     </article>
   );
 }
