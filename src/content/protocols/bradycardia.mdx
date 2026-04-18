@@ -1,0 +1,219 @@
+---
+id: bradycardia
+title: Symptomatic Bradycardia
+titleTh: "หัวใจเต้นช้ามีอาการ"
+category: protocol
+subcategory: cardiac
+tags:
+  - bradycardia
+  - cardiac
+  - acls
+  - emergency
+keywords:
+  - bradycardia
+  - slow heart rate
+  - heart block
+  - AV block
+  - pacing
+  - atropine
+  - หัวใจช้า
+related:
+  - vf-vt
+  - asystole
+  - dopamine-drip
+  - epinephrine-drip
+source:
+  name: "AHA ACLS Guidelines"
+  year: 2020
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+---
+
+## 🎯 Criteria / Diagnosis
+
+### Definition
+- **HR < 60/min** (ผู้ใหญ่)
+- อาการจาก bradycardia
+
+### Signs of Instability (4 ข้อ — ถ้ามี → treat)
+1. **Hypotension** (SBP < 90)
+2. **Altered mental status**
+3. **Signs of shock** (cool, clammy, lactate ↑)
+4. **Chest pain / Heart failure signs**
+
+**ถ้าไม่มีอาการ → observe + monitor**
+
+### ECG Types
+
+| Type | Features | Stability |
+|---|---|---|
+| Sinus bradycardia | Normal P before QRS | Usually stable |
+| 1° AV block | PR > 200 ms | Stable |
+| Mobitz I (Wenckebach) | Progressive PR ↑ | Usually stable |
+| **Mobitz II** | Dropped beats, no pattern | ⚠️ Unstable |
+| **3° (CHB)** | P and QRS dissociated | ⚠️ Unstable |
+
+---
+
+## ⚡ Immediate Actions
+
+### 1. Assess stability
+- Vitals, ECG, SpO₂
+- 12-lead ECG
+- IV access, O₂ prn
+
+### 2. ถ้า Stable → Observe
+- CBC, electrolyte, TSH, drug level
+- แก้ underlying cause
+- Monitor
+
+### 3. ถ้า Unstable → **Atropine first**
+
+**Atropine:**
+- **0.5 mg IV push**
+- Repeat q 3-5 min
+- **Max total: 3 mg** (6 doses)
+
+⚠️ **Atropine ไม่ work ใน:**
+- Mobitz II
+- 3° AV block (infranodal)
+- Heart transplant
+→ ไปที่ TCP / drip ทันที
+
+### 4. ถ้า Atropine ไม่ work → Pacing + Drip
+
+**Option A: Transcutaneous Pacing (TCP)**
+- ติด pacer pads
+- Rate 60-80/min
+- Increase current จนมี mechanical capture
+- **Sedate: Midazolam 2-5 mg + Morphine 2-4 mg IV**
+
+**Option B: Drug drip (ระหว่างรอ TCP/TVP)**
+- **Dopamine:** 5-20 mcg/kg/min
+- **Epinephrine:** 2-10 mcg/min
+
+### 5. Consult cardiologist → TVP
+- สำหรับ Mobitz II, 3° AV block, persistent symptomatic
+- Refer STAT ถ้า รพ.ชุมชน
+
+---
+
+## 💊 Drug Preparation (BW 50 kg)
+
+### Atropine
+
+```
+Bolus:    0.5 mg IV push
+Repeat:   q 3-5 min
+Max:      3 mg total (6 doses)
+```
+
+**🫘 Renal:** ไม่ต้องปรับ
+**🧓 Elderly:** ระวัง anticholinergic effects (confusion, urinary retention)
+
+---
+
+### Dopamine Drip
+
+```
+Standard prep:
+  Dopamine 200 mg + D5W 250 mL
+  = 800 mcg/mL
+  
+@ BW 50 kg, rate 5 mcg/kg/min = 250 mcg/min:
+  → 250 / 800 = 0.31 mL/min
+  → ~19 mL/hr
+
+Dosing:
+  5-10 mcg/kg/min: β₁ (inotrope) - start here
+  10-20 mcg/kg/min: α₁ (vasoconstrictor)
+```
+
+**Titrate ตาม HR + BP**
+
+**🫘 Renal:** ไม่ต้องปรับ
+**🧓 Elderly:** ระวัง tachyarrhythmia
+
+---
+
+### Epinephrine Drip
+
+```
+Standard prep:
+  Epinephrine 4 mg + NSS 250 mL
+  = 16 mcg/mL
+  
+Starting rate: 2 mcg/min
+  → 2 / 16 = 0.125 mL/min
+  → ~8 mL/hr
+
+Titrate: 2-10 mcg/min per HR + BP
+```
+
+**🫘 Renal:** ไม่ต้องปรับ
+**🧓 Elderly:** ระวัง arrhythmia, MI risk
+
+---
+
+## ⚠️ Critical Pitfalls
+
+```
+🚩 Atropine ไม่ work ใน Mobitz II / CHB
+   - ให้ TCP หรือ dopamine/epi drip แทน
+   - อย่าเสียเวลา repeat atropine
+
+🚩 Heart transplant → skip atropine
+   - ไปที่ pacing/drip ทันที
+
+🚩 Hyperkalemia ทำให้ bradycardia
+   - ตรวจ K level
+   - Treat hyperK ก่อน
+
+🚩 Stable bradycardia ไม่ต้อง treat
+   - Observe + หา cause
+   - Atropine อาจทำให้แย่ลง
+
+🚩 TCP ต้อง sedate!
+   - เจ็บมาก
+   - Midazolam + Morphine
+
+🚩 อย่าลืม 12-lead ECG
+   - หา inferior MI (common cause)
+```
+
+---
+
+## 🔍 Common Causes to Check
+
+1. **Drugs:** β-blocker, CCB, digoxin, amiodarone
+2. **Electrolyte:** HyperK
+3. **Hypothyroid** (myxedema)
+4. **Ischemia** (inferior MI)
+5. **Increased ICP** (Cushing reflex)
+6. **Hypothermia**
+7. **Athlete** (physiological)
+
+---
+
+## 📝 Copy-Ready Order
+
+```
+1. Monitor ECG, SpO₂, BP q15 min
+2. 12-lead ECG
+3. IV access, O₂ prn
+4. Labs: CBC, electrolyte (K, Ca, Mg),
+   TSH, troponin, digoxin level if applicable
+5. CXR
+6. If symptomatic/unstable:
+   - Atropine 0.5 mg IV push, repeat q 3-5 min (max 3 mg)
+   - Prepare Transcutaneous Pacer
+   - Consider Dopamine drip 5-20 mcg/kg/min
+   - หรือ Epinephrine drip 2-10 mcg/min
+7. If Mobitz II / 3° AV block:
+   - Direct to pacing (skip atropine)
+   - Consult cardiology STAT
+   - Prepare for TVP
+8. Sedate before TCP: Midazolam 2-5 mg + Morphine 2-4 mg IV
+9. Admit ICU / CCU
+```

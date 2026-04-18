@@ -1,0 +1,256 @@
+---
+id: septic-shock
+title: Septic Shock
+titleTh: "Septic Shock ติดเชื้อในกระแสเลือดรุนแรง"
+category: protocol
+subcategory: sepsis
+tags:
+  - sepsis
+  - septic-shock
+  - emergency
+  - icu
+  - lifesaving
+keywords:
+  - sepsis
+  - septic shock
+  - bundle
+  - antibiotic
+  - norepinephrine
+  - lactate
+  - qSOFA
+  - ติดเชื้อ
+  - ความดันตก
+related:
+  - norepinephrine-drip
+  - anaphylaxis
+  - qsofa
+  - sofa
+source:
+  name: "Surviving Sepsis Campaign Guidelines"
+  year: 2021
+last_reviewed: "2026-04"
+confidence: high
+severity: critical
+---
+
+## 🎯 Criteria / Diagnosis
+
+### Sepsis (new definition 2016)
+- **Life-threatening organ dysfunction** จาก dysregulated host response to infection
+- SOFA score ↑ ≥ 2 จาก baseline
+
+### Septic Shock
+- Sepsis **PLUS:**
+- **Persistent hypotension** requiring vasopressor เพื่อ MAP ≥ 65
+- **AND lactate > 2 mmol/L** despite adequate fluid resuscitation
+
+### Bedside Screening: qSOFA (≥2 = sepsis likely)
+1. **Respiratory rate ≥ 22/min**
+2. **Altered mentation** (GCS < 15)
+3. **SBP ≤ 100 mmHg**
+
+### Common Sources
+- Pneumonia (40%)
+- Intra-abdominal (30%)
+- UTI (15%)
+- Skin/soft tissue
+- CNS
+- Unknown (10%)
+
+---
+
+## ⚡ Immediate Actions — Hour-1 Bundle
+
+### 1. Measure Lactate (repeat if > 2)
+
+### 2. Blood Cultures × 2 ก่อนให้ antibiotic
+
+### 3. **Broad-spectrum Antibiotics ทันที** (within 1 hr)
+
+**Empiric choice (community hospital):**
+
+| Source | First-line | Alternative (PCN allergy) |
+|---|---|---|
+| Unknown / Septic shock | Ceftriaxone 2 g IV + Metronidazole 500 mg IV | Cipro 400 mg IV + Metro |
+| Pneumonia (CAP) | Ceftriaxone 2 g + Azithromycin 500 mg | Levofloxacin 750 mg IV |
+| Pneumonia (HAP/VAP) | Pip-Tazo 4.5 g IV q8h | Meropenem 1 g IV q8h |
+| UTI (complicated) | Ceftriaxone 2 g IV | Cipro 400 mg IV |
+| Intra-abdominal | Pip-Tazo 4.5 g IV OR Ceftriaxone + Metronidazole | Meropenem |
+| Skin/STI + necrotizing | Pip-Tazo + Clindamycin 900 mg IV | Meropenem + Clindamycin |
+| Febrile neutropenia | Pip-Tazo OR Cefepime 2 g IV | Meropenem |
+
+**Add MRSA coverage** (Vancomycin 25-30 mg/kg loading) if:
+- Healthcare-associated
+- Known MRSA colonization
+- Severe SSTI
+
+### 4. **Fluid Resuscitation: 30 mL/kg crystalloid**
+
+```
+@ BW 50 kg: 1,500 mL NSS หรือ Ringer's Lactate
+Give within first 3 hr
+Rate: rapid bolus 500 mL then reassess
+```
+
+**Monitor:**
+- BP, HR, UO
+- Lung exam (pulmonary edema)
+- Lactate clearance
+
+### 5. **Vasopressor: Norepinephrine** (first-line)
+หลัง fluid 30 mL/kg ถ้า MAP ยัง < 65:
+
+- **Start: 0.05-0.1 mcg/kg/min**
+- **Target MAP ≥ 65**
+- Titrate q 5-15 min
+
+### 6. Source Control
+- Drain abscess
+- Remove infected device
+- Surgical intervention (necrotizing)
+- Urinary catheter if obstruction
+
+### 7. Monitoring Resuscitation
+- **Lactate clearance** > 10%/hr (or normalize)
+- Central venous O₂ saturation (ScvO₂) > 70%
+- Mean arterial pressure (MAP) ≥ 65 mmHg
+- Urine output ≥ 0.5 mL/kg/hr
+
+---
+
+## 💊 Drug Preparation (BW 50 kg)
+
+### Norepinephrine (first-line vasopressor)
+
+```
+Prep:  Norepinephrine 4 mg + NSS 250 mL
+       = 16 mcg/mL
+       
+Start: 0.05 mcg/kg/min (≈ 2.5 mcg/min @ BW 50 kg)
+       → 2.5 / 16 = 0.156 mL/min
+       → ~10 mL/hr
+
+Titrate: 0.05-1 mcg/kg/min per MAP
+Target:  MAP ≥ 65 mmHg
+```
+
+**⚠️ Use central line ถ้าเป็นไปได้**
+**ถ้ายังไม่มี central → peripheral large vein ชั่วคราว**
+
+**🫘 Renal:** ไม่ต้องปรับ
+**🧓 Elderly:** ระวัง ischemia (digits, mesenteric)
+
+---
+
+### Add-on Vasopressors (ถ้า NE > 0.5 mcg/kg/min)
+
+**Vasopressin:**
+```
+Fixed: 0.03 U/min (1 bottle 40 U + NSS 100 mL)
+       → 2.5 mL/hr (ไม่ titrate)
+```
+
+**Epinephrine:**
+```
+Start 0.05 mcg/kg/min, titrate
+(ใช้เมื่อ cardiac output ต่ำ)
+```
+
+---
+
+### Antibiotic Doses (Renal Adjusted)
+
+**Ceftriaxone:**
+- Normal: 2 g IV q24h
+- CKD: ไม่ต้องปรับ (non-renal)
+
+**Pip-Tazo:**
+- Normal: 4.5 g IV q8h (extended infusion 4 hr preferred)
+- CKD (CrCl 20-40): 3.375 g IV q8h
+- CKD (CrCl &lt; 20): 3.375 g IV q12h
+- HD: 2.25 g IV q12h + 0.75 g after HD
+
+**Meropenem:**
+- Normal: 1 g IV q8h
+- CKD (CrCl 25-50): 1 g IV q12h
+- CKD (CrCl 10-25): 500 mg IV q12h
+- HD: 500 mg IV q24h + after HD
+
+**Vancomycin:**
+- Load: 25-30 mg/kg IV
+- Maintenance: adjust by trough (target 15-20)
+- CKD: longer interval (q24h or more)
+
+**🫘 ดู Renal Dose Adjustment page สำหรับ full list**
+
+---
+
+## ⚠️ Critical Pitfalls
+
+```
+🚩 Antibiotic ช้า = mortality ↑
+   - Every hour delay = 7.6% ↑ mortality
+   - ให้ภายใน 1 hr
+
+🚩 Fluid over-resuscitation
+   - > 3-4 L → pulmonary edema
+   - Reassess ทุก 500 mL
+   - Dynamic measures (passive leg raise, US IVC)
+
+🚩 Norepinephrine ผ่าน peripheral
+   - OK ชั่วคราว (< 6 hr)
+   - Short catheter, proximal vein
+   - Change to central ASAP
+   - Risk: extravasation → skin necrosis
+
+🚩 Lactate สูง ≠ sepsis เสมอ
+   - Check: perfusion, shock, exercise
+   - แต่ถ้ามี infection signs → treat as sepsis
+
+🚩 Steroid ใน septic shock
+   - Hydrocortisone 200 mg/day IV
+   - เฉพาะ refractory (need high-dose vasopressor)
+   - ไม่ใช่ routine
+
+🚩 Source control สำคัญ!
+   - Antibiotic อย่างเดียวไม่พอ
+   - Abscess → drain
+   - Gangrene → debride
+   - Catheter → remove
+```
+
+---
+
+## 📝 Copy-Ready Order
+
+```
+1. NPO
+2. O₂ via mask, target SpO₂ ≥ 94%
+3. IV access × 2 (large bore)
+4. Monitor: ECG, SpO₂, BP q5 min, continuous
+5. Labs STAT:
+   - CBC + diff, BUN/Cr, electrolyte, glucose
+   - Lactate (repeat q2h until < 2)
+   - ABG, procalcitonin
+   - Coagulation (PT/PTT, D-dimer)
+   - LFT, troponin
+6. Blood cultures × 2 sets BEFORE antibiotic
+7. Urinalysis + urine culture
+8. CXR
+9. Consider: CT abdomen, LP, wound culture per suspected source
+10. ANTIBIOTIC STAT (within 1 hr):
+    - Ceftriaxone 2 g IV (empiric)
+    - Add Metronidazole 500 mg IV (if intra-abdominal)
+    - Consider Vancomycin if MRSA risk
+11. FLUID: NSS 1,500 mL IV rapid bolus (30 mL/kg)
+    Reassess after each 500 mL
+12. If MAP < 65 after fluid:
+    - Norepinephrine drip 0.05-0.5 mcg/kg/min
+    - Titrate to MAP ≥ 65
+13. Foley catheter, monitor UO q1h (target > 0.5 mL/kg/hr)
+14. Source control:
+    - Drain/debride per source
+    - Remove infected catheter
+15. Admit ICU
+16. Consult specialty per source (ID, surgery, urology)
+```
