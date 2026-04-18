@@ -1,19 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-/**
- * Vercel serverless proxy for the Anthropic Messages API.
- *
- * The browser never holds the ANTHROPIC_API_KEY — it posts messages here,
- * we call Claude, and return the assistant's reply plus a small usage
- * object so the client can display it if desired.
- *
- * The system prompt below is static, so we wire up prompt caching from
- * day one: if it grows past the model's minimum cacheable prefix later,
- * repeat questions in a session will be ~10× cheaper on the prefix with
- * zero further changes. Below the minimum it's a silent no-op.
- */
-
 const SYSTEM_PROMPT = `คุณคือ AI ผู้ช่วยหมอ med รพ.ชุมชนของไทย — รวม Hospitalist + Emergency Medicine
 
 วิธีตอบ:
@@ -41,7 +28,7 @@ const SYSTEM_PROMPT = `คุณคือ AI ผู้ช่วยหมอ med 
 - ไม่ใช่ diagnostic tool — เป็นตัวช่วยคิด, ยืนยันด้วยดุลยพินิจแพทย์เสมอ
 - ไม่ทดแทน consult specialty เมื่อเคสซับซ้อน`;
 
-const MODEL = process.env.AI_MODEL ?? 'claude-opus-4-7';
+const MODEL = process.env.AI_MODEL ?? 'claude-sonnet-4-6';
 
 const MAX_TOKENS_DEFAULT = 1000;
 const MAX_TOKENS_LIMIT = 1500;
@@ -55,13 +42,6 @@ type UsageSummary = {
   cache_read_input_tokens: number;
 };
 
-type ChatResponse =
-  | { content: string; usage: UsageSummary; model: string }
-  | { error: string };
-
-// Claude pricing per 1M tokens. Cache reads cost ~0.1× base input; cache
-// writes cost ~1.25× base input (5-minute TTL). These let us log USD cost
-// per request for budget monitoring — server-side only.
 const PRICING: Record<string, { input: number; output: number }> = {
   'claude-opus-4-7': { input: 5, output: 25 },
   'claude-opus-4-6': { input: 5, output: 25 },
@@ -99,28 +79,28 @@ export default async function handler(
   res: VercelResponse,
 ): Promise<void> {
   if (req.method !== 'POST') {
-    res.status(405).json({ error: 'method not allowed' } satisfies ChatResponse);
+    res.status(405).json({ error: 'method not allowed' });
     return;
   }
   if (!process.env.ANTHROPIC_API_KEY) {
-    res.status(500).json({ error: 'server missing ANTHROPIC_API_KEY' } satisfies ChatResponse);
+    res.status(500).json({ error: 'server missing ANTHROPIC_API_KEY' });
     return;
   }
 
   const body: unknown = req.body;
   if (!body || typeof body !== 'object') {
-    res.status(400).json({ error: 'invalid body' } satisfies ChatResponse);
+    res.status(400).json({ error: 'invalid body' });
     return;
   }
 
   const rawMessages = (body as { messages?: unknown }).messages;
   if (!Array.isArray(rawMessages) || !rawMessages.every(isChatMessage)) {
-    res.status(400).json({ error: 'messages must be [{role,content}]' } satisfies ChatResponse);
+    res.status(400).json({ error: 'messages must be [{role,content}]' });
     return;
   }
   const messages = sanitize(rawMessages);
   if (messages.length === 0 || messages[messages.length - 1].role !== 'user') {
-    res.status(400).json({ error: 'last message must be from user' } satisfies ChatResponse);
+    res.status(400).json({ error: 'last message must be from user' });
     return;
   }
 
@@ -130,10 +110,22 @@ export default async function handler(
     Math.max(200, typeof requestedMax === 'number' ? requestedMax : MAX_TOKENS_DEFAULT),
   );
 
+  // Switch to SSE streaming
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // disable nginx/Vercel edge buffering
+  res.flushHeaders();
+
+  function send(data: object) {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  }
+
   const client = new Anthropic();
   const t0 = Date.now();
+
   try {
-    const response = await client.messages.create({
+    const stream = client.messages.stream({
       model: MODEL,
       max_tokens,
       system: [
@@ -146,17 +138,22 @@ export default async function handler(
       messages,
     });
 
-    const text = response.content
-      .filter((b): b is Anthropic.TextBlock => b.type === 'text')
-      .map((b) => b.text)
-      .join('\n')
-      .trim();
+    for await (const event of stream) {
+      if (req.socket?.destroyed) break;
+      if (
+        event.type === 'content_block_delta' &&
+        event.delta.type === 'text_delta'
+      ) {
+        send({ type: 'delta', text: event.delta.text });
+      }
+    }
 
+    const final = await stream.finalMessage();
     const usage: UsageSummary = {
-      input_tokens: response.usage.input_tokens,
-      output_tokens: response.usage.output_tokens,
-      cache_creation_input_tokens: response.usage.cache_creation_input_tokens ?? 0,
-      cache_read_input_tokens: response.usage.cache_read_input_tokens ?? 0,
+      input_tokens: final.usage.input_tokens,
+      output_tokens: final.usage.output_tokens,
+      cache_creation_input_tokens: final.usage.cache_creation_input_tokens ?? 0,
+      cache_read_input_tokens: final.usage.cache_read_input_tokens ?? 0,
     };
 
     const cost = estimateCostUSD(MODEL, usage);
@@ -166,16 +163,17 @@ export default async function handler(
         `cost=$${cost.toFixed(4)} latency=${Date.now() - t0}ms`,
     );
 
-    res.status(200).json({ content: text, usage, model: MODEL } satisfies ChatResponse);
+    send({ type: 'done', usage, model: MODEL });
   } catch (err) {
     if (err instanceof Anthropic.APIError) {
       console.error(`[ai/chat] Anthropic ${err.status}: ${err.message}`);
-      const status = err.status ?? 500;
       const safe = err.status && err.status < 500 ? err.message : 'upstream error';
-      res.status(status).json({ error: safe } satisfies ChatResponse);
-      return;
+      send({ type: 'error', error: safe });
+    } else {
+      console.error('[ai/chat] unexpected', err);
+      send({ type: 'error', error: 'internal error' });
     }
-    console.error('[ai/chat] unexpected', err);
-    res.status(500).json({ error: 'internal error' } satisfies ChatResponse);
+  } finally {
+    res.end();
   }
 }
