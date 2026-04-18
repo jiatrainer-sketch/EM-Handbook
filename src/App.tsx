@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from '@/components/common/Layout';
 import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Content from '@/pages/Content';
@@ -9,16 +10,16 @@ import NotFound from '@/pages/NotFound';
 function App() {
   return (
     <BrowserRouter>
-      <main className="container max-w-screen-sm py-6">
-        <Routes>
+      <Routes>
+        <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/content/:id" element={<Content />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -3,37 +3,62 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-3xl font-semibold tracking-tight">EM Handbook</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          อุ่นใจตอนเวร ไม่ใช่เวรกรรม
-        </p>
-      </header>
-
       <section>
         <div className="rounded-lg border bg-card p-3 text-sm text-muted-foreground">
-          🔍 Search bar placeholder
+          🔍 ค้นหา...
         </div>
       </section>
 
       <section>
-        <h2 className="mb-2 text-sm font-medium text-muted-foreground">Browse</h2>
-        <ul className="space-y-1 text-sm">
-          <li>Scores (10)</li>
-          <li>Drips (10)</li>
-          <li>Orders (11)</li>
-          <li>Ladders (6)</li>
-          <li>Protocols (35)</li>
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">
+          ⭐ Pinned
+        </h2>
+        <div className="grid grid-cols-2 gap-2 text-sm">
+          <div className="rounded-lg border bg-card p-3">CHA₂DS₂</div>
+          <div className="rounded-lg border bg-card p-3">Norepi</div>
+          <div className="rounded-lg border bg-card p-3">Sepsis</div>
+          <div className="rounded-lg border bg-card p-3">DKA</div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">
+          📂 Browse
+        </h2>
+        <ul className="divide-y rounded-lg border bg-card text-sm">
+          <li className="flex justify-between px-3 py-2.5">
+            <span>Scores</span>
+            <span className="text-muted-foreground">10</span>
+          </li>
+          <li className="flex justify-between px-3 py-2.5">
+            <span>Drips</span>
+            <span className="text-muted-foreground">10</span>
+          </li>
+          <li className="flex justify-between px-3 py-2.5">
+            <span>Orders</span>
+            <span className="text-muted-foreground">11</span>
+          </li>
+          <li className="flex justify-between px-3 py-2.5">
+            <span>Ladders</span>
+            <span className="text-muted-foreground">6</span>
+          </li>
+          <li className="flex justify-between px-3 py-2.5">
+            <span>Protocols</span>
+            <span className="text-muted-foreground">35</span>
+          </li>
         </ul>
       </section>
 
       <nav className="flex flex-col gap-2 text-sm">
-        <Link to="/tools" className="text-primary underline-offset-4 hover:underline">
+        <Link
+          to="/tools"
+          className="rounded-lg border bg-card px-3 py-3 hover:bg-accent"
+        >
           🛠 Tools →
         </Link>
         <Link
           to="/symptoms"
-          className="text-primary underline-offset-4 hover:underline"
+          className="rounded-lg border bg-card px-3 py-3 hover:bg-accent"
         >
           🆘 By symptom →
         </Link>
