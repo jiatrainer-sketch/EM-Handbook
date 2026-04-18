@@ -1,0 +1,218 @@
+---
+id: sofa
+title: SOFA Score
+titleTh: "SOFA score ประเมินอวัยวะล้มเหลวในภาวะวิกฤต"
+category: score
+subcategory: sepsis
+tags:
+  - sofa
+  - sepsis
+  - organ failure
+  - icu
+  - mortality
+keywords:
+  - SOFA
+  - Sequential Organ Failure Assessment
+  - sepsis
+  - mortality
+  - organ failure
+  - qSOFA
+  - ICU severity
+related:
+  - qsofa
+  - septic-shock
+  - wells-pe
+  - rcri
+source:
+  name: "Vincent JL et al. Intensive Care Med 1996 + Sepsis-3 (2016)"
+  year: 2016
+last_reviewed: "2026-04"
+confidence: high
+severity: medium
+---
+
+## 🎯 Purpose
+
+**Sequential Organ Failure Assessment** — scores degree of organ dysfunction in critically ill patients.
+
+### Uses
+
+- **Sepsis definition** (Sepsis-3): infection + **ΔSOFA ≥ 2** = sepsis
+- **Track trajectory** in ICU (daily trending)
+- **Mortality prediction** at baseline + serial
+- **Research / trial entry criteria**
+
+Not a bedside rapid-screen tool (see qSOFA for that).
+
+---
+
+## 📋 Six organ systems — each 0–4 points
+
+### 1. Respiration — **PaO₂ / FiO₂** (mmHg)
+
+| Points | PaO₂ / FiO₂ |
+|---|---|
+| 0 | ≥ 400 |
+| 1 | &lt; 400 |
+| 2 | &lt; 300 |
+| 3 | &lt; 200 with respiratory support |
+| 4 | &lt; 100 with respiratory support |
+
+### 2. Coagulation — **Platelets** (× 10³/µL)
+
+| Points | Platelets |
+|---|---|
+| 0 | ≥ 150 |
+| 1 | &lt; 150 |
+| 2 | &lt; 100 |
+| 3 | &lt; 50 |
+| 4 | &lt; 20 |
+
+### 3. Liver — **Bilirubin** (mg/dL)
+
+| Points | Bilirubin |
+|---|---|
+| 0 | &lt; 1.2 |
+| 1 | 1.2–1.9 |
+| 2 | 2.0–5.9 |
+| 3 | 6.0–11.9 |
+| 4 | ≥ 12 |
+
+### 4. Cardiovascular — **MAP and vasopressor dose**
+
+| Points | Finding |
+|---|---|
+| 0 | MAP ≥ 70 mmHg |
+| 1 | MAP &lt; 70 mmHg |
+| 2 | Dopamine ≤ 5 or any dobutamine (mcg/kg/min) |
+| 3 | Dopamine &gt; 5, or NE / epi ≤ 0.1 (mcg/kg/min) |
+| 4 | Dopamine &gt; 15, or NE / epi &gt; 0.1 (mcg/kg/min) |
+
+### 5. CNS — **Glasgow Coma Scale**
+
+| Points | GCS |
+|---|---|
+| 0 | 15 |
+| 1 | 13–14 |
+| 2 | 10–12 |
+| 3 | 6–9 |
+| 4 | &lt; 6 |
+
+### 6. Renal — **Creatinine (mg/dL) OR Urine output (mL/day)**
+
+| Points | Creatinine | Urine output |
+|---|---|---|
+| 0 | &lt; 1.2 | — |
+| 1 | 1.2–1.9 | — |
+| 2 | 2.0–3.4 | — |
+| 3 | 3.5–4.9 | &lt; 500 |
+| 4 | ≥ 5.0 | &lt; 200 |
+
+**Total: 0–24 points**
+
+---
+
+## 📊 Mortality by Total SOFA
+
+| Total SOFA | Mortality |
+|---|---|
+| **≤ 6** | &lt; 10% |
+| **7–9** | 15–20% |
+| **10–12** | 40–50% |
+| **&gt; 12** | &gt; 80% |
+
+### Trajectory matters
+
+- **ΔSOFA ≥ 2 from baseline** (within 48 hr) = **sepsis** (Sepsis-3 definition)
+- **Rising SOFA** over 48 hr → worse prognosis
+- **Falling SOFA** → improving, intervention working
+
+---
+
+## ⚖️ SOFA vs qSOFA
+
+| Feature | SOFA | qSOFA |
+|---|---|---|
+| Setting | ICU | Bedside / ED |
+| Data required | Labs + vent + vasopressor | Just BP, RR, mental status |
+| Purpose | Organ dysfunction quantification | Rapid bedside screen |
+| Criteria | 6 organ systems | 3: RR ≥ 22, SBP ≤ 100, AMS |
+| Cut-off | ΔSOFA ≥ 2 = sepsis | ≥ 2 of 3 = higher mortality risk |
+
+### Practical
+
+- **qSOFA** at triage / ER for rapid screen
+- **SOFA** once admitted, labs available
+
+---
+
+## 📝 Clinical Use — Example
+
+**ICU Day 2:** 65M with septic shock from pneumonia
+- PaO₂/FiO₂ = 180 on PEEP 10, FiO₂ 0.5 → **3 pts**
+- Platelets 85 → **2 pts**
+- Bilirubin 2.5 → **2 pts**
+- NE 0.15 mcg/kg/min → **4 pts**
+- GCS 13 (sedated) → **1 pt**
+- Cr 2.8 → **2 pts**
+
+**Total: 14 → Mortality &gt; 80%**
+
+Compare to baseline (day 0: all 0) → ΔSOFA = 14 → severe sepsis-3
+
+---
+
+## ⚠️ Critical Pitfalls
+
+```
+🚩 Don't use SOFA in non-ICU settings at bedside
+   - Requires labs (bilirubin, platelets, creatinine)
+   - Use qSOFA for rapid bedside screen
+
+🚩 GCS in sedated patients
+   - Technically invalid (iatrogenic)
+   - Common practice: use best GCS when sedation lightened
+   - Or document as sedated (3 pts typical)
+
+🚩 Cr + urine output — use worst
+   - If both available, take worst-scoring component
+   - Not both added
+
+🚩 Vasopressor categories can overlap
+   - Use highest applicable category
+   - Example: NE 0.1 + dobutamine = use 3 (NE ≤ 0.1)
+
+🚩 Serial > single SOFA
+   - Trajectory matters
+   - One snapshot = limited info
+
+🚩 Not diagnostic of sepsis
+   - SOFA ≥ 2 change + infection = sepsis
+   - High SOFA without infection ≠ sepsis
+
+🚩 PaO₂/FiO₂ requires ABG
+   - Use SpO₂/FiO₂ ratio as surrogate if needed
+   - Less validated
+
+🚩 Daily SOFA — automate from EMR
+   - Manual calc time-consuming
+   - Many EMRs calculate; verify values
+```
+
+---
+
+## 📚 Related
+
+- **qSOFA** — rapid bedside screening version
+- **APACHE II / IV** — more detailed, single-timepoint ICU prognostic
+- **SAPS II** — simpler alternative
+
+---
+
+## ⚖️ Limitations
+
+- Validated in ICU; less in ED or ward
+- Doesn't capture neurologic injury specifically (e.g., stroke, TBI)
+- GCS confounded by sedation
+- Cardiovascular category references dopamine (dated)
+- Modern practice favors NE-based vasopressor criteria

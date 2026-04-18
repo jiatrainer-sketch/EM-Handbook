@@ -1,0 +1,176 @@
+---
+id: wells-pe
+title: Wells Score for Pulmonary Embolism
+titleTh: "Wells score สำหรับ PE"
+category: score
+subcategory: pulmonary
+tags:
+  - wells
+  - pe
+  - pulmonary embolism
+  - risk stratification
+keywords:
+  - Wells score
+  - pulmonary embolism
+  - PE risk
+  - D-dimer
+  - CTPA
+  - PERC
+related:
+  - pe-pathway
+  - sofa
+source:
+  name: "Wells PS et al. Ann Intern Med 2001 + ESC 2019 PE Guideline"
+  year: 2019
+last_reviewed: "2026-04"
+confidence: high
+severity: medium
+---
+
+## 🎯 Purpose
+
+**Pre-test probability** of pulmonary embolism → decides whether to pursue D-dimer vs CTPA
+
+---
+
+## 📋 Criteria
+
+| Criterion | Points |
+|---|---|
+| Clinical s/s of DVT (leg swelling + pain on palpation) | **3.0** |
+| **PE most likely diagnosis** (no alternative equally likely) | **3.0** |
+| Heart rate &gt; 100 bpm | **1.5** |
+| Immobilization (&gt; 3 days) or surgery within 4 weeks | **1.5** |
+| Previous DVT or PE | **1.5** |
+| Hemoptysis | **1.0** |
+| Active malignancy (treatment ongoing, stopped within 6 mo, palliative) | **1.0** |
+
+**Total: 0–12.5 points**
+
+---
+
+## 📊 Interpretation — Two schemes
+
+### 3-tier (traditional)
+
+| Score | Risk | PE prevalence |
+|---|---|---|
+| **&lt; 2** | Low | ~1.3% |
+| **2–6** | Moderate | ~16.2% |
+| **&gt; 6** | High | ~37.5% |
+
+### 2-tier (simplified, preferred in many protocols)
+
+| Score | Category | Next step |
+|---|---|---|
+| **≤ 4** | **PE unlikely** | D-dimer |
+| **&gt; 4** | **PE likely** | CTPA directly |
+
+---
+
+## 🗺 Algorithm
+
+```
+Wells ≤ 4 (unlikely)
+  ↓
+D-dimer
+  ├── Negative (&lt; 500 ng/mL, or age × 10 if &gt; 50) → PE ruled out
+  └── Positive → CTPA
+
+Wells > 4 (likely)
+  ↓
+CTPA directly (skip D-dimer — too many false +)
+```
+
+### Age-adjusted D-dimer
+
+- Age &gt; 50: cutoff = **age × 10 ng/mL** (instead of 500)
+- Improves specificity in elderly
+- Only use if Wells unlikely
+
+---
+
+## 📍 PERC Rule (adjunct, for very low pretest)
+
+**Use only if:** Wells **low** AND clinician gestalt probability &lt; 15%
+
+All 8 must be **NO** for PE ruled out without D-dimer:
+
+1. Age ≥ 50
+2. HR ≥ 100
+3. SpO₂ &lt; 95%
+4. Unilateral leg swelling
+5. Hemoptysis
+6. Recent trauma or surgery &lt; 4 weeks
+7. Prior DVT / PE
+8. Exogenous estrogen (OCP, HRT)
+
+All 8 NO → **PE ruled out, no D-dimer needed** (&lt; 1% miss rate)
+
+---
+
+## ⚠️ When Wells is less reliable
+
+- **Pregnancy** — consider alternative (YEARS criteria preferred)
+- **Young age &lt; 30** — low base rate, PERC may be sufficient
+- **Cancer with recent hospitalization** — often high baseline
+- **ICU / post-op** — tachycardia non-specific
+
+### Alternative: Revised Geneva Score
+
+- Similar purpose, more objective (no subjective "PE most likely")
+- Consider if provider bias concern
+
+---
+
+## 📝 Clinical Use — Example
+
+**Patient:** 65M with COPD, sudden dyspnea, HR 110, unilateral calf swelling, no prior DVT
+
+**Wells:**
+- Clinical s/s DVT: 3
+- PE most likely: 3 (in context)
+- HR &gt; 100: 1.5
+- **Total: 7.5 → High (&gt; 6)**
+
+**Action:** Straight to CTPA; consider empiric anticoagulation while awaiting imaging
+
+---
+
+## ⚠️ Critical Pitfalls
+
+```
+🚩 "PE most likely dx" is subjective
+   - Requires judgment about alternative diagnoses
+   - Don't use rigidly in unclear cases
+
+🚩 Don't use D-dimer in high pretest
+   - False-positive rate too high to rule in
+   - Go directly to CTPA
+
+🚩 Don't skip CTPA just because Wells is low
+   - If D-dimer positive, still need CTPA
+   - Clinical gestalt matters (some high-risk patients score low)
+
+🚩 Age-adjusted D-dimer not validated in high pretest
+   - Use only with Wells ≤ 4
+
+🚩 PERC is complement, not standalone
+   - Only applicable in low pretest + clinician gestalt &lt; 15%
+   - Fails in pregnancy, cancer, ICU
+
+🚩 Massive PE can present atypically
+   - Syncope alone may be only sign
+   - Have low threshold for imaging in cardiovascular collapse
+
+🚩 Document Wells in chart
+   - Medicolegal benefit
+   - Helps team members understand reasoning
+```
+
+---
+
+## 📚 Related
+
+- See **pe-pathway** for full management algorithm
+- See **wells-dvt** for DVT prediction (different set of criteria)
