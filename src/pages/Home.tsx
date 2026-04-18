@@ -1,51 +1,79 @@
 import { Link } from 'react-router-dom';
+import { Search as SearchIcon } from 'lucide-react';
+import PieceList from '@/components/home/PieceList';
+import { useFavorites } from '@/hooks/useFavorites';
+import { listByCategory } from '@/lib/content';
+import { CATEGORIES, type Category } from '@/types/content';
+
+const BROWSE_LABELS: Record<Category, string> = {
+  score: 'Scores',
+  drip: 'Drips',
+  order: 'Orders',
+  ladder: 'Ladders',
+  protocol: 'Protocols',
+  reference: 'Reference',
+};
 
 export default function Home() {
+  const { pinned, recents, pinLimit } = useFavorites();
+
   return (
     <div className="space-y-6">
       <section>
-        <div className="rounded-lg border bg-card p-3 text-sm text-muted-foreground">
-          🔍 ค้นหา...
-        </div>
+        <Link
+          to="/search"
+          className="flex items-center gap-2 rounded-lg border bg-card p-3 text-sm text-muted-foreground hover:bg-accent"
+        >
+          <SearchIcon size={16} aria-hidden />
+          <span>ค้นหา score / drip / protocol…</span>
+          <kbd className="ml-auto hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] sm:inline-flex">
+            ⌘K
+          </kbd>
+        </Link>
       </section>
 
       <section>
-        <h2 className="mb-2 text-sm font-medium text-muted-foreground">
-          ⭐ Pinned
-        </h2>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="rounded-lg border bg-card p-3">CHA₂DS₂</div>
-          <div className="rounded-lg border bg-card p-3">Norepi</div>
-          <div className="rounded-lg border bg-card p-3">Sepsis</div>
-          <div className="rounded-lg border bg-card p-3">DKA</div>
+        <div className="mb-2 flex items-baseline justify-between">
+          <h2 className="text-sm font-medium text-muted-foreground">
+            ⭐ ปักหมุด
+          </h2>
+          <span className="text-[11px] text-muted-foreground">
+            {pinned.length}/{pinLimit}
+          </span>
         </div>
+        <PieceList
+          ids={pinned}
+          variant="tile"
+          emptyText="ยังไม่ได้ปักหมุด — กดปุ่ม 📌 ในหน้าเนื้อหาเพื่อเพิ่ม"
+        />
       </section>
+
+      {recents.length > 0 ? (
+        <section>
+          <h2 className="mb-2 text-sm font-medium text-muted-foreground">
+            🕒 เปิดล่าสุด
+          </h2>
+          <PieceList ids={recents.slice(0, 5)} variant="row" />
+        </section>
+      ) : null}
 
       <section>
         <h2 className="mb-2 text-sm font-medium text-muted-foreground">
           📂 Browse
         </h2>
         <ul className="divide-y rounded-lg border bg-card text-sm">
-          <li className="flex justify-between px-3 py-2.5">
-            <span>Scores</span>
-            <span className="text-muted-foreground">10</span>
-          </li>
-          <li className="flex justify-between px-3 py-2.5">
-            <span>Drips</span>
-            <span className="text-muted-foreground">10</span>
-          </li>
-          <li className="flex justify-between px-3 py-2.5">
-            <span>Orders</span>
-            <span className="text-muted-foreground">11</span>
-          </li>
-          <li className="flex justify-between px-3 py-2.5">
-            <span>Ladders</span>
-            <span className="text-muted-foreground">6</span>
-          </li>
-          <li className="flex justify-between px-3 py-2.5">
-            <span>Protocols</span>
-            <span className="text-muted-foreground">35</span>
-          </li>
+          {CATEGORIES.filter((c) => c !== 'reference').map((c) => {
+            const count = listByCategory(c).length;
+            return (
+              <li
+                key={c}
+                className="flex justify-between px-3 py-2.5 text-muted-foreground"
+              >
+                <span className="text-foreground">{BROWSE_LABELS[c]}</span>
+                <span>{count}</span>
+              </li>
+            );
+          })}
         </ul>
       </section>
 

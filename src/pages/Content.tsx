@@ -1,14 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
 import ContentFooter from '@/components/content/ContentFooter';
 import ContentHeader from '@/components/content/ContentHeader';
+import FavoriteButton from '@/components/content/FavoriteButton';
 import RelatedLinks from '@/components/content/RelatedLinks';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useRecordVisit } from '@/hooks/useFavorites';
 import { getContent } from '@/lib/content';
 
 export default function Content() {
   const { id } = useParams<{ id: string }>();
   const entry = id ? getContent(id) : null;
+  useRecordVisit(entry ? entry.meta.id : undefined);
 
   if (!entry) {
     return (
@@ -38,6 +41,8 @@ export default function Content() {
         confidence={meta.confidence}
         severity={meta.severity}
       />
+
+      <FavoriteButton id={meta.id} label={meta.title} />
 
       <div className="prose prose-sm max-w-none dark:prose-invert prose-headings:scroll-mt-20">
         <Component />
