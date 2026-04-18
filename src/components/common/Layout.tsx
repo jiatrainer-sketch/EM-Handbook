@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import BottomNav from './BottomNav';
+import ThemeToggle from './ThemeToggle';
 import AIFab from '@/components/ai/AIFab';
 
 export default function Layout() {
   return (
     <div className="min-h-dvh">
-      <Header />
+      <Header right={<ThemeToggle />} />
       <main className="mx-auto max-w-screen-sm px-4 pb-24 pt-4">
         <Outlet />
       </main>
