@@ -33,14 +33,18 @@ const TOOLS: ToolCard[] = [
   {
     icon: '💬',
     title: 'Consult Reply Generator',
-    description: 'ช่วยเขียน consult reply แบบมีโครงสร้าง (SOAP)',
-    comingSoon: true,
+    description: 'ช่วยเขียน consult reply แบบมีโครงสร้าง (SOAP) — คัดลอกได้ทันที',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/consult',
   },
   {
     icon: '🫁',
     title: 'Ventilator Quick Start',
-    description: 'คำนวณ IBW + mode + TV + PEEP + FiO₂ target',
-    comingSoon: true,
+    description: 'คำนวณ IBW + mode + TV + PEEP + FiO₂ ตาม scenario',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/ventilator',
   },
 ];
 

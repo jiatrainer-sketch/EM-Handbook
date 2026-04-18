@@ -6,6 +6,8 @@ import Content from '@/pages/Content';
 import Browse from '@/pages/Browse';
 import Tools from '@/pages/Tools';
 import PreopHelper from '@/pages/PreopHelper';
+import ConsultReply from '@/pages/ConsultReply';
+import VentilatorQuickStart from '@/pages/VentilatorQuickStart';
 import Symptoms from '@/pages/Symptoms';
 import NotFound from '@/pages/NotFound';
 
@@ -20,6 +22,8 @@ function App() {
           <Route path="/browse/:category" element={<Browse />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/tools/preop" element={<PreopHelper />} />
+          <Route path="/tools/consult" element={<ConsultReply />} />
+          <Route path="/tools/ventilator" element={<VentilatorQuickStart />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
         </Route>
