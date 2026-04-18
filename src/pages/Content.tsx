@@ -32,8 +32,11 @@ export default function Content() {
     <article className="space-y-6">
       <ContentHeader
         title={meta.title}
+        titleTh={meta.titleTh}
         category={meta.category}
+        subcategory={meta.subcategory}
         confidence={meta.confidence}
+        severity={meta.severity}
       />
 
       <div className="prose prose-sm max-w-none dark:prose-invert prose-headings:scroll-mt-20">

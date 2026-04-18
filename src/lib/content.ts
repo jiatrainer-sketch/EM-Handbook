@@ -1,5 +1,10 @@
 import type { ComponentType } from 'react';
-import { CATEGORIES, type ContentFrontmatter, type ContentMeta } from '@/types/content';
+import {
+  CATEGORIES,
+  SEVERITY_LEVELS,
+  type ContentFrontmatter,
+  type ContentMeta,
+} from '@/types/content';
 
 type MDXModule = {
   default: ComponentType<Record<string, unknown>>;
@@ -42,16 +47,27 @@ function buildRegistry(): Map<string, RegistryEntry> {
       console.warn(`[content] invalid category for ${path}: ${String(fm.category)}`);
       continue;
     }
+    if (fm.severity && !SEVERITY_LEVELS.includes(fm.severity)) {
+      console.warn(
+        `[content] unknown severity "${String(fm.severity)}" at ${path}; ignoring`,
+      );
+    }
     registry.set(id, {
       id,
       title: fm.title,
+      titleTh: fm.titleTh,
       category: fm.category,
+      subcategory: fm.subcategory,
       tags: fm.tags,
       keywords: fm.keywords,
       related: fm.related,
       source: fm.source,
       last_reviewed: fm.last_reviewed,
       confidence: fm.confidence,
+      severity:
+        fm.severity && SEVERITY_LEVELS.includes(fm.severity)
+          ? fm.severity
+          : undefined,
       path,
       Component: mod.default,
     });
