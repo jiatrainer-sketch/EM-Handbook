@@ -8,6 +8,7 @@ const CATEGORY_LABEL_TH: Record<Category, string> = {
   order: 'Order Sets',
   ladder: 'Ladders',
   protocol: 'Protocols',
+  symptom: 'Symptoms',
   reference: 'Reference',
 };
 

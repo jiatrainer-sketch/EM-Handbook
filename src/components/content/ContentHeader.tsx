@@ -16,6 +16,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
   order: 'Order',
   ladder: 'Ladder',
   protocol: 'Protocol',
+  symptom: 'Symptom',
   reference: 'Reference',
 };
 

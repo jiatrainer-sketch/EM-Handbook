@@ -4,6 +4,7 @@ export const CATEGORIES = [
   'order',
   'ladder',
   'protocol',
+  'symptom',
   'reference',
 ] as const;
 

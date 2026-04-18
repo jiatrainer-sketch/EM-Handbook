@@ -11,6 +11,7 @@ const LABELS: Record<Category, { en: string; th: string }> = {
   order: { en: 'Orders', th: 'ชุดคำสั่ง' },
   ladder: { en: 'Ladders', th: 'Ladder (stepwise)' },
   protocol: { en: 'Protocols', th: 'แนวทางการรักษา' },
+  symptom: { en: 'Symptoms', th: 'ตามอาการ' },
   reference: { en: 'Reference', th: 'อ้างอิง' },
 };
 

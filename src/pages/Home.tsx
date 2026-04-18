@@ -11,6 +11,7 @@ const BROWSE_LABELS: Record<Category, string> = {
   order: 'Orders',
   ladder: 'Ladders',
   protocol: 'Protocols',
+  symptom: 'Symptoms',
   reference: 'Reference',
 };
 
