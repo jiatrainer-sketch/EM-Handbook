@@ -1,0 +1,175 @@
+---
+id: heart-score
+title: HEART Score
+titleTh: "HEART Score ประเมิน chest pain ที่ ED"
+category: score
+subcategory: cardiology
+tags:
+  - heart-score
+  - chest-pain
+  - acs
+  - triage
+  - cardiology
+keywords:
+  - HEART
+  - chest pain
+  - ACS
+  - MACE
+  - risk stratification
+  - troponin
+  - เจ็บหน้าอก
+related:
+  - stemi
+source:
+  name: "Backus et al. Neth Heart J"
+  year: 2008
+last_reviewed: "2026-04"
+confidence: high
+severity: medium
+---
+
+## 🎯 Purpose
+
+Risk stratify **undifferentiated chest pain** ที่ ED — ทำนาย **30-day MACE**
+(Major Adverse Cardiac Event: MI, PCI, CABG, death)
+
+แยก low-risk → OPD, intermediate → admit observation, high-risk → ACS workup
+
+---
+
+## 📊 Scoring (5 components, 0–2 each, total 0–10)
+
+### H — History (clinical suspicion)
+
+| Score | Finding |
+|---|---|
+| 0 | Slightly suspicious (atypical, non-anginal) |
+| 1 | Moderately suspicious (mixed) |
+| 2 | Highly suspicious (classic: substernal pressure, exertional, radiation, diaphoresis) |
+
+### E — ECG
+
+| Score | Finding |
+|---|---|
+| 0 | Normal |
+| 1 | Non-specific repolarization (LBBB, LVH, early repolarization, pacemaker, non-specific ST/T changes) |
+| 2 | Significant ST deviation (≥ 0.5 mm, new ischemic change) not from LBBB/LVH |
+
+### A — Age
+
+| Score | Age |
+|---|---|
+| 0 | &lt; 45 |
+| 1 | 45–64 |
+| 2 | ≥ 65 |
+
+### R — Risk Factors
+
+Count: HT, DM, current/past smoker, FHx early CAD, hyperlipidemia, obesity (BMI ≥ 30)
+
+| Score | Finding |
+|---|---|
+| 0 | No known risk factor |
+| 1 | 1–2 risk factors |
+| 2 | ≥ 3 risk factors **or** known CAD (prior MI, PCI, CABG, stenosis ≥ 50%) |
+
+### T — Troponin (initial, conventional assay)
+
+| Score | Value |
+|---|---|
+| 0 | ≤ Normal limit |
+| 1 | 1–3× upper normal |
+| 2 | &gt; 3× upper normal |
+
+---
+
+## 🚦 Interpretation — 30-day MACE risk
+
+| Score | Risk category | 30-day MACE | Disposition |
+|---|---|---|---|
+| **0–3** | Low | **~1.7%** | **Discharge** + OPD f/u ถ้า clinical fit |
+| **4–6** | Moderate | **~16.6%** | **Admit observation** + serial troponin + stress test |
+| **7–10** | High | **~50%** | **ACS workup**, cath lab referral |
+
+### Additional safety checks before discharge (HEART 0–3)
+
+- Serial troponin ถ้าอาการ &lt; 6 hr (HEART Pathway)
+- Stable hemodynamics, no ongoing pain
+- ECG stable
+- ไม่มี red flag: syncope, heart failure, dynamic pain
+
+---
+
+## 💡 Clinical use
+
+### HEART Pathway (modified)
+
+- HEART 0–3 **+** troponin × 2 negative (0 + 3 hr) → discharge
+- Saves ~40% of low-risk from unnecessary admit
+- 30-day MACE 0.9–1.7% (acceptable miss rate per AHA)
+
+### ≠ Substitute for clinical judgment
+
+- Ongoing pain, unstable vitals → admit regardless
+- Recent PCI / known CAD → be cautious
+- Young patient + cocaine → workup anyway
+
+---
+
+## ⚠️ Pitfalls
+
+```
+🚩 History score ขึ้นกับ bias ของผู้ประเมิน
+   - สอน intern: typical = substernal + exertional + radiation + diaphoresis
+   - Atypical ใน elderly + DM + female
+   - ถามซ้ำถ้าไม่ชัด
+
+🚩 Troponin assay สำคัญ
+   - Conventional troponin — spec นี้ใช้ cutoff 3×
+   - High-sensitivity troponin ใช้ delta (change over time)
+   - HEART score + hs-cTn = ปรับคำแนะนำ (see HEART Pathway)
+
+🚩 ECG normal ≠ no ACS
+   - 30% ของ ACS มี ECG ปกติ initially
+   - Repeat ECG q 10–15 min ถ้า ongoing pain
+   - Posterior leads ถ้าสงสัย
+
+🚩 Score 4–6 = gray zone
+   - ตัดสินใจจาก clinical + serial troponin
+   - ไม่ automatic admit ทุกราย แต่อย่า discharge ไว
+
+🚩 Known CAD = R score 2 อัตโนมัติ
+   - อย่าลืม history stent, CABG, prior MI
+
+🚩 Elderly atypical
+   - Dyspnea, syncope, weakness = anginal equivalent
+   - History score อาจต่ำ แต่ risk จริงสูง
+   - ระวัง undertriage
+
+🚩 อย่าใช้ HEART กับ STEMI
+   - STEMI = cath lab ทันที ไม่ต้อง score
+   - HEART สำหรับ undifferentiated / non-STEMI picture เท่านั้น
+```
+
+---
+
+## 📝 Documentation
+
+```
+HEART Score @ _____ (time):
+
+[ ] History: 0 slightly / 1 moderate / 2 highly suspicious
+[ ] ECG: 0 normal / 1 non-specific / 2 significant ST
+[ ] Age: 0 <45 / 1 45-64 / 2 ≥65
+[ ] Risk factors (HT/DM/smoke/FHx/lipid/obese/known CAD):
+    0 none / 1 1-2 / 2 ≥3 or known CAD
+[ ] Troponin: 0 normal / 1 1-3x / 2 >3x
+
+Total: __/10
+Category: [ ] Low 0-3 [ ] Moderate 4-6 [ ] High 7-10
+
+Plan:
+[ ] Discharge + OPD (HEART 0-3, troponin x2 neg, stable)
+[ ] Admit observation + serial troponin + stress
+[ ] ACS pathway: DAPT + heparin + cath referral
+```

@@ -1,10 +1,11 @@
 # CLAUDE.md — guidance for Claude Code sessions on this repo
 
-## 🚨 Model choice for the app's AI feature — SONNET, not Opus
+## 🚨 In-app AI feature: Sonnet + SSE streaming (non-negotiable)
 
-The in-app AI assistant (`api/ai/chat.ts`) **must default to Claude Sonnet 4.6**,
-not Opus. This has been flipped back to Opus repeatedly by mistake — please
-do not do that again.
+The in-app AI assistant (`api/ai/chat.ts`) has two requirements that keep
+getting regressed. Please do not regress them:
+
+### 1. Model = `claude-sonnet-4-6` (not Opus)
 
 - Default model: `claude-sonnet-4-6`
 - Env var override: `AI_MODEL` on Vercel (keep it `claude-sonnet-4-6`)
@@ -19,6 +20,32 @@ Why Sonnet:
 
 If you genuinely need Opus for a one-off test, flip `AI_MODEL` on Vercel
 temporarily and flip it back the same session. Do not commit an Opus default.
+
+### 2. Streaming = SSE (not one-shot)
+
+The handler must use `client.messages.stream(...)` and pipe token deltas
+back as Server-Sent Events. Do **not** switch back to `messages.create()`
+and JSON response — the user complained explicitly that the app felt slow
+when it waited for the full reply.
+
+- Server emits `{type:"delta", text}` per token, then `{type:"done", usage, model}`
+- Client (`src/lib/aiClient.ts`) must read `text/event-stream` and surface
+  deltas as they arrive
+- Do not buffer on the server (`X-Accel-Buffering: no` header is required
+  so Vercel's edge does not hold the response)
+
+### Other speed levers (apply in order when the app feels slow)
+
+1. Keep `MAX_TOKENS_DEFAULT` low (currently 600) — shorter answers finish
+   sooner. Clients can request up to `MAX_TOKENS_LIMIT` (1500) when needed.
+2. Prefer Haiku 4.5 (`claude-haiku-4-5`) for obviously simple lookups if
+   we ever add a "quick mode" toggle — 3× faster than Sonnet.
+3. System prompt is already wrapped with `cache_control: ephemeral`. If
+   the prompt grows past the cache minimum (~1024 tokens for Sonnet),
+   prefix cost drops ~10× automatically on repeat calls in a session.
+4. Consider moving the handler to Vercel Edge runtime if cold starts
+   become a problem — but that requires rewriting the Node SSE handler
+   to use Web `ReadableStream` APIs.
 
 ## Content authoring policy
 

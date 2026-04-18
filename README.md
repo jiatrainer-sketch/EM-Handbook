@@ -16,3 +16,10 @@ markdown sections in the file:
 - `## Disclaimer` → always rendered by `ContentFooter`
 
 See `src/types/content.ts` for the full `ContentFrontmatter` schema.
+
+### Dose convention
+
+All weight-based drug calculations (mcg/kg/min, mg/kg boluses, mL/hr drip
+rates) use **BW 60 kg** as the reference adult (Thai adult standard). Always
+show the per-kg formula first, then the worked example at 60 kg so readers
+can re-scale for their actual patient weight.

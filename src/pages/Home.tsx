@@ -65,12 +65,14 @@ export default function Home() {
           {CATEGORIES.filter((c) => c !== 'reference').map((c) => {
             const count = listByCategory(c).length;
             return (
-              <li
-                key={c}
-                className="flex justify-between px-3 py-2.5 text-muted-foreground"
-              >
-                <span className="text-foreground">{BROWSE_LABELS[c]}</span>
-                <span>{count}</span>
+              <li key={c}>
+                <Link
+                  to={`/browse/${c}`}
+                  className="flex justify-between px-3 py-2.5 text-muted-foreground hover:bg-accent active:bg-accent/80"
+                >
+                  <span className="text-foreground">{BROWSE_LABELS[c]}</span>
+                  <span>{count}</span>
+                </Link>
               </li>
             );
           })}

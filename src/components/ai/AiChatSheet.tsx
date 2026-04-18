@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { sendChat, ChatError, type ChatMessage } from '@/lib/aiClient';
+import { streamChat, ChatError, type ChatMessage } from '@/lib/aiClient';
 import { saveNote } from '@/lib/notes';
 import {
   useCurrentContentContext,
@@ -33,6 +33,7 @@ type AssistantMessage = {
   id: string;
   role: 'assistant';
   content: string;
+  streaming?: boolean;
   /** The user question that produced this answer (for Save-to-notes). */
   question: string;
   /** Context attached to the request, if any. */
@@ -68,6 +69,7 @@ export default function AiChatSheet() {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   // Re-enable the chip whenever the user navigates to a new piece; they can
   // still toggle it off for this session. Disabling survives within-piece
@@ -75,6 +77,11 @@ export default function AiChatSheet() {
   useEffect(() => {
     setContextEnabled(true);
   }, [context?.id]);
+
+  // Auto-scroll to bottom as messages stream in
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const canSend = draft.trim().length > 0 && !isLoading;
   const activeContext = contextEnabled ? context : null;
@@ -85,8 +92,20 @@ export default function AiChatSheet() {
 
     const attachedContext = contextEnabled && context ? context : null;
     const userMsg: UserMessage = { id: newId(), role: 'user', content: prompt };
+    const streamingId = newId();
+    const streamingMsg: AssistantMessage = {
+      id: streamingId,
+      role: 'assistant',
+      content: '',
+      streaming: true,
+      question: prompt,
+      context: attachedContext
+        ? { id: attachedContext.id, title: attachedContext.title }
+        : undefined,
+    };
+
     const nextHistory = [...messages, userMsg];
-    setMessages(nextHistory);
+    setMessages([...nextHistory, streamingMsg]);
     setDraft('');
     setError(null);
     setIsLoading(true);
@@ -94,8 +113,7 @@ export default function AiChatSheet() {
     const controller = new AbortController();
     abortRef.current = controller;
 
-    // Attach the context only to the latest turn. Prior turns stay as
-    // originally sent so we don't over-inflate every subsequent request.
+    // Attach the context only to the latest turn.
     const apiMessages: ChatMessage[] = nextHistory.map((m, i, arr) =>
       i === arr.length - 1
         ? { role: 'user', content: withContext(prompt, attachedContext) }
@@ -103,24 +121,43 @@ export default function AiChatSheet() {
     );
 
     try {
-      const result = await sendChat(apiMessages, { signal: controller.signal });
-      const assistantMsg: AssistantMessage = {
-        id: newId(),
-        role: 'assistant',
-        content: result.content || '(ว่าง)',
-        question: prompt,
-        context: attachedContext
-          ? { id: attachedContext.id, title: attachedContext.title }
-          : undefined,
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      await streamChat(
+        apiMessages,
+        (accumulated) => {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === streamingId
+                ? { ...m, content: accumulated }
+                : m,
+            ),
+          );
+        },
+        { signal: controller.signal },
+      );
+      // Mark streaming done
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === streamingId ? { ...m, streaming: false } : m,
+        ),
+      );
     } catch (e) {
       if (e instanceof DOMException && e.name === 'AbortError') {
-        // user hit stop — leave the user turn visible, no assistant reply
-      } else if (e instanceof ChatError) {
-        setError(e.message);
+        // Keep partial content, just stop the streaming indicator
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === streamingId
+              ? { ...m, streaming: false, content: m.content || '(หยุด)' }
+              : m,
+          ),
+        );
       } else {
-        setError(e instanceof Error ? e.message : 'เกิดข้อผิดพลาด');
+        // Remove empty streaming placeholder, show error bubble
+        setMessages((prev) => prev.filter((m) => m.id !== streamingId));
+        if (e instanceof ChatError) {
+          setError(e.message);
+        } else {
+          setError(e instanceof Error ? e.message : 'เกิดข้อผิดพลาด');
+        }
       }
     } finally {
       abortRef.current = null;
@@ -200,31 +237,34 @@ export default function AiChatSheet() {
           {messages.length === 0 ? (
             <EmptyState />
           ) : (
+            <>
             <ul className="space-y-3">
               {messages.map((m) => (
                 <li key={m.id}>
                   {m.role === 'assistant' ? (
-                    <AssistantRow
-                      message={m}
-                      saved={savedIds.has(m.id)}
-                      onSave={() => handleSaveNote(m)}
-                    />
+                    m.streaming && m.content === '' ? (
+                      <ThinkingBubble />
+                    ) : (
+                      <AssistantRow
+                        message={m}
+                        saved={savedIds.has(m.id)}
+                        onSave={() => handleSaveNote(m)}
+                        streaming={m.streaming}
+                      />
+                    )
                   ) : (
                     <MessageBubble role="user" content={m.content} />
                   )}
                 </li>
               ))}
-              {isLoading ? (
-                <li>
-                  <ThinkingBubble />
-                </li>
-              ) : null}
               {error ? (
                 <li>
                   <ErrorBubble text={error} />
                 </li>
               ) : null}
             </ul>
+            <div ref={bottomRef} />
+            </>
           )}
         </div>
 
@@ -312,14 +352,16 @@ function AssistantRow({
   message,
   saved,
   onSave,
+  streaming,
 }: {
   message: AssistantMessage;
   saved: boolean;
   onSave: () => void;
+  streaming?: boolean;
 }) {
   return (
     <div className="flex flex-col items-start gap-1">
-      <MessageBubble role="assistant" content={message.content} />
+      <MessageBubble role="assistant" content={message.content} streaming={streaming} />
       <button
         type="button"
         onClick={onSave}
@@ -359,7 +401,15 @@ function EmptyState() {
   );
 }
 
-function MessageBubble({ role, content }: { role: Role; content: string }) {
+function MessageBubble({
+  role,
+  content,
+  streaming,
+}: {
+  role: Role;
+  content: string;
+  streaming?: boolean;
+}) {
   const isUser = role === 'user';
   return (
     <div className={cn('flex w-full', isUser ? 'justify-end' : 'justify-start')}>
@@ -372,6 +422,12 @@ function MessageBubble({ role, content }: { role: Role; content: string }) {
         )}
       >
         {content}
+        {streaming ? (
+          <span
+            aria-hidden
+            className="ml-0.5 inline-block h-3.5 w-0.5 translate-y-0.5 animate-pulse rounded-sm bg-current opacity-70"
+          />
+        ) : null}
       </div>
     </div>
   );

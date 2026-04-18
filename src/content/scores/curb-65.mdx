@@ -1,0 +1,165 @@
+---
+id: curb-65
+title: CURB-65 Score
+titleTh: "CURB-65 ประเมินความรุนแรง CAP"
+category: score
+subcategory: pulmonary
+tags:
+  - curb-65
+  - pneumonia
+  - cap
+  - respiratory
+  - severity
+keywords:
+  - CURB-65
+  - CURB 65
+  - community acquired pneumonia
+  - CAP
+  - pneumonia severity
+  - admit
+  - ปอดบวม
+related:
+  - septic-shock
+  - qsofa
+source:
+  name: "Lim et al. / BTS Guidelines"
+  year: 2003
+last_reviewed: "2026-04"
+confidence: high
+severity: medium
+---
+
+## 🎯 Purpose
+
+ประเมิน **severity ของ community-acquired pneumonia (CAP)** เพื่อตัดสินใจ **admit vs OPD**
+
+**Range:** 0–5 points (1 point per criterion)
+
+---
+
+## 📊 Scoring (CURB-65 mnemonic)
+
+| Letter | Criterion | Cutoff |
+|---|---|---|
+| **C** | **C**onfusion (new onset / AMS) | GCS &lt; 15 or disoriented |
+| **U** | **U**rea (BUN) | &gt; 20 mg/dL (= 7 mmol/L) |
+| **R** | **R**espiratory rate | ≥ 30 /min |
+| **B** | **B**lood pressure | SBP &lt; 90 or DBP ≤ 60 |
+| **65** | Age | ≥ 65 years |
+
+**Each = 1 point, max 5**
+
+**CRB-65** (without lab) = simpler version for community / prehospital
+
+---
+
+## 🚦 Interpretation — Disposition
+
+| Score | 30-day Mortality | Recommendation |
+|---|---|---|
+| **0–1** | Low (~1.5%) | **OPD** / home treatment OK |
+| **2** | Moderate (~9%) | **Admit** general ward |
+| **3–5** | High (15–40%) | **Admit**, consider **ICU** (especially ≥ 4) |
+
+### ICU indicators (regardless of CURB-65):
+- Need mechanical ventilation
+- Septic shock (vasopressor requirement)
+- Plus 3+ of:
+  - RR ≥ 30
+  - PaO₂/FiO₂ &lt; 250
+  - Multilobar infiltrates
+  - Confusion/disorientation
+  - BUN ≥ 20
+  - WBC &lt; 4,000
+  - Plt &lt; 100,000
+  - Core temp &lt; 36°C
+  - Hypotension needing fluid
+
+---
+
+## 💊 Empiric antibiotic (Thai community)
+
+### OPD (CURB 0–1)
+- **Amoxicillin 1 g PO TID × 5–7 d** (first-line)
+- Alt: Doxycycline 100 mg BID
+- If atypical suspected: + Azithromycin 500 mg day 1 then 250 mg × 4 d
+- If PCN allergy: Levofloxacin 750 mg PO daily
+
+### Admit ward (CURB 2)
+- **Ceftriaxone 2 g IV q 24 hr + Azithromycin 500 mg IV daily**
+- Alt: Levofloxacin 750 mg IV daily
+
+### ICU (CURB ≥ 3 or severe)
+- **Ceftriaxone 2 g IV q 24 hr + Azithromycin 500 mg IV daily**
+- Add antipseudomonal if risk factors:
+  - **Pip-Tazo 4.5 g IV q 8 hr** OR Cefepime 2 g IV q 8 hr
+- Add Vancomycin if MRSA risk (healthcare exposure, severe)
+
+### Adjust per local resistance + culture results
+
+---
+
+## ⚠️ Pitfalls
+
+```
+🚩 CURB-65 ≠ only criterion
+   - Some low-score pts need admit (hypoxia, comorbidity)
+   - Some high-score can be OPD (social, palliative)
+   - Use clinical judgment
+
+🚩 Elderly with pneumonia
+   - Often atypical presentation (confusion, falls)
+   - "Senior shift" — low threshold for admit
+
+🚩 BUN cutoff 19 mg/dL is borderline
+   - Round liberally to 20
+   - Chronic CKD confounds
+
+🚩 Don't delay antibiotics
+   - First dose within 4 hr of admission (IDSA)
+   - Within 1 hr if sepsis
+
+🚩 Always check:
+   - SpO₂ / ABG
+   - Lactate (sepsis marker)
+   - qSOFA (sepsis screen)
+   - Blood cultures before abx
+   - CXR / POCUS
+
+🚩 HAP / VAP ≠ CAP
+   - CURB-65 is for community
+   - HAP: Pip-Tazo, Meropenem, add Vanco
+   - Different pathogen spectrum
+
+🚩 Influenza / COVID
+   - Think viral CAP in season
+   - Add antiviral per epidemiology
+   - Different management
+```
+
+---
+
+## 📝 Documentation
+
+```
+CURB-65 score:
+[ ] C - Confusion (GCS < 15)
+[ ] U - BUN > 20 mg/dL
+[ ] R - RR ≥ 30
+[ ] B - SBP < 90 or DBP ≤ 60
+[ ] 65 - Age ≥ 65
+
+Total: __ /5
+
+Disposition: [ ] OPD   [ ] Ward   [ ] ICU
+
+Antibiotic:
+_____________________________________
+
+Also consider:
+[ ] Blood cultures
+[ ] Sputum culture + Gram stain
+[ ] CXR
+[ ] SpO₂ / ABG / lactate
+[ ] Influenza + COVID (if seasonal)
+```

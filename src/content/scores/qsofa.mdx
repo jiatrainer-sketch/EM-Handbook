@@ -1,0 +1,129 @@
+---
+id: qsofa
+title: qSOFA Score
+titleTh: "qSOFA คะแนนคัดกรอง sepsis"
+category: score
+subcategory: sepsis
+tags:
+  - qsofa
+  - sepsis
+  - screening
+  - emergency
+keywords:
+  - qSOFA
+  - quick SOFA
+  - sepsis screening
+  - sepsis
+  - sepsis-3
+  - คัดกรอง sepsis
+related:
+  - septic-shock
+  - norepinephrine-drip
+source:
+  name: "Sepsis-3 Consensus (JAMA 2016)"
+  year: 2016
+last_reviewed: "2026-04"
+confidence: high
+severity: medium
+---
+
+## 🎯 Purpose
+
+**Bedside screening** สำหรับ **suspected infection** เพื่อระบุคนไข้เสี่ยงเสียชีวิตจาก sepsis — **ทำได้เร็วที่ ER / ward / pre-hospital**
+
+ใช้แทน SIRS ใน sepsis-3 (2016). ไม่ใช่ diagnostic แต่เป็น **trigger for further assessment**.
+
+---
+
+## 📊 Scoring (1 point each)
+
+| Criterion | Cutoff |
+|---|---|
+| **Respiratory rate** | **≥ 22 /min** |
+| **Altered mental status** | GCS &lt; 15 (any change) |
+| **Systolic BP** | **≤ 100 mmHg** |
+
+**Range: 0–3 points**
+
+---
+
+## 🚦 Interpretation
+
+| Score | Mortality risk | Action |
+|---|---|---|
+| 0–1 | Low (&lt; 3%) | Continue evaluation per clinical judgment |
+| **≥ 2** | **High (10–20%)** | **Suspect sepsis → start workup + treat** |
+
+⚠️ **qSOFA ≥ 2 ≠ sepsis diagnosis** — triggers aggressive workup  
+⚠️ **qSOFA 0 does NOT rule out sepsis** — sensitivity is moderate
+
+---
+
+## ⚡ ถ้า qSOFA ≥ 2 ทำอะไรต่อ
+
+**Hour-1 bundle (Surviving Sepsis):**
+
+1. **Measure lactate** (repeat if &gt; 2)
+2. **Blood cultures × 2** before antibiotics
+3. **Broad-spectrum antibiotics** within 1 hr
+4. **Fluid** 30 mL/kg crystalloid (= 1,800 mL @ BW 60 kg) for hypotension or lactate ≥ 4
+5. **Vasopressor** (norepinephrine) if MAP &lt; 65 after fluid
+
+→ See **Septic Shock protocol** for full management
+
+---
+
+## 🔍 Compare qSOFA vs SIRS vs NEWS
+
+| | qSOFA | SIRS | NEWS |
+|---|---|---|---|
+| Criteria count | 3 | 4 | 7 (weighted) |
+| Use case | Predict mortality | Screen inflammation | General deterioration |
+| Setting | Non-ICU | Any | Ward/ED |
+| Sepsis-3 | Recommended | Replaced | Also useful |
+
+---
+
+## ⚠️ Pitfalls
+
+```
+🚩 qSOFA is SCREENING, not DIAGNOSIS
+   - Positive = suspect, investigate
+   - Negative = doesn't rule out
+   - Always use clinical judgment
+
+🚩 qSOFA sensitivity is moderate
+   - Misses some septic patients
+   - Use with clinical gestalt
+   - Full SOFA if ICU
+
+🚩 Altered mental = ANY change
+   - Not just GCS < 15 strictly
+   - Confusion, drowsiness, agitation counts
+   - Baseline dementia: compare to baseline
+
+🚩 Chronic conditions confound
+   - Chronic low BP (Parkinson, elderly)
+   - Chronic high RR (COPD)
+   - Dementia (baseline altered)
+   - Adjust threshold clinically
+
+🚩 Don't delay treatment
+   - qSOFA 2 + infection → act
+   - Don't wait for blood culture result
+   - Antibiotic within 1 hr
+```
+
+---
+
+## 📝 Documentation
+
+```
+qSOFA: [ ] RR ≥ 22    [ ] GCS < 15    [ ] SBP ≤ 100
+Total: __ /3
+
+If ≥ 2 + suspected infection → initiate sepsis workup:
+- Lactate, blood cultures, CBC, BMP, UA, CXR
+- Fluid resuscitation + broad-spectrum antibiotic
+- Vasopressor if MAP < 65 after fluid
+```
