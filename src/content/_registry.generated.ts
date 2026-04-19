@@ -79,6 +79,41 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "dexmedetomidine-drip",
+    "path": "/src/content/drips/dexmedetomidine-drip.mdx",
+    "frontmatter": {
+      "id": "dexmedetomidine-drip",
+      "title": "Dexmedetomidine drip",
+      "titleTh": "Dexmedetomidine drip",
+      "category": "drip",
+      "subcategory": "sedation",
+      "tags": [
+        "dexmedetomidine",
+        "alpha-2 agonist",
+        "sedation",
+        "delirium"
+      ],
+      "keywords": [
+        "dexmedetomidine",
+        "precedex",
+        "alpha-2",
+        "sedation without respiratory depression",
+        "weaning",
+        "delirium"
+      ],
+      "related": [
+        "propofol-drip"
+      ],
+      "source": {
+        "name": "SCCM PADIS 2018 + SEDCOM trial",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
     "id": "dobutamine-drip",
     "path": "/src/content/drips/dobutamine-drip.mdx",
     "frontmatter": {
@@ -434,6 +469,75 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "Surviving Sepsis Campaign + Rama IV Drug Drip Reference",
         "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "phenylephrine-drip",
+    "path": "/src/content/drips/phenylephrine-drip.mdx",
+    "frontmatter": {
+      "id": "phenylephrine-drip",
+      "title": "Phenylephrine drip",
+      "titleTh": "Phenylephrine drip",
+      "category": "drip",
+      "subcategory": "vasopressor",
+      "tags": [
+        "phenylephrine",
+        "alpha agonist",
+        "vasopressor"
+      ],
+      "keywords": [
+        "phenylephrine",
+        "neosynephrine",
+        "alpha-1",
+        "vasopressor",
+        "post-spinal hypotension"
+      ],
+      "related": [
+        "norepinephrine-drip",
+        "vasopressin-drip"
+      ],
+      "source": {
+        "name": "ACLS + Stoelting's Pharmacology",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "propofol-drip",
+    "path": "/src/content/drips/propofol-drip.mdx",
+    "frontmatter": {
+      "id": "propofol-drip",
+      "title": "Propofol drip (ICU sedation)",
+      "titleTh": "Propofol drip",
+      "category": "drip",
+      "subcategory": "sedation",
+      "tags": [
+        "propofol",
+        "sedation",
+        "ICU",
+        "intubation"
+      ],
+      "keywords": [
+        "propofol",
+        "diprivan",
+        "sedation",
+        "ICU",
+        "propofol infusion syndrome",
+        "PRIS"
+      ],
+      "related": [
+        "dexmedetomidine-drip"
+      ],
+      "source": {
+        "name": "SCCM PADIS 2018 + Stoelting",
+        "year": 2022
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -1858,6 +1962,215 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "acid-base-abg-interpretation",
+    "path": "/src/content/reference/acid-base-abg-interpretation.mdx",
+    "frontmatter": {
+      "id": "acid-base-abg-interpretation",
+      "title": "Acid-base / ABG interpretation",
+      "titleTh": "การแปลผล ABG + acid-base",
+      "category": "reference",
+      "subcategory": "internal-medicine",
+      "tags": [
+        "ABG",
+        "acid-base",
+        "anion gap",
+        "metabolic acidosis",
+        "respiratory"
+      ],
+      "keywords": [
+        "ABG",
+        "acid-base",
+        "anion gap",
+        "metabolic acidosis",
+        "respiratory acidosis",
+        "Winter's formula",
+        "compensation",
+        "HAGMA",
+        "NAGMA",
+        "MUDPILES",
+        "ABG",
+        "กรด-ด่าง"
+      ],
+      "related": [
+        "electrolyte-disturbance-quick-ref",
+        "dka",
+        "alcoholic-ketoacidosis",
+        "toxic-alcohol-ingestion"
+      ],
+      "source": {
+        "name": "Harrison's 21e + NEJM acid-base review",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "antibiotic-empirical-by-site",
+    "path": "/src/content/reference/antibiotic-empirical-by-site.mdx",
+    "frontmatter": {
+      "id": "antibiotic-empirical-by-site",
+      "title": "Empirical antibiotic by infection site",
+      "titleTh": "ยา antibiotic เริ่มต้นตามอวัยวะ",
+      "category": "reference",
+      "subcategory": "ID",
+      "tags": [
+        "antibiotic",
+        "empirical",
+        "infection",
+        "sepsis",
+        "pneumonia",
+        "UTI",
+        "meningitis"
+      ],
+      "keywords": [
+        "empirical antibiotic",
+        "CAP",
+        "HAP",
+        "VAP",
+        "pyelonephritis",
+        "meningitis",
+        "sepsis",
+        "skin soft tissue",
+        "intra-abdominal"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "IDSA 2023 + Thai antibiogram + Sanford Guide",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "blood-product-indications",
+    "path": "/src/content/reference/blood-product-indications.mdx",
+    "frontmatter": {
+      "id": "blood-product-indications",
+      "title": "Blood product indications + transfusion reactions",
+      "titleTh": "การให้เลือด + ภาวะแทรกซ้อน",
+      "category": "reference",
+      "subcategory": "hematology",
+      "tags": [
+        "transfusion",
+        "PRBC",
+        "platelets",
+        "FFP",
+        "cryoprecipitate",
+        "TRALI",
+        "TACO"
+      ],
+      "keywords": [
+        "transfusion",
+        "PRBC",
+        "platelets",
+        "FFP",
+        "cryoprecipitate",
+        "TRALI",
+        "TACO",
+        "transfusion reaction",
+        "blood transfusion"
+      ],
+      "related": [
+        "ugib"
+      ],
+      "source": {
+        "name": "AABB 2018 + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "electrolyte-disturbance-quick-ref",
+    "path": "/src/content/reference/electrolyte-disturbance-quick-ref.mdx",
+    "frontmatter": {
+      "id": "electrolyte-disturbance-quick-ref",
+      "title": "Electrolyte disturbance quick reference",
+      "titleTh": "ตารางแก้ไข electrolyte",
+      "category": "reference",
+      "subcategory": "internal-medicine",
+      "tags": [
+        "electrolyte",
+        "sodium",
+        "potassium",
+        "calcium",
+        "magnesium"
+      ],
+      "keywords": [
+        "hyponatremia",
+        "hypernatremia",
+        "hypokalemia",
+        "hyperkalemia",
+        "hypocalcemia",
+        "hypercalcemia",
+        "hypomagnesemia",
+        "hypophosphatemia",
+        "SIADH",
+        "คำนวณ electrolyte"
+      ],
+      "related": [
+        "hyponatremia-symptomatic",
+        "hypocalcemia-symptomatic",
+        "acid-base-abg-interpretation"
+      ],
+      "source": {
+        "name": "Harrison's 21e + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "nicardipine-vs-labetalol",
+    "path": "/src/content/reference/nicardipine-vs-labetalol.mdx",
+    "frontmatter": {
+      "id": "nicardipine-vs-labetalol",
+      "title": "Nicardipine vs Labetalol — choosing IV antihypertensive",
+      "titleTh": "เลือก Nicardipine vs Labetalol",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "nicardipine",
+        "labetalol",
+        "antihypertensive",
+        "hypertensive emergency"
+      ],
+      "keywords": [
+        "nicardipine",
+        "labetalol",
+        "hypertensive emergency",
+        "stroke BP",
+        "aortic dissection BP",
+        "pregnancy BP"
+      ],
+      "related": [
+        "severe-hypertension",
+        "hypertensive-emergency-pregnancy",
+        "stroke-pathway",
+        "aortic-dissection"
+      ],
+      "source": {
+        "name": "AHA/ACC + ESC guidelines",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
