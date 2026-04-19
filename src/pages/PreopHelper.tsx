@@ -14,6 +14,22 @@ type RedFlagKey =
   | 'activeAcs'
   | 'uncontrolledHt';
 
+type MetLevel = 'high' | 'low' | 'unknown';
+type Disposition = 'ward' | 'stepdown' | 'icu' | 'unknown';
+type CapriniKey =
+  | 'age41_60'
+  | 'age61_74'
+  | 'age75plus'
+  | 'majorSx45'
+  | 'cancer'
+  | 'prevVte'
+  | 'immobile72h'
+  | 'hipKneeArthroplasty'
+  | 'fracture'
+  | 'estrogen'
+  | 'obesity'
+  | 'varicose';
+
 type FormState = {
   age: string;
   sex: Sex;
@@ -29,6 +45,22 @@ type FormState = {
   redFlags: Record<RedFlagKey, boolean>;
   comorbidInput: string;
   otherComorbids: string[];
+  mets: MetLevel;
+  allergies: string;
+  prevAnesHx: string;
+  disposition: Disposition;
+  caprini: Record<CapriniKey, boolean>;
+  onAnticoag: boolean;
+  anticoagDrug: string;
+  needBridge: boolean;
+  needTS: boolean;
+  needTC: boolean;
+  ebl: string;
+  abxIndicated: boolean;
+  abxAgent: string;
+  hba1cValue: string;
+  onChronicSteroid: boolean;
+  steroidDose: string;
 };
 
 type HistoryEntry = {
@@ -61,6 +93,35 @@ const DEFAULT_FORM: FormState = {
   },
   comorbidInput: '',
   otherComorbids: [],
+  mets: 'unknown',
+  allergies: '',
+  prevAnesHx: '',
+  disposition: 'unknown',
+  caprini: {
+    age41_60: false,
+    age61_74: false,
+    age75plus: false,
+    majorSx45: false,
+    cancer: false,
+    prevVte: false,
+    immobile72h: false,
+    hipKneeArthroplasty: false,
+    fracture: false,
+    estrogen: false,
+    obesity: false,
+    varicose: false,
+  },
+  onAnticoag: false,
+  anticoagDrug: '',
+  needBridge: false,
+  needTS: false,
+  needTC: false,
+  ebl: '',
+  abxIndicated: false,
+  abxAgent: '',
+  hba1cValue: '',
+  onChronicSteroid: false,
+  steroidDose: '',
 };
 
 const SURGERY_LABELS: Record<SurgeryRisk, string> = {
@@ -79,6 +140,53 @@ const RED_FLAG_LABELS: Record<RedFlagKey, { label: string; action: string }> = {
     action: 'DEFER until controlled',
   },
 };
+
+const METS_INFO: Record<MetLevel, { label: string; examples: string; impact: string }> = {
+  high: {
+    label: '≥ 4 METs (ดี)',
+    examples: 'เดินขึ้นบันได 1 ชั้น / เดินเร็ว / ทำสวน / ยกของหนัก',
+    impact: 'ไม่ต้อง stress test แม้ RCRI ≥2 (ACC/AHA 2014)',
+  },
+  low: {
+    label: '< 4 METs (จำกัด)',
+    examples: 'เดินพื้นราบได้เท่านั้น, งานบ้านเบา',
+    impact: 'RCRI ≥2 → พิจารณา stress test',
+  },
+  unknown: {
+    label: 'ไม่ทราบ',
+    examples: '',
+    impact: 'ถือว่า functional capacity ไม่ดี — พิจารณา stress test ถ้า RCRI ≥2',
+  },
+};
+
+const CAPRINI_FACTORS: Record<CapriniKey, { label: string; desc: string; score: number }> = {
+  age41_60: { label: 'อายุ 41–60 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 1 },
+  age61_74: { label: 'อายุ 61–74 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 2 },
+  age75plus: { label: 'อายุ ≥ 75 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 3 },
+  majorSx45: { label: 'ผ่าตัดใหญ่ > 45 นาที', desc: 'รวม laparoscopic ≥45 min', score: 2 },
+  cancer: { label: 'มะเร็ง (active / on treatment)', desc: '', score: 2 },
+  prevVte: { label: 'ประวัติ DVT / PE', desc: '', score: 3 },
+  immobile72h: { label: 'นอนไม่ลุกเดิน > 72 ชม.', desc: 'bed rest หรือ plaster cast', score: 2 },
+  hipKneeArthroplasty: { label: 'ผ่าตัดเปลี่ยนข้อ hip / knee', desc: 'arthroplasty', score: 5 },
+  fracture: { label: 'กระดูกหัก hip / เชิงกราน / ขา', desc: '', score: 5 },
+  estrogen: { label: 'ยาคุม / ฮอร์โมน (OCP/HRT)', desc: '', score: 1 },
+  obesity: { label: 'BMI ≥ 25', desc: '', score: 1 },
+  varicose: { label: 'เส้นเลือดขอด (varicose veins)', desc: '', score: 1 },
+};
+
+function capriniTotal(c: Record<CapriniKey, boolean>): number {
+  return (Object.keys(c) as CapriniKey[]).reduce(
+    (sum, k) => sum + (c[k] ? CAPRINI_FACTORS[k].score : 0),
+    0,
+  );
+}
+
+function capriniPlan(score: number): string {
+  if (score === 0) return 'Very low — early ambulation';
+  if (score <= 2) return 'Low — early ambulation + SCD';
+  if (score <= 4) return 'Moderate — LMWH (enoxaparin 40 mg SC OD) + SCD';
+  return 'High — LMWH + SCD; extended 4 wk if cancer/major abdominopelvic sx';
+}
 
 const ASA_INFO: Record<Exclude<AsaClass, 'unknown'>, { desc: string; examples: string }> = {
   I:   { desc: 'แข็งแรงดี ไม่มีโรค',                    examples: 'สุขภาพดี ไม่สูบบุหรี่ ไม่อ้วน' },
@@ -204,6 +312,15 @@ function buildSummary(f: FormState): string {
   if (f.otherComorbids.length > 0) {
     lines.push(`Other comorbidities: ${f.otherComorbids.join(', ')}`);
   }
+  if (f.mets !== 'unknown') {
+    lines.push(`Functional: METs ${METS_INFO[f.mets].label}`);
+  }
+  if (f.allergies) lines.push(`Allergies: ${f.allergies}`);
+  if (f.prevAnesHx) lines.push(`Prev anesthesia hx: ${f.prevAnesHx}`);
+  if (f.disposition !== 'unknown') {
+    const dispMap = { ward: 'Ward ปกติ', stepdown: 'Step-down', icu: 'ICU' };
+    lines.push(`Disposition: ${dispMap[f.disposition]}`);
+  }
   lines.push('');
   lines.push('Recommendations:');
   recs.forEach((r) => lines.push(`- ${r}`));
@@ -220,6 +337,38 @@ function buildSummary(f: FormState): string {
       ),
     );
   }
+  const capScore = capriniTotal(f.caprini);
+  if (capScore > 0) {
+    lines.push('');
+    lines.push(`VTE prophylaxis — Caprini ${capScore} pt: ${capriniPlan(capScore)}`);
+  }
+
+  if (f.onAnticoag && f.anticoagDrug) {
+    lines.push('');
+    lines.push(`Anticoag: ${f.anticoagDrug}${f.needBridge ? ' → Bridge LMWH' : ''}`);
+    if (f.needTS) lines.push('  Type & Screen ✓');
+    if (f.needTC) lines.push('  Type & Cross-match ✓');
+    if (f.ebl) lines.push(`  Expected blood loss: ${f.ebl} mL`);
+  }
+
+  if (f.abxIndicated) {
+    lines.push('');
+    lines.push(`Antibiotic prophylaxis: ${f.abxAgent || 'ตามมาตรฐาน รพ.'}`);
+    lines.push('  ให้ภายใน 60 นาทีก่อน incision (120 นาที สำหรับ vanco/fluoroquinolone)');
+  }
+
+  if (f.hba1cValue) {
+    lines.push('');
+    lines.push(`DM: HbA1c ${f.hba1cValue}% — target BG peri-op 140–180 mg/dL`);
+  }
+
+  if (f.onChronicSteroid) {
+    lines.push('');
+    lines.push(
+      `Steroid stress dose: ${f.steroidDose || 'Hydrocortisone 100 mg IV q8h วันผ่าตัด (major sx)'}`,
+    );
+  }
+
   lines.push('');
   lines.push(`Clearance: ${clearanceVerdict(score, anyFlag)}`);
   return lines.join('\n');
@@ -754,6 +903,280 @@ export default function PreopHelper() {
             />
           ))}
         </div>
+      </section>
+
+      {/* ── METs ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Functional Status (METs)</h2>
+        <InfoCallout title="METs คืออะไร? + ผลต่อ stress test decision">
+          <p>
+            <strong>METs</strong> = Metabolic Equivalents — ความสามารถในการออกแรง
+          </p>
+          <ul className="mt-1 list-disc space-y-0.5 pl-4">
+            <li><strong>METs ≥4</strong>: ไม่ต้อง stress test แม้ RCRI ≥2</li>
+            <li><strong>METs &lt;4 / ไม่ทราบ</strong> + RCRI ≥2 → พิจารณา stress test</li>
+          </ul>
+        </InfoCallout>
+        <div className="space-y-2">
+          {(Object.keys(METS_INFO) as MetLevel[]).map((k) => (
+            <label
+              key={k}
+              className={cn(
+                'flex cursor-pointer items-start gap-2 rounded-md border p-2 text-sm',
+                form.mets === k && 'border-primary bg-primary/5',
+              )}
+            >
+              <input
+                type="radio"
+                name="mets"
+                checked={form.mets === k}
+                onChange={() => update('mets', k)}
+                className="mt-1"
+              />
+              <span>
+                <span className="font-medium">{METS_INFO[k].label}</span>
+                {METS_INFO[k].examples && (
+                  <span className="text-muted-foreground"> — {METS_INFO[k].examples}</span>
+                )}
+                <br />
+                <span className="text-xs text-muted-foreground">{METS_INFO[k].impact}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Allergies + Prev anesthesia ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Allergies & ประวัติ Anesthesia</h2>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">แพ้ยา / แพ้สาร (ข้ามได้)</span>
+          <input
+            type="text"
+            value={form.allergies}
+            onChange={(e) => update('allergies', e.target.value)}
+            placeholder="เช่น PCN → rash, contrast → urticaria"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">ประวัติ anesthesia ที่ผ่านมา (ข้ามได้)</span>
+          <input
+            type="text"
+            value={form.prevAnesHx}
+            onChange={(e) => update('prevAnesHx', e.target.value)}
+            placeholder="เช่น PONV มาก, difficult intubation, MH family hx"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+      </section>
+
+      {/* ── Disposition ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Disposition หลังผ่าตัด (แนะนำ)</h2>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {([
+            { key: 'ward' as Disposition, label: 'Ward ปกติ' },
+            { key: 'stepdown' as Disposition, label: 'Step-down' },
+            { key: 'icu' as Disposition, label: 'ICU' },
+            { key: 'unknown' as Disposition, label: '? ไม่ทราบ' },
+          ]).map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => update('disposition', key)}
+              aria-pressed={form.disposition === key}
+              className={cn(
+                'rounded-md border py-2 text-sm',
+                form.disposition === key
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'bg-background',
+              )}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ── VTE Caprini ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-semibold">VTE Prophylaxis — Caprini score</h2>
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
+            {capriniTotal(form.caprini)} pts
+          </span>
+        </div>
+        <InfoCallout title="Caprini score คืออะไร?">
+          <p className="mb-1">
+            ประเมินความเสี่ยง DVT/PE หลังผ่าตัด → แนะนำว่าควรใช้ LMWH, SCD หรือ extended prophylaxis
+          </p>
+          <div className="mt-1 rounded bg-blue-100 p-2 dark:bg-blue-900/30 text-[11px]">
+            <table className="w-full">
+              <thead>
+                <tr className="font-medium">
+                  <td>Caprini</td>
+                  <td>Risk</td>
+                  <td>Plan</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>Very low</td><td>Early ambulation</td></tr>
+                <tr><td>1–2</td><td>Low</td><td>Ambulation + SCD</td></tr>
+                <tr><td>3–4</td><td>Moderate</td><td>LMWH + SCD</td></tr>
+                <tr><td>≥5</td><td>High</td><td>LMWH + SCD + extended (cancer sx: 4 wk)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-1 text-[11px]">
+            ⚠️ ติกเฉพาะ 1 ช่องอายุที่สูงที่สุด (เช่น อายุ 72 → ติก 61–74 เท่านั้น)
+          </p>
+        </InfoCallout>
+        <div className="space-y-1.5 text-sm">
+          {(Object.keys(CAPRINI_FACTORS) as CapriniKey[]).map((k) => {
+            const f = CAPRINI_FACTORS[k];
+            return (
+              <Checkbox
+                key={k}
+                checked={form.caprini[k]}
+                onChange={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    caprini: { ...prev.caprini, [k]: !prev.caprini[k] },
+                  }))
+                }
+                label={`${f.label} (${f.score} pt${f.score > 1 ? 's' : ''}${f.desc ? ` — ${f.desc}` : ''})`}
+              />
+            );
+          })}
+        </div>
+        <div className="rounded-md bg-muted/40 p-2 text-xs">
+          <span className="font-medium">Caprini {capriniTotal(form.caprini)} → </span>
+          {capriniPlan(capriniTotal(form.caprini))}
+        </div>
+      </section>
+
+      {/* ── Anticoag / Bleeding ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Anticoagulation & Bleeding Plan</h2>
+        <Checkbox
+          checked={form.onAnticoag}
+          onChange={() => update('onAnticoag', !form.onAnticoag)}
+          label="ใช้ยาต้านเลือดแข็ง / antiplatelet"
+        />
+        {form.onAnticoag && (
+          <div className="space-y-3 pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">ชื่อยา + indication</span>
+              <input
+                type="text"
+                value={form.anticoagDrug}
+                onChange={(e) => update('anticoagDrug', e.target.value)}
+                placeholder="เช่น Warfarin (AF, CHA₂DS₂-VASc 4), Apixaban (VTE), ASA"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+            <Checkbox
+              checked={form.needBridge}
+              onChange={() => update('needBridge', !form.needBridge)}
+              label="ต้อง Bridge LMWH (mech valve, CHA₂DS₂-VASc ≥4, VTE ใน 3 เดือน)"
+            />
+            <div className="flex gap-4 text-sm">
+              <Checkbox
+                checked={form.needTS}
+                onChange={() => update('needTS', !form.needTS)}
+                label="Type & Screen"
+              />
+              <Checkbox
+                checked={form.needTC}
+                onChange={() => update('needTC', !form.needTC)}
+                label="Type & Cross-match"
+              />
+            </div>
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">Expected blood loss (mL)</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={form.ebl}
+                onChange={(e) => update('ebl', e.target.value)}
+                placeholder="เช่น 500"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+          </div>
+        )}
+      </section>
+
+      {/* ── Antibiotic prophylaxis ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Antibiotic Prophylaxis</h2>
+        <Checkbox
+          checked={form.abxIndicated}
+          onChange={() => update('abxIndicated', !form.abxIndicated)}
+          label="มี indication (general: cefazolin; colorectal: + metronidazole; joint: cefazolin)"
+        />
+        {form.abxIndicated && (
+          <div className="space-y-2 pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">ยา + dose</span>
+              <input
+                type="text"
+                value={form.abxAgent}
+                onChange={(e) => update('abxAgent', e.target.value)}
+                placeholder="เช่น Cefazolin 2g IV (3g ถ้า >120 kg)"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+            <p className="text-xs text-muted-foreground">
+              ⏱ ให้ภายใน 60 นาทีก่อน incision — vanco/fluoroquinolone ให้ก่อน 120 นาที
+            </p>
+          </div>
+        )}
+      </section>
+
+      {/* ── DM Control ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">DM Control (ถ้ามี)</h2>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">HbA1c ล่าสุด (%)</span>
+          <input
+            type="number"
+            step="0.1"
+            inputMode="decimal"
+            value={form.hba1cValue}
+            onChange={(e) => update('hba1cValue', e.target.value)}
+            placeholder="เช่น 8.5"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <p className="text-xs text-muted-foreground">
+          Target peri-op BG: 140–180 mg/dL | HbA1c &gt;9% → พิจารณา postpone elective เพื่อ optimize
+        </p>
+      </section>
+
+      {/* ── Steroid stress dose ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Steroid Stress Dose</h2>
+        <Checkbox
+          checked={form.onChronicSteroid}
+          onChange={() => update('onChronicSteroid', !form.onChronicSteroid)}
+          label="ใช้ steroid เรื้อรัง > 5 mg prednisolone/day ≥ 3 สัปดาห์ ใน 12 เดือนที่ผ่านมา → เสี่ยง adrenal insufficiency"
+        />
+        {form.onChronicSteroid && (
+          <div className="pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">Stress dose plan (หรือใช้ standard)</span>
+              <input
+                type="text"
+                value={form.steroidDose}
+                onChange={(e) => update('steroidDose', e.target.value)}
+                placeholder="Hydrocortisone 100 mg IV q8h วันผ่าตัด × 24 ชม. แล้ว taper"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+          </div>
+        )}
       </section>
 
       {/* OUTPUT */}
