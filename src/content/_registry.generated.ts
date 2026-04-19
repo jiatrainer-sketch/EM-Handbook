@@ -942,6 +942,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "ascites-fluid-analysis",
+    "path": "/src/content/protocols/ascites-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "ascites-fluid-analysis",
+      "title": "Ascites Fluid Analysis (Paracentesis)",
+      "titleTh": "การวิเคราะห์น้ำในช่องท้อง",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "ascites",
+        "paracentesis",
+        "SAAG",
+        "SBP",
+        "cirrhosis"
+      ],
+      "keywords": [
+        "ascites",
+        "paracentesis",
+        "SAAG",
+        "spontaneous bacterial peritonitis",
+        "SBP",
+        "cirrhosis",
+        "portal hypertension",
+        "น้ำในช่องท้อง",
+        "เจาะท้อง"
+      ],
+      "related": [
+        "ugib-variceal",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "AASLD Ascites Guidelines 2021 + EASL Cirrhosis 2018",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "asystole",
     "path": "/src/content/protocols/asystole.mdx",
     "frontmatter": {
@@ -2007,6 +2047,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "synovial-fluid-analysis",
+    "path": "/src/content/protocols/synovial-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "synovial-fluid-analysis",
+      "title": "Synovial Fluid Analysis (Arthrocentesis)",
+      "titleTh": "การวิเคราะห์น้ำในข้อ",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "septic arthritis",
+        "arthrocentesis",
+        "crystal arthritis",
+        "gout",
+        "pseudogout"
+      ],
+      "keywords": [
+        "synovial fluid",
+        "septic arthritis",
+        "gout",
+        "pseudogout",
+        "arthrocentesis",
+        "monosodium urate",
+        "CPPD",
+        "น้ำในข้อ",
+        "เจาะข้อ"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection"
+      ],
+      "source": {
+        "name": "ACR Clinical Practice Guidelines + Rheumatology in Practice",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "tachyarrhythmia-unstable",
     "path": "/src/content/protocols/tachyarrhythmia-unstable.mdx",
     "frontmatter": {
@@ -2168,6 +2248,48 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "tuberculosis",
+    "path": "/src/content/protocols/tuberculosis.mdx",
+    "frontmatter": {
+      "id": "tuberculosis",
+      "title": "Tuberculosis (Pulmonary + Extrapulmonary)",
+      "titleTh": "วัณโรค (TB)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "tuberculosis",
+        "TB",
+        "MDR-TB",
+        "HRZE",
+        "Thailand"
+      ],
+      "keywords": [
+        "tuberculosis",
+        "TB",
+        "pulmonary TB",
+        "HRZE",
+        "isoniazid",
+        "rifampicin",
+        "MDR TB",
+        "XDR TB",
+        "TB meningitis",
+        "Pott disease",
+        "วัณโรค"
+      ],
+      "related": [
+        "hiv-pep-prep",
+        "meningitis-empiric"
+      ],
+      "source": {
+        "name": "WHO TB Guidelines 2022 + Thai MOPH National TB Program",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
