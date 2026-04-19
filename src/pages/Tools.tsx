@@ -41,10 +41,26 @@ const TOOLS: ToolCard[] = [
   {
     icon: '🫁',
     title: 'Ventilator Quick Start',
-    description: 'คำนวณ IBW + mode + TV + PEEP + FiO₂ ตาม scenario',
+    description: 'คำนวณ IBW + mode + TV + PEEP + FiO₂ ตาม scenario + แปล ABG',
     comingSoon: false,
     action: 'navigate',
     route: '/tools/ventilator',
+  },
+  {
+    icon: '🧠',
+    title: 'NIHSS Calculator',
+    description: 'NIH Stroke Scale — 15 items + interpretation + tPA guide',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/nihss',
+  },
+  {
+    icon: '💊',
+    title: 'Drug Dose Calculator',
+    description: 'คำนวณ dose + volume + rate ตามน้ำหนัก (epi, amio, insulin, RSI meds)',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/dose-calc',
   },
 ];
 
