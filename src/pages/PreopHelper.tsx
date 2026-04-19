@@ -238,11 +238,102 @@ function capriniTotal(c: Record<CapriniKey, boolean>): number {
   );
 }
 
-function capriniPlan(score: number): string {
-  if (score === 0) return 'Very low — early ambulation';
-  if (score <= 2) return 'Low — early ambulation + SCD';
-  if (score <= 4) return 'Moderate — LMWH (enoxaparin 40 mg SC OD) + SCD';
-  return 'High — LMWH + SCD; extended 4 wk if cancer/major abdominopelvic sx';
+type CapriniPlan = {
+  risk: string;
+  summary: string;
+  dose: string[];
+  duration: string;
+  monitoring: string[];
+  cautions: string[];
+};
+
+function capriniPlan(score: number): CapriniPlan {
+  if (score === 0)
+    return {
+      risk: 'Very low',
+      summary: 'Early ambulation เพียงอย่างเดียว',
+      dose: ['ไม่ต้องให้ pharmacologic prophylaxis'],
+      duration: 'ลุกเดินเร็วที่สุดหลังผ่าตัด (post-op day 0 ถ้าเป็นไปได้)',
+      monitoring: ['สังเกตขาบวม / ปวดน่อง'],
+      cautions: [],
+    };
+  if (score <= 2)
+    return {
+      risk: 'Low',
+      summary: 'Early ambulation + mechanical prophylaxis (SCD หรือ IPC)',
+      dose: [
+        'Sequential compression device (SCD) หรือ IPC stockings ทั้งสองขา',
+        'ยังไม่แนะนำ pharmacologic routine',
+      ],
+      duration: 'ใช้ SCD ตลอดที่อยู่บนเตียง จนลุกเดินได้คล่อง',
+      monitoring: ['สังเกตขาบวม / ปวดน่อง / Homan sign'],
+      cautions: ['ห้ามใช้ SCD ถ้ามี DVT อยู่แล้ว หรือ severe PAD, open wound, skin infection ที่ขา'],
+    };
+  if (score <= 4)
+    return {
+      risk: 'Moderate',
+      summary: 'LMWH + SCD combination',
+      dose: [
+        '**Enoxaparin 40 mg SC q24h** (standard)',
+        'หรือ Dalteparin 5,000 U SC q24h',
+        'หรือ UFH 5,000 U SC q8–12h (ถ้า CrCl <30, หรือไม่มี LMWH)',
+        'เริ่ม 12 ชม. ก่อนผ่าตัด หรือ 12–24 ชม. หลังผ่าตัด (surgeon discretion)',
+        '+ SCD/IPC ตลอดที่ bed-bound',
+      ],
+      duration: '**7–10 วัน** (จนกว่าจะ ambulate ได้ดี)',
+      monitoring: [
+        'Platelet count baseline + q 2–3 วัน (HIT screening ถ้าใช้ > 4 วัน)',
+        'Cr baseline + เมื่อเปลี่ยนสถานะ renal (LMWH ขับไต)',
+        'สังเกต bleeding: wound, GI, GU, incision site',
+        'Lab: Hb trend',
+      ],
+      cautions: [
+        'CrCl <30 → **Enoxaparin 30 mg SC q24h** (half dose) หรือเปลี่ยนเป็น UFH 5,000 U SC q8h',
+        'BMI >40 → พิจารณา **Enoxaparin 40 mg SC q12h** (สถาบันต่างกัน)',
+        'Active bleeding, plt <50k, recent neuraxial anesthesia → หยุด pharmacologic, ใช้ SCD อย่างเดียว',
+        'Neuraxial (spinal/epidural) → รอ 12 ชม. หลังฉีด LMWH ก่อนวางเข็ม; 4 ชม. หลังถอด catheter ก่อนฉีดต่อ',
+      ],
+    };
+  // score ≥ 5 → High
+  return {
+    risk: 'High',
+    summary: 'LMWH + SCD; extended 4 สัปดาห์ถ้า cancer sx / major abdominopelvic',
+    dose: [
+      '**Enoxaparin 40 mg SC q24h** (หรือ 30 mg q12h ในบาง protocol)',
+      'หรือ Dalteparin 5,000 U SC q24h',
+      'หรือ Fondaparinux 2.5 mg SC q24h (ถ้าสงสัย HIT)',
+      'หรือ UFH 5,000 U SC q8h (ถ้า CrCl <30)',
+      'เริ่ม 12 ชม. ก่อน หรือ 12–24 ชม. หลัง OR (ดู bleeding risk)',
+      '+ SCD/IPC ทั้งสองขาระหว่าง bed-bound',
+    ],
+    duration: [
+      '**Standard: 7–14 วัน** (ถึงวัน discharge หรือ ambulatory)',
+      '**Extended 28 วัน** ถ้า:',
+      '  • Major abdominopelvic cancer surgery (แนะนำโดย ASCO, ACCP)',
+      '  • Hip arthroplasty (35 วัน per AAOS)',
+      '  • Knee arthroplasty (10–14 วัน, สูงสุด 35 วัน)',
+      '  • Hip fracture (28–35 วัน)',
+      '  • Previous VTE + ongoing risk',
+    ].join('\n'),
+    monitoring: [
+      'Platelet baseline + q 2–3 วัน × 2 สัปดาห์ (HIT, นับ 4T score ถ้าลด >50%)',
+      'Cr baseline, q 3–7 วัน ถ้าใช้ LMWH (renal dose adjustment)',
+      'Hb serial (monitor bleeding)',
+      'Signs of bleeding: hematoma รอบแผล, petechiae, GI/GU bleed, epistaxis',
+      'Anti-Xa level (optional) — ถ้า obese, CKD, pregnancy, bleeding/clotting ขณะ Rx',
+      'สังเกต signs of new VTE: asymmetric leg swelling, pleuritic chest pain, dyspnea',
+    ],
+    cautions: [
+      '⚠️ **CrCl <30** → Enoxaparin 30 mg SC q24h หรือเปลี่ยนเป็น UFH',
+      '⚠️ **BMI >40** → weight-based (0.5 mg/kg q12h) หรือ anti-Xa guided',
+      '⚠️ **HIT (heparin-induced thrombocytopenia)** → หยุด heparin ทั้งหมด, ใช้ argatroban/fondaparinux/DOAC',
+      '⚠️ **Active bleeding / coag disorder / plt <50k** → mechanical only',
+      '⚠️ **Neuraxial block** → rotation timing: stop LMWH ≥12 hr before spinal/epidural puncture; stop ≥24 hr for therapeutic dose; restart ≥4 hr after catheter removal',
+      '⚠️ **Epidural hematoma risk** — urgent MRI if new neuro deficit',
+      '⚠️ High bleeding risk surgery (neuro, spine, intracranial) → consult team, may need SCD only',
+      '⚠️ Transition to DOAC post-discharge ได้ถ้า stable (e.g., rivaroxaban, apixaban prophylactic dose)',
+    ],
+  };
 }
 
 const ASA_INFO: Record<Exclude<AsaClass, 'unknown'>, { desc: string; examples: string }> = {
@@ -400,8 +491,21 @@ function buildSummary(f: FormState): string {
   }
   const capScore = capriniTotal(f.caprini);
   if (capScore > 0) {
+    const plan = capriniPlan(capScore);
     lines.push('');
-    lines.push(`VTE prophylaxis — Caprini ${capScore} pt: ${capriniPlan(capScore)}`);
+    lines.push(`VTE prophylaxis — Caprini ${capScore} pt (${plan.risk})`);
+    lines.push(`  Plan: ${plan.summary}`);
+    lines.push('  Dose:');
+    plan.dose.forEach((d) => lines.push(`    - ${d.replace(/\*\*/g, '')}`));
+    lines.push(`  Duration: ${plan.duration.replace(/\*\*/g, '')}`);
+    if (plan.monitoring.length) {
+      lines.push('  Monitoring:');
+      plan.monitoring.forEach((m) => lines.push(`    - ${m}`));
+    }
+    if (plan.cautions.length) {
+      lines.push('  Cautions:');
+      plan.cautions.forEach((c) => lines.push(`    - ${c.replace(/\*\*/g, '')}`));
+    }
   }
 
   if (f.onAnticoag && f.anticoagDrug) {
@@ -1221,10 +1325,7 @@ export default function PreopHelper() {
             );
           })}
         </div>
-        <div className="rounded-md bg-muted/40 p-2 text-xs">
-          <span className="font-medium">Caprini {capriniTotal(form.caprini)} → </span>
-          {capriniPlan(capriniTotal(form.caprini))}
-        </div>
+        <CapriniPlanCard score={capriniTotal(form.caprini)} />
       </section>
 
       {/* ── Anticoag / Bleeding ── */}
@@ -1784,6 +1885,67 @@ function InfoCallout({ title, children }: { title: string; children: React.React
       {open && (
         <div className="border-t border-blue-200 px-3 pb-3 pt-2 text-xs text-blue-900 dark:border-blue-900 dark:text-blue-100">
           {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function renderBold(text: string): React.ReactNode {
+  // Render **bold** segments as <strong>
+  const parts = text.split(/\*\*(.+?)\*\*/g);
+  return parts.map((p, i) =>
+    i % 2 === 1 ? <strong key={i}>{p}</strong> : <span key={i}>{p}</span>,
+  );
+}
+
+function CapriniPlanCard({ score }: { score: number }) {
+  const plan = capriniPlan(score);
+  const riskColor =
+    plan.risk === 'High'
+      ? 'bg-red-50 border-red-300 dark:bg-red-950/40 dark:border-red-800'
+      : plan.risk === 'Moderate'
+        ? 'bg-amber-50 border-amber-300 dark:bg-amber-950/40 dark:border-amber-800'
+        : 'bg-emerald-50 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800';
+  return (
+    <div className={cn('space-y-2 rounded-md border p-3 text-xs', riskColor)}>
+      <div className="font-medium">
+        Caprini {score} pt → <span className="uppercase">{plan.risk}</span> — {plan.summary}
+      </div>
+
+      <div>
+        <p className="font-semibold">💉 Dose</p>
+        <ul className="ml-4 list-disc space-y-0.5">
+          {plan.dose.map((d, i) => (
+            <li key={i}>{renderBold(d)}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p className="font-semibold">⏱ Duration</p>
+        <p className="ml-4 whitespace-pre-line">{renderBold(plan.duration)}</p>
+      </div>
+
+      {plan.monitoring.length > 0 && (
+        <div>
+          <p className="font-semibold">🔍 Monitoring</p>
+          <ul className="ml-4 list-disc space-y-0.5">
+            {plan.monitoring.map((m, i) => (
+              <li key={i}>{renderBold(m)}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {plan.cautions.length > 0 && (
+        <div>
+          <p className="font-semibold">⚠️ ข้อควรระวัง</p>
+          <ul className="ml-4 list-disc space-y-0.5">
+            {plan.cautions.map((c, i) => (
+              <li key={i}>{renderBold(c)}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
