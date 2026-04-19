@@ -45,7 +45,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "amiodarone-drip",
       "title": "Amiodarone Drip",
-      "titleTh": "Amiodarone drip",
+      "titleTh": "อะมิโอดาโรน (ไดรป์)",
       "category": "drip",
       "subcategory": "antiarrhythmic",
       "tags": [
@@ -83,8 +83,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/drips/dexmedetomidine-drip.mdx",
     "frontmatter": {
       "id": "dexmedetomidine-drip",
-      "title": "Dexmedetomidine drip",
-      "titleTh": "Dexmedetomidine drip",
+      "title": "Dexmedetomidine Drip",
+      "titleTh": "เด็กซ์เมเดโตมิดีน (ไดรป์)",
       "category": "drip",
       "subcategory": "sedation",
       "tags": [
@@ -119,7 +119,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "dobutamine-drip",
       "title": "Dobutamine Drip",
-      "titleTh": "Dobutamine drip",
+      "titleTh": "โดบูตามีน (ไดรป์)",
       "category": "drip",
       "subcategory": "inotrope",
       "tags": [
@@ -159,7 +159,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "dopamine-drip",
       "title": "Dopamine Drip",
-      "titleTh": "Dopamine drip",
+      "titleTh": "โดพามีน (ไดรป์)",
       "category": "drip",
       "subcategory": "inotrope-vasopressor",
       "tags": [
@@ -197,8 +197,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/drips/epinephrine-drip.mdx",
     "frontmatter": {
       "id": "epinephrine-drip",
-      "title": "Epinephrine Drip",
-      "titleTh": "Epinephrine (Adrenaline) drip",
+      "title": "Epinephrine (Adrenaline) Drip",
+      "titleTh": "อีพิเนฟริน / อะดรีนาลีน (ไดรป์)",
       "category": "drip",
       "subcategory": "vasopressor",
       "tags": [
@@ -241,7 +241,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "esmolol-drip",
       "title": "Esmolol Drip",
-      "titleTh": "Esmolol drip",
+      "titleTh": "เอสโมลอล (ไดรป์)",
       "category": "drip",
       "subcategory": "antihypertensive",
       "tags": [
@@ -280,7 +280,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "labetalol-drip",
       "title": "Labetalol Drip",
-      "titleTh": "Labetalol drip",
+      "titleTh": "ลาเบทาลอล (ไดรป์)",
       "category": "drip",
       "subcategory": "antihypertensive",
       "tags": [
@@ -319,7 +319,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "milrinone-drip",
       "title": "Milrinone Drip",
-      "titleTh": "Milrinone drip",
+      "titleTh": "มิลรีโนน (ไดรป์)",
       "category": "drip",
       "subcategory": "inotrope-vasodilator",
       "tags": [
@@ -358,7 +358,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "nicardipine-drip",
       "title": "Nicardipine Drip",
-      "titleTh": "Nicardipine drip สำหรับ HT emergency",
+      "titleTh": "นิคาร์ดิพีน (ไดรป์)",
       "category": "drip",
       "subcategory": "antihypertensive",
       "tags": [
@@ -397,7 +397,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "nitroglycerin-drip",
       "title": "Nitroglycerin (NTG) Drip",
-      "titleTh": "NTG drip สำหรับ ACS / pulmonary edema",
+      "titleTh": "ไนโตรกลีเซอริน (ไดรป์)",
       "category": "drip",
       "subcategory": "vasodilator",
       "tags": [
@@ -437,8 +437,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/drips/norepinephrine-drip.mdx",
     "frontmatter": {
       "id": "norepinephrine-drip",
-      "title": "Norepinephrine Drip",
-      "titleTh": "Norepinephrine (Levophed) drip",
+      "title": "Norepinephrine (Levophed) Drip",
+      "titleTh": "นอร์อีพิเนฟริน (ไดรป์)",
       "category": "drip",
       "subcategory": "vasopressor",
       "tags": [
@@ -480,8 +480,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/drips/phenylephrine-drip.mdx",
     "frontmatter": {
       "id": "phenylephrine-drip",
-      "title": "Phenylephrine drip",
-      "titleTh": "Phenylephrine drip",
+      "title": "Phenylephrine Drip",
+      "titleTh": "ฟีนีลเอฟริน (ไดรป์)",
       "category": "drip",
       "subcategory": "vasopressor",
       "tags": [
@@ -514,8 +514,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/drips/propofol-drip.mdx",
     "frontmatter": {
       "id": "propofol-drip",
-      "title": "Propofol drip (ICU sedation)",
-      "titleTh": "Propofol drip",
+      "title": "Propofol Drip",
+      "titleTh": "โพรพอฟอล (ไดรป์)",
       "category": "drip",
       "subcategory": "sedation",
       "tags": [
@@ -550,7 +550,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "vasopressin-drip",
       "title": "Vasopressin Drip",
-      "titleTh": "Vasopressin drip",
+      "titleTh": "วาโซเพรสซิน (ไดรป์)",
       "category": "drip",
       "subcategory": "vasopressor",
       "tags": [
@@ -587,8 +587,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/protocols/acetaminophen-overdose.mdx",
     "frontmatter": {
       "id": "acetaminophen-overdose",
-      "title": "Acetaminophen Overdose",
-      "titleTh": "Paracetamol overdose",
+      "title": "Acetaminophen (Paracetamol) Overdose",
+      "titleTh": "พิษจากยาพาราเซตามอล",
       "category": "protocol",
       "subcategory": "toxicology",
       "tags": [
@@ -992,7 +992,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "adrenal-crisis",
       "title": "Adrenal Crisis",
-      "titleTh": "Adrenal Crisis ต่อมหมวกไตวายเฉียบพลัน",
+      "titleTh": "ต่อมหมวกไตวายเฉียบพลัน",
       "category": "protocol",
       "subcategory": "endocrine",
       "tags": [
@@ -1107,7 +1107,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "anaphylaxis",
       "title": "Anaphylaxis",
-      "titleTh": "Anaphylaxis แพ้รุนแรง",
+      "titleTh": "ภาวะแพ้รุนแรงเฉียบพลัน",
       "category": "protocol",
       "subcategory": "allergy",
       "tags": [
@@ -1229,7 +1229,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "asystole",
       "title": "Asystole / PEA",
-      "titleTh": "Asystole / PEA ไม่มีชีพจร",
+      "titleTh": "หัวใจหยุด / ไม่มีชีพจร",
       "category": "protocol",
       "subcategory": "cardiac",
       "tags": [
@@ -1502,7 +1502,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "copd-exacerbation",
       "title": "COPD Exacerbation",
-      "titleTh": "COPD กำเริบ",
+      "titleTh": "ถุงลมโป่งพองกำเริบเฉียบพลัน",
       "category": "protocol",
       "subcategory": "pulmonary",
       "tags": [
@@ -1586,7 +1586,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "dengue",
       "title": "Dengue Fever",
-      "titleTh": "ไข้เลือดออก / Dengue",
+      "titleTh": "ไข้เดงกี / ไข้เลือดออก",
       "category": "protocol",
       "subcategory": "infectious-disease",
       "tags": [
@@ -1664,7 +1664,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "dka",
       "title": "Diabetic Ketoacidosis (DKA)",
-      "titleTh": "DKA น้ำตาลสูง ketoacidosis",
+      "titleTh": "ภาวะกรดคีโตนในเบาหวาน",
       "category": "protocol",
       "subcategory": "endocrine",
       "tags": [
@@ -1705,7 +1705,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "hiv-pep-prep",
       "title": "HIV PEP / PrEP",
-      "titleTh": "ยาป้องกัน HIV — PEP และ PrEP",
+      "titleTh": "ยาป้องกัน HIV (PEP และ PrEP)",
       "category": "protocol",
       "subcategory": "infectious-disease",
       "tags": [
@@ -1746,7 +1746,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "ht-emergency",
       "title": "Hypertensive Emergency",
-      "titleTh": "HT Emergency ความดันสูงรุนแรงฉุกเฉิน",
+      "titleTh": "ภาวะความดันโลหิตสูงวิกฤต",
       "category": "protocol",
       "subcategory": "cardiology",
       "tags": [
@@ -1786,7 +1786,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "hyperkalemia",
       "title": "Hyperkalemia",
-      "titleTh": "Hyperkalemia โพแทสเซียมสูง",
+      "titleTh": "ภาวะโพแทสเซียมในเลือดสูง",
       "category": "protocol",
       "subcategory": "electrolyte",
       "tags": [
@@ -1907,7 +1907,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "hypoglycemia",
       "title": "Hypoglycemia",
-      "titleTh": "Hypoglycemia น้ำตาลต่ำ",
+      "titleTh": "ภาวะน้ำตาลในเลือดต่ำ",
       "category": "protocol",
       "subcategory": "endocrine",
       "tags": [
@@ -2113,7 +2113,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "meningitis-empiric",
       "title": "Bacterial Meningitis — Empiric Therapy",
-      "titleTh": "Meningitis รักษาแบบ empiric",
+      "titleTh": "เยื่อหุ้มสมองอักเสบ — รักษาเบื้องต้น",
       "category": "protocol",
       "subcategory": "infectious-disease",
       "tags": [
@@ -2483,7 +2483,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "septic-shock",
       "title": "Septic Shock",
-      "titleTh": "Septic Shock ติดเชื้อในกระแสเลือดรุนแรง",
+      "titleTh": "ภาวะช็อคจากการติดเชื้อ",
       "category": "protocol",
       "subcategory": "sepsis",
       "tags": [
@@ -2525,7 +2525,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "severe-asthma",
       "title": "Severe Asthma Exacerbation",
-      "titleTh": "Asthma กำเริบรุนแรง",
+      "titleTh": "หืดกำเริบรุนแรง",
       "category": "protocol",
       "subcategory": "pulmonary",
       "tags": [
@@ -2607,7 +2607,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "status-epilepticus",
       "title": "Status Epilepticus",
-      "titleTh": "Status Epilepticus ชักต่อเนื่อง",
+      "titleTh": "ชักต่อเนื่อง",
       "category": "protocol",
       "subcategory": "neurology",
       "tags": [
@@ -2650,7 +2650,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "stemi",
       "title": "ST-Elevation MI (STEMI)",
-      "titleTh": "STEMI หัวใจขาดเลือดเฉียบพลัน",
+      "titleTh": "กล้ามเนื้อหัวใจขาดเลือดเฉียบพลัน",
       "category": "protocol",
       "subcategory": "cardiac",
       "tags": [
@@ -2698,7 +2698,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "stroke-pathway",
       "title": "Acute Stroke Pathway",
-      "titleTh": "Stroke อัมพาตเฉียบพลัน",
+      "titleTh": "โรคหลอดเลือดสมองเฉียบพลัน",
       "category": "protocol",
       "subcategory": "neurology",
       "tags": [
@@ -2780,7 +2780,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "svt",
       "title": "Supraventricular Tachycardia (SVT)",
-      "titleTh": "SVT หัวใจเต้นเร็วผิดปกติ",
+      "titleTh": "หัวใจเต้นเร็วผิดจังหวะชนิด SVT",
       "category": "protocol",
       "subcategory": "cardiac",
       "tags": [
@@ -2903,8 +2903,8 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "path": "/src/content/protocols/tca-overdose.mdx",
     "frontmatter": {
       "id": "tca-overdose",
-      "title": "Tricyclic Antidepressant Overdose",
-      "titleTh": "TCA overdose",
+      "title": "Tricyclic Antidepressant (TCA) Overdose",
+      "titleTh": "พิษจากยากลุ่ม TCA",
       "category": "protocol",
       "subcategory": "toxicology",
       "tags": [
@@ -2987,7 +2987,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "thyroid-storm",
       "title": "Thyroid Storm",
-      "titleTh": "Thyroid Storm ไทรอยด์เป็นพิษวิกฤต",
+      "titleTh": "ไทรอยด์เป็นพิษรุนแรง",
       "category": "protocol",
       "subcategory": "endocrine",
       "tags": [
@@ -3186,7 +3186,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "ugib-variceal",
       "title": "UGIB — Variceal Bleeding",
-      "titleTh": "UGIB เลือดออกจากเส้นเลือดขอด (varices)",
+      "titleTh": "เลือดออกจากหลอดเลือดขอดหลอดอาหาร",
       "category": "protocol",
       "subcategory": "gastrointestinal",
       "tags": [
@@ -3229,7 +3229,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "vf-vt",
       "title": "VF/VT (Pulseless)",
-      "titleTh": "VF/VT ไม่มีชีพจร",
+      "titleTh": "หัวใจห้องล่างเต้นผิดจังหวะรุนแรง",
       "category": "protocol",
       "subcategory": "cardiac",
       "tags": [
@@ -3686,7 +3686,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "curb-65",
       "title": "CURB-65 Score",
-      "titleTh": "CURB-65 ประเมินความรุนแรง CAP",
+      "titleTh": "ประเมินความรุนแรงของปอดอักเสบ",
       "category": "score",
       "subcategory": "pulmonary",
       "tags": [
@@ -3724,7 +3724,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "gcs",
       "title": "Glasgow Coma Scale (GCS)",
-      "titleTh": "GCS ประเมินระดับความรู้สึกตัว",
+      "titleTh": "ประเมินระดับความรู้สึกตัว",
       "category": "score",
       "subcategory": "neurology",
       "tags": [
@@ -3764,7 +3764,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "heart-score",
       "title": "HEART Score",
-      "titleTh": "HEART Score ประเมิน chest pain ที่ ED",
+      "titleTh": "ประเมินความเสี่ยงโรคหัวใจขาดเลือด",
       "category": "score",
       "subcategory": "cardiology",
       "tags": [
@@ -3801,7 +3801,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "nihss",
       "title": "NIH Stroke Scale (NIHSS)",
-      "titleTh": "NIHSS ประเมินความรุนแรง stroke",
+      "titleTh": "ประเมินความรุนแรงของโรคหลอดเลือดสมอง",
       "category": "score",
       "subcategory": "neurology",
       "tags": [
@@ -3838,7 +3838,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "qsofa",
       "title": "qSOFA Score",
-      "titleTh": "qSOFA คะแนนคัดกรอง sepsis",
+      "titleTh": "คัดกรองภาวะติดเชื้อในกระแสเลือด",
       "category": "score",
       "subcategory": "sepsis",
       "tags": [
@@ -3874,7 +3874,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "rcri",
       "title": "RCRI — Revised Cardiac Risk Index",
-      "titleTh": "RCRI ประเมินความเสี่ยงหัวใจก่อนผ่าตัด",
+      "titleTh": "ประเมินความเสี่ยงหัวใจก่อนผ่าตัด",
       "category": "score",
       "subcategory": "cardiac",
       "tags": [
@@ -3913,7 +3913,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "sofa",
       "title": "SOFA Score",
-      "titleTh": "SOFA score ประเมินอวัยวะล้มเหลวในภาวะวิกฤต",
+      "titleTh": "ประเมินอวัยวะล้มเหลวในภาวะวิกฤต",
       "category": "score",
       "subcategory": "sepsis",
       "tags": [
@@ -3953,7 +3953,7 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     "frontmatter": {
       "id": "wells-pe",
       "title": "Wells Score for Pulmonary Embolism",
-      "titleTh": "Wells score สำหรับ PE",
+      "titleTh": "ประเมินความเสี่ยงลิ่มเลือดอุดปอด",
       "category": "score",
       "subcategory": "pulmonary",
       "tags": [
