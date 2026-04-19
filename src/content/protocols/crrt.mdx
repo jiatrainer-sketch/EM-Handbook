@@ -1,0 +1,286 @@
+---
+id: crrt
+title: "CRRT — Continuous Renal Replacement Therapy"
+titleTh: "การบำบัดทดแทนไตแบบต่อเนื่อง"
+category: protocol
+subcategory: renal
+tags:
+  - CRRT
+  - AKI
+  - hemodialysis
+  - ICU
+  - renal replacement
+keywords:
+  - CRRT
+  - CVVH
+  - CVVHD
+  - CVVHDF
+  - continuous renal replacement
+  - AKI
+  - acute kidney injury
+  - citrate
+  - anticoagulation
+  - ไตวายเฉียบพลัน
+  - ฟอกไต
+related:
+  - septic-shock
+  - hyperkalemia
+  - hyponatremia-symptomatic
+source:
+  name: "KDIGO AKI Guidelines 2012 + STARRT-AKI Trial + Intensive Care Med 2022"
+  year: 2022
+last_reviewed: "2026-04"
+confidence: high
+severity: critical
+---
+
+## 🎯 Indication — AEIOU
+
+<Callout type="danger" title="Emergent indication (เริ่มทันที)">
+
+- **A — Acidosis**: pH &lt; 7.15 ที่ไม่ตอบสนองต่อการรักษา
+- **E — Electrolyte**: K⁺ &gt; 6.5 mEq/L ที่ไม่ตอบสนองต่อ medical Rx, Na &gt; 160 หรือ &lt; 110 ที่ไม่ปลอดภัย
+- **I — Intoxication**: ยา/สารพิษที่ถูก filter ได้ (lithium, metformin, salicylate)
+- **O — Overload**: fluid overload &gt; 10% BW + ปอดบวม ที่ diuretic ไม่ได้ผล
+- **U — Uremia**: encephalopathy, pericarditis, BUN &gt; 100 mg/dL + อาการ uremic
+
+</Callout>
+
+### Elective indication (พิจารณา)
+
+- AKI KDIGO stage 3 (Cr × 3 หรือ Cr &gt; 4 mg/dL หรือ UO &lt; 0.3 mL/kg/hr × 24 hr)
+- Oliguria ที่ไม่ตอบสนองต่อ fluid challenge + diuretic
+- Severe sepsis + AKI + ต้องการ fluid removal
+
+<Callout type="info" title="CRRT vs IHD">
+
+- **CRRT**: hemodynamically unstable, fluid overloaded, cerebral edema → preferred
+- **IHD**: hemodynamically stable, ต้องการ rapid clearance (hyperkalemia, lithium) → OK
+- **SLED** (sustained low-efficiency dialysis): ทางเลือกกลางๆ ถ้ามีเครื่อง
+
+</Callout>
+
+---
+
+## 🔧 Modality เลือกอะไร?
+
+| Modality | กลไก | ข้อดี |
+|---|---|---|
+| **CVVH** | Convection (hemofiltration) | ดี middle molecules; pre/post dilution |
+| **CVVHD** | Diffusion (hemodialysis) | ดี small molecules (K, urea); ใช้ dialysate |
+| **CVVHDF** | Convection + Diffusion | ดีที่สุดทั้งคู่ — **standard ใน Thai ICU** |
+
+**ทั่วไปใน Thai community hospital: CVVHDF หรือ CVVHD**
+
+---
+
+## ⚙️ การตั้ง Prescription
+
+### 1. Access (สายสวน)
+- **Femoral vein** — ง่ายที่สุด, ปลอดภัย ใน acute setting
+- **Internal jugular** — ถ้า femoral ใช้ไม่ได้
+- **⚠️ ห้ามใช้ subclavian** (เสี่ยง stenosis → ห้ามใช้สำหรับ HD access ในอนาคต)
+- สาย: double-lumen, 11–13 Fr, ยาว 15–24 cm (femoral ยาวกว่า)
+
+### 2. Blood flow rate
+- **100–200 mL/min** (standard 150 mL/min)
+- ต่ำกว่าปกติถ้า hemodynamically unstable
+
+### 3. Effluent dose (ปริมาณ filter ต่อชั่วโมง)
+- **Minimum**: 20–25 mL/kg/hr
+- **Standard**: **25–35 mL/kg/hr** (target delivered dose)
+- Delivered dose มักได้ 80% ของ prescribed dose (downtime, filter change)
+- ตั้ง prescribed 30–40 mL/kg/hr เพื่อให้ได้ delivered ≥ 25
+
+**ตัวอย่าง BW 60 kg:**
+```
+Prescribed: 35 mL/kg/hr = 35 × 60 = 2,100 mL/hr effluent
+Delivered (~80%): ~1,680 mL/hr
+```
+
+### 4. Replacement fluid (CVVH/CVVHDF)
+- **Pre-dilution**: replacement ก่อน filter → ลด clotting, แต่ dilute clearance
+- **Post-dilution**: replacement หลัง filter → clearance ดีกว่า แต่ clot ง่ายขึ้น
+- Mix 50:50 หรือ pre 1/3 + post 2/3 (ขึ้นอยู่กับ hematocrit + anticoagulation)
+
+### 5. Fluid balance
+- ตั้ง **net fluid removal** ตามเป้า (เช่น −100 mL/hr ถ้า fluid overloaded)
+- ปรับทุก 4–6 hr ตาม hemodynamics + clinical
+
+---
+
+## 💉 Anticoagulation
+
+### ตัวเลือกที่ 1: Regional Citrate Anticoagulation (RCA) — **preferred**
+- Citrate 4% ใส่ก่อน filter (pre-filter) → chelates Ca²⁺ ใน circuit → anticoagulation ใน circuit
+- Ca²⁺ gluconate/CaCl₂ ให้ทาง systemic line → แก้ hypocalcemia
+- **ข้อดี**: ไม่มี systemic anticoagulation → ปลอดภัยในคนไข้ที่มี bleeding risk
+- **ข้อดี**: circuit life ยาวกว่า (30–40 hr vs 15–20 hr)
+
+**Protocol citrate (ตัวอย่าง):**
+```
+Citrate 4%: เริ่ม 3× blood flow rate (mL/hr)
+เช่น BF = 150 mL/min → citrate 450 mL/hr
+Target ionized Ca²⁺ post-filter: 0.25–0.35 mmol/L
+CaCl₂ 10% (systemic): ปรับให้ ionized Ca²⁺ systemic > 1.0 mmol/L
+Monitor: Na, HCO₃, Ca²⁺ q 4–6 hr
+```
+
+<Callout type="warning" title="Citrate toxicity">
+
+- Accumulates ถ้า liver dysfunction หรือ lactic acidosis
+- Signs: **↑ total Ca / ionized Ca ratio &gt; 2.5**, ↑ anion gap, metabolic alkalosis
+- หยุด citrate → switch to heparin หรือ no anticoag
+
+</Callout>
+
+### ตัวเลือกที่ 2: Systemic Heparin (UFH)
+- ใช้ถ้าไม่มี citrate หรือ RCA ไม่ available
+- **Loading**: 1,000–2,000 U IV bolus
+- **Infusion**: 500–1,000 U/hr → titrate ตาม aPTT 45–65 s (1.5× control)
+- **ข้อเสีย**: HIT risk, bleeding risk
+- ห้ามใช้ถ้า: active bleeding, HIT, post-op high-risk
+
+### ตัวเลือกที่ 3: No Anticoagulation
+- ใช้ถ้า active bleeding + INR &gt; 2.0 + platelet &lt; 50k
+- Flush circuit ด้วย NSS 150–200 mL q 4 hr
+- **Circuit life สั้นมาก** (~8–12 hr)
+- ปรับ pre-dilution มากขึ้น (ลด hemoconcentration)
+
+---
+
+## 💊 Drug Dosing on CRRT
+
+<Callout type="warning" title="ปรับยาทุกตัว!">
+
+CRRT clearance ≈ effluent rate × sieving coefficient  
+ยาที่ถูก filter ได้ดี: ต้องเพิ่ม dose หรือให้บ่อยขึ้น
+
+</Callout>
+
+| ยา | Recommendation |
+|---|---|
+| Vancomycin | Monitor level; มักต้องให้ q 24–48 hr (load 25 mg/kg, redose เมื่อ trough &lt; 15) |
+| Meropenem | 1–2 g q 8–12 hr (อย่าลดเหลือ q 24 hr เพราะ CRRT clear ดี) |
+| Pip-tazo | 4.5 g q 8 hr (ไม่ลด — CRRT ขจัดได้) |
+| Fluconazole | 800 mg/day loading, 400 mg/day maintenance |
+| Linezolid | ปกติ 600 mg q 12 hr (ไม่ต้องปรับ) |
+| Enoxaparin | **ห้ามใช้** — ใช้ UFH แทน (CRRT clear enoxaparin ได้บางส่วน, predictability ต่ำ) |
+| Insulin | ลด dose; CRRT ล้าง glucose → hypoglycemia risk |
+| Phosphate | supplement ทุกวัน (CRRT ดึงออกเยอะ) |
+| Potassium | monitor q 4–6 hr; อาจต้องเติม K ใน replacement fluid |
+
+---
+
+## 🧪 Monitoring
+
+### ทุก 4–6 ชั่วโมง
+- **Ionized Ca²⁺** (ถ้าใช้ citrate)
+- **K⁺** — ระวัง hypokalemia (ถ้า replacement fluid ไม่มี K)
+- **Na⁺, HCO₃⁻, pH** — metabolic alkalosis จาก citrate metabolism
+
+### ทุกวัน
+- **BUN, Cr** — trend
+- **Phosphate** — supplement ถ้า &lt; 2.5 mg/dL
+- **Mg²⁺** — CRRT ดึงออก
+- **CBC, coag** (ถ้าใช้ heparin — aPTT)
+- **Serum lactate** (ถ้า citrate — ระวัง accumulation)
+- **Drug levels** (vancomycin, etc.)
+
+### Circuit monitoring
+- **Filter clotting**: ↑ transmembrane pressure (TMP &gt; 300 mmHg) → เปลี่ยน filter
+- **Access recirculation**: flow ต่ำ → ตรวจตำแหน่ง catheter
+- **Air alarm**: ตรวจ connector, อย่า clamp lines กะทันหัน
+
+---
+
+## 🔄 When to stop CRRT?
+
+<Callout type="success" title="สัญญาณ renal recovery">
+
+- **UO &gt; 500 mL/day** โดยไม่ได้ diuretic (หรือ &gt; 200 mL/day ถ้าสั้นๆ)
+- Cr แนวโน้มลง ≥ 2 วันติดต่อกัน
+- Indication เดิม resolved (K, fluid balance ดีแล้ว)
+
+</Callout>
+
+**ทดสอบ stop CRRT:**
+1. หยุด CRRT 4–6 hr
+2. Check UO, Cr, K
+3. ถ้า UO &gt; 400 mL ใน 2 hr หลังหยุด → likely recovering → stop CRRT
+4. ถ้า UO &lt; 200 mL/2hr + rising K/Cr → re-start
+
+---
+
+## ⚠️ Troubleshooting
+
+| ปัญหา | สาเหตุ | แก้ไข |
+|---|---|---|
+| High access pressure (↓ inflow) | สาย kink, clot, position | ปรับตำแหน่ง, หมุนสาย, ลด BF rate |
+| High return pressure | สาย kink downstream | ตรวจสาย, ลด BF, เปลี่ยนสาย |
+| ↑ TMP (filter clotting) | Hemoconcentration, poor anticoag | เพิ่ม pre-dilution, ปรับ anticoag, เปลี่ยน filter |
+| Air alarm | Connector loose, air in circuit | ตรวจ connector ทุก junction |
+| Hypotension ขณะ CRRT | Ultrafiltration เร็วเกิน, vasodilation | ลด UF rate, IVF bolus, ลด BF ชั่วคราว |
+| Metabolic alkalosis | Citrate accumulation, lactate conversion | ลด citrate rate, ตรวจ liver function |
+| Hypokalemia | K ถูก filter ออก | เติม K ใน replacement fluid |
+| Hypophosphatemia | P ถูก filter ออก | เติม phosphate supplement |
+
+---
+
+## 📝 Order Template
+
+```
+CRRT Order — [Date/Time]
+
+Patient: [Name] BW [xx] kg  IBW [xx] kg
+Access: [Femoral R/L] / [IJ R/L] — [Fr/size]
+Modality: CVVHDF
+
+Blood flow: 150 mL/min
+Effluent rate: 35 mL/kg/hr = [total] mL/hr
+  → Dialysate: [xx] mL/hr
+  → Replacement (post-dilution): [xx] mL/hr
+Net fluid balance: [−xxx] mL/hr (target −[xxx] mL/shift)
+
+Anticoagulation: ☐ Citrate 4%  ☐ UFH  ☐ None
+If citrate: CaCl₂/Ca gluconate [x] mL/hr systemic
+Target: ionized Ca post-filter 0.25–0.35, systemic > 1.0
+
+Replacement fluid: [Accusol / PhysioSol / custom]
+K in replacement: [add K __ mEq/L if K < 3.5]
+Phosphate supplement: [Glycophos 1 amp IV q 12 hr if P < 2.5]
+
+Monitor:
+- iCa (if citrate) q 4 hr
+- K, Na, HCO₃ q 4 hr
+- BUN/Cr, Mg, P, CBC daily
+- Drug levels per pharmacy
+
+Nursing:
+- Check TMP q 1 hr; alert if > 300 mmHg
+- Record UO hourly (non-CRRT urine separately)
+- Weigh q 12 hr
+```
+
+---
+
+## 🚩 Pitfalls
+
+<Callout type="danger" title="Pitfalls ที่พบบ่อย">
+
+**ห้ามตั้ง effluent dose ต่ำเกิน** — delivered &lt; 20 mL/kg/hr = inadequate clearance  
+→ ตั้ง prescribed 30–40 เพื่อ compensate downtime
+
+**อย่าลืม phosphate + magnesium** — CRRT ดึงออกทุกชั่วโมง  
+→ check + supplement daily เป็น routine
+
+**Drug dosing** — อย่าใช้ CKD dosing table กับ CRRT  
+→ meropenem, pip-tazo ต้อง dosing เหมือน normal renal function!
+
+**Subclavian ห้ามใช้** — สงวนไว้เพื่อ long-term access ในอนาคต  
+→ femoral ก่อนเสมอ ใน emergent setting
+
+**Citrate + liver failure** — citrate metabolized โดย liver  
+→ ถ้า lactate &gt; 4 + liver failure → ห้ามใช้ citrate
+
+</Callout>

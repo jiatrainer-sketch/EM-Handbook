@@ -1,0 +1,216 @@
+---
+id: atrial-fibrillation
+title: "Atrial Fibrillation / Flutter"
+titleTh: "หัวใจห้องบนสั่นพลิ้ว"
+category: protocol
+subcategory: cardiac
+tags:
+  - atrial fibrillation
+  - AFib
+  - anticoagulation
+  - CHA2DS2-VASc
+  - rate control
+  - cardioversion
+keywords:
+  - atrial fibrillation
+  - AF
+  - atrial flutter
+  - CHADS
+  - CHA2DS2-VASc
+  - HAS-BLED
+  - rate control
+  - rhythm control
+  - cardioversion
+  - หัวใจเต้นผิดจังหวะ
+  - หัวใจสั่น
+related:
+  - tachyarrhythmia-unstable
+  - svt
+  - stroke-pathway
+source:
+  name: "AHA/ACC/ESC 2024 AFib Guidelines"
+  year: 2024
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+---
+
+## 🎯 Initial Approach
+
+<Callout type="danger" title="Unstable AFib = electrical cardioversion STAT">
+
+Signs of instability (any one):
+- Hypotension (SBP &lt; 90)
+- Acute heart failure / pulmonary edema
+- Ongoing ischemia (chest pain + ST changes)
+- Altered mental status
+
+→ **Synchronized DC cardioversion 120–200 J biphasic** (after sedation)
+
+</Callout>
+
+### ABCs + Monitoring
+- IV × 2, O₂ if needed, continuous ECG, NIBP
+- 12-lead ECG → confirm AFib (irregular narrow-complex, absent P waves)
+- Labs: CBC, BMP, Mg, TSH, troponin, BNP, CXR, ± D-dimer
+- Echo (TTE) — LV function, LAE, valve, pericardium
+
+---
+
+## 📊 Rate vs Rhythm Control — Stable Patient
+
+### Rate control (most patients)
+Target: **HR &lt; 110 (lenient)** for asymptomatic; &lt; 80 at rest / &lt; 110 exertion if symptomatic
+
+| Drug | Dose | Use |
+|---|---|---|
+| **Metoprolol** | 2.5–5 mg IV over 2 min, q 5 min × 3; then PO 25–100 mg BID | 1st line most |
+| **Diltiazem** | 0.25 mg/kg IV over 2 min; then 5–15 mg/hr infusion | CHF without reduced EF; asthma |
+| **Digoxin** | 0.25 mg IV q 2 hr × 2–3 (max 1 mg/24 hr) | Heart failure, elderly, cannot tolerate BB/CCB |
+| **Amiodarone** | 150 mg IV over 10 min → 1 mg/min × 6 hr → 0.5 mg/min | Critically ill, HF (has both rate + rhythm effect) |
+
+<Callout type="warning" title="ระวัง!">
+
+**Calcium channel blockers (diltiazem/verapamil) + HFrEF = contraindicated**  
+→ ใช้ BB หรือ amiodarone แทน
+
+**Pre-excitation (WPW) + AFib** — DO NOT use AV nodal blockers (BB, CCB, adenosine, digoxin)  
+→ Procainamide or ibutilide; unstable → DC cardioversion
+
+</Callout>
+
+### Rhythm control — consider if
+- Young patient, first episode
+- Symptomatic despite rate control
+- Heart failure precipitated by AFib
+- Recent onset (&lt; 48 hr)
+
+**Options:**
+- **Amiodarone** 150 mg IV → infusion (most versatile)
+- **Ibutilide** 1 mg IV over 10 min (low EF caution)
+- **Flecainide/Propafenone** — only if structurally normal heart
+- **Electrical cardioversion** — planned, with sedation
+
+---
+
+## 🧬 Anticoagulation
+
+### CHA₂DS₂-VASc Score
+
+| Factor | Points |
+|---|---|
+| **C** — Congestive HF | 1 |
+| **H** — Hypertension | 1 |
+| **A₂** — Age ≥ 75 | **2** |
+| **D** — Diabetes | 1 |
+| **S₂** — Stroke/TIA/TE | **2** |
+| **V** — Vascular disease (CAD, PAD) | 1 |
+| **A** — Age 65–74 | 1 |
+| **Sc** — Sex category (female) | 1 |
+
+### Indication for anticoagulation
+
+| CHA₂DS₂-VASc | Men | Women |
+|---|---|---|
+| 0 | No AC | No AC |
+| 1 | Consider AC | No AC (sex alone doesn't count) |
+| ≥ 2 | **AC recommended** | ≥ 3 AC recommended |
+
+### DOAC choice (preferred over warfarin for most non-valvular AF)
+
+| Drug | Dose | Renal adjustment |
+|---|---|---|
+| **Apixaban** | 5 mg BID | 2.5 mg BID if 2 of: age ≥ 80, Cr ≥ 1.5, BW ≤ 60 kg |
+| **Rivaroxaban** | 20 mg QD with food | 15 mg QD if CrCl 15–50 |
+| **Dabigatran** | 150 mg BID | 75 mg BID if CrCl 15–30 |
+| **Edoxaban** | 60 mg QD | 30 mg QD if CrCl 15–50, BW ≤ 60, or P-gp inhibitor |
+
+**Warfarin** (target INR 2–3) — use in:
+- Mechanical valve
+- Moderate/severe mitral stenosis (rheumatic)
+- CrCl &lt; 15 (DOAC limited)
+- Cost constraint
+
+### HAS-BLED Score (bleeding risk) — don't use to exclude AC
+**Use to identify modifiable risk factors** (uncontrolled HTN, meds, alcohol, labile INR)
+
+<Callout type="info" title="Cardioversion + anticoagulation">
+
+- **AF &gt; 48 hr OR unknown duration**: 3 weeks AC before → cardiovert → 4 weeks AC after  
+  (OR **TEE-guided**: r/o LA thrombus → cardiovert → 4 weeks AC)
+- **AF &lt; 48 hr, low risk**: cardiovert, AC per CHA₂DS₂-VASc
+- **Unstable → cardiovert now**, start AC ASAP after
+
+</Callout>
+
+---
+
+## 🏥 Disposition
+
+### Discharge if
+- Rate controlled (HR &lt; 110 at rest)
+- Hemodynamically stable
+- Anticoagulation plan + follow-up
+- No active ischemia, HF, or underlying cause needing inpatient workup
+
+### Admit if
+- Unstable or required cardioversion
+- Precipitating condition (MI, PE, sepsis, HF)
+- Heart failure exacerbation
+- New-onset AF with hemodynamic concern
+- Cannot achieve rate control outpatient
+
+---
+
+## ⚠️ Pitfalls
+
+<Callout type="danger" title="AFib Pitfalls">
+
+**AV nodal blocker in WPW + AFib** — can cause VF  
+→ If wide + irregular + &gt; 200 bpm = pre-excited AF → Procainamide or DC cardioversion
+
+**Cardioverting &gt; 48-hr AF without AC** — stroke risk  
+→ 3 wk AC OR TEE first OR accept risk if unstable
+
+**Under-anticoagulation** — elderly + falls is NOT an absolute contraindication  
+→ Benefit usually outweighs risk; assess fall risk factors; consider LAA closure if truly unable
+
+**Missing precipitant** — PE, MI, sepsis, hyperthyroidism, electrolyte  
+→ Always check TSH, troponin, consider CT-PA if risk factors
+
+**Giving digoxin in renal failure** — accumulation → toxicity  
+→ Check dose, level, CrCl; prefer BB/CCB in AKI
+
+</Callout>
+
+---
+
+## 📝 Order template
+
+```
+Atrial Fibrillation — [new onset / chronic]
+Symptom onset: [<48 hr / >48 hr / unknown]
+HR __ BP __ Stability: [stable / unstable]
+CHA₂DS₂-VASc: __  HAS-BLED: __
+
+ECG: AFib HR __ [fast/moderate/slow]
+Labs: K __ Mg __ TSH __ trop __ BNP __
+CXR: __
+Echo ordered: yes
+
+Plan:
+1. [Unstable] Synchronized DC 200 J biphasic after sedation
+   OR
+1. [Stable — rate control]
+   - Metoprolol 5 mg IV q 5 min × 3 → metoprolol 25 mg PO BID
+   - Target HR < 110 at rest
+
+2. Anticoagulation:
+   - Apixaban 5 mg BID (2.5 if criteria)
+   - OR Warfarin (mech valve, MS)
+   - Bridge UFH/LMWH if unstable + therapeutic AC needed
+
+3. Address triggers: TSH, trop, VBG, CXR, CT-PA if PE suspect
+
+4. Disposition: [discharge with cards f/u / admit monitored bed]
+```

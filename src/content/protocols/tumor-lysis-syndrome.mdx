@@ -1,0 +1,201 @@
+---
+id: tumor-lysis-syndrome
+title: "Tumor Lysis Syndrome (TLS)"
+titleTh: "กลุ่มอาการเนื้องอกสลาย"
+category: protocol
+subcategory: renal
+tags:
+  - TLS
+  - tumor lysis
+  - hyperuricemia
+  - rasburicase
+  - allopurinol
+keywords:
+  - tumor lysis syndrome
+  - TLS
+  - hyperuricemia
+  - hyperphosphatemia
+  - hyperkalemia
+  - allopurinol
+  - rasburicase
+  - เนื้องอกสลาย
+related:
+  - acute-kidney-injury
+  - hyperkalemia
+  - hypocalcemia-symptomatic
+source:
+  name: "Cairo-Bishop Criteria + Hematology Guidelines"
+  year: 2023
+last_reviewed: "2026-04"
+confidence: high
+severity: critical
+---
+
+## 🎯 Pathophysiology
+
+Mass tumor cell destruction → release intracellular contents:
+- ↑ K (hyperkalemia)
+- ↑ PO₄ (hyperphosphatemia) → ↓ Ca (hypocalcemia)
+- ↑ uric acid (urate nephropathy → AKI)
+- → **AKI, arrhythmia, seizures, death**
+
+---
+
+## 📊 Cairo-Bishop Criteria
+
+### Laboratory TLS — ≥ 2 of 4 within 3 days before to 7 days after chemo
+| Lab | Threshold |
+|---|---|
+| Uric acid | ≥ 8 mg/dL or ↑ 25% |
+| Potassium | ≥ 6.0 mEq/L or ↑ 25% |
+| Phosphate | ≥ 4.5 (adult) or ≥ 6.5 (pediatric) or ↑ 25% |
+| Calcium | ≤ 7.0 mg/dL or ↓ 25% |
+
+### Clinical TLS — Laboratory TLS + 1 of:
+- **Cr &gt; 1.5× ULN** (or AKI)
+- **Cardiac arrhythmia / sudden death**
+- **Seizure**
+
+---
+
+## ⚠️ Risk Stratification
+
+### High risk (prophylaxis needed)
+- **Burkitt lymphoma, ALL** with high WBC
+- **Acute leukemias** with high WBC &gt; 100k, high LDH
+- Tumor burden (bulky disease, high LDH, organ infiltration)
+- Pre-existing CKD or dehydration
+- Hyperuricemia at baseline
+
+### Intermediate risk
+- Non-bulky lymphoma, CLL
+- Indolent lymphoma with high burden
+
+### Low risk
+- Most solid tumors (small cell lung can TLS post-chemo)
+- Multiple myeloma (rarely)
+
+---
+
+## 💊 Management
+
+### Prevention (HIGH risk — before chemo)
+
+<Callout type="success" title="Prophylaxis for high-risk patients">
+
+1. **Aggressive IV hydration**: NSS 2.5–3 L/m²/day → target UOP ≥ 2 mL/kg/hr
+2. **Allopurinol** 300 mg PO daily × 3–7 d (before chemo); or
+3. **Rasburicase** 0.2 mg/kg IV × 1–5 doses for very high risk / hyperuricemia
+4. **Avoid K + Ca in fluids** initially
+5. Monitor labs q 4–6 hr during high-risk period
+
+</Callout>
+
+### Rasburicase vs Allopurinol
+
+| | Allopurinol | Rasburicase |
+|---|---|---|
+| Mechanism | Xanthine oxidase inhibitor (prevents formation) | Converts uric acid → allantoin (lowers existing) |
+| Onset | Slow (2–3 d) | Minutes |
+| Uric acid | ↓ gradually | ↓↓ rapidly (to near 0) |
+| Cost | Cheap | Expensive |
+| Use | Low/intermediate risk; prophylaxis | High risk; established TLS; severe hyperuricemia |
+
+<Callout type="warning" title="Rasburicase contraindications">
+
+- **G6PD deficiency** — hemolysis (screen before)
+- **Pregnancy**
+- Methemoglobinemia risk
+- Past hypersensitivity to rasburicase
+
+</Callout>
+
+### Treat established TLS
+
+**Hyperkalemia:**
+- Continuous ECG
+- Calcium gluconate (if ECG changes)
+- Insulin + glucose, salbutamol, kayexalate
+- **Low threshold for dialysis**
+
+**Hyperphosphatemia:**
+- Phosphate binders (sevelamer — preferred; calcium-containing if not also hypercalcemic — but risk metastatic calcification if Ca × P &gt; 70)
+- Dialysis if severe + symptomatic
+
+**Hypocalcemia:**
+- **Do NOT correct** unless symptomatic (tetany, seizure, prolonged QT)
+- Calcium + phosphate → metastatic calcification
+- IV calcium only for life-threatening
+
+**Hyperuricemia:**
+- Rasburicase 0.2 mg/kg IV (give if uric acid &gt; 8 + rising)
+- IV hydration + alkalinization (controversial — may worsen Ca phosphate precipitation)
+
+**AKI:**
+- Hydration, avoid nephrotoxins
+- **Dialysis** if indication (K, volume, uremia, severe acidosis)
+- CRRT if unstable or severe — effective at removing K, P, urate
+
+---
+
+## 🏥 Monitoring
+
+- **Labs q 4–6 hr** during high-risk period (24–72 hr post-chemo)
+- Continuous ECG
+- **ICU** if clinical TLS or high risk
+- Strict I/O
+
+---
+
+## ⚠️ Pitfalls
+
+<Callout type="danger" title="TLS Pitfalls">
+
+**Use allopurinol alone in high risk** — slow onset, can't rescue  
+→ Rasburicase for high-risk or established TLS
+
+**Correct hypocalcemia routinely** — precipitates Ca-phosphate → metastatic calcification  
+→ Only symptomatic (tetany, seizure, QT)
+
+**Alkalinize urine routinely** — precipitates calcium phosphate  
+→ Controversial; avoid if significant hyperphosphatemia
+
+**Miss TLS in other tumors** — small cell lung, hepatocellular, aggressive GC  
+→ Any high-burden or rapid-turnover cancer can TLS
+
+**Wait for established TLS** — prevention is key  
+→ Risk-stratify before chemo; aggressive hydration + urate-lowering
+
+**G6PD + rasburicase** — severe hemolysis  
+→ Screen before giving rasburicase (esp. in Asian/African descent)
+
+</Callout>
+
+---
+
+## 📝 Order template
+
+```
+TLS [prophylaxis / laboratory / clinical]
+
+Cancer: [diagnosis, burden]
+Risk: [high / intermediate / low]
+Pre-chemo labs: UA__ K__ P__ Ca__ Cr__ LDH__
+
+Prevention (high-risk):
+1. IVF NSS 2.5–3 L/m²/day (target UOP ≥ 2 mL/kg/hr)
+2. Allopurinol 300 mg PO daily × 3–7 d (if intermediate)
+   OR
+   Rasburicase 0.2 mg/kg IV × 1 dose (if high risk, check G6PD first)
+3. Monitor labs q 4–6 hr × 72 hr post-chemo
+4. Continuous ECG
+
+Treatment (established TLS):
+5. Hyperkalemia: see K protocol; low threshold for dialysis
+6. Hyperphosphatemia: sevelamer 800–1600 mg PO TID; dialysis if severe
+7. Hypocalcemia: treat only if symptomatic (tetany, seizure, QT)
+8. Hyperuricemia: rasburicase 0.2 mg/kg if UA > 8 + AKI
+9. Nephrology consult; dialysis (IHD or CRRT) per AEIOU
+10. Avoid nephrotoxins; adjust drug dosing
+11. Admit ICU for clinical TLS
+```

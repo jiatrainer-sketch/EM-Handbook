@@ -626,6 +626,88 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "acs-nstemi",
+    "path": "/src/content/protocols/acs-nstemi.mdx",
+    "frontmatter": {
+      "id": "acs-nstemi",
+      "title": "ACS — NSTEMI / Unstable Angina",
+      "titleTh": "กล้ามเนื้อหัวใจขาดเลือดเฉียบพลัน (NSTEMI/UA)",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "ACS",
+        "NSTEMI",
+        "unstable angina",
+        "troponin",
+        "GRACE",
+        "PCI"
+      ],
+      "keywords": [
+        "NSTEMI",
+        "unstable angina",
+        "ACS",
+        "troponin",
+        "high-sensitivity troponin",
+        "GRACE score",
+        "dual antiplatelet",
+        "heparin",
+        "หัวใจขาดเลือด"
+      ],
+      "related": [
+        "stemi",
+        "heart-score",
+        "chest-pain"
+      ],
+      "source": {
+        "name": "ESC 2023 ACS Guidelines + AHA/ACC 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "acute-agitation",
+    "path": "/src/content/protocols/acute-agitation.mdx",
+    "frontmatter": {
+      "id": "acute-agitation",
+      "title": "Acute Agitation (ED Psychiatric / Medical)",
+      "titleTh": "ผู้ป่วยกระวนกระวายเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "psychiatric",
+      "tags": [
+        "agitation",
+        "psychosis",
+        "excited delirium",
+        "chemical restraint",
+        "haloperidol"
+      ],
+      "keywords": [
+        "agitation",
+        "acute psychosis",
+        "excited delirium",
+        "chemical restraint",
+        "haloperidol",
+        "ketamine",
+        "midazolam",
+        "กระวนกระวาย",
+        "ควบคุมไม่ได้"
+      ],
+      "related": [
+        "alcohol-withdrawal",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACEP Behavioral Emergencies + Thai Psychiatric Emergency",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "acute-cholangitis",
     "path": "/src/content/protocols/acute-cholangitis.mdx",
     "frontmatter": {
@@ -659,6 +741,129 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "acute-cholecystitis",
+    "path": "/src/content/protocols/acute-cholecystitis.mdx",
+    "frontmatter": {
+      "id": "acute-cholecystitis",
+      "title": "Acute Cholecystitis",
+      "titleTh": "ถุงน้ำดีอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "cholecystitis",
+        "gallstone",
+        "Tokyo Guidelines",
+        "Murphy sign",
+        "cholecystectomy"
+      ],
+      "keywords": [
+        "acute cholecystitis",
+        "cholelithiasis",
+        "gallstone",
+        "Murphy sign",
+        "Tokyo Guidelines",
+        "TG18",
+        "cholecystectomy",
+        "ถุงน้ำดีอักเสบ"
+      ],
+      "related": [
+        "acute-cholangitis",
+        "acute-pancreatitis"
+      ],
+      "source": {
+        "name": "Tokyo Guidelines 2018 + SAGES 2021",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "acute-heart-failure",
+    "path": "/src/content/protocols/acute-heart-failure.mdx",
+    "frontmatter": {
+      "id": "acute-heart-failure",
+      "title": "Acute Decompensated Heart Failure (ADHF)",
+      "titleTh": "ภาวะหัวใจล้มเหลวเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "heart failure",
+        "ADHF",
+        "pulmonary edema",
+        "cardiogenic shock",
+        "diuretic"
+      ],
+      "keywords": [
+        "acute heart failure",
+        "ADHF",
+        "CHF exacerbation",
+        "pulmonary edema",
+        "cardiogenic shock",
+        "furosemide",
+        "BNP",
+        "หัวใจล้มเหลว",
+        "ปอดบวมน้ำ"
+      ],
+      "related": [
+        "acute-pulmonary-edema",
+        "stemi",
+        "acs-nstemi"
+      ],
+      "source": {
+        "name": "ESC 2021 Heart Failure Guidelines + AHA/ACC/HFSA 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "acute-kidney-injury",
+    "path": "/src/content/protocols/acute-kidney-injury.mdx",
+    "frontmatter": {
+      "id": "acute-kidney-injury",
+      "title": "Acute Kidney Injury (AKI)",
+      "titleTh": "ไตวายเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "AKI",
+        "KDIGO",
+        "prerenal",
+        "ATN",
+        "contrast nephropathy"
+      ],
+      "keywords": [
+        "acute kidney injury",
+        "AKI",
+        "KDIGO",
+        "prerenal",
+        "intrinsic",
+        "postrenal",
+        "ATN",
+        "contrast nephropathy",
+        "FENa",
+        "ไตวาย",
+        "ไตเฉียบพลัน"
+      ],
+      "related": [
+        "hyperkalemia",
+        "crrt",
+        "rhabdomyolysis"
+      ],
+      "source": {
+        "name": "KDIGO AKI Guidelines 2012 + updates",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -699,6 +904,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "acute-pancreatitis",
+    "path": "/src/content/protocols/acute-pancreatitis.mdx",
+    "frontmatter": {
+      "id": "acute-pancreatitis",
+      "title": "Acute Pancreatitis",
+      "titleTh": "ตับอ่อนอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "pancreatitis",
+        "lipase",
+        "amylase",
+        "gallstone pancreatitis",
+        "necrotizing pancreatitis"
+      ],
+      "keywords": [
+        "acute pancreatitis",
+        "gallstone pancreatitis",
+        "alcoholic pancreatitis",
+        "lipase",
+        "Atlanta classification",
+        "BISAP",
+        "necrotizing pancreatitis",
+        "ตับอ่อนอักเสบ"
+      ],
+      "related": [
+        "acute-cholangitis",
+        "alcoholic-ketoacidosis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "ACG Guidelines 2018 + Revised Atlanta Classification",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -777,6 +1022,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "alcohol-withdrawal",
+    "path": "/src/content/protocols/alcohol-withdrawal.mdx",
+    "frontmatter": {
+      "id": "alcohol-withdrawal",
+      "title": "Alcohol Withdrawal Syndrome",
+      "titleTh": "ภาวะขาดสุรา",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "alcohol withdrawal",
+        "DT",
+        "delirium tremens",
+        "CIWA",
+        "benzodiazepine"
+      ],
+      "keywords": [
+        "alcohol withdrawal",
+        "delirium tremens",
+        "DT",
+        "CIWA-Ar",
+        "thiamine",
+        "Wernicke",
+        "ลงแดง",
+        "ถอนสุรา"
+      ],
+      "related": [
+        "altered-mental-status",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "ASAM Alcohol Withdrawal Management 2020",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -900,6 +1184,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "ascites-fluid-analysis",
+    "path": "/src/content/protocols/ascites-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "ascites-fluid-analysis",
+      "title": "Ascites Fluid Analysis (Paracentesis)",
+      "titleTh": "การวิเคราะห์น้ำในช่องท้อง",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "ascites",
+        "paracentesis",
+        "SAAG",
+        "SBP",
+        "cirrhosis"
+      ],
+      "keywords": [
+        "ascites",
+        "paracentesis",
+        "SAAG",
+        "spontaneous bacterial peritonitis",
+        "SBP",
+        "cirrhosis",
+        "portal hypertension",
+        "น้ำในช่องท้อง",
+        "เจาะท้อง"
+      ],
+      "related": [
+        "ugib-variceal",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "AASLD Ascites Guidelines 2021 + EASL Cirrhosis 2018",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "asystole",
     "path": "/src/content/protocols/asystole.mdx",
     "frontmatter": {
@@ -937,6 +1261,87 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "atrial-fibrillation",
+    "path": "/src/content/protocols/atrial-fibrillation.mdx",
+    "frontmatter": {
+      "id": "atrial-fibrillation",
+      "title": "Atrial Fibrillation / Flutter",
+      "titleTh": "หัวใจห้องบนสั่นพลิ้ว",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "atrial fibrillation",
+        "AFib",
+        "anticoagulation",
+        "CHA2DS2-VASc",
+        "rate control",
+        "cardioversion"
+      ],
+      "keywords": [
+        "atrial fibrillation",
+        "AF",
+        "atrial flutter",
+        "CHADS",
+        "CHA2DS2-VASc",
+        "HAS-BLED",
+        "rate control",
+        "rhythm control",
+        "cardioversion",
+        "หัวใจเต้นผิดจังหวะ",
+        "หัวใจสั่น"
+      ],
+      "related": [
+        "tachyarrhythmia-unstable",
+        "svt",
+        "stroke-pathway"
+      ],
+      "source": {
+        "name": "AHA/ACC/ESC 2024 AFib Guidelines",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "benzodiazepine-overdose",
+    "path": "/src/content/protocols/benzodiazepine-overdose.mdx",
+    "frontmatter": {
+      "id": "benzodiazepine-overdose",
+      "title": "Benzodiazepine Overdose",
+      "titleTh": "พิษจากยากลุ่มเบนโซไดอะซีปีน",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "benzodiazepine",
+        "flumazenil",
+        "diazepam",
+        "midazolam"
+      ],
+      "keywords": [
+        "benzodiazepine overdose",
+        "flumazenil",
+        "diazepam",
+        "alprazolam",
+        "midazolam",
+        "lorazepam",
+        "พิษยานอนหลับ"
+      ],
+      "related": [
+        "opioid-overdose",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACMT + Goldfrank's Tox",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1006,6 +1411,211 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "ESC 2015 pericardial + ACLS",
         "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "cellulitis",
+    "path": "/src/content/protocols/cellulitis.mdx",
+    "frontmatter": {
+      "id": "cellulitis",
+      "title": "Cellulitis / Erysipelas",
+      "titleTh": "ผิวหนังอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "cellulitis",
+        "erysipelas",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis"
+      ],
+      "keywords": [
+        "cellulitis",
+        "erysipelas",
+        "SSTI",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis",
+        "ผิวหนังอักเสบ",
+        "แผลอักเสบ"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection"
+      ],
+      "source": {
+        "name": "IDSA SSTI Guidelines 2014 + updates",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "community-acquired-pneumonia",
+    "path": "/src/content/protocols/community-acquired-pneumonia.mdx",
+    "frontmatter": {
+      "id": "community-acquired-pneumonia",
+      "title": "Community-Acquired Pneumonia (CAP)",
+      "titleTh": "ปอดอักเสบที่ได้รับจากชุมชน",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "pneumonia",
+        "CAP",
+        "CURB-65",
+        "antibiotic"
+      ],
+      "keywords": [
+        "community acquired pneumonia",
+        "CAP",
+        "CURB-65",
+        "pneumonia severity index",
+        "PSI",
+        "HAP",
+        "VAP",
+        "ปอดอักเสบ",
+        "ปอดบวม"
+      ],
+      "related": [
+        "curb-65",
+        "septic-shock",
+        "dyspnea"
+      ],
+      "source": {
+        "name": "IDSA/ATS 2019 CAP Guidelines + Thai CAP Consensus 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "copd-exacerbation",
+    "path": "/src/content/protocols/copd-exacerbation.mdx",
+    "frontmatter": {
+      "id": "copd-exacerbation",
+      "title": "COPD Exacerbation",
+      "titleTh": "COPD กำเริบ",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "COPD",
+        "exacerbation",
+        "NIV",
+        "BiPAP",
+        "bronchodilator"
+      ],
+      "keywords": [
+        "COPD",
+        "AECOPD",
+        "chronic obstructive pulmonary disease",
+        "BiPAP",
+        "NIV",
+        "ipratropium",
+        "salbutamol",
+        "ถุงลมโป่งพอง",
+        "COPD กำเริบ"
+      ],
+      "related": [
+        "severe-asthma",
+        "acute-pulmonary-edema",
+        "dyspnea"
+      ],
+      "source": {
+        "name": "GOLD 2024 + ATS/ERS 2023",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "crrt",
+    "path": "/src/content/protocols/crrt.mdx",
+    "frontmatter": {
+      "id": "crrt",
+      "title": "CRRT — Continuous Renal Replacement Therapy",
+      "titleTh": "การบำบัดทดแทนไตแบบต่อเนื่อง",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "CRRT",
+        "AKI",
+        "hemodialysis",
+        "ICU",
+        "renal replacement"
+      ],
+      "keywords": [
+        "CRRT",
+        "CVVH",
+        "CVVHD",
+        "CVVHDF",
+        "continuous renal replacement",
+        "AKI",
+        "acute kidney injury",
+        "citrate",
+        "anticoagulation",
+        "ไตวายเฉียบพลัน",
+        "ฟอกไต"
+      ],
+      "related": [
+        "septic-shock",
+        "hyperkalemia",
+        "hyponatremia-symptomatic"
+      ],
+      "source": {
+        "name": "KDIGO AKI Guidelines 2012 + STARRT-AKI Trial + Intensive Care Med 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "dengue",
+    "path": "/src/content/protocols/dengue.mdx",
+    "frontmatter": {
+      "id": "dengue",
+      "title": "Dengue Fever",
+      "titleTh": "ไข้เลือดออก / Dengue",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "dengue",
+        "DHF",
+        "dengue hemorrhagic fever",
+        "thrombocytopenia",
+        "plasma leak",
+        "Thailand endemic"
+      ],
+      "keywords": [
+        "dengue",
+        "DHF",
+        "DSS",
+        "dengue shock syndrome",
+        "NS1",
+        "dengue IgM",
+        "tourniquet test",
+        "ไข้เลือดออก",
+        "dengue ประเทศไทย"
+      ],
+      "related": [
+        "septic-shock",
+        "fever",
+        "rash"
+      ],
+      "source": {
+        "name": "WHO Dengue Guidelines 2009 + Thailand MOPH Dengue Protocol 2023",
+        "year": 2023
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -1087,6 +1697,47 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "hiv-pep-prep",
+    "path": "/src/content/protocols/hiv-pep-prep.mdx",
+    "frontmatter": {
+      "id": "hiv-pep-prep",
+      "title": "HIV PEP / PrEP",
+      "titleTh": "ยาป้องกัน HIV — PEP และ PrEP",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "HIV",
+        "PEP",
+        "PrEP",
+        "post-exposure prophylaxis",
+        "pre-exposure prophylaxis",
+        "antiretroviral"
+      ],
+      "keywords": [
+        "PEP",
+        "PrEP",
+        "HIV prophylaxis",
+        "nPEP",
+        "needle stick",
+        "sexual assault",
+        "TDF/FTC",
+        "Truvada",
+        "ป้องกัน HIV",
+        "ยาต้านไวรัส HIV"
+      ],
+      "related": [
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Thai MOPH HIV PEP Guidelines 2023 + CDC 2021 PrEP Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1333,6 +1984,130 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "leptospirosis",
+    "path": "/src/content/protocols/leptospirosis.mdx",
+    "frontmatter": {
+      "id": "leptospirosis",
+      "title": "Leptospirosis",
+      "titleTh": "ไข้ฉี่หนู (เลปโตสไปโรสิส)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "leptospirosis",
+        "Weil disease",
+        "Thailand endemic",
+        "Doxycycline",
+        "Jarisch-Herxheimer"
+      ],
+      "keywords": [
+        "leptospirosis",
+        "Weil disease",
+        "Weil syndrome",
+        "ไข้ฉี่หนู",
+        "เลปโต",
+        "Leptospira",
+        "rice farmer",
+        "flooding",
+        "doxycycline"
+      ],
+      "related": [
+        "septic-shock",
+        "dengue",
+        "malaria"
+      ],
+      "source": {
+        "name": "WHO Leptospirosis Guidelines + Thai MOPH 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "malaria",
+    "path": "/src/content/protocols/malaria.mdx",
+    "frontmatter": {
+      "id": "malaria",
+      "title": "Malaria",
+      "titleTh": "มาลาเรีย",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "malaria",
+        "Plasmodium falciparum",
+        "Plasmodium vivax",
+        "artesunate",
+        "Thailand border"
+      ],
+      "keywords": [
+        "malaria",
+        "Plasmodium",
+        "falciparum",
+        "vivax",
+        "ovale",
+        "malariae",
+        "knowlesi",
+        "artemether",
+        "artesunate",
+        "มาลาเรีย",
+        "ไข้มาลาเรีย"
+      ],
+      "related": [
+        "dengue",
+        "leptospirosis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "WHO Malaria 2023 + Thai MOPH Malaria Protocol",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "melioidosis",
+    "path": "/src/content/protocols/melioidosis.mdx",
+    "frontmatter": {
+      "id": "melioidosis",
+      "title": "Melioidosis",
+      "titleTh": "เมลิออยด์ (โรคไม้ไผ่)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "melioidosis",
+        "Burkholderia pseudomallei",
+        "Thailand endemic",
+        "NE Thailand",
+        "ceftazidime"
+      ],
+      "keywords": [
+        "melioidosis",
+        "Burkholderia pseudomallei",
+        "Whitmore disease",
+        "เมลิออยด์",
+        "เมลิออยโดสิส",
+        "โรคไม้ไผ่",
+        "diabetic farmer",
+        "ceftazidime",
+        "meropenem"
+      ],
+      "related": [
+        "septic-shock",
+        "community-acquired-pneumonia"
+      ],
+      "source": {
+        "name": "Thai MOPH + Darwin-Thailand Protocol (Melioidosis Research) 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "meningitis-empiric",
     "path": "/src/content/protocols/meningitis-empiric.mdx",
     "frontmatter": {
@@ -1366,6 +2141,88 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "IDSA Bacterial Meningitis Guideline",
         "year": 2004
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "opioid-overdose",
+    "path": "/src/content/protocols/opioid-overdose.mdx",
+    "frontmatter": {
+      "id": "opioid-overdose",
+      "title": "Opioid Overdose",
+      "titleTh": "พิษจากยาโอปิออยด์",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "opioid",
+        "naloxone",
+        "heroin",
+        "fentanyl",
+        "respiratory depression"
+      ],
+      "keywords": [
+        "opioid overdose",
+        "naloxone",
+        "narcan",
+        "morphine",
+        "fentanyl",
+        "heroin",
+        "tramadol",
+        "พิษมอร์ฟีน",
+        "ทรามาดอล"
+      ],
+      "related": [
+        "status-epilepticus",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACMT + Thai Tox Reference",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "organophosphate-poisoning",
+    "path": "/src/content/protocols/organophosphate-poisoning.mdx",
+    "frontmatter": {
+      "id": "organophosphate-poisoning",
+      "title": "Organophosphate Poisoning",
+      "titleTh": "พิษสารออร์กาโนฟอสเฟต (ยาฆ่าแมลง)",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "organophosphate",
+        "cholinergic",
+        "atropine",
+        "pralidoxime",
+        "insecticide",
+        "Thailand"
+      ],
+      "keywords": [
+        "organophosphate",
+        "OP poisoning",
+        "cholinergic toxidrome",
+        "atropine",
+        "pralidoxime",
+        "2-PAM",
+        "SLUDGE",
+        "DUMBBELS",
+        "ยาฆ่าแมลง",
+        "พิษ OP"
+      ],
+      "related": [
+        "status-epilepticus",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Goldfrank's Toxicologic Emergencies + WHO 2008 OP Guidelines",
+        "year": 2023
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -1417,6 +2274,207 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "pleural-fluid-analysis",
+    "path": "/src/content/protocols/pleural-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "pleural-fluid-analysis",
+      "title": "Pleural Fluid Analysis",
+      "titleTh": "การวิเคราะห์น้ำในช่องเยื่อหุ้มปอด",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "pleural effusion",
+        "thoracentesis",
+        "Light's criteria",
+        "exudate",
+        "transudate"
+      ],
+      "keywords": [
+        "pleural effusion",
+        "thoracentesis",
+        "Light criteria",
+        "exudate",
+        "transudate",
+        "parapneumonic effusion",
+        "empyema",
+        "น้ำในช่องปอด",
+        "เจาะน้ำปอด"
+      ],
+      "related": [
+        "septic-shock",
+        "pe-pathway"
+      ],
+      "source": {
+        "name": "ACCP Evidence-Based Clinical Practice Guidelines 2018 + BTS Pleural Disease 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "pyelonephritis",
+    "path": "/src/content/protocols/pyelonephritis.mdx",
+    "frontmatter": {
+      "id": "pyelonephritis",
+      "title": "Acute Pyelonephritis",
+      "titleTh": "กรวยไตอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "pyelonephritis",
+        "UTI",
+        "urinary tract infection",
+        "E. coli",
+        "ESBL"
+      ],
+      "keywords": [
+        "pyelonephritis",
+        "UTI",
+        "complicated UTI",
+        "urinary tract infection",
+        "E. coli",
+        "ESBL",
+        "urosepsis",
+        "กรวยไตอักเสบ",
+        "กระเพาะปัสสาวะอักเสบ"
+      ],
+      "related": [
+        "septic-shock",
+        "urinary",
+        "antibiotic-empirical-by-site"
+      ],
+      "source": {
+        "name": "IDSA UTI Guidelines + EAU Urological Infections 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "rabies-pep",
+    "path": "/src/content/protocols/rabies-pep.mdx",
+    "frontmatter": {
+      "id": "rabies-pep",
+      "title": "Rabies Post-Exposure Prophylaxis (PEP)",
+      "titleTh": "ป้องกันโรคพิษสุนัขบ้า (PEP)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "rabies",
+        "PEP",
+        "animal bite",
+        "HRIG",
+        "vaccine"
+      ],
+      "keywords": [
+        "rabies",
+        "PEP",
+        "animal bite",
+        "dog bite",
+        "cat bite",
+        "HRIG",
+        "rabies vaccine",
+        "essen schedule",
+        "zagreb",
+        "พิษสุนัขบ้า",
+        "สุนัขกัด"
+      ],
+      "related": [
+        "snakebite",
+        "cellulitis"
+      ],
+      "source": {
+        "name": "WHO Rabies 2018 + Thai Red Cross Society + MOPH 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "rhabdomyolysis",
+    "path": "/src/content/protocols/rhabdomyolysis.mdx",
+    "frontmatter": {
+      "id": "rhabdomyolysis",
+      "title": "Rhabdomyolysis",
+      "titleTh": "ภาวะกล้ามเนื้อลายสลาย",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "rhabdomyolysis",
+        "CK",
+        "myoglobinuria",
+        "AKI",
+        "compartment syndrome"
+      ],
+      "keywords": [
+        "rhabdomyolysis",
+        "CK",
+        "creatine kinase",
+        "myoglobin",
+        "AKI",
+        "compartment syndrome",
+        "กล้ามเนื้อลายสลาย"
+      ],
+      "related": [
+        "hyperkalemia",
+        "acute-limb-ischemia"
+      ],
+      "source": {
+        "name": "KDIGO + Rhabdomyolysis Review NEJM",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "scrub-typhus",
+    "path": "/src/content/protocols/scrub-typhus.mdx",
+    "frontmatter": {
+      "id": "scrub-typhus",
+      "title": "Scrub Typhus",
+      "titleTh": "ไข้รากสาด (สครับไทฟัส)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "scrub typhus",
+        "Orientia tsutsugamushi",
+        "eschar",
+        "Thailand endemic",
+        "doxycycline"
+      ],
+      "keywords": [
+        "scrub typhus",
+        "Orientia tsutsugamushi",
+        "ไข้รากสาด",
+        "สครับ",
+        "eschar",
+        "rickettsial",
+        "doxycycline"
+      ],
+      "related": [
+        "leptospirosis",
+        "dengue",
+        "malaria",
+        "fever"
+      ],
+      "source": {
+        "name": "Thai MOPH Rickettsial Diseases 2023 + CDC",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1493,6 +2551,49 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       ],
       "source": {
         "name": "GINA Guideline + Thai Asthma Guideline",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "snakebite",
+    "path": "/src/content/protocols/snakebite.mdx",
+    "frontmatter": {
+      "id": "snakebite",
+      "title": "Snakebite",
+      "titleTh": "งูกัด",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "snakebite",
+        "envenomation",
+        "antivenom",
+        "Thailand",
+        "cobra",
+        "pit viper"
+      ],
+      "keywords": [
+        "snakebite",
+        "งูกัด",
+        "antivenom",
+        "cobra",
+        "king cobra",
+        "pit viper",
+        "Russell's viper",
+        "banded krait",
+        "งูเห่า",
+        "งูกะปะ",
+        "งูแมวเซา"
+      ],
+      "related": [
+        "anaphylaxis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "WHO Snakebite Guidelines 2016 + Thai Red Cross Antivenom Reference",
         "year": 2023
       },
       "last_reviewed": "2026-04",
@@ -1714,6 +2815,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "synovial-fluid-analysis",
+    "path": "/src/content/protocols/synovial-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "synovial-fluid-analysis",
+      "title": "Synovial Fluid Analysis (Arthrocentesis)",
+      "titleTh": "การวิเคราะห์น้ำในข้อ",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "septic arthritis",
+        "arthrocentesis",
+        "crystal arthritis",
+        "gout",
+        "pseudogout"
+      ],
+      "keywords": [
+        "synovial fluid",
+        "septic arthritis",
+        "gout",
+        "pseudogout",
+        "arthrocentesis",
+        "monosodium urate",
+        "CPPD",
+        "น้ำในข้อ",
+        "เจาะข้อ"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection"
+      ],
+      "source": {
+        "name": "ACR Clinical Practice Guidelines + Rheumatology in Practice",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "tachyarrhythmia-unstable",
     "path": "/src/content/protocols/tachyarrhythmia-unstable.mdx",
     "frontmatter": {
@@ -1802,6 +2943,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "tetanus-prophylaxis",
+    "path": "/src/content/protocols/tetanus-prophylaxis.mdx",
+    "frontmatter": {
+      "id": "tetanus-prophylaxis",
+      "title": "Tetanus Prophylaxis (Wound Care)",
+      "titleTh": "การป้องกันบาดทะยักจากแผล",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "tetanus",
+        "TIG",
+        "Td",
+        "Tdap",
+        "wound"
+      ],
+      "keywords": [
+        "tetanus",
+        "tetanus prophylaxis",
+        "Td",
+        "Tdap",
+        "TIG",
+        "tetanus immunoglobulin",
+        "wound care",
+        "บาดทะยัก"
+      ],
+      "related": [
+        "rabies-pep",
+        "cellulitis"
+      ],
+      "source": {
+        "name": "CDC + ACIP + Thai EPI Immunization Program",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "thyroid-storm",
     "path": "/src/content/protocols/thyroid-storm.mdx",
     "frontmatter": {
@@ -1871,6 +3051,129 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "AACT 2002 + UpToDate",
         "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "tuberculosis",
+    "path": "/src/content/protocols/tuberculosis.mdx",
+    "frontmatter": {
+      "id": "tuberculosis",
+      "title": "Tuberculosis (Pulmonary + Extrapulmonary)",
+      "titleTh": "วัณโรค (TB)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "tuberculosis",
+        "TB",
+        "MDR-TB",
+        "HRZE",
+        "Thailand"
+      ],
+      "keywords": [
+        "tuberculosis",
+        "TB",
+        "pulmonary TB",
+        "HRZE",
+        "isoniazid",
+        "rifampicin",
+        "MDR TB",
+        "XDR TB",
+        "TB meningitis",
+        "Pott disease",
+        "วัณโรค"
+      ],
+      "related": [
+        "hiv-pep-prep",
+        "meningitis-empiric"
+      ],
+      "source": {
+        "name": "WHO TB Guidelines 2022 + Thai MOPH National TB Program",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "tumor-lysis-syndrome",
+    "path": "/src/content/protocols/tumor-lysis-syndrome.mdx",
+    "frontmatter": {
+      "id": "tumor-lysis-syndrome",
+      "title": "Tumor Lysis Syndrome (TLS)",
+      "titleTh": "กลุ่มอาการเนื้องอกสลาย",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "TLS",
+        "tumor lysis",
+        "hyperuricemia",
+        "rasburicase",
+        "allopurinol"
+      ],
+      "keywords": [
+        "tumor lysis syndrome",
+        "TLS",
+        "hyperuricemia",
+        "hyperphosphatemia",
+        "hyperkalemia",
+        "allopurinol",
+        "rasburicase",
+        "เนื้องอกสลาย"
+      ],
+      "related": [
+        "acute-kidney-injury",
+        "hyperkalemia",
+        "hypocalcemia-symptomatic"
+      ],
+      "source": {
+        "name": "Cairo-Bishop Criteria + Hematology Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "ugib-nonvariceal",
+    "path": "/src/content/protocols/ugib-nonvariceal.mdx",
+    "frontmatter": {
+      "id": "ugib-nonvariceal",
+      "title": "Non-Variceal Upper GI Bleeding",
+      "titleTh": "เลือดออกทางเดินอาหารส่วนบน (ไม่ใช่จากหลอดเลือดขอด)",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "UGIB",
+        "peptic ulcer bleed",
+        "PUD",
+        "PPI",
+        "Glasgow-Blatchford"
+      ],
+      "keywords": [
+        "UGIB",
+        "upper GI bleed",
+        "peptic ulcer bleed",
+        "PPI infusion",
+        "Glasgow-Blatchford",
+        "GBS",
+        "Rockall",
+        "endoscopy",
+        "เลือดออกทางเดินอาหาร",
+        "กระเพาะเลือดออก"
+      ],
+      "related": [
+        "ugib-variceal",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "ACG UGIB Guidelines 2021 + ESGE 2021",
+        "year": 2022
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -2136,6 +3439,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "headache-red-flags",
+    "path": "/src/content/reference/headache-red-flags.mdx",
+    "frontmatter": {
+      "id": "headache-red-flags",
+      "title": "Headache Red Flags (SNOOP10)",
+      "titleTh": "สัญญาณอันตรายของอาการปวดศีรษะ",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "headache",
+        "SNOOP",
+        "thunderclap",
+        "SAH",
+        "red flags"
+      ],
+      "keywords": [
+        "headache red flags",
+        "SNOOP",
+        "SNOOP10",
+        "thunderclap headache",
+        "subarachnoid hemorrhage",
+        "SAH",
+        "giant cell arteritis",
+        "ปวดศีรษะ"
+      ],
+      "related": [
+        "subarachnoid-hemorrhage",
+        "stroke-pathway"
+      ],
+      "source": {
+        "name": "AAN + ICHD-3 + AHS 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "mechanical-ventilation-quickref",
+    "path": "/src/content/reference/mechanical-ventilation-quickref.mdx",
+    "frontmatter": {
+      "id": "mechanical-ventilation-quickref",
+      "title": "Mechanical Ventilation — Quick Reference",
+      "titleTh": "เครื่องช่วยหายใจ — อ้างอิงเร็ว",
+      "category": "reference",
+      "subcategory": "pulmonary",
+      "tags": [
+        "ventilator",
+        "ARDS",
+        "PEEP",
+        "mechanical ventilation"
+      ],
+      "keywords": [
+        "mechanical ventilation",
+        "ventilator",
+        "ARDS",
+        "PEEP",
+        "tidal volume",
+        "IBW",
+        "volume control",
+        "pressure control",
+        "APRV",
+        "เครื่องช่วยหายใจ"
+      ],
+      "related": [
+        "severe-asthma",
+        "copd-exacerbation",
+        "acid-base-abg-interpretation"
+      ],
+      "source": {
+        "name": "ARDSNet + EMCrit + SCCM Mech Vent Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "nicardipine-vs-labetalol",
     "path": "/src/content/reference/nicardipine-vs-labetalol.mdx",
     "frontmatter": {
@@ -2171,6 +3554,130 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "medium"
+    }
+  },
+  {
+    "id": "rsi-medications",
+    "path": "/src/content/reference/rsi-medications.mdx",
+    "frontmatter": {
+      "id": "rsi-medications",
+      "title": "RSI — Rapid Sequence Intubation Medications",
+      "titleTh": "ยาในการใส่ท่อช่วยหายใจแบบ RSI",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "RSI",
+        "intubation",
+        "ketamine",
+        "rocuronium",
+        "succinylcholine",
+        "etomidate"
+      ],
+      "keywords": [
+        "RSI",
+        "rapid sequence intubation",
+        "induction",
+        "paralytic",
+        "ketamine",
+        "etomidate",
+        "propofol",
+        "rocuronium",
+        "succinylcholine",
+        "ใส่ท่อช่วยหายใจ"
+      ],
+      "related": [
+        "severe-asthma",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "Scott Weingart EMCrit + Tintinalli's EM + Roberts & Hedges",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "seizure-quickref",
+    "path": "/src/content/reference/seizure-quickref.mdx",
+    "frontmatter": {
+      "id": "seizure-quickref",
+      "title": "Seizure Types — Quick Reference",
+      "titleTh": "ประเภทของอาการชัก",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "seizure",
+        "epilepsy",
+        "ILAE"
+      ],
+      "keywords": [
+        "seizure",
+        "epilepsy",
+        "focal",
+        "generalized",
+        "absence",
+        "myoclonic",
+        "psychogenic",
+        "PNES",
+        "ILAE",
+        "อาการชัก"
+      ],
+      "related": [
+        "status-epilepticus",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ILAE 2017 Classification + AES Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "vertigo-workup",
+    "path": "/src/content/reference/vertigo-workup.mdx",
+    "frontmatter": {
+      "id": "vertigo-workup",
+      "title": "Vertigo — HINTS + Dix-Hallpike Workup",
+      "titleTh": "การตรวจเวียนศีรษะ (HINTS + Dix-Hallpike)",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "vertigo",
+        "HINTS",
+        "BPPV",
+        "Dix-Hallpike",
+        "Epley"
+      ],
+      "keywords": [
+        "vertigo",
+        "dizziness",
+        "HINTS",
+        "head impulse",
+        "nystagmus",
+        "BPPV",
+        "Dix-Hallpike",
+        "Epley",
+        "vestibular neuritis",
+        "stroke",
+        "เวียนศีรษะ",
+        "ตะแคง"
+      ],
+      "related": [
+        "stroke-pathway",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "Kattah HINTS 2009 + Stroke in vertigo 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {

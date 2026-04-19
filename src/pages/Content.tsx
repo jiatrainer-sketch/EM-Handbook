@@ -1,5 +1,6 @@
 import { useEffect, useState, type ComponentType } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Callout from '@/components/Callout';
 import ContentFooter from '@/components/content/ContentFooter';
 import ContentHeader from '@/components/content/ContentHeader';
 import FavoriteButton from '@/components/content/FavoriteButton';
@@ -9,6 +10,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useRecordVisit } from '@/hooks/useFavorites';
 import { trackContentView } from '@/lib/analytics';
 import { getContentMeta, loadContent } from '@/lib/content';
+
+const MDX_COMPONENTS = { Callout };
 
 type MDXComp = ComponentType<Record<string, unknown>>;
 
@@ -83,7 +86,7 @@ export default function Content() {
         {loadError && (
           <p className="text-sm text-destructive">โหลดไม่สำเร็จ: {loadError}</p>
         )}
-        {Component && <Component />}
+        {Component && <Component components={MDX_COMPONENTS} />}
       </div>
 
       {meta.related && meta.related.length > 0 ? (
