@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ChevronDown, ChevronUp, Copy, History as HistoryIcon, Trash2 } from 'lucide-react';
+import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
+import { aiClassifyProcedure, type ProcedureSuggestion } from '@/lib/preopAi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -17,6 +18,7 @@ type FormState = {
   age: string;
   sex: Sex;
   weight: string;
+  procedureName: string;
   surgery: SurgeryRisk;
   asa: AsaClass;
   ihd: boolean;
@@ -40,6 +42,7 @@ const DEFAULT_FORM: FormState = {
   age: '',
   sex: 'M',
   weight: '60',
+  procedureName: '',
   surgery: 'low',
   asa: 'II',
   ihd: false,
@@ -187,16 +190,13 @@ function buildSummary(f: FormState): string {
   const anyFlag = activeFlags.length > 0;
   const lines: string[] = [];
   lines.push('Pre-op Clearance');
-  lines.push(
-    `Patient: ${f.age || '?'}/${f.sex}, BW ${f.weight || '?'} kg`,
-  );
+  lines.push(`Patient: ${f.age || '?'}/${f.sex}, BW ${f.weight || '?'} kg`);
+  if (f.procedureName) lines.push(`Procedure: ${f.procedureName}`);
   const asaLabel = f.asa === 'unknown' ? 'ไม่ทราบ' : f.asa;
   lines.push(
     `ASA: ${asaLabel}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
   );
-  lines.push(
-    `Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`,
-  );
+  lines.push(`Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`);
   lines.push('');
   lines.push('Recommendations:');
   recs.forEach((r) => lines.push(`- ${r}`));
@@ -265,6 +265,9 @@ export default function PreopHelper() {
   const [toast, setToast] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [surgeryAi, setSurgeryAi] = useState<{
+    loading: boolean; error: string | null; suggest: ProcedureSuggestion | null;
+  }>({ loading: false, error: null, suggest: null });
 
   useEffect(() => {
     setHistory(loadHistory());
@@ -273,6 +276,23 @@ export default function PreopHelper() {
   // Auto-check "high-risk surgery" column internally; surgery=high drives
   // RCRI directly via rcriScore(). No separate checkbox needed since the
   // "surgery risk" select is the single source of truth for that criterion.
+
+  async function handleClassifyProcedure() {
+    if (!form.procedureName.trim()) return;
+    setSurgeryAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiClassifyProcedure(form.procedureName);
+      setSurgeryAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setSurgeryAi({ loading: false, error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด', suggest: null });
+    }
+  }
+
+  function confirmSurgeryLevel() {
+    if (!surgeryAi.suggest) return;
+    update('surgery', surgeryAi.suggest.level);
+    setSurgeryAi((s) => ({ ...s, suggest: null }));
+  }
 
   const score = rcriScore(form);
   const band = useMemo(() => riskBand(score), [score]);
@@ -386,6 +406,64 @@ export default function PreopHelper() {
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
         <h2 className="text-sm font-semibold">Surgery risk</h2>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={form.procedureName}
+            onChange={(e) => {
+              update('procedureName', e.target.value);
+              setSurgeryAi({ loading: false, error: null, suggest: null });
+            }}
+            placeholder="ชื่อหัตถการ เช่น 'ผ่าตัดเปลี่ยนข้อสะโพก' หรือ 'appendectomy'"
+            className="flex-1 rounded-md border bg-background px-3 py-2 text-sm"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleClassifyProcedure}
+            disabled={!form.procedureName.trim() || surgeryAi.loading}
+          >
+            {surgeryAi.loading
+              ? <Loader2 className="h-4 w-4 animate-spin" />
+              : '🤖 AI จัดระดับ'}
+          </Button>
+        </div>
+
+        {surgeryAi.loading && (
+          <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+          </div>
+        )}
+        {surgeryAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {surgeryAi.error} —{' '}
+            <button type="button" className="underline"
+              onClick={() => setSurgeryAi({ loading: false, error: null, suggest: null })}>
+              ล้าง
+            </button>
+          </div>
+        )}
+        {surgeryAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI แนะนำ:{' '}
+              <span className="capitalize">{surgeryAi.suggest.level}</span> risk
+            </p>
+            <p className="text-xs text-amber-700 dark:text-amber-300">
+              {surgeryAi.suggest.reason}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={confirmSurgeryLevel}>
+                <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+              </Button>
+              <Button size="sm" variant="ghost"
+                onClick={() => setSurgeryAi({ loading: false, error: null, suggest: null })}>
+                ยกเลิก
+              </Button>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-2">
           {(Object.keys(SURGERY_LABELS) as SurgeryRisk[]).map((k) => (
             <label
