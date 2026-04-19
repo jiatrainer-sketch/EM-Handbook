@@ -13,6 +13,26 @@
     <meta name="theme-color" content="#0f172a" />
     <meta name="description" content="EM Handbook — Emergency Medicine reference for Thai community hospital physicians" />
     <title>EM Handbook</title>
+    <!--
+      Plausible analytics (privacy-focused, no cookies, no PII).
+      Only loads if VITE_PLAUSIBLE_DOMAIN env var is set.
+      Self-host option available: https://plausible.io/docs/self-hosting
+    -->
+    <script>
+      (function () {
+        var domain = '%VITE_PLAUSIBLE_DOMAIN%';
+        // Vite leaves the placeholder unchanged if the env var is unset
+        if (!domain || domain.charAt(0) === '%') return;
+        var s = document.createElement('script');
+        s.defer = true;
+        s.setAttribute('data-domain', domain);
+        s.src = 'https://plausible.io/js/script.js';
+        document.head.appendChild(s);
+        window.plausible = window.plausible || function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+      })();
+    </script>
     <script>
       (function () {
         try {

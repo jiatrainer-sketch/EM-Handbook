@@ -2,6 +2,7 @@ import { MessageSquare, Wrench, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAiChat } from '@/components/ai/AiChatProvider';
 import { Button } from '@/components/ui/button';
+import { trackToolUsed } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 type ToolCard = {
@@ -108,7 +109,14 @@ export default function Tools() {
                 เร็วๆ นี้
               </Button>
             ) : tool.action === 'ai' ? (
-              <Button size="sm" variant="outline" onClick={chat.open}>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  trackToolUsed(tool.title);
+                  chat.open();
+                }}
+              >
                 <MessageSquare className="mr-2 h-4 w-4" aria-hidden />
                 เปิด AI ช่วยเหลือ
               </Button>
@@ -116,7 +124,11 @@ export default function Tools() {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => tool.route && navigate(tool.route)}
+                onClick={() => {
+                  if (!tool.route) return;
+                  trackToolUsed(tool.title);
+                  navigate(tool.route);
+                }}
               >
                 เปิดเครื่องมือ
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden />

@@ -7,6 +7,7 @@ import RelatedLinks from '@/components/content/RelatedLinks';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRecordVisit } from '@/hooks/useFavorites';
+import { trackContentView } from '@/lib/analytics';
 import { getContentMeta, loadContent } from '@/lib/content';
 
 type MDXComp = ComponentType<Record<string, unknown>>;
@@ -22,6 +23,7 @@ export default function Content() {
 
   useEffect(() => {
     if (!meta) return;
+    trackContentView(meta.id, meta.category);
     let cancelled = false;
     setLoading(true);
     setLoadError(null);
