@@ -5,14 +5,18 @@ Thai physician emergency medicine reference app.
 
 ## Features
 
-- 50+ curated clinical content pieces (protocols, drips, scores, symptoms)
-- AI chat (Claude Sonnet 4.6, streaming)
-- Pre-op Clearance Helper (RCRI calculator)
-- Consult Reply Generator (structured SOAP format)
-- Ventilator Quick Start (mode + settings by scenario)
-- Offline PWA support
-- Dark mode
-- Search (Thai + English)
+- **70+ curated clinical content pieces** (protocols, drips, scores, symptoms, reference)
+- **AI chat** (Claude Sonnet 4.6, streaming, nephrology-emphasis)
+- **5 clinical tools**:
+  - Pre-op Clearance Helper — RCRI + AI classifier + labs + medications + full SOAP note
+  - Consult Reply Generator — structured SOAP template
+  - Ventilator Quick Start — IBW + scenario-based settings + ABG OCR (📷 photo) + AI vent adjustment
+  - NIHSS Calculator — 15-item stroke scale + tPA guide
+  - Drug Dose Calculator — 17 common ED drugs, weight-based
+- **Offline PWA** (iOS + Android)
+- **Dark mode** + **Cmd/Ctrl+K search**
+- **Search** (Thai + English, fuzzy)
+- **Optional privacy-focused analytics** (Plausible)
 
 ## Tech Stack
 
@@ -36,9 +40,36 @@ npm run dev
 ```
 ANTHROPIC_API_KEY=sk-ant-xxx
 AI_MODEL=claude-sonnet-4-6
+
+# Optional: Plausible analytics (privacy-focused, no cookies)
+# Set to your production domain (e.g., em-handbook.vercel.app)
+# Leave unset to disable analytics entirely
+VITE_PLAUSIBLE_DOMAIN=
 ```
 
 ⚠️ Keep `AI_MODEL` as Sonnet. See [CLAUDE.md](./CLAUDE.md) for why.
+
+## Privacy
+
+- **No tracking cookies.** Plausible (if enabled) uses no cookies and no PII.
+- **AI queries** are not stored beyond the Anthropic API provider's retention policy.
+- **Search terms and content IDs** sent to analytics contain no patient data.
+- **localStorage** stores favorites, recent visits, and templates on-device only.
+
+## Analytics (optional)
+
+Uses [Plausible](https://plausible.io) when `VITE_PLAUSIBLE_DOMAIN` is set at build time.
+Tracked events (no PII):
+- `content_view` — which content ID + category was viewed
+- `tool_used` — which tool was opened
+- `ai_query` — which AI feature was invoked (no prompt text)
+- `search` — whether search returned any hits
+- `pwa_install` — PWA installation event
+
+## Error Monitoring
+
+Currently relies on `console.error` → Vercel function logs for server errors.
+Client errors are not aggregated. Upgrade path: add Sentry if scale warrants it.
 
 ## Scripts
 
