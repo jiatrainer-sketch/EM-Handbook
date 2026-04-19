@@ -2069,5 +2069,123 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "confidence": "high",
       "severity": "high"
     }
+  },
+  {
+    "id": "nausea-vomiting",
+    "path": "/src/content/symptoms/nausea-vomiting.mdx",
+    "frontmatter": {
+      "id": "nausea-vomiting",
+      "title": "Nausea / Vomiting",
+      "titleTh": "คลื่นไส้ อาเจียน",
+      "category": "symptom",
+      "subcategory": "GI",
+      "tags": [
+        "nausea",
+        "vomiting",
+        "GI"
+      ],
+      "keywords": [
+        "nausea",
+        "vomiting",
+        "emesis",
+        "antiemetic",
+        "คลื่นไส้",
+        "อาเจียน"
+      ],
+      "related": [
+        "ugib",
+        "dka",
+        "status-epilepticus",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "Tintinalli Emergency Medicine + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "rash",
+    "path": "/src/content/symptoms/rash.mdx",
+    "frontmatter": {
+      "id": "rash",
+      "title": "Rash",
+      "titleTh": "ผื่น",
+      "category": "symptom",
+      "subcategory": "dermatology",
+      "tags": [
+        "rash",
+        "dermatology",
+        "drug reaction",
+        "SJS",
+        "anaphylaxis"
+      ],
+      "keywords": [
+        "rash",
+        "urticaria",
+        "petechiae",
+        "purpura",
+        "SJS",
+        "TEN",
+        "DRESS",
+        "anaphylaxis",
+        "ผื่น",
+        "ลมพิษ"
+      ],
+      "related": [
+        "anaphylaxis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Fitzpatrick Dermatology + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "urinary",
+    "path": "/src/content/symptoms/urinary.mdx",
+    "frontmatter": {
+      "id": "urinary",
+      "title": "Urinary symptoms",
+      "titleTh": "ปัสสาวะผิดปกติ",
+      "category": "symptom",
+      "subcategory": "GU",
+      "tags": [
+        "urinary",
+        "UTI",
+        "dysuria",
+        "hematuria"
+      ],
+      "keywords": [
+        "dysuria",
+        "frequency",
+        "urgency",
+        "hematuria",
+        "anuria",
+        "oliguria",
+        "UTI",
+        "pyelonephritis",
+        "ปัสสาวะ",
+        "ขัดเบา"
+      ],
+      "related": [
+        "septic-shock",
+        "dka"
+      ],
+      "source": {
+        "name": "IDSA UTI guidelines + Tintinalli EM",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
   }
 ];
