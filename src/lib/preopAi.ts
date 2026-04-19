@@ -26,6 +26,46 @@ export type MedPlan = {
   notes?: string[];
 };
 
+export type LabValues = {
+  hb: number | null;
+  na: number | null;
+  k: number | null;
+  ca: number | null;
+  cr: number | null;
+  egfr: number | null;
+  platelet: number | null;
+  inr: number | null;
+  fbs: number | null;
+  albumin: number | null;
+  ast: number | null;
+  alt: number | null;
+  other: string;
+  notes: string;
+};
+
+export async function extractLabsFromImage(
+  imageBase64: string,
+  mediaType: 'image/jpeg' | 'image/png' | 'image/webp' = 'image/jpeg',
+): Promise<LabValues> {
+  const res = await fetch('/api/ai/extract-labs', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ imageBase64, mediaType }),
+  });
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`;
+    try {
+      const body = (await res.json()) as { error?: string };
+      if (body.error) msg = body.error;
+    } catch {
+      // ignore
+    }
+    throw new ChatError(msg, res.status);
+  }
+  const data = (await res.json()) as { values: LabValues };
+  return data.values;
+}
+
 export type LabFinding = {
   lab: string;
   value: string;
@@ -39,22 +79,89 @@ export type LabFinding = {
 
 const AI_SYSTEM_HINT = `(Output must be valid JSON only. No markdown fences, no commentary.)`;
 
+/**
+ * Tolerant JSON extractor for LLM output.
+ * - strips markdown fences (```json ... ```)
+ * - trims to first {/[ .. last }/]
+ * - removes trailing commas (AI common mistake)
+ * - attempts to auto-close missing brackets if output was truncated
+ */
 function extractJson<T>(raw: string): T {
   let s = raw.trim();
-  // Strip optional ```json fences
+
+  // 1. Strip markdown fences
   s = s.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
-  // Find first { or [ and last } or ] as fallback
-  const start = Math.min(
-    ...['{', '['].map((c) => {
-      const i = s.indexOf(c);
-      return i === -1 ? Infinity : i;
-    }),
-  );
-  const end = Math.max(s.lastIndexOf('}'), s.lastIndexOf(']'));
-  if (start !== Infinity && end > start) {
-    s = s.slice(start, end + 1);
+
+  // 2. Locate JSON region (first { or [ to last } or ])
+  const firstBrace = s.indexOf('{');
+  const firstBracket = s.indexOf('[');
+  const start =
+    firstBrace === -1
+      ? firstBracket
+      : firstBracket === -1
+        ? firstBrace
+        : Math.min(firstBrace, firstBracket);
+
+  if (start === -1) {
+    throw new SyntaxError('no JSON object/array in response');
   }
-  return JSON.parse(s) as T;
+
+  const lastBrace = s.lastIndexOf('}');
+  const lastBracket = s.lastIndexOf(']');
+  const end = Math.max(lastBrace, lastBracket);
+  s = end > start ? s.slice(start, end + 1) : s.slice(start);
+
+  // 3. Try as-is
+  try {
+    return JSON.parse(s) as T;
+  } catch {
+    // continue to repair attempts
+  }
+
+  // 4. Remove trailing commas before } or ]
+  let repaired = s.replace(/,(\s*[}\]])/g, '$1');
+  try {
+    return JSON.parse(repaired) as T;
+  } catch {
+    // continue
+  }
+
+  // 5. If output was truncated (token limit hit), attempt auto-close
+  //    by counting unmatched brackets and appending them.
+  const openBraces = (repaired.match(/\{/g) ?? []).length;
+  const closeBraces = (repaired.match(/\}/g) ?? []).length;
+  const openBrackets = (repaired.match(/\[/g) ?? []).length;
+  const closeBrackets = (repaired.match(/\]/g) ?? []).length;
+
+  // Strip possibly incomplete trailing entry (up to last complete ] or })
+  const lastComplete = Math.max(
+    repaired.lastIndexOf('"'),
+    repaired.lastIndexOf('}'),
+    repaired.lastIndexOf(']'),
+  );
+  if (lastComplete > 0) {
+    repaired = repaired.slice(0, lastComplete + 1);
+  }
+  // Drop trailing partial key:value (cuts after last `,`)
+  const lastComma = repaired.lastIndexOf(',');
+  if (lastComma > 0 && !/[}\]]\s*$/.test(repaired)) {
+    repaired = repaired.slice(0, lastComma);
+  }
+  // Close unmatched brackets in reverse-open order
+  const bracketsToClose: string[] = [];
+  if (openBrackets > closeBrackets) {
+    for (let i = 0; i < openBrackets - closeBrackets; i++) bracketsToClose.push(']');
+  }
+  if (openBraces > closeBraces) {
+    for (let i = 0; i < openBraces - closeBraces; i++) bracketsToClose.push('}');
+  }
+  repaired += bracketsToClose.reverse().join('');
+
+  try {
+    return JSON.parse(repaired) as T;
+  } catch (e) {
+    throw e instanceof Error ? e : new SyntaxError('JSON parse failed');
+  }
 }
 
 async function askJson<T>(userPrompt: string, maxTokens = 800): Promise<T> {
@@ -152,14 +259,19 @@ Apply evidence-based rules:
 - NSAIDs → hold 3–7 days
 - Herbal/supplement (ginkgo, garlic, ginseng) → hold 7 days
 
-Respond in Thai (ใช้ภาษาไทย). Respond with JSON:
+Respond in Thai (ใช้ภาษาไทย). Keep each instruction concise (≤ 15 Thai words).
+**CRITICAL**: Respond with ONE valid JSON object only. No markdown fences, no extra text.
+Each string must be one line (no literal newlines inside strings).
+Escape any " in strings as \\".
+
+Schema:
 {
-  "continue": [{"name": "drug name", "instruction": "Thai note"}],
-  "hold": [{"name": "drug name", "instruction": "Thai note (timing)"}],
-  "restart": [{"name": "drug name", "instruction": "Thai note (timing + conditions)"}],
-  "notes": ["ข้อควรระวัง (optional)"]
+  "continue": [{"name": "drug", "instruction": "≤15 words Thai"}],
+  "hold":     [{"name": "drug", "instruction": "≤15 words Thai (timing)"}],
+  "restart":  [{"name": "drug", "instruction": "≤15 words Thai (timing + condition)"}],
+  "notes":    ["ข้อควรระวังสั้น ๆ"]
 }`;
-  return askJson<MedPlan>(prompt, 1200);
+  return askJson<MedPlan>(prompt, 1500);
 }
 
 export async function aiAnalyzeLabs(
@@ -200,6 +312,9 @@ For each abnormal lab, provide JSON entry:
 - "correction": array of correction steps in Thai (with rate limits if applicable)
 - "recheck": timing of recheck
 
-Respond with JSON array of findings (empty array [] if all normal). Respond in Thai where instructions allow.`;
+**CRITICAL**: Respond with ONE valid JSON array only. No markdown, no extra text.
+Keep each correction/workup item ≤ 20 words. No literal newlines inside strings. Escape " as \\".
+
+Return empty [] if all normal. Respond in Thai for correction and recheck fields.`;
   return askJson<LabFinding[]>(prompt, 1500);
 }

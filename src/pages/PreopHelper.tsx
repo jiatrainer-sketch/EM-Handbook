@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Camera, CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
 import {
   aiAnalyzeLabs,
   aiClassifyProcedure,
   aiMapComorbidities,
   aiPlanMeds,
+  extractLabsFromImage,
   type ComorbidSuggestion,
   type LabFinding,
+  type LabValues,
   type MedPlan,
   type ProcedureSuggestion,
 } from '@/lib/preopAi';
@@ -634,6 +636,10 @@ export default function PreopHelper() {
   const [labsAi, setLabsAi] = useState<{
     loading: boolean; error: string | null; suggest: LabFinding[] | null;
   }>({ loading: false, error: null, suggest: null });
+  const [labsOcr, setLabsOcr] = useState<{
+    loading: boolean; error: string | null; notes: string | null;
+  }>({ loading: false, error: null, notes: null });
+  const labsFileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setHistory(loadHistory());
@@ -720,6 +726,74 @@ export default function PreopHelper() {
       notes: p.notes ?? [],
     });
     setMedsAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function compressImageToBase64(
+    file: File,
+  ): Promise<{ data: string; mediaType: 'image/jpeg' }> {
+    const bitmap = await createImageBitmap(file);
+    const maxDim = 1400; // larger for lab text readability
+    const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('ไม่สามารถใช้ canvas ได้');
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, 'image/jpeg', 0.85),
+    );
+    if (!blob) throw new Error('compress รูปไม่สำเร็จ');
+    const buf = await blob.arrayBuffer();
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return { data: btoa(binary), mediaType: 'image/jpeg' };
+  }
+
+  async function handleLabsPhoto(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setLabsOcr({ loading: true, error: null, notes: null });
+    try {
+      const { data, mediaType } = await compressImageToBase64(file);
+      const values: LabValues = await extractLabsFromImage(data, mediaType);
+      // Pre-fill form.labs with parsed values (null → leave untouched)
+      setForm((prev) => ({
+        ...prev,
+        labs: {
+          hb: values.hb != null ? String(values.hb) : prev.labs.hb,
+          na: values.na != null ? String(values.na) : prev.labs.na,
+          k: values.k != null ? String(values.k) : prev.labs.k,
+          ca: values.ca != null ? String(values.ca) : prev.labs.ca,
+          cr: values.cr != null ? String(values.cr) : prev.labs.cr,
+          egfr: values.egfr != null ? String(values.egfr) : prev.labs.egfr,
+          platelet: values.platelet != null ? String(values.platelet) : prev.labs.platelet,
+          inr: values.inr != null ? String(values.inr) : prev.labs.inr,
+          fbs: values.fbs != null ? String(values.fbs) : prev.labs.fbs,
+          albumin: values.albumin != null ? String(values.albumin) : prev.labs.albumin,
+          ast: values.ast != null ? String(values.ast) : prev.labs.ast,
+          alt: values.alt != null ? String(values.alt) : prev.labs.alt,
+        },
+        labOther: values.other && values.other.trim()
+          ? (prev.labOther ? `${prev.labOther}; ${values.other}` : values.other)
+          : prev.labOther,
+      }));
+      setLabsOcr({
+        loading: false,
+        error: null,
+        notes: values.notes || 'เติมค่าจากรูปแล้ว — กรุณาตรวจก่อนกด AI วิเคราะห์',
+      });
+    } catch (err) {
+      setLabsOcr({
+        loading: false,
+        error: err instanceof Error ? err.message : 'OCR ล้มเหลว',
+        notes: null,
+      });
+    }
   }
 
   async function handleAnalyzeLabs() {
@@ -1353,6 +1427,49 @@ export default function PreopHelper() {
               onChange={() => update('needBridge', !form.needBridge)}
               label="ต้อง Bridge LMWH (mech valve, CHA₂DS₂-VASc ≥4, VTE ใน 3 เดือน)"
             />
+            <InfoCallout title="Bridging LMWH — เมื่อไหร่ + dose + timing">
+              <p className="mb-1 font-medium">🧭 ใครต้อง bridge (high-risk indications)</p>
+              <ul className="mb-2 list-disc space-y-0.5 pl-4">
+                <li><strong>Mechanical heart valve</strong> — โดยเฉพาะ mitral, dual valve, older ball-cage</li>
+                <li><strong>AF + CHA₂DS₂-VASc ≥ 7</strong> หรือ stroke/TIA ใน 3 เดือน</li>
+                <li><strong>VTE ภายใน 3 เดือน</strong> (DVT/PE)</li>
+                <li><strong>Severe thrombophilia</strong> (protein C/S, AT deficiency, APL syndrome)</li>
+              </ul>
+              <p className="mb-1 font-medium">⛔ ไม่ต้อง bridge (low-risk)</p>
+              <ul className="mb-2 list-disc space-y-0.5 pl-4">
+                <li>AF + CHA₂DS₂-VASc 1–4 (BRIDGE trial: ↑ bleeding, ไม่ลด stroke)</li>
+                <li>VTE &gt; 3 เดือน (ยกเว้น active cancer)</li>
+                <li>Aortic bileaflet valve + no risk factors</li>
+                <li>DOAC (apixaban, rivaroxaban, dabigatran, edoxaban) — ไม่ bridge, แค่หยุดตาม CrCl</li>
+              </ul>
+              <p className="mb-1 font-medium">💉 LMWH dose (bridging)</p>
+              <ul className="mb-2 list-disc space-y-0.5 pl-4">
+                <li><strong>Enoxaparin 1 mg/kg SC q12h</strong> (therapeutic)</li>
+                <li>หรือ Enoxaparin 1.5 mg/kg SC q24h</li>
+                <li>CrCl &lt; 30 → Enoxaparin 1 mg/kg SC q24h (reduce) หรือ UFH IV</li>
+                <li>Dalteparin 100 U/kg q12h หรือ 200 U/kg q24h</li>
+              </ul>
+              <p className="mb-1 font-medium">⏱ Timing — pre-op</p>
+              <ul className="mb-2 list-disc space-y-0.5 pl-4">
+                <li>Day −5: หยุด warfarin</li>
+                <li>Day −3: เริ่ม LMWH therapeutic เมื่อ INR &lt; 2</li>
+                <li><strong>Day −1: last LMWH dose ≥ 24 ชม. ก่อนผ่าตัด</strong> (ครึ่ง dose ถ้าใช้ q24h)</li>
+                <li>Day 0 (OR): ตรวจ INR &lt; 1.5 (หรือ &lt; 1.3 สำหรับ neuraxial)</li>
+              </ul>
+              <p className="mb-1 font-medium">⏱ Timing — post-op</p>
+              <ul className="mb-2 list-disc space-y-0.5 pl-4">
+                <li>POD 0–1: restart warfarin ที่ home dose</li>
+                <li>LMWH therapeutic: เริ่ม <strong>24 ชม.</strong> post-op (low bleeding risk) หรือ <strong>48–72 ชม.</strong> (high bleeding risk: neuro, cardiac, major abd)</li>
+                <li>Continue LMWH จนกว่า INR จะ therapeutic (&gt; 2) × 2 วันติด</li>
+              </ul>
+              <p className="mb-1 font-medium">⚠️ Caution</p>
+              <ul className="list-disc space-y-0.5 pl-4">
+                <li>Neuraxial anesthesia: ห่างจาก therapeutic LMWH ≥ 24 ชม. ก่อน spinal/epidural; ≥ 4 ชม. ก่อน restart หลังถอด catheter</li>
+                <li>BRIDGE trial (2015, NEJM) — AF cohort: bridge ↑ major bleeding, ไม่ลด arterial thromboembolism</li>
+                <li>Mech valve: ยังแนะนำให้ bridge (ACCP); cardiology consult</li>
+                <li>Monitor Hb, Plt (HIT), Cr, anti-Xa ถ้า obese/CKD/pregnancy</li>
+              </ul>
+            </InfoCallout>
             <div className="flex gap-4 text-sm">
               <Checkbox
                 checked={form.needTS}
@@ -1501,6 +1618,48 @@ export default function PreopHelper() {
             className="w-full rounded-md border bg-background px-3 py-2 text-sm"
           />
         </label>
+
+        {/* Photo OCR */}
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            ref={labsFileInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleLabsPhoto}
+            className="hidden"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => labsFileInputRef.current?.click()}
+            disabled={labsOcr.loading}
+          >
+            {labsOcr.loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> กำลังอ่าน…
+              </>
+            ) : (
+              <>
+                <Camera className="mr-2 h-4 w-4" /> 📷 ถ่ายรูป Lab
+              </>
+            )}
+          </Button>
+          <span className="text-[11px] text-muted-foreground">
+            ถ่ายรูปผล lab → AI เติมค่าให้ → หมอตรวจก่อนกด approve
+          </span>
+        </div>
+        {labsOcr.error && (
+          <div className="rounded-md bg-red-50 p-2 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            OCR: {labsOcr.error}
+          </div>
+        )}
+        {labsOcr.notes && (
+          <div className="rounded-md bg-emerald-50 p-2 text-xs text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">
+            ✓ {labsOcr.notes}
+          </div>
+        )}
+
         <Button
           size="sm"
           variant="outline"
@@ -1520,15 +1679,20 @@ export default function PreopHelper() {
         </Button>
 
         {labsAi.error && (
-          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
-            {labsAi.error} —{' '}
-            <button
-              type="button"
-              className="underline"
-              onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
-            >
-              ล้าง
-            </button>
+          <div className="space-y-2 rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            <p>{labsAi.error}</p>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={handleAnalyzeLabs}>
+                🔄 ลองใหม่
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
+              >
+                ล้าง
+              </Button>
+            </div>
           </div>
         )}
         {labsAi.suggest && (
@@ -1636,15 +1800,20 @@ export default function PreopHelper() {
           </div>
         )}
         {medsAi.error && (
-          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
-            {medsAi.error} —{' '}
-            <button
-              type="button"
-              className="underline"
-              onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
-            >
-              ล้าง
-            </button>
+          <div className="space-y-2 rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            <p>{medsAi.error}</p>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={handlePlanMeds}>
+                🔄 ลองใหม่
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
+              >
+                ล้าง
+              </Button>
+            </div>
           </div>
         )}
         {medsAi.suggest && (
