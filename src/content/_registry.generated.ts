@@ -1825,6 +1825,130 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "leptospirosis",
+    "path": "/src/content/protocols/leptospirosis.mdx",
+    "frontmatter": {
+      "id": "leptospirosis",
+      "title": "Leptospirosis",
+      "titleTh": "ไข้ฉี่หนู (เลปโตสไปโรสิส)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "leptospirosis",
+        "Weil disease",
+        "Thailand endemic",
+        "Doxycycline",
+        "Jarisch-Herxheimer"
+      ],
+      "keywords": [
+        "leptospirosis",
+        "Weil disease",
+        "Weil syndrome",
+        "ไข้ฉี่หนู",
+        "เลปโต",
+        "Leptospira",
+        "rice farmer",
+        "flooding",
+        "doxycycline"
+      ],
+      "related": [
+        "septic-shock",
+        "dengue",
+        "malaria"
+      ],
+      "source": {
+        "name": "WHO Leptospirosis Guidelines + Thai MOPH 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "malaria",
+    "path": "/src/content/protocols/malaria.mdx",
+    "frontmatter": {
+      "id": "malaria",
+      "title": "Malaria",
+      "titleTh": "มาลาเรีย",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "malaria",
+        "Plasmodium falciparum",
+        "Plasmodium vivax",
+        "artesunate",
+        "Thailand border"
+      ],
+      "keywords": [
+        "malaria",
+        "Plasmodium",
+        "falciparum",
+        "vivax",
+        "ovale",
+        "malariae",
+        "knowlesi",
+        "artemether",
+        "artesunate",
+        "มาลาเรีย",
+        "ไข้มาลาเรีย"
+      ],
+      "related": [
+        "dengue",
+        "leptospirosis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "WHO Malaria 2023 + Thai MOPH Malaria Protocol",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "melioidosis",
+    "path": "/src/content/protocols/melioidosis.mdx",
+    "frontmatter": {
+      "id": "melioidosis",
+      "title": "Melioidosis",
+      "titleTh": "เมลิออยด์ (โรคไม้ไผ่)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "melioidosis",
+        "Burkholderia pseudomallei",
+        "Thailand endemic",
+        "NE Thailand",
+        "ceftazidime"
+      ],
+      "keywords": [
+        "melioidosis",
+        "Burkholderia pseudomallei",
+        "Whitmore disease",
+        "เมลิออยด์",
+        "เมลิออยโดสิส",
+        "โรคไม้ไผ่",
+        "diabetic farmer",
+        "ceftazidime",
+        "meropenem"
+      ],
+      "related": [
+        "septic-shock",
+        "community-acquired-pneumonia"
+      ],
+      "source": {
+        "name": "Thai MOPH + Darwin-Thailand Protocol (Melioidosis Research) 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "meningitis-empiric",
     "path": "/src/content/protocols/meningitis-empiric.mdx",
     "frontmatter": {
@@ -2027,6 +2151,88 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       ],
       "source": {
         "name": "IDSA UTI Guidelines + EAU Urological Infections 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "rabies-pep",
+    "path": "/src/content/protocols/rabies-pep.mdx",
+    "frontmatter": {
+      "id": "rabies-pep",
+      "title": "Rabies Post-Exposure Prophylaxis (PEP)",
+      "titleTh": "ป้องกันโรคพิษสุนัขบ้า (PEP)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "rabies",
+        "PEP",
+        "animal bite",
+        "HRIG",
+        "vaccine"
+      ],
+      "keywords": [
+        "rabies",
+        "PEP",
+        "animal bite",
+        "dog bite",
+        "cat bite",
+        "HRIG",
+        "rabies vaccine",
+        "essen schedule",
+        "zagreb",
+        "พิษสุนัขบ้า",
+        "สุนัขกัด"
+      ],
+      "related": [
+        "snakebite",
+        "cellulitis"
+      ],
+      "source": {
+        "name": "WHO Rabies 2018 + Thai Red Cross Society + MOPH 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "scrub-typhus",
+    "path": "/src/content/protocols/scrub-typhus.mdx",
+    "frontmatter": {
+      "id": "scrub-typhus",
+      "title": "Scrub Typhus",
+      "titleTh": "ไข้รากสาด (สครับไทฟัส)",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "scrub typhus",
+        "Orientia tsutsugamushi",
+        "eschar",
+        "Thailand endemic",
+        "doxycycline"
+      ],
+      "keywords": [
+        "scrub typhus",
+        "Orientia tsutsugamushi",
+        "ไข้รากสาด",
+        "สครับ",
+        "eschar",
+        "rickettsial",
+        "doxycycline"
+      ],
+      "related": [
+        "leptospirosis",
+        "dengue",
+        "malaria",
+        "fever"
+      ],
+      "source": {
+        "name": "Thai MOPH Rickettsial Diseases 2023 + CDC",
         "year": 2023
       },
       "last_reviewed": "2026-04",
@@ -2497,6 +2703,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "tetanus-prophylaxis",
+    "path": "/src/content/protocols/tetanus-prophylaxis.mdx",
+    "frontmatter": {
+      "id": "tetanus-prophylaxis",
+      "title": "Tetanus Prophylaxis (Wound Care)",
+      "titleTh": "การป้องกันบาดทะยักจากแผล",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "tetanus",
+        "TIG",
+        "Td",
+        "Tdap",
+        "wound"
+      ],
+      "keywords": [
+        "tetanus",
+        "tetanus prophylaxis",
+        "Td",
+        "Tdap",
+        "TIG",
+        "tetanus immunoglobulin",
+        "wound care",
+        "บาดทะยัก"
+      ],
+      "related": [
+        "rabies-pep",
+        "cellulitis"
+      ],
+      "source": {
+        "name": "CDC + ACIP + Thai EPI Immunization Program",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
