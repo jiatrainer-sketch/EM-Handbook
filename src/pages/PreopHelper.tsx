@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
-import { aiClassifyProcedure, aiMapComorbidities, type ComorbidSuggestion, type ProcedureSuggestion } from '@/lib/preopAi';
+import {
+  aiClassifyProcedure,
+  aiMapComorbidities,
+  aiPlanMeds,
+  type ComorbidSuggestion,
+  type MedPlan,
+  type ProcedureSuggestion,
+} from '@/lib/preopAi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -61,6 +68,13 @@ type FormState = {
   hba1cValue: string;
   onChronicSteroid: boolean;
   steroidDose: string;
+  medsInput: string;
+  confirmedMedPlan: {
+    continue: string[];
+    hold: string[];
+    restart: string[];
+    notes: string[];
+  } | null;
 };
 
 type HistoryEntry = {
@@ -122,6 +136,8 @@ const DEFAULT_FORM: FormState = {
   hba1cValue: '',
   onChronicSteroid: false,
   steroidDose: '',
+  medsInput: '',
+  confirmedMedPlan: null,
 };
 
 const SURGERY_LABELS: Record<SurgeryRisk, string> = {
@@ -369,6 +385,28 @@ function buildSummary(f: FormState): string {
     );
   }
 
+  if (f.confirmedMedPlan) {
+    const mp = f.confirmedMedPlan;
+    lines.push('');
+    lines.push('Medications peri-op plan:');
+    if (mp.continue.length) {
+      lines.push('  Continue:');
+      mp.continue.forEach((m) => lines.push(`    ✓ ${m}`));
+    }
+    if (mp.hold.length) {
+      lines.push('  Hold:');
+      mp.hold.forEach((m) => lines.push(`    ⏸ ${m}`));
+    }
+    if (mp.restart.length) {
+      lines.push('  Restart post-op:');
+      mp.restart.forEach((m) => lines.push(`    🔄 ${m}`));
+    }
+    if (mp.notes.length) {
+      lines.push('  Notes:');
+      mp.notes.forEach((n) => lines.push(`    ⚠ ${n}`));
+    }
+  }
+
   lines.push('');
   lines.push(`Clearance: ${clearanceVerdict(score, anyFlag)}`);
   return lines.join('\n');
@@ -427,6 +465,9 @@ export default function PreopHelper() {
   const [comorbidAi, setComorbidAi] = useState<{
     loading: boolean; error: string | null; suggest: ComorbidSuggestion | null;
   }>({ loading: false, error: null, suggest: null });
+  const [medsAi, setMedsAi] = useState<{
+    loading: boolean; error: string | null; suggest: MedPlan | null;
+  }>({ loading: false, error: null, suggest: null });
 
   useEffect(() => {
     setHistory(loadHistory());
@@ -483,6 +524,36 @@ export default function PreopHelper() {
       return next;
     });
     setComorbidAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handlePlanMeds() {
+    if (!form.medsInput.trim()) return;
+    setMedsAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiPlanMeds(form.medsInput, {
+        surgery: form.surgery,
+        hasCkd: form.crHigh,
+      });
+      setMedsAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setMedsAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmMedPlan() {
+    if (!medsAi.suggest) return;
+    const p = medsAi.suggest;
+    update('confirmedMedPlan', {
+      continue: p.continue.map((m) => `${m.name}: ${m.instruction}`),
+      hold: p.hold.map((m) => `${m.name}: ${m.instruction}`),
+      restart: p.restart.map((m) => `${m.name}: ${m.instruction}`),
+      notes: p.notes ?? [],
+    });
+    setMedsAi((s) => ({ ...s, suggest: null }));
   }
 
   const score = rcriScore(form);
@@ -1175,6 +1246,127 @@ export default function PreopHelper() {
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm"
               />
             </label>
+          </div>
+        )}
+      </section>
+
+      {/* ── Medications AI plan ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">ยาประจำ + Peri-op Plan (AI)</h2>
+        <p className="text-xs text-muted-foreground">
+          ใส่รายการยา (ไทย/Eng) → AI แบ่งเป็น Continue / Hold / Restart
+        </p>
+        <div className="flex gap-2">
+          <textarea
+            value={form.medsInput}
+            onChange={(e) => {
+              update('medsInput', e.target.value);
+              setMedsAi({ loading: false, error: null, suggest: null });
+            }}
+            placeholder={'เช่น\nAtenolol 50 mg OD\nMetformin 500 mg BID\nWarfarin 3 mg OD (AF)\nAmlodipine 5 mg OD'}
+            rows={4}
+            className="flex-1 resize-none rounded-md border bg-background px-3 py-2 font-mono text-sm"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            className="self-end"
+            onClick={handlePlanMeds}
+            disabled={!form.medsInput.trim() || medsAi.loading}
+          >
+            {medsAi.loading ? <Loader2 className="h-4 w-4 animate-spin" /> : '🤖 AI วางแผน'}
+          </Button>
+        </div>
+
+        {medsAi.loading && (
+          <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+          </div>
+        )}
+        {medsAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {medsAi.error} —{' '}
+            <button
+              type="button"
+              className="underline"
+              onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
+            >
+              ล้าง
+            </button>
+          </div>
+        )}
+        {medsAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI แนะนำ — กดยืนยันเพื่อ apply
+            </p>
+            {medsAi.suggest.continue.length > 0 && (
+              <div>
+                <p className="font-medium text-emerald-700 dark:text-emerald-300">✅ Continue</p>
+                {medsAi.suggest.continue.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {medsAi.suggest.hold.length > 0 && (
+              <div>
+                <p className="font-medium text-amber-700 dark:text-amber-300">⏸ Hold</p>
+                {medsAi.suggest.hold.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {medsAi.suggest.restart.length > 0 && (
+              <div>
+                <p className="font-medium text-blue-700 dark:text-blue-300">🔄 Restart post-op</p>
+                {medsAi.suggest.restart.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {(medsAi.suggest.notes ?? []).length > 0 && (
+              <div>
+                <p className="font-medium text-red-700 dark:text-red-300">⚠️ Notes</p>
+                {medsAi.suggest.notes!.map((n) => (
+                  <p key={n} className="ml-2">• {n}</p>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <Button size="sm" onClick={confirmMedPlan}>
+                <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
+              >
+                ยกเลิก
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {form.confirmedMedPlan && (
+          <div className="rounded-md bg-emerald-50 px-3 py-2 text-xs dark:bg-emerald-950/40">
+            <div className="flex items-center justify-between">
+              <span className="font-medium text-emerald-700 dark:text-emerald-300">
+                ✅ Confirmed med plan (บันทึกใน summary แล้ว)
+              </span>
+              <button
+                type="button"
+                className="text-muted-foreground underline"
+                onClick={() => update('confirmedMedPlan', null)}
+              >
+                ลบ
+              </button>
+            </div>
           </div>
         )}
       </section>
