@@ -704,6 +704,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "acute-cholecystitis",
+    "path": "/src/content/protocols/acute-cholecystitis.mdx",
+    "frontmatter": {
+      "id": "acute-cholecystitis",
+      "title": "Acute Cholecystitis",
+      "titleTh": "ถุงน้ำดีอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "cholecystitis",
+        "gallstone",
+        "Tokyo Guidelines",
+        "Murphy sign",
+        "cholecystectomy"
+      ],
+      "keywords": [
+        "acute cholecystitis",
+        "cholelithiasis",
+        "gallstone",
+        "Murphy sign",
+        "Tokyo Guidelines",
+        "TG18",
+        "cholecystectomy",
+        "ถุงน้ำดีอักเสบ"
+      ],
+      "related": [
+        "acute-cholangitis",
+        "acute-pancreatitis"
+      ],
+      "source": {
+        "name": "Tokyo Guidelines 2018 + SAGES 2021",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "acute-heart-failure",
+    "path": "/src/content/protocols/acute-heart-failure.mdx",
+    "frontmatter": {
+      "id": "acute-heart-failure",
+      "title": "Acute Decompensated Heart Failure (ADHF)",
+      "titleTh": "ภาวะหัวใจล้มเหลวเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "heart failure",
+        "ADHF",
+        "pulmonary edema",
+        "cardiogenic shock",
+        "diuretic"
+      ],
+      "keywords": [
+        "acute heart failure",
+        "ADHF",
+        "CHF exacerbation",
+        "pulmonary edema",
+        "cardiogenic shock",
+        "furosemide",
+        "BNP",
+        "หัวใจล้มเหลว",
+        "ปอดบวมน้ำ"
+      ],
+      "related": [
+        "acute-pulmonary-edema",
+        "stemi",
+        "acs-nstemi"
+      ],
+      "source": {
+        "name": "ESC 2021 Heart Failure Guidelines + AHA/ACC/HFSA 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "acute-limb-ischemia",
     "path": "/src/content/protocols/acute-limb-ischemia.mdx",
     "frontmatter": {
@@ -741,6 +821,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "acute-pancreatitis",
+    "path": "/src/content/protocols/acute-pancreatitis.mdx",
+    "frontmatter": {
+      "id": "acute-pancreatitis",
+      "title": "Acute Pancreatitis",
+      "titleTh": "ตับอ่อนอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "pancreatitis",
+        "lipase",
+        "amylase",
+        "gallstone pancreatitis",
+        "necrotizing pancreatitis"
+      ],
+      "keywords": [
+        "acute pancreatitis",
+        "gallstone pancreatitis",
+        "alcoholic pancreatitis",
+        "lipase",
+        "Atlanta classification",
+        "BISAP",
+        "necrotizing pancreatitis",
+        "ตับอ่อนอักเสบ"
+      ],
+      "related": [
+        "acute-cholangitis",
+        "alcoholic-ketoacidosis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "ACG Guidelines 2018 + Revised Atlanta Classification",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1022,6 +1142,50 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "atrial-fibrillation",
+    "path": "/src/content/protocols/atrial-fibrillation.mdx",
+    "frontmatter": {
+      "id": "atrial-fibrillation",
+      "title": "Atrial Fibrillation / Flutter",
+      "titleTh": "หัวใจห้องบนสั่นพลิ้ว",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "atrial fibrillation",
+        "AFib",
+        "anticoagulation",
+        "CHA2DS2-VASc",
+        "rate control",
+        "cardioversion"
+      ],
+      "keywords": [
+        "atrial fibrillation",
+        "AF",
+        "atrial flutter",
+        "CHADS",
+        "CHA2DS2-VASc",
+        "HAS-BLED",
+        "rate control",
+        "rhythm control",
+        "cardioversion",
+        "หัวใจเต้นผิดจังหวะ",
+        "หัวใจสั่น"
+      ],
+      "related": [
+        "tachyarrhythmia-unstable",
+        "svt",
+        "stroke-pathway"
+      ],
+      "source": {
+        "name": "AHA/ACC/ESC 2024 AFib Guidelines",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "bradycardia",
     "path": "/src/content/protocols/bradycardia.mdx",
     "frontmatter": {
@@ -1092,6 +1256,126 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "cellulitis",
+    "path": "/src/content/protocols/cellulitis.mdx",
+    "frontmatter": {
+      "id": "cellulitis",
+      "title": "Cellulitis / Erysipelas",
+      "titleTh": "ผิวหนังอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "cellulitis",
+        "erysipelas",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis"
+      ],
+      "keywords": [
+        "cellulitis",
+        "erysipelas",
+        "SSTI",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis",
+        "ผิวหนังอักเสบ",
+        "แผลอักเสบ"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection"
+      ],
+      "source": {
+        "name": "IDSA SSTI Guidelines 2014 + updates",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "community-acquired-pneumonia",
+    "path": "/src/content/protocols/community-acquired-pneumonia.mdx",
+    "frontmatter": {
+      "id": "community-acquired-pneumonia",
+      "title": "Community-Acquired Pneumonia (CAP)",
+      "titleTh": "ปอดอักเสบที่ได้รับจากชุมชน",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "pneumonia",
+        "CAP",
+        "CURB-65",
+        "antibiotic"
+      ],
+      "keywords": [
+        "community acquired pneumonia",
+        "CAP",
+        "CURB-65",
+        "pneumonia severity index",
+        "PSI",
+        "HAP",
+        "VAP",
+        "ปอดอักเสบ",
+        "ปอดบวม"
+      ],
+      "related": [
+        "curb-65",
+        "septic-shock",
+        "dyspnea"
+      ],
+      "source": {
+        "name": "IDSA/ATS 2019 CAP Guidelines + Thai CAP Consensus 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "copd-exacerbation",
+    "path": "/src/content/protocols/copd-exacerbation.mdx",
+    "frontmatter": {
+      "id": "copd-exacerbation",
+      "title": "COPD Exacerbation",
+      "titleTh": "COPD กำเริบ",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "COPD",
+        "exacerbation",
+        "NIV",
+        "BiPAP",
+        "bronchodilator"
+      ],
+      "keywords": [
+        "COPD",
+        "AECOPD",
+        "chronic obstructive pulmonary disease",
+        "BiPAP",
+        "NIV",
+        "ipratropium",
+        "salbutamol",
+        "ถุงลมโป่งพอง",
+        "COPD กำเริบ"
+      ],
+      "related": [
+        "severe-asthma",
+        "acute-pulmonary-edema",
+        "dyspnea"
+      ],
+      "source": {
+        "name": "GOLD 2024 + ATS/ERS 2023",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1710,6 +1994,47 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "pyelonephritis",
+    "path": "/src/content/protocols/pyelonephritis.mdx",
+    "frontmatter": {
+      "id": "pyelonephritis",
+      "title": "Acute Pyelonephritis",
+      "titleTh": "กรวยไตอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "pyelonephritis",
+        "UTI",
+        "urinary tract infection",
+        "E. coli",
+        "ESBL"
+      ],
+      "keywords": [
+        "pyelonephritis",
+        "UTI",
+        "complicated UTI",
+        "urinary tract infection",
+        "E. coli",
+        "ESBL",
+        "urosepsis",
+        "กรวยไตอักเสบ",
+        "กระเพาะปัสสาวะอักเสบ"
+      ],
+      "related": [
+        "septic-shock",
+        "urinary",
+        "antibiotic-empirical-by-site"
+      ],
+      "source": {
+        "name": "IDSA UTI Guidelines + EAU Urological Infections 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "septic-shock",
     "path": "/src/content/protocols/septic-shock.mdx",
     "frontmatter": {
@@ -2290,6 +2615,47 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "ugib-nonvariceal",
+    "path": "/src/content/protocols/ugib-nonvariceal.mdx",
+    "frontmatter": {
+      "id": "ugib-nonvariceal",
+      "title": "Non-Variceal Upper GI Bleeding",
+      "titleTh": "เลือดออกทางเดินอาหารส่วนบน (ไม่ใช่จากหลอดเลือดขอด)",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "UGIB",
+        "peptic ulcer bleed",
+        "PUD",
+        "PPI",
+        "Glasgow-Blatchford"
+      ],
+      "keywords": [
+        "UGIB",
+        "upper GI bleed",
+        "peptic ulcer bleed",
+        "PPI infusion",
+        "Glasgow-Blatchford",
+        "GBS",
+        "Rockall",
+        "endoscopy",
+        "เลือดออกทางเดินอาหาร",
+        "กระเพาะเลือดออก"
+      ],
+      "related": [
+        "ugib-variceal",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "ACG UGIB Guidelines 2021 + ESGE 2021",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
     }
   },
   {
