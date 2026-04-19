@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
 import {
+  aiAnalyzeLabs,
   aiClassifyProcedure,
   aiMapComorbidities,
   aiPlanMeds,
   type ComorbidSuggestion,
+  type LabFinding,
   type MedPlan,
   type ProcedureSuggestion,
 } from '@/lib/preopAi';
@@ -75,6 +77,29 @@ type FormState = {
     restart: string[];
     notes: string[];
   } | null;
+  labs: {
+    hb: string;
+    na: string;
+    k: string;
+    ca: string;
+    cr: string;
+    egfr: string;
+    platelet: string;
+    inr: string;
+    fbs: string;
+    albumin: string;
+    ast: string;
+    alt: string;
+  };
+  labOther: string;
+  confirmedLabFindings: Array<{
+    lab: string;
+    severity: string;
+    verdict: 'proceed' | 'optimize' | 'postpone';
+    target: string;
+    correction: string;
+    recheck: string;
+  }> | null;
 };
 
 type HistoryEntry = {
@@ -138,6 +163,22 @@ const DEFAULT_FORM: FormState = {
   steroidDose: '',
   medsInput: '',
   confirmedMedPlan: null,
+  labs: {
+    hb: '',
+    na: '',
+    k: '',
+    ca: '',
+    cr: '',
+    egfr: '',
+    platelet: '',
+    inr: '',
+    fbs: '',
+    albumin: '',
+    ast: '',
+    alt: '',
+  },
+  labOther: '',
+  confirmedLabFindings: null,
 };
 
 const SURGERY_LABELS: Record<SurgeryRisk, string> = {
@@ -300,8 +341,12 @@ function labChecklist(f: FormState): string[] {
   return Array.from(new Set(labs));
 }
 
-function clearanceVerdict(score: number, anyRedFlag: boolean): string {
-  if (anyRedFlag) return 'Postpone / Optimize first';
+function clearanceVerdict(
+  score: number,
+  anyRedFlag: boolean,
+  labPostpone = false,
+): string {
+  if (anyRedFlag || labPostpone) return 'Postpone / Optimize first';
   if (score <= 1) return 'Proceed';
   if (score === 2) return 'Proceed with caution';
   return 'Optimize first';
@@ -407,8 +452,22 @@ function buildSummary(f: FormState): string {
     }
   }
 
+  const labFindings = f.confirmedLabFindings ?? [];
+  const labPostpone = labFindings.some((lf) => lf.verdict === 'postpone');
+  if (labFindings.length > 0) {
+    lines.push('');
+    lines.push('Lab abnormalities + correction plan:');
+    labFindings.forEach((lf) => {
+      const icon = lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢';
+      lines.push(`  ${icon} ${lf.lab} [${lf.severity}] → ${lf.verdict.toUpperCase()}`);
+      lines.push(`     Target: ${lf.target}`);
+      lines.push(`     Correction: ${lf.correction}`);
+      lines.push(`     Recheck: ${lf.recheck}`);
+    });
+  }
+
   lines.push('');
-  lines.push(`Clearance: ${clearanceVerdict(score, anyFlag)}`);
+  lines.push(`Clearance: ${clearanceVerdict(score, anyFlag, labPostpone)}`);
   return lines.join('\n');
 }
 
@@ -467,6 +526,9 @@ export default function PreopHelper() {
   }>({ loading: false, error: null, suggest: null });
   const [medsAi, setMedsAi] = useState<{
     loading: boolean; error: string | null; suggest: MedPlan | null;
+  }>({ loading: false, error: null, suggest: null });
+  const [labsAi, setLabsAi] = useState<{
+    loading: boolean; error: string | null; suggest: LabFinding[] | null;
   }>({ loading: false, error: null, suggest: null });
 
   useEffect(() => {
@@ -554,6 +616,44 @@ export default function PreopHelper() {
       notes: p.notes ?? [],
     });
     setMedsAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handleAnalyzeLabs() {
+    const hasAny =
+      Object.values(form.labs).some((v) => v.trim() !== '') ||
+      form.labOther.trim() !== '';
+    if (!hasAny) return;
+    setLabsAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiAnalyzeLabs(
+        form.labs as unknown as Record<string, string>,
+        form.labOther,
+        { surgery: form.surgery, age: Number(form.age) || 0 },
+      );
+      setLabsAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setLabsAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmLabFindings() {
+    if (!labsAi.suggest) return;
+    update(
+      'confirmedLabFindings',
+      labsAi.suggest.map((lf) => ({
+        lab: lf.lab,
+        severity: lf.severity,
+        verdict: lf.verdict,
+        target: lf.target,
+        correction: lf.correction.join('; '),
+        recheck: lf.recheck,
+      })),
+    );
+    setLabsAi((s) => ({ ...s, suggest: null }));
   }
 
   const score = rcriScore(form);
@@ -1246,6 +1346,157 @@ export default function PreopHelper() {
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm"
               />
             </label>
+          </div>
+        )}
+      </section>
+
+      {/* ── Labs + AI correction ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Lab Values & Correction Plan</h2>
+        <p className="text-xs text-muted-foreground">
+          ใส่ค่า lab ที่ผิดปกติ → AI flag + แนะนำ correction — ถ้า verdict = postpone ระบบจะเปลี่ยน clearance อัตโนมัติ
+        </p>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+          {([
+            { key: 'hb', label: 'Hb (g/dL)' },
+            { key: 'na', label: 'Na (mEq/L)' },
+            { key: 'k', label: 'K (mEq/L)' },
+            { key: 'ca', label: 'Ca (mg/dL)' },
+            { key: 'cr', label: 'Cr (mg/dL)' },
+            { key: 'egfr', label: 'eGFR' },
+            { key: 'platelet', label: 'Plt (×10³)' },
+            { key: 'inr', label: 'INR' },
+            { key: 'fbs', label: 'FBS' },
+            { key: 'albumin', label: 'Albumin' },
+            { key: 'ast', label: 'AST' },
+            { key: 'alt', label: 'ALT' },
+          ] as const).map(({ key, label }) => (
+            <label key={key} className="space-y-1">
+              <span className="text-[11px] text-muted-foreground">{label}</span>
+              <input
+                type="number"
+                step="any"
+                inputMode="decimal"
+                value={form.labs[key]}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    labs: { ...prev.labs, [key]: e.target.value },
+                  }))
+                }
+                className="w-full rounded-md border bg-background px-2 py-1.5 text-sm"
+                placeholder="—"
+              />
+            </label>
+          ))}
+        </div>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">Lab อื่น / note เพิ่ม</span>
+          <input
+            type="text"
+            value={form.labOther}
+            onChange={(e) => update('labOther', e.target.value)}
+            placeholder="เช่น HbA1c 9.2%, TSH 0.02, LFT ผิดปกติ"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleAnalyzeLabs}
+          disabled={
+            labsAi.loading ||
+            (!Object.values(form.labs).some((v) => v.trim()) && !form.labOther.trim())
+          }
+        >
+          {labsAi.loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> วิเคราะห์…
+            </>
+          ) : (
+            '🤖 AI วิเคราะห์ + Correction plan'
+          )}
+        </Button>
+
+        {labsAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {labsAi.error} —{' '}
+            <button
+              type="button"
+              className="underline"
+              onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
+            >
+              ล้าง
+            </button>
+          </div>
+        )}
+        {labsAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI วิเคราะห์ —{' '}
+              {labsAi.suggest.length === 0
+                ? 'ค่า lab ปกติทั้งหมด ✅'
+                : `พบ ${labsAi.suggest.length} รายการผิดปกติ`}
+            </p>
+            {labsAi.suggest.map((lf, i) => (
+              <div
+                key={i}
+                className={cn(
+                  'rounded-md p-2',
+                  lf.verdict === 'postpone'
+                    ? 'bg-red-100 dark:bg-red-950/40'
+                    : lf.verdict === 'optimize'
+                      ? 'bg-amber-100 dark:bg-amber-950/40'
+                      : 'bg-muted/60',
+                )}
+              >
+                <div className="font-medium">
+                  {lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢'}{' '}
+                  {lf.lab} [{lf.severity}] → {lf.verdict.toUpperCase()}
+                </div>
+                <div>Target: {lf.target}</div>
+                {lf.workup && lf.workup.length > 0 && (
+                  <div>Workup: {lf.workup.join(', ')}</div>
+                )}
+                <div>Correction: {lf.correction.join('; ')}</div>
+                <div>Recheck: {lf.recheck}</div>
+              </div>
+            ))}
+            {labsAi.suggest.length > 0 && (
+              <div className="flex gap-2">
+                <Button size="sm" onClick={confirmLabFindings}>
+                  <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
+                >
+                  ยกเลิก
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {form.confirmedLabFindings && form.confirmedLabFindings.length > 0 && (
+          <div className="space-y-1 rounded-md bg-muted/40 px-3 py-2 text-xs">
+            <div className="flex items-center justify-between font-medium">
+              <span>✅ Lab findings (confirmed)</span>
+              <button
+                type="button"
+                className="text-muted-foreground underline"
+                onClick={() => update('confirmedLabFindings', null)}
+              >
+                ลบ
+              </button>
+            </div>
+            {form.confirmedLabFindings.map((lf, i) => (
+              <p key={i}>
+                {lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢'}{' '}
+                {lf.lab} → {lf.verdict}
+              </p>
+            ))}
           </div>
         )}
       </section>
