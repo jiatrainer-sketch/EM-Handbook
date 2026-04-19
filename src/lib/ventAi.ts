@@ -1,4 +1,5 @@
 import { ChatError, streamChat } from './aiClient';
+import { extractJson } from './jsonUtils';
 
 export type AbgValues = {
   pH: number | null;
@@ -32,17 +33,6 @@ export type AbgInterpretation = {
 };
 
 const AI_SYSTEM_HINT = `(Output must be valid JSON only. No markdown fences, no commentary.)`;
-
-function extractJson<T>(raw: string): T {
-  let s = raw.trim();
-  s = s.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
-  const firstBrace = s.indexOf('{');
-  const lastBrace = s.lastIndexOf('}');
-  if (firstBrace !== -1 && lastBrace > firstBrace) {
-    s = s.slice(firstBrace, lastBrace + 1);
-  }
-  return JSON.parse(s) as T;
-}
 
 export async function extractAbgFromImage(
   imageBase64: string,
