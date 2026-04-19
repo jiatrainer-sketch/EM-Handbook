@@ -1,7 +1,13 @@
-import { useMemo, useState } from 'react';
-import { Copy } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { Camera, Copy, Loader2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import {
+  extractAbgFromImage,
+  interpretAbgAndAdjustVent,
+  type AbgInterpretation,
+  type AbgValues,
+} from '@/lib/ventAi';
 
 type Sex = 'M' | 'F';
 type Scenario = 'normal' | 'ards' | 'obstructive' | 'neuro';
@@ -165,14 +171,121 @@ const DEFAULT_FORM: FormState = {
   scenario: 'normal',
 };
 
+type AbgForm = {
+  pH: string;
+  paco2: string;
+  pao2: string;
+  hco3: string;
+  fio2: string;
+};
+
+const DEFAULT_ABG: AbgForm = { pH: '', paco2: '', pao2: '', hco3: '', fio2: '' };
+
 export default function VentilatorQuickStart() {
   const [form, setForm] = useState<FormState>(DEFAULT_FORM);
   const [toast, setToast] = useState<string | null>(null);
+  const [abg, setAbg] = useState<AbgForm>(DEFAULT_ABG);
+  const [ocrLoading, setOcrLoading] = useState(false);
+  const [ocrError, setOcrError] = useState<string | null>(null);
+  const [interpLoading, setInterpLoading] = useState(false);
+  const [interpError, setInterpError] = useState<string | null>(null);
+  const [interpResult, setInterpResult] = useState<AbgInterpretation | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const height = Number(form.heightCm) || 0;
   const ibw = useMemo(() => calcIbw(height, form.sex), [height, form.sex]);
   const settings = useMemo(() => settingsFor(form.scenario, ibw), [form.scenario, ibw]);
   const summary = useMemo(() => buildSummary(form, ibw, settings), [form, ibw, settings]);
+
+  function showToast(msg: string) {
+    setToast(msg);
+    setTimeout(() => setToast(null), 1800);
+  }
+
+  async function compressImageToBase64(file: File): Promise<{ data: string; mediaType: 'image/jpeg' }> {
+    const bitmap = await createImageBitmap(file);
+    const maxDim = 1280;
+    const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('ไม่สามารถใช้ canvas ได้');
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, 'image/jpeg', 0.82),
+    );
+    if (!blob) throw new Error('compress รูปไม่สำเร็จ');
+    const buf = await blob.arrayBuffer();
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    const b64 = btoa(binary);
+    return { data: b64, mediaType: 'image/jpeg' };
+  }
+
+  async function handlePhotoSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = ''; // allow re-picking same file
+    if (!file) return;
+    setOcrError(null);
+    setOcrLoading(true);
+    try {
+      const { data, mediaType } = await compressImageToBase64(file);
+      const values: AbgValues = await extractAbgFromImage(data, mediaType);
+      setAbg((prev) => ({
+        pH: values.pH != null ? String(values.pH) : prev.pH,
+        paco2: values.paco2 != null ? String(values.paco2) : prev.paco2,
+        pao2: values.pao2 != null ? String(values.pao2) : prev.pao2,
+        hco3: values.hco3 != null ? String(values.hco3) : prev.hco3,
+        fio2:
+          values.fio2 != null
+            ? String(values.fio2 > 1 ? values.fio2 / 100 : values.fio2)
+            : prev.fio2,
+      }));
+      showToast(values.notes ? `OCR สำเร็จ: ${values.notes}` : 'OCR เติมค่าแล้ว — ตรวจสอบก่อนใช้');
+    } catch (err) {
+      setOcrError(err instanceof Error ? err.message : 'OCR ล้มเหลว');
+    } finally {
+      setOcrLoading(false);
+    }
+  }
+
+  async function handleInterpret() {
+    const hasAny = Object.values(abg).some((v) => v.trim() !== '');
+    if (!hasAny) return;
+    setInterpError(null);
+    setInterpLoading(true);
+    setInterpResult(null);
+    try {
+      const abgParsed: Partial<AbgValues> = {
+        pH: abg.pH ? Number(abg.pH) : null,
+        paco2: abg.paco2 ? Number(abg.paco2) : null,
+        pao2: abg.pao2 ? Number(abg.pao2) : null,
+        hco3: abg.hco3 ? Number(abg.hco3) : null,
+        fio2: abg.fio2 ? Number(abg.fio2) : null,
+      };
+      const result = await interpretAbgAndAdjustVent(
+        abgParsed,
+        {
+          mode: settings.mode,
+          vt: settings.vtRange,
+          rr: settings.rr,
+          peep: settings.peep,
+          fio2: settings.fio2,
+          ie: settings.ie,
+        },
+        { scenario: SCENARIOS[form.scenario], ibwKg: ibw || null },
+      );
+      setInterpResult(result);
+    } catch (err) {
+      setInterpError(err instanceof Error ? err.message : 'AI ล้มเหลว');
+    } finally {
+      setInterpLoading(false);
+    }
+  }
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -357,6 +470,183 @@ export default function VentilatorQuickStart() {
             </tr>
           </tbody>
         </table>
+      </section>
+
+      {/* ── ABG interpreter + AI vent adjustment ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">ABG + ปรับ Ventilator (AI)</h2>
+        <p className="text-xs text-muted-foreground">
+          กรอกค่า ABG หรือถ่ายรูปรายงาน → AI แปลผล + แนะนำปรับ vent
+        </p>
+
+        {/* Photo OCR */}
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handlePhotoSelected}
+            className="hidden"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={ocrLoading}
+          >
+            {ocrLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> กำลังอ่าน…
+              </>
+            ) : (
+              <>
+                <Camera className="mr-2 h-4 w-4" /> 📷 ถ่ายรูป ABG
+              </>
+            )}
+          </Button>
+          <span className="text-[11px] text-muted-foreground">
+            (รูปจะถูก compress + ส่งให้ AI extract — ยืนยันค่าก่อน interpret)
+          </span>
+        </div>
+        {ocrError && (
+          <div className="rounded-md bg-red-50 p-2 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            OCR: {ocrError}
+          </div>
+        )}
+
+        {/* Manual entry / OCR pre-filled */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+          {([
+            { key: 'pH', label: 'pH', placeholder: '7.40' },
+            { key: 'paco2', label: 'PaCO₂', placeholder: '40' },
+            { key: 'pao2', label: 'PaO₂', placeholder: '90' },
+            { key: 'hco3', label: 'HCO₃⁻', placeholder: '24' },
+            { key: 'fio2', label: 'FiO₂ (0.21–1.0)', placeholder: '0.4' },
+          ] as const).map(({ key, label, placeholder }) => (
+            <label key={key} className="space-y-1">
+              <span className="text-[11px] text-muted-foreground">{label}</span>
+              <input
+                type="number"
+                step="any"
+                inputMode="decimal"
+                value={abg[key]}
+                onChange={(e) => setAbg((p) => ({ ...p, [key]: e.target.value }))}
+                placeholder={placeholder}
+                className="w-full rounded-md border bg-background px-2 py-1.5 text-sm"
+              />
+            </label>
+          ))}
+        </div>
+
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            onClick={handleInterpret}
+            disabled={interpLoading || !Object.values(abg).some((v) => v.trim())}
+          >
+            {interpLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> วิเคราะห์…
+              </>
+            ) : (
+              '🤖 AI แปล + แนะนำปรับ vent'
+            )}
+          </Button>
+          {(interpResult || Object.values(abg).some((v) => v.trim())) && (
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                setAbg(DEFAULT_ABG);
+                setInterpResult(null);
+                setInterpError(null);
+              }}
+            >
+              <X className="mr-1 h-3 w-3" /> ล้างค่า
+            </Button>
+          )}
+        </div>
+
+        {interpError && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {interpError}
+          </div>
+        )}
+
+        {interpResult && (
+          <div className="space-y-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+            <div>
+              <p className="font-medium text-amber-800 dark:text-amber-200">🧠 Interpretation</p>
+              <p className="mt-1">
+                <strong>Primary disorder:</strong> {interpResult.primaryDisorder}
+              </p>
+              <p>
+                <strong>Compensation:</strong> {interpResult.compensation}
+              </p>
+              {interpResult.pfRatio != null && (
+                <p>
+                  <strong>P/F ratio:</strong> {interpResult.pfRatio}
+                  {interpResult.ardsGrade && interpResult.ardsGrade !== 'none' && (
+                    <span className="ml-1 text-red-700 dark:text-red-300">
+                      → ARDS {interpResult.ardsGrade}
+                    </span>
+                  )}
+                </p>
+              )}
+            </div>
+
+            {interpResult.redFlags.length > 0 && (
+              <div>
+                <p className="font-medium text-red-700 dark:text-red-300">⚠️ Red flags</p>
+                <ul className="ml-4 list-disc">
+                  {interpResult.redFlags.map((r, i) => (
+                    <li key={i}>{r}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {interpResult.adjustments.length > 0 && (
+              <div>
+                <p className="font-medium text-blue-700 dark:text-blue-300">🔧 แนะนำปรับ</p>
+                <div className="space-y-1">
+                  {interpResult.adjustments.map((a, i) => (
+                    <div key={i} className="rounded bg-background/60 p-2">
+                      <p>
+                        <strong>{a.param}:</strong>{' '}
+                        {a.from ? `${a.from} → ` : ''}
+                        <span className="font-semibold text-blue-800 dark:text-blue-200">
+                          {a.to}
+                        </span>
+                      </p>
+                      <p className="text-muted-foreground">{a.reason}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <p>
+              <strong>Recheck:</strong> {interpResult.recheck}
+            </p>
+
+            {interpResult.notes.length > 0 && (
+              <div>
+                <p className="font-medium">Notes</p>
+                <ul className="ml-4 list-disc">
+                  {interpResult.notes.map((n, i) => (
+                    <li key={i}>{n}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <p className="text-[11px] italic text-muted-foreground">
+              ⚠️ AI เป็นตัวช่วยคิด — ตรวจสอบและ adapt ให้เข้ากับคนไข้จริงเสมอ
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
