@@ -626,6 +626,48 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "acs-nstemi",
+    "path": "/src/content/protocols/acs-nstemi.mdx",
+    "frontmatter": {
+      "id": "acs-nstemi",
+      "title": "ACS — NSTEMI / Unstable Angina",
+      "titleTh": "กล้ามเนื้อหัวใจขาดเลือดเฉียบพลัน (NSTEMI/UA)",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "ACS",
+        "NSTEMI",
+        "unstable angina",
+        "troponin",
+        "GRACE",
+        "PCI"
+      ],
+      "keywords": [
+        "NSTEMI",
+        "unstable angina",
+        "ACS",
+        "troponin",
+        "high-sensitivity troponin",
+        "GRACE score",
+        "dual antiplatelet",
+        "heparin",
+        "หัวใจขาดเลือด"
+      ],
+      "related": [
+        "stemi",
+        "heart-score",
+        "chest-pain"
+      ],
+      "source": {
+        "name": "ESC 2023 ACS Guidelines + AHA/ACC 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "acute-cholangitis",
     "path": "/src/content/protocols/acute-cholangitis.mdx",
     "frontmatter": {
@@ -1056,6 +1098,48 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "dengue",
+    "path": "/src/content/protocols/dengue.mdx",
+    "frontmatter": {
+      "id": "dengue",
+      "title": "Dengue Fever",
+      "titleTh": "ไข้เลือดออก / Dengue",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "dengue",
+        "DHF",
+        "dengue hemorrhagic fever",
+        "thrombocytopenia",
+        "plasma leak",
+        "Thailand endemic"
+      ],
+      "keywords": [
+        "dengue",
+        "DHF",
+        "DSS",
+        "dengue shock syndrome",
+        "NS1",
+        "dengue IgM",
+        "tourniquet test",
+        "ไข้เลือดออก",
+        "dengue ประเทศไทย"
+      ],
+      "related": [
+        "septic-shock",
+        "fever",
+        "rash"
+      ],
+      "source": {
+        "name": "WHO Dengue Guidelines 2009 + Thailand MOPH Dengue Protocol 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "diabetic-foot-infection",
     "path": "/src/content/protocols/diabetic-foot-infection.mdx",
     "frontmatter": {
@@ -1130,6 +1214,47 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "hiv-pep-prep",
+    "path": "/src/content/protocols/hiv-pep-prep.mdx",
+    "frontmatter": {
+      "id": "hiv-pep-prep",
+      "title": "HIV PEP / PrEP",
+      "titleTh": "ยาป้องกัน HIV — PEP และ PrEP",
+      "category": "protocol",
+      "subcategory": "infectious-disease",
+      "tags": [
+        "HIV",
+        "PEP",
+        "PrEP",
+        "post-exposure prophylaxis",
+        "pre-exposure prophylaxis",
+        "antiretroviral"
+      ],
+      "keywords": [
+        "PEP",
+        "PrEP",
+        "HIV prophylaxis",
+        "nPEP",
+        "needle stick",
+        "sexual assault",
+        "TDF/FTC",
+        "Truvada",
+        "ป้องกัน HIV",
+        "ยาต้านไวรัส HIV"
+      ],
+      "related": [
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Thai MOPH HIV PEP Guidelines 2023 + CDC 2021 PrEP Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1416,6 +1541,48 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "organophosphate-poisoning",
+    "path": "/src/content/protocols/organophosphate-poisoning.mdx",
+    "frontmatter": {
+      "id": "organophosphate-poisoning",
+      "title": "Organophosphate Poisoning",
+      "titleTh": "พิษสารออร์กาโนฟอสเฟต (ยาฆ่าแมลง)",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "organophosphate",
+        "cholinergic",
+        "atropine",
+        "pralidoxime",
+        "insecticide",
+        "Thailand"
+      ],
+      "keywords": [
+        "organophosphate",
+        "OP poisoning",
+        "cholinergic toxidrome",
+        "atropine",
+        "pralidoxime",
+        "2-PAM",
+        "SLUDGE",
+        "DUMBBELS",
+        "ยาฆ่าแมลง",
+        "พิษ OP"
+      ],
+      "related": [
+        "status-epilepticus",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Goldfrank's Toxicologic Emergencies + WHO 2008 OP Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "pe-pathway",
     "path": "/src/content/protocols/pe-pathway.mdx",
     "frontmatter": {
@@ -1460,6 +1627,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "pleural-fluid-analysis",
+    "path": "/src/content/protocols/pleural-fluid-analysis.mdx",
+    "frontmatter": {
+      "id": "pleural-fluid-analysis",
+      "title": "Pleural Fluid Analysis",
+      "titleTh": "การวิเคราะห์น้ำในช่องเยื่อหุ้มปอด",
+      "category": "protocol",
+      "subcategory": "pulmonary",
+      "tags": [
+        "pleural effusion",
+        "thoracentesis",
+        "Light's criteria",
+        "exudate",
+        "transudate"
+      ],
+      "keywords": [
+        "pleural effusion",
+        "thoracentesis",
+        "Light criteria",
+        "exudate",
+        "transudate",
+        "parapneumonic effusion",
+        "empyema",
+        "น้ำในช่องปอด",
+        "เจาะน้ำปอด"
+      ],
+      "related": [
+        "septic-shock",
+        "pe-pathway"
+      ],
+      "source": {
+        "name": "ACCP Evidence-Based Clinical Practice Guidelines 2018 + BTS Pleural Disease 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1536,6 +1743,49 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       ],
       "source": {
         "name": "GINA Guideline + Thai Asthma Guideline",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "snakebite",
+    "path": "/src/content/protocols/snakebite.mdx",
+    "frontmatter": {
+      "id": "snakebite",
+      "title": "Snakebite",
+      "titleTh": "งูกัด",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "snakebite",
+        "envenomation",
+        "antivenom",
+        "Thailand",
+        "cobra",
+        "pit viper"
+      ],
+      "keywords": [
+        "snakebite",
+        "งูกัด",
+        "antivenom",
+        "cobra",
+        "king cobra",
+        "pit viper",
+        "Russell's viper",
+        "banded krait",
+        "งูเห่า",
+        "งูกะปะ",
+        "งูแมวเซา"
+      ],
+      "related": [
+        "anaphylaxis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "WHO Snakebite Guidelines 2016 + Thai Red Cross Antivenom Reference",
         "year": 2023
       },
       "last_reviewed": "2026-04",

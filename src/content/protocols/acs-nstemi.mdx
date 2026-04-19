@@ -1,0 +1,225 @@
+---
+id: acs-nstemi
+title: "ACS — NSTEMI / Unstable Angina"
+titleTh: "กล้ามเนื้อหัวใจขาดเลือดเฉียบพลัน (NSTEMI/UA)"
+category: protocol
+subcategory: cardiac
+tags:
+  - ACS
+  - NSTEMI
+  - unstable angina
+  - troponin
+  - GRACE
+  - PCI
+keywords:
+  - NSTEMI
+  - unstable angina
+  - ACS
+  - troponin
+  - high-sensitivity troponin
+  - GRACE score
+  - dual antiplatelet
+  - heparin
+  - หัวใจขาดเลือด
+related:
+  - stemi
+  - heart-score
+  - chest-pain
+source:
+  name: "ESC 2023 ACS Guidelines + AHA/ACC 2022"
+  year: 2023
+last_reviewed: "2026-04"
+confidence: high
+severity: critical
+---
+
+## 🎯 Definition
+
+| | NSTEMI | Unstable Angina |
+|---|---|---|
+| **Troponin** | ↑ (hs-TnI/T) | Normal |
+| **ECG** | ST depression / T-wave inversion / normal | ST depression / T-wave inversion / normal |
+| **Mechanism** | Partial occlusion + myocardial necrosis | Partial occlusion — no necrosis |
+
+<Callout type="danger" title="ที่ไม่ใช่ NSTEMI แต่ฉุกเฉินเหมือนกัน">
+
+- STEMI equivalent: **Wellens pattern** (deep T-wave inversion V1–V4 = LAD proximal stenosis)
+- **De Winter pattern** (ST depression + peaked T in V1–V6 = LAD occlusion — ไม่มี ST elevation!)
+- **Posterior STEMI** (ST depression V1–V3 → ทำ posterior leads V7–V9)
+
+→ ทั้งหมดนี้ = Cath Lab activation เหมือน STEMI
+
+</Callout>
+
+---
+
+## 🧪 Initial Workup
+
+### ECG (within 10 min of arrival)
+- ST depression ≥ 0.5 mm ≥ 2 contiguous leads
+- T-wave inversion ≥ 1 mm ≥ 2 contiguous leads
+- Transient ST elevation (vasospasm / Prinzmetal)
+- Dynamic ECG changes = high risk
+
+### Troponin — hs-TnI/T protocol
+**0/1 hr algorithm (hs-Tn):**
+- **Rule out**: hs-Tn &lt; 5 ng/L (limit of blank) at 0 hr → very low risk → discharge with follow-up
+- **Rule in**: absolute hs-Tn &gt; 52 ng/L (or &gt; 99th%ile) **AND** Δ &gt; 6 ng/L at 1 hr → NSTEMI
+- **Observe**: intermediate → 3 hr hs-Tn or conventional 0/3/6 hr
+
+*(ตัวเลข reference range ขึ้นอยู่กับ assay ของแต่ละโรงพยาบาล — ดู package insert)*
+
+### Labs
+- CBC, BMP, Mg
+- Coagulation (ก่อน anticoagulation)
+- LFT, lipid (baseline)
+- BNP/NT-proBNP (ถ้า heart failure)
+- CXR (pulmonary edema, cardiomegaly)
+- Echo (ถ้าคลินิกสงสัย alternative dx: dissection, tamponade)
+
+---
+
+## 📊 Risk Stratification — GRACE Score
+
+**คำนวณ GRACE score** (อายุ, HR, SBP, Cr, Killip class, cardiac arrest, ST deviation, troponin)
+
+| Risk | GRACE score | 6-mo mortality | Action |
+|---|---|---|---|
+| **Low** | &lt; 109 | &lt; 3% | Medical Rx, coronary angio ≤ 72 hr |
+| **Intermediate** | 109–140 | 3–8% | Early invasive ≤ 24 hr |
+| **High** | &gt; 140 | &gt; 8% | Urgent invasive ≤ 2 hr |
+
+### Very high risk (emergent Cath Lab)
+- Refractory chest pain (ไม่ตอบสนอง nitrate + opioid)
+- Hemodynamic instability (cardiogenic shock)
+- Life-threatening arrhythmia (VF, sustained VT)
+- Mechanical complication (acute MR, VSD)
+- Acute heart failure with ongoing ischemia
+
+---
+
+## 💊 Acute Management
+
+### ก้าวแรก (first hour)
+
+1. **IV access × 2, O₂ PRN** (SpO₂ &lt; 90% เท่านั้น — hyperoxia ไม่ดีในหัวใจ)
+2. **12-lead ECG** — repeat q 15–30 min ถ้า pain ongoing
+3. **Monitoring**: continuous ECG, SpO₂, NIBP
+4. **Pain relief**:
+   - **NTG SL 0.4 mg q 5 min × 3** (ถ้า SBP &gt; 90, ไม่มี RV infarct, ไม่ได้กิน PDE-5i ใน 24–48 hr)
+   - **Morphine 2–4 mg IV** (ระวัง: อาจ ↓ antiplatelet absorption — ใช้เมื่อ pain ไม่ respond NTG)
+5. **Aspirin 300 mg PO load** (ถ้าไม่ได้กินมาก่อน)
+6. **P2Y12 inhibitor** (ดูด้านล่าง)
+7. **Anticoagulation** (ดูด้านล่าง)
+
+### Antiplatelet — Dual (DAPT)
+
+**Aspirin 300 mg loading → 75–100 mg/day maintenance**
+
+| P2Y12 | Loading | Maintenance | Notes |
+|---|---|---|---|
+| **Ticagrelor** | 180 mg PO | 90 mg PO BID | **Preferred** (PLATO trial); ห้ามกับ strong CYP3A4 inhibitor |
+| **Clopidogrel** | 300–600 mg PO | 75 mg PO QD | ใช้ถ้า ticagrelor ไม่มี หรือ high bleeding risk; prior stroke → OK |
+| **Prasugrel** | 60 mg PO | 10 mg PO QD | ห้ามถ้า stroke/TIA hx, อายุ ≥ 75, BW &lt; 60 kg |
+
+<Callout type="warning" title="Hold P2Y12 ถ้า...">
+
+- ยังไม่รู้ anatomy (กำลังรอ cath) และมี high bleeding risk → อาจรอก่อน
+- CABG anticipated → หยุด ticagrelor 5 วัน, clopidogrel 5–7 วัน ก่อน CABG
+- แต่ **ถ้า STEMI equivalent หรือ very high risk → ให้เลย**
+
+</Callout>
+
+### Anticoagulation
+
+| ยา | Dose | Notes |
+|---|---|---|
+| **UFH** | 60 U/kg IV bolus (max 5,000 U) → infusion 12 U/kg/hr (max 1,000 U/hr); titrate aPTT 50–70 s | ใช้ถ้า PCI likely/imminent; reversible |
+| **Enoxaparin** | 1 mg/kg SC q 12 hr (ลดเป็น 1 mg/kg q 24 hr ถ้า CrCl &lt; 30) | **Preferred if conservative strategy**; ห้ามใช้ CrCl &lt; 15 |
+| **Fondaparinux** | 2.5 mg SC QD | Lowest bleeding; ห้ามถ้า CrCl &lt; 20; ต้อง bolus UFH ก่อน PCI |
+| **Bivalirudin** | 0.1 mg/kg bolus → 0.25 mg/kg/hr | ใช้ใน PCI setting; HIT |
+
+---
+
+## 🔄 Conservative vs Invasive Strategy
+
+### Early invasive (&lt; 24–72 hr) — ข้อบ่งชี้
+- High GRACE score (&gt; 109)
+- Dynamic ECG changes, new ST depression
+- Troponin positive
+- LVEF &lt; 40%
+- Prior PCI/CABG
+- Diabetes + multivessel CAD likely
+
+### Conservative — พิจารณาถ้า
+- Low GRACE score (&lt; 109)
+- hs-Tn ปกติ ×2
+- No high-risk features
+- ผู้ป่วยปฏิเสธ procedure หรือ comorbid มาก
+
+---
+
+## 💊 Long-term Medications
+
+### ก่อน discharge
+- **Aspirin** 75–100 mg/day (lifelong)
+- **P2Y12** × 12 months (clopidogrel หรือ ticagrelor ขึ้นอยู่กับ PCI/CABG/medical)
+- **Statin** high-intensity: rosuvastatin 20–40 mg หรือ atorvastatin 40–80 mg
+- **Beta-blocker**: metoprolol succinate 25–200 mg/day (LVEF &lt; 40%, ongoing ischemia)
+- **ACE-I/ARB**: ถ้า LVEF &lt; 40%, diabetes, HTN, CKD
+- **Aldosterone antagonist**: LVEF &lt; 35% + symptomatic HF
+
+---
+
+## ⚠️ Pitfalls
+
+<Callout type="danger" title="อย่าพลาด">
+
+**hs-Troponin สูง ≠ NSTEMI เสมอไป**  
+Type 2 MI: demand ischemia จาก sepsis, PE, tachyarrhythmia, anemia, HTN crisis  
+→ treat underlying cause, ไม่ใช่ DAPT
+
+**Posterior MI** — ST depression V1–V3 อาจเป็น posterior STEMI  
+→ ทำ V7–V9 ทุกรายที่มี ST depression V1–V3
+
+**RV Infarction** — ถ้าสงสัย inferior MI (ST ↑ II, III, aVF)  
+→ ทำ V4R; ถ้า ST ↑ V4R ≥ 1 mm = RV MI → ห้าม nitrate, ให้ IVF
+
+**Aortic dissection** — chest pain + HTN + asymmetric BP/pulse  
+→ ห้าม anticoagulate จนกว่าจะ R/O dissection
+
+**Women + young patients** — atypical presentation บ่อย  
+→ nausea, jaw pain, fatigue, epigastric → hs-Tn ทุกราย
+
+</Callout>
+
+---
+
+## 📝 Consult note template
+
+```
+ACS-NSTEMI — [Date]
+CC: chest pain x [duration]
+Risk factors: HTN/DM/DLP/smoking/prior MI/family hx
+
+ECG: [ST depression __ mm, leads __/ T-wave inversion/ LBBB]
+hs-TnI: [0 hr __] → [1 hr __] → delta [__] → [rule in/out/observe]
+GRACE score: __ → [low/intermediate/high] risk
+
+Hemodynamics: HR __ BP __/__ SpO₂ __
+Killip class: [I/II/III/IV]
+
+Impression: [NSTEMI / Unstable angina]
+
+Plan:
+- Aspirin 300 mg load → 100 mg/day
+- Ticagrelor 180 mg load → 90 mg BID (or clopidogrel __)
+- Enoxaparin 1 mg/kg SC q 12 hr (CrCl __ mL/min)
+- Statin: atorvastatin 80 mg
+- Beta-blocker: metoprolol __ mg
+- NTG PRN SL (SBP > 90)
+
+Strategy: [Urgent invasive < 2 hr / Early invasive < 24 hr / ≤ 72 hr / Conservative]
+Cardiology consult: STAT / within __ hr
+Disposition: [CCU / Monitored ward]
+```
