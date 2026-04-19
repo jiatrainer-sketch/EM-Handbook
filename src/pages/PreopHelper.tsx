@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Copy, History as HistoryIcon, Trash2 } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ChevronDown, ChevronUp, Copy, History as HistoryIcon, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 type Sex = 'M' | 'F';
 type SurgeryRisk = 'low' | 'intermediate' | 'high';
-type AsaClass = 'I' | 'II' | 'III' | 'IV' | 'V';
+type AsaClass = 'I' | 'II' | 'III' | 'IV' | 'V' | 'unknown';
 type RedFlagKey =
   | 'recentMi'
   | 'decompensatedHf'
@@ -71,6 +71,14 @@ const RED_FLAG_LABELS: Record<RedFlagKey, { label: string; action: string }> = {
     label: 'Uncontrolled HT > 180/110',
     action: 'DEFER until controlled',
   },
+};
+
+const ASA_INFO: Record<Exclude<AsaClass, 'unknown'>, { desc: string; examples: string }> = {
+  I:   { desc: 'แข็งแรงดี ไม่มีโรค',                    examples: 'สุขภาพดี ไม่สูบบุหรี่ ไม่อ้วน' },
+  II:  { desc: 'มีโรคเรื้อรัง คุมได้ดี limit น้อย',      examples: 'HT/DM คุมดี, สูบบุหรี่, อ้วน (BMI 30–40), ตั้งครรภ์' },
+  III: { desc: 'มีโรคเรื้อรัง limit function ชัดเจน',    examples: 'DM/HT ควบคุมไม่ดี, CKD, COPD, EF <40%, BMI >40, post-MI >3 เดือน' },
+  IV:  { desc: 'โรครุนแรง ภัยต่อชีวิตตลอดเวลา',          examples: 'MI/stroke <3 เดือน, decompHF, sepsis, DKA, ARF ต้อง dialysis' },
+  V:   { desc: 'ใกล้ตาย — ไม่ผ่าตัดก็ไม่รอด 24 ชม.',    examples: 'Ruptured AAA, massive trauma, fulminant liver failure' },
 };
 
 function rcriScore(f: FormState): number {
@@ -182,8 +190,9 @@ function buildSummary(f: FormState): string {
   lines.push(
     `Patient: ${f.age || '?'}/${f.sex}, BW ${f.weight || '?'} kg`,
   );
+  const asaLabel = f.asa === 'unknown' ? 'ไม่ทราบ' : f.asa;
   lines.push(
-    `ASA: ${f.asa}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
+    `ASA: ${asaLabel}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
   );
   lines.push(
     `Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`,
@@ -403,9 +412,35 @@ export default function PreopHelper() {
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold">Comorbidities (RCRI)</h2>
           <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
-            {score} / 6 points
+            {score} / 6 คะแนน
           </span>
         </div>
+        <InfoCallout title="RCRI คืออะไร? + MACE endpoint">
+          <p className="mb-1 font-medium">Revised Cardiac Risk Index (Lee 1999)</p>
+          <p className="mb-2">ประเมินโอกาสเกิด <strong>30-day MACE</strong> (Major Adverse Cardiac Events) หลัง non-cardiac surgery</p>
+          <p className="mb-1 font-medium">MACE ในที่นี้ = 5 events:</p>
+          <ul className="mb-2 list-disc space-y-0.5 pl-4">
+            <li>MI — กล้ามเนื้อหัวใจตาย</li>
+            <li>Pulmonary edema — น้ำท่วมปอดจากหัวใจ</li>
+            <li>VF/VT arrest — หัวใจห้องล่างเต้นผิดจังหวะจนหยุด</li>
+            <li>Complete heart block — AV block ขั้น 3</li>
+            <li>Cardiac death</li>
+          </ul>
+          <p className="mb-0.5 text-[11px] italic opacity-70">
+            หมายเหตุ: MACE ที่ใช้ใน cardiology trial ทั่วไป (3-point MACE) = CV death + MI + stroke ซึ่งต่างจาก RCRI
+          </p>
+          <div className="mt-2 rounded bg-blue-100 p-2 dark:bg-blue-900/30 text-[11px]">
+            <table className="w-full">
+              <thead><tr className="font-medium"><td>Score</td><td>ระดับ</td><td>30-day MACE</td></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Very Low</td><td>0.4%</td></tr>
+                <tr><td>1</td><td>Low</td><td>0.9%</td></tr>
+                <tr><td>2</td><td>Intermediate</td><td>6.6%</td></tr>
+                <tr><td>≥3</td><td>High</td><td>&gt;11%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </InfoCallout>
         <div className="space-y-2 text-sm">
           <Checkbox
             checked={form.surgery === 'high'}
@@ -441,9 +476,23 @@ export default function PreopHelper() {
       </section>
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
-        <h2 className="text-sm font-semibold">ASA Class</h2>
-        <div className="grid grid-cols-5 gap-2">
-          {(['I', 'II', 'III', 'IV', 'V'] as AsaClass[]).map((c) => (
+        <h2 className="text-sm font-semibold">ASA Physical Status</h2>
+        <InfoCallout title="ASA Class คืออะไร?">
+          <p className="mb-2">American Society of Anesthesiologists — ประเมินความพร้อมก่อน anesthesia (ไม่เข้าสูตร RCRI แต่ใส่ใน summary)</p>
+          <div className="space-y-1.5">
+            {(Object.keys(ASA_INFO) as Exclude<AsaClass, 'unknown'>[]).map((k) => (
+              <div key={k} className="flex gap-2">
+                <span className="w-5 shrink-0 font-bold">{k}</span>
+                <span>
+                  {ASA_INFO[k].desc}
+                  <span className="text-blue-700/70 dark:text-blue-300/70"> — {ASA_INFO[k].examples}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </InfoCallout>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+          {(['I', 'II', 'III', 'IV', 'V', 'unknown'] as AsaClass[]).map((c) => (
             <button
               key={c}
               type="button"
@@ -456,10 +505,19 @@ export default function PreopHelper() {
                   : 'bg-background',
               )}
             >
-              {c}
+              {c === 'unknown' ? '? ไม่ทราบ' : c}
             </button>
           ))}
         </div>
+        {form.asa !== 'unknown' && (
+          <p className="text-xs text-muted-foreground">
+            <strong>ASA {form.asa}</strong> — {ASA_INFO[form.asa].desc}
+            <span className="ml-1 opacity-70">({ASA_INFO[form.asa].examples})</span>
+          </p>
+        )}
+        <p className="text-[11px] text-muted-foreground">
+          ถ้าไม่ทราบ กด "? ไม่ทราบ" — ข้ามได้ ไม่กระทบคะแนน RCRI
+        </p>
       </section>
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
@@ -620,6 +678,27 @@ export default function PreopHelper() {
           className="pointer-events-none fixed bottom-24 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-4 py-2 text-xs text-background shadow-lg"
         >
           {toast}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function InfoCallout({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-md border border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950/30">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between px-3 py-2 text-left text-xs font-medium text-blue-700 dark:text-blue-300"
+      >
+        <span>ℹ️ {title}</span>
+        {open ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+      </button>
+      {open && (
+        <div className="border-t border-blue-200 px-3 pb-3 pt-2 text-xs text-blue-900 dark:border-blue-900 dark:text-blue-100">
+          {children}
         </div>
       )}
     </div>
