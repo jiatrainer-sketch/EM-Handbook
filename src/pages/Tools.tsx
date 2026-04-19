@@ -63,6 +63,15 @@ const TOOLS: ToolCard[] = [
     action: 'navigate',
     route: '/tools/dose-calc',
   },
+  {
+    icon: '🫧',
+    title: 'ABG Analyzer',
+    description:
+      'แปลผล ABG อัตโนมัติ — primary disorder, compensation (Winter), anion gap, Δ/Δ, P/F, A-a gradient',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/abg',
+  },
 ];
 
 export default function Tools() {
