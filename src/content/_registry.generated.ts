@@ -3439,6 +3439,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "headache-red-flags",
+    "path": "/src/content/reference/headache-red-flags.mdx",
+    "frontmatter": {
+      "id": "headache-red-flags",
+      "title": "Headache Red Flags (SNOOP10)",
+      "titleTh": "สัญญาณอันตรายของอาการปวดศีรษะ",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "headache",
+        "SNOOP",
+        "thunderclap",
+        "SAH",
+        "red flags"
+      ],
+      "keywords": [
+        "headache red flags",
+        "SNOOP",
+        "SNOOP10",
+        "thunderclap headache",
+        "subarachnoid hemorrhage",
+        "SAH",
+        "giant cell arteritis",
+        "ปวดศีรษะ"
+      ],
+      "related": [
+        "subarachnoid-hemorrhage",
+        "stroke-pathway"
+      ],
+      "source": {
+        "name": "AAN + ICHD-3 + AHS 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "mechanical-ventilation-quickref",
+    "path": "/src/content/reference/mechanical-ventilation-quickref.mdx",
+    "frontmatter": {
+      "id": "mechanical-ventilation-quickref",
+      "title": "Mechanical Ventilation — Quick Reference",
+      "titleTh": "เครื่องช่วยหายใจ — อ้างอิงเร็ว",
+      "category": "reference",
+      "subcategory": "pulmonary",
+      "tags": [
+        "ventilator",
+        "ARDS",
+        "PEEP",
+        "mechanical ventilation"
+      ],
+      "keywords": [
+        "mechanical ventilation",
+        "ventilator",
+        "ARDS",
+        "PEEP",
+        "tidal volume",
+        "IBW",
+        "volume control",
+        "pressure control",
+        "APRV",
+        "เครื่องช่วยหายใจ"
+      ],
+      "related": [
+        "severe-asthma",
+        "copd-exacerbation",
+        "acid-base-abg-interpretation"
+      ],
+      "source": {
+        "name": "ARDSNet + EMCrit + SCCM Mech Vent Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "nicardipine-vs-labetalol",
     "path": "/src/content/reference/nicardipine-vs-labetalol.mdx",
     "frontmatter": {
@@ -3474,6 +3554,130 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "medium"
+    }
+  },
+  {
+    "id": "rsi-medications",
+    "path": "/src/content/reference/rsi-medications.mdx",
+    "frontmatter": {
+      "id": "rsi-medications",
+      "title": "RSI — Rapid Sequence Intubation Medications",
+      "titleTh": "ยาในการใส่ท่อช่วยหายใจแบบ RSI",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "RSI",
+        "intubation",
+        "ketamine",
+        "rocuronium",
+        "succinylcholine",
+        "etomidate"
+      ],
+      "keywords": [
+        "RSI",
+        "rapid sequence intubation",
+        "induction",
+        "paralytic",
+        "ketamine",
+        "etomidate",
+        "propofol",
+        "rocuronium",
+        "succinylcholine",
+        "ใส่ท่อช่วยหายใจ"
+      ],
+      "related": [
+        "severe-asthma",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "Scott Weingart EMCrit + Tintinalli's EM + Roberts & Hedges",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "seizure-quickref",
+    "path": "/src/content/reference/seizure-quickref.mdx",
+    "frontmatter": {
+      "id": "seizure-quickref",
+      "title": "Seizure Types — Quick Reference",
+      "titleTh": "ประเภทของอาการชัก",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "seizure",
+        "epilepsy",
+        "ILAE"
+      ],
+      "keywords": [
+        "seizure",
+        "epilepsy",
+        "focal",
+        "generalized",
+        "absence",
+        "myoclonic",
+        "psychogenic",
+        "PNES",
+        "ILAE",
+        "อาการชัก"
+      ],
+      "related": [
+        "status-epilepticus",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ILAE 2017 Classification + AES Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "vertigo-workup",
+    "path": "/src/content/reference/vertigo-workup.mdx",
+    "frontmatter": {
+      "id": "vertigo-workup",
+      "title": "Vertigo — HINTS + Dix-Hallpike Workup",
+      "titleTh": "การตรวจเวียนศีรษะ (HINTS + Dix-Hallpike)",
+      "category": "reference",
+      "subcategory": "neurology",
+      "tags": [
+        "vertigo",
+        "HINTS",
+        "BPPV",
+        "Dix-Hallpike",
+        "Epley"
+      ],
+      "keywords": [
+        "vertigo",
+        "dizziness",
+        "HINTS",
+        "head impulse",
+        "nystagmus",
+        "BPPV",
+        "Dix-Hallpike",
+        "Epley",
+        "vestibular neuritis",
+        "stroke",
+        "เวียนศีรษะ",
+        "ตะแคง"
+      ],
+      "related": [
+        "stroke-pathway",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "Kattah HINTS 2009 + Stroke in vertigo 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
