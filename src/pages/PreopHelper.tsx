@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
-import { aiClassifyProcedure, type ProcedureSuggestion } from '@/lib/preopAi';
+import { aiClassifyProcedure, aiMapComorbidities, type ComorbidSuggestion, type ProcedureSuggestion } from '@/lib/preopAi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -27,6 +27,8 @@ type FormState = {
   insulinDm: boolean;
   crHigh: boolean;
   redFlags: Record<RedFlagKey, boolean>;
+  comorbidInput: string;
+  otherComorbids: string[];
 };
 
 type HistoryEntry = {
@@ -57,6 +59,8 @@ const DEFAULT_FORM: FormState = {
     activeAcs: false,
     uncontrolledHt: false,
   },
+  comorbidInput: '',
+  otherComorbids: [],
 };
 
 const SURGERY_LABELS: Record<SurgeryRisk, string> = {
@@ -197,6 +201,9 @@ function buildSummary(f: FormState): string {
     `ASA: ${asaLabel}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
   );
   lines.push(`Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`);
+  if (f.otherComorbids.length > 0) {
+    lines.push(`Other comorbidities: ${f.otherComorbids.join(', ')}`);
+  }
   lines.push('');
   lines.push('Recommendations:');
   recs.forEach((r) => lines.push(`- ${r}`));
@@ -268,6 +275,9 @@ export default function PreopHelper() {
   const [surgeryAi, setSurgeryAi] = useState<{
     loading: boolean; error: string | null; suggest: ProcedureSuggestion | null;
   }>({ loading: false, error: null, suggest: null });
+  const [comorbidAi, setComorbidAi] = useState<{
+    loading: boolean; error: string | null; suggest: ComorbidSuggestion | null;
+  }>({ loading: false, error: null, suggest: null });
 
   useEffect(() => {
     setHistory(loadHistory());
@@ -292,6 +302,38 @@ export default function PreopHelper() {
     if (!surgeryAi.suggest) return;
     update('surgery', surgeryAi.suggest.level);
     setSurgeryAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handleMapComorbid() {
+    if (!form.comorbidInput.trim()) return;
+    setComorbidAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiMapComorbidities(form.comorbidInput);
+      setComorbidAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setComorbidAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmComorbidMap() {
+    if (!comorbidAi.suggest) return;
+    const { rcri, other } = comorbidAi.suggest;
+    setForm((f) => {
+      const next = { ...f, otherComorbids: other };
+      rcri.forEach(({ key }) => {
+        if (key === 'ihd') next.ihd = true;
+        else if (key === 'hf') next.hf = true;
+        else if (key === 'cvd') next.cvd = true;
+        else if (key === 'insulinDm') next.insulinDm = true;
+        else if (key === 'crHigh') next.crHigh = true;
+      });
+      return next;
+    });
+    setComorbidAi((s) => ({ ...s, suggest: null }));
   }
 
   const score = rcriScore(form);
@@ -550,6 +592,105 @@ export default function PreopHelper() {
             onChange={() => update('crHigh', !form.crHigh)}
             label="Serum Cr > 2.0 mg/dL"
           />
+        </div>
+
+        <div className="space-y-2 pt-2">
+          <p className="text-xs font-medium text-muted-foreground">
+            โรคประจำตัวอื่น ๆ (ไทย/Eng) — AI จะจับคู่ RCRI + แสดงโรคอื่น
+          </p>
+          <div className="flex gap-2">
+            <textarea
+              value={form.comorbidInput}
+              onChange={(e) => {
+                update('comorbidInput', e.target.value);
+                setComorbidAi({ loading: false, error: null, suggest: null });
+              }}
+              placeholder="เช่น AF on warfarin, COPD, CKD stage 3, DM ไม่ใช้ insulin, ตับแข็ง"
+              rows={2}
+              className="flex-1 resize-none rounded-md border bg-background px-3 py-2 text-sm"
+            />
+            <Button
+              size="sm"
+              variant="outline"
+              className="self-end"
+              onClick={handleMapComorbid}
+              disabled={!form.comorbidInput.trim() || comorbidAi.loading}
+            >
+              {comorbidAi.loading ? <Loader2 className="h-4 w-4 animate-spin" /> : '🤖 AI แปลง'}
+            </Button>
+          </div>
+
+          {comorbidAi.loading && (
+            <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+            </div>
+          )}
+          {comorbidAi.error && (
+            <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+              {comorbidAi.error} —{' '}
+              <button
+                type="button"
+                className="underline"
+                onClick={() => setComorbidAi({ loading: false, error: null, suggest: null })}
+              >
+                ล้าง
+              </button>
+            </div>
+          )}
+          {comorbidAi.suggest && (
+            <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+              <p className="font-medium text-amber-800 dark:text-amber-200">
+                🤖 AI แนะนำ — กดยืนยันเพื่อ apply
+              </p>
+              {comorbidAi.suggest.rcri.length > 0 && (
+                <div>
+                  <p className="font-medium text-amber-700 dark:text-amber-300">จับคู่ RCRI:</p>
+                  {comorbidAi.suggest.rcri.map((m) => (
+                    <p key={m.key} className="ml-2 text-amber-700 dark:text-amber-300">
+                      ✓ <strong>{m.key}</strong> — {m.reason}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {comorbidAi.suggest.other.length > 0 && (
+                <div>
+                  <p className="font-medium text-amber-700 dark:text-amber-300">โรคอื่น ๆ:</p>
+                  {comorbidAi.suggest.other.map((o) => (
+                    <p key={o} className="ml-2 text-amber-700 dark:text-amber-300">• {o}</p>
+                  ))}
+                </div>
+              )}
+              {comorbidAi.suggest.rcri.length === 0 && comorbidAi.suggest.other.length === 0 && (
+                <p className="text-amber-700 dark:text-amber-300">ไม่พบโรคที่จับคู่ได้</p>
+              )}
+              <div className="flex gap-2">
+                <Button size="sm" onClick={confirmComorbidMap}>
+                  <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setComorbidAi({ loading: false, error: null, suggest: null })}
+                >
+                  ยกเลิก
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {form.otherComorbids.length > 0 && (
+            <div className="rounded-md bg-muted/40 px-3 py-2 text-xs">
+              <span className="font-medium">โรคอื่น ๆ (confirmed): </span>
+              {form.otherComorbids.join(', ')}
+              <button
+                type="button"
+                className="ml-2 text-destructive underline"
+                onClick={() => update('otherComorbids', [])}
+              >
+                ลบ
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
