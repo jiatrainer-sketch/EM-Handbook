@@ -668,6 +668,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "acute-agitation",
+    "path": "/src/content/protocols/acute-agitation.mdx",
+    "frontmatter": {
+      "id": "acute-agitation",
+      "title": "Acute Agitation (ED Psychiatric / Medical)",
+      "titleTh": "ผู้ป่วยกระวนกระวายเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "psychiatric",
+      "tags": [
+        "agitation",
+        "psychosis",
+        "excited delirium",
+        "chemical restraint",
+        "haloperidol"
+      ],
+      "keywords": [
+        "agitation",
+        "acute psychosis",
+        "excited delirium",
+        "chemical restraint",
+        "haloperidol",
+        "ketamine",
+        "midazolam",
+        "กระวนกระวาย",
+        "ควบคุมไม่ได้"
+      ],
+      "related": [
+        "alcohol-withdrawal",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACEP Behavioral Emergencies + Thai Psychiatric Emergency",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "acute-cholangitis",
     "path": "/src/content/protocols/acute-cholangitis.mdx",
     "frontmatter": {
@@ -776,6 +816,49 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       ],
       "source": {
         "name": "ESC 2021 Heart Failure Guidelines + AHA/ACC/HFSA 2022",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "acute-kidney-injury",
+    "path": "/src/content/protocols/acute-kidney-injury.mdx",
+    "frontmatter": {
+      "id": "acute-kidney-injury",
+      "title": "Acute Kidney Injury (AKI)",
+      "titleTh": "ไตวายเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "AKI",
+        "KDIGO",
+        "prerenal",
+        "ATN",
+        "contrast nephropathy"
+      ],
+      "keywords": [
+        "acute kidney injury",
+        "AKI",
+        "KDIGO",
+        "prerenal",
+        "intrinsic",
+        "postrenal",
+        "ATN",
+        "contrast nephropathy",
+        "FENa",
+        "ไตวาย",
+        "ไตเฉียบพลัน"
+      ],
+      "related": [
+        "hyperkalemia",
+        "crrt",
+        "rhabdomyolysis"
+      ],
+      "source": {
+        "name": "KDIGO AKI Guidelines 2012 + updates",
         "year": 2023
       },
       "last_reviewed": "2026-04",
@@ -939,6 +1022,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "alcohol-withdrawal",
+    "path": "/src/content/protocols/alcohol-withdrawal.mdx",
+    "frontmatter": {
+      "id": "alcohol-withdrawal",
+      "title": "Alcohol Withdrawal Syndrome",
+      "titleTh": "ภาวะขาดสุรา",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "alcohol withdrawal",
+        "DT",
+        "delirium tremens",
+        "CIWA",
+        "benzodiazepine"
+      ],
+      "keywords": [
+        "alcohol withdrawal",
+        "delirium tremens",
+        "DT",
+        "CIWA-Ar",
+        "thiamine",
+        "Wernicke",
+        "ลงแดง",
+        "ถอนสุรา"
+      ],
+      "related": [
+        "altered-mental-status",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "ASAM Alcohol Withdrawal Management 2020",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -1179,6 +1301,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "AHA/ACC/ESC 2024 AFib Guidelines",
         "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "benzodiazepine-overdose",
+    "path": "/src/content/protocols/benzodiazepine-overdose.mdx",
+    "frontmatter": {
+      "id": "benzodiazepine-overdose",
+      "title": "Benzodiazepine Overdose",
+      "titleTh": "พิษจากยากลุ่มเบนโซไดอะซีปีน",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "benzodiazepine",
+        "flumazenil",
+        "diazepam",
+        "midazolam"
+      ],
+      "keywords": [
+        "benzodiazepine overdose",
+        "flumazenil",
+        "diazepam",
+        "alprazolam",
+        "midazolam",
+        "lorazepam",
+        "พิษยานอนหลับ"
+      ],
+      "related": [
+        "opioid-overdose",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACMT + Goldfrank's Tox",
+        "year": 2023
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -1989,6 +2148,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "opioid-overdose",
+    "path": "/src/content/protocols/opioid-overdose.mdx",
+    "frontmatter": {
+      "id": "opioid-overdose",
+      "title": "Opioid Overdose",
+      "titleTh": "พิษจากยาโอปิออยด์",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "opioid",
+        "naloxone",
+        "heroin",
+        "fentanyl",
+        "respiratory depression"
+      ],
+      "keywords": [
+        "opioid overdose",
+        "naloxone",
+        "narcan",
+        "morphine",
+        "fentanyl",
+        "heroin",
+        "tramadol",
+        "พิษมอร์ฟีน",
+        "ทรามาดอล"
+      ],
+      "related": [
+        "status-epilepticus",
+        "altered-mental-status"
+      ],
+      "source": {
+        "name": "ACMT + Thai Tox Reference",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "organophosphate-poisoning",
     "path": "/src/content/protocols/organophosphate-poisoning.mdx",
     "frontmatter": {
@@ -2198,6 +2397,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "rhabdomyolysis",
+    "path": "/src/content/protocols/rhabdomyolysis.mdx",
+    "frontmatter": {
+      "id": "rhabdomyolysis",
+      "title": "Rhabdomyolysis",
+      "titleTh": "ภาวะกล้ามเนื้อลายสลาย",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "rhabdomyolysis",
+        "CK",
+        "myoglobinuria",
+        "AKI",
+        "compartment syndrome"
+      ],
+      "keywords": [
+        "rhabdomyolysis",
+        "CK",
+        "creatine kinase",
+        "myoglobin",
+        "AKI",
+        "compartment syndrome",
+        "กล้ามเนื้อลายสลาย"
+      ],
+      "related": [
+        "hyperkalemia",
+        "acute-limb-ischemia"
+      ],
+      "source": {
+        "name": "KDIGO + Rhabdomyolysis Review NEJM",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -2860,6 +3097,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "tumor-lysis-syndrome",
+    "path": "/src/content/protocols/tumor-lysis-syndrome.mdx",
+    "frontmatter": {
+      "id": "tumor-lysis-syndrome",
+      "title": "Tumor Lysis Syndrome (TLS)",
+      "titleTh": "กลุ่มอาการเนื้องอกสลาย",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "TLS",
+        "tumor lysis",
+        "hyperuricemia",
+        "rasburicase",
+        "allopurinol"
+      ],
+      "keywords": [
+        "tumor lysis syndrome",
+        "TLS",
+        "hyperuricemia",
+        "hyperphosphatemia",
+        "hyperkalemia",
+        "allopurinol",
+        "rasburicase",
+        "เนื้องอกสลาย"
+      ],
+      "related": [
+        "acute-kidney-injury",
+        "hyperkalemia",
+        "hypocalcemia-symptomatic"
+      ],
+      "source": {
+        "name": "Cairo-Bishop Criteria + Hematology Guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
     }
   },
   {
