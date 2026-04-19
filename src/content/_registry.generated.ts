@@ -1013,6 +1013,49 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "crrt",
+    "path": "/src/content/protocols/crrt.mdx",
+    "frontmatter": {
+      "id": "crrt",
+      "title": "CRRT — Continuous Renal Replacement Therapy",
+      "titleTh": "การบำบัดทดแทนไตแบบต่อเนื่อง",
+      "category": "protocol",
+      "subcategory": "renal",
+      "tags": [
+        "CRRT",
+        "AKI",
+        "hemodialysis",
+        "ICU",
+        "renal replacement"
+      ],
+      "keywords": [
+        "CRRT",
+        "CVVH",
+        "CVVHD",
+        "CVVHDF",
+        "continuous renal replacement",
+        "AKI",
+        "acute kidney injury",
+        "citrate",
+        "anticoagulation",
+        "ไตวายเฉียบพลัน",
+        "ฟอกไต"
+      ],
+      "related": [
+        "septic-shock",
+        "hyperkalemia",
+        "hyponatremia-symptomatic"
+      ],
+      "source": {
+        "name": "KDIGO AKI Guidelines 2012 + STARRT-AKI Trial + Intensive Care Med 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "diabetic-foot-infection",
     "path": "/src/content/protocols/diabetic-foot-infection.mdx",
     "frontmatter": {
