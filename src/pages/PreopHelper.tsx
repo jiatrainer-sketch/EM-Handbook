@@ -1,11 +1,21 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Copy, History as HistoryIcon, Trash2 } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
+import {
+  aiAnalyzeLabs,
+  aiClassifyProcedure,
+  aiMapComorbidities,
+  aiPlanMeds,
+  type ComorbidSuggestion,
+  type LabFinding,
+  type MedPlan,
+  type ProcedureSuggestion,
+} from '@/lib/preopAi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 type Sex = 'M' | 'F';
 type SurgeryRisk = 'low' | 'intermediate' | 'high';
-type AsaClass = 'I' | 'II' | 'III' | 'IV' | 'V';
+type AsaClass = 'I' | 'II' | 'III' | 'IV' | 'V' | 'unknown';
 type RedFlagKey =
   | 'recentMi'
   | 'decompensatedHf'
@@ -13,10 +23,27 @@ type RedFlagKey =
   | 'activeAcs'
   | 'uncontrolledHt';
 
+type MetLevel = 'high' | 'low' | 'unknown';
+type Disposition = 'ward' | 'stepdown' | 'icu' | 'unknown';
+type CapriniKey =
+  | 'age41_60'
+  | 'age61_74'
+  | 'age75plus'
+  | 'majorSx45'
+  | 'cancer'
+  | 'prevVte'
+  | 'immobile72h'
+  | 'hipKneeArthroplasty'
+  | 'fracture'
+  | 'estrogen'
+  | 'obesity'
+  | 'varicose';
+
 type FormState = {
   age: string;
   sex: Sex;
   weight: string;
+  procedureName: string;
   surgery: SurgeryRisk;
   asa: AsaClass;
   ihd: boolean;
@@ -25,6 +52,54 @@ type FormState = {
   insulinDm: boolean;
   crHigh: boolean;
   redFlags: Record<RedFlagKey, boolean>;
+  comorbidInput: string;
+  otherComorbids: string[];
+  mets: MetLevel;
+  allergies: string;
+  prevAnesHx: string;
+  disposition: Disposition;
+  caprini: Record<CapriniKey, boolean>;
+  onAnticoag: boolean;
+  anticoagDrug: string;
+  needBridge: boolean;
+  needTS: boolean;
+  needTC: boolean;
+  ebl: string;
+  abxIndicated: boolean;
+  abxAgent: string;
+  hba1cValue: string;
+  onChronicSteroid: boolean;
+  steroidDose: string;
+  medsInput: string;
+  confirmedMedPlan: {
+    continue: string[];
+    hold: string[];
+    restart: string[];
+    notes: string[];
+  } | null;
+  labs: {
+    hb: string;
+    na: string;
+    k: string;
+    ca: string;
+    cr: string;
+    egfr: string;
+    platelet: string;
+    inr: string;
+    fbs: string;
+    albumin: string;
+    ast: string;
+    alt: string;
+  };
+  labOther: string;
+  confirmedLabFindings: Array<{
+    lab: string;
+    severity: string;
+    verdict: 'proceed' | 'optimize' | 'postpone';
+    target: string;
+    correction: string;
+    recheck: string;
+  }> | null;
 };
 
 type HistoryEntry = {
@@ -40,6 +115,7 @@ const DEFAULT_FORM: FormState = {
   age: '',
   sex: 'M',
   weight: '60',
+  procedureName: '',
   surgery: 'low',
   asa: 'II',
   ihd: false,
@@ -54,6 +130,55 @@ const DEFAULT_FORM: FormState = {
     activeAcs: false,
     uncontrolledHt: false,
   },
+  comorbidInput: '',
+  otherComorbids: [],
+  mets: 'unknown',
+  allergies: '',
+  prevAnesHx: '',
+  disposition: 'unknown',
+  caprini: {
+    age41_60: false,
+    age61_74: false,
+    age75plus: false,
+    majorSx45: false,
+    cancer: false,
+    prevVte: false,
+    immobile72h: false,
+    hipKneeArthroplasty: false,
+    fracture: false,
+    estrogen: false,
+    obesity: false,
+    varicose: false,
+  },
+  onAnticoag: false,
+  anticoagDrug: '',
+  needBridge: false,
+  needTS: false,
+  needTC: false,
+  ebl: '',
+  abxIndicated: false,
+  abxAgent: '',
+  hba1cValue: '',
+  onChronicSteroid: false,
+  steroidDose: '',
+  medsInput: '',
+  confirmedMedPlan: null,
+  labs: {
+    hb: '',
+    na: '',
+    k: '',
+    ca: '',
+    cr: '',
+    egfr: '',
+    platelet: '',
+    inr: '',
+    fbs: '',
+    albumin: '',
+    ast: '',
+    alt: '',
+  },
+  labOther: '',
+  confirmedLabFindings: null,
 };
 
 const SURGERY_LABELS: Record<SurgeryRisk, string> = {
@@ -71,6 +196,61 @@ const RED_FLAG_LABELS: Record<RedFlagKey, { label: string; action: string }> = {
     label: 'Uncontrolled HT > 180/110',
     action: 'DEFER until controlled',
   },
+};
+
+const METS_INFO: Record<MetLevel, { label: string; examples: string; impact: string }> = {
+  high: {
+    label: '≥ 4 METs (ดี)',
+    examples: 'เดินขึ้นบันได 1 ชั้น / เดินเร็ว / ทำสวน / ยกของหนัก',
+    impact: 'ไม่ต้อง stress test แม้ RCRI ≥2 (ACC/AHA 2014)',
+  },
+  low: {
+    label: '< 4 METs (จำกัด)',
+    examples: 'เดินพื้นราบได้เท่านั้น, งานบ้านเบา',
+    impact: 'RCRI ≥2 → พิจารณา stress test',
+  },
+  unknown: {
+    label: 'ไม่ทราบ',
+    examples: '',
+    impact: 'ถือว่า functional capacity ไม่ดี — พิจารณา stress test ถ้า RCRI ≥2',
+  },
+};
+
+const CAPRINI_FACTORS: Record<CapriniKey, { label: string; desc: string; score: number }> = {
+  age41_60: { label: 'อายุ 41–60 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 1 },
+  age61_74: { label: 'อายุ 61–74 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 2 },
+  age75plus: { label: 'อายุ ≥ 75 ปี', desc: 'ติกเฉพาะช่องอายุสูงสุด', score: 3 },
+  majorSx45: { label: 'ผ่าตัดใหญ่ > 45 นาที', desc: 'รวม laparoscopic ≥45 min', score: 2 },
+  cancer: { label: 'มะเร็ง (active / on treatment)', desc: '', score: 2 },
+  prevVte: { label: 'ประวัติ DVT / PE', desc: '', score: 3 },
+  immobile72h: { label: 'นอนไม่ลุกเดิน > 72 ชม.', desc: 'bed rest หรือ plaster cast', score: 2 },
+  hipKneeArthroplasty: { label: 'ผ่าตัดเปลี่ยนข้อ hip / knee', desc: 'arthroplasty', score: 5 },
+  fracture: { label: 'กระดูกหัก hip / เชิงกราน / ขา', desc: '', score: 5 },
+  estrogen: { label: 'ยาคุม / ฮอร์โมน (OCP/HRT)', desc: '', score: 1 },
+  obesity: { label: 'BMI ≥ 25', desc: '', score: 1 },
+  varicose: { label: 'เส้นเลือดขอด (varicose veins)', desc: '', score: 1 },
+};
+
+function capriniTotal(c: Record<CapriniKey, boolean>): number {
+  return (Object.keys(c) as CapriniKey[]).reduce(
+    (sum, k) => sum + (c[k] ? CAPRINI_FACTORS[k].score : 0),
+    0,
+  );
+}
+
+function capriniPlan(score: number): string {
+  if (score === 0) return 'Very low — early ambulation';
+  if (score <= 2) return 'Low — early ambulation + SCD';
+  if (score <= 4) return 'Moderate — LMWH (enoxaparin 40 mg SC OD) + SCD';
+  return 'High — LMWH + SCD; extended 4 wk if cancer/major abdominopelvic sx';
+}
+
+const ASA_INFO: Record<Exclude<AsaClass, 'unknown'>, { desc: string; examples: string }> = {
+  I:   { desc: 'แข็งแรงดี ไม่มีโรค',                    examples: 'สุขภาพดี ไม่สูบบุหรี่ ไม่อ้วน' },
+  II:  { desc: 'มีโรคเรื้อรัง คุมได้ดี limit น้อย',      examples: 'HT/DM คุมดี, สูบบุหรี่, อ้วน (BMI 30–40), ตั้งครรภ์' },
+  III: { desc: 'มีโรคเรื้อรัง limit function ชัดเจน',    examples: 'DM/HT ควบคุมไม่ดี, CKD, COPD, EF <40%, BMI >40, post-MI >3 เดือน' },
+  IV:  { desc: 'โรครุนแรง ภัยต่อชีวิตตลอดเวลา',          examples: 'MI/stroke <3 เดือน, decompHF, sepsis, DKA, ARF ต้อง dialysis' },
+  V:   { desc: 'ใกล้ตาย — ไม่ผ่าตัดก็ไม่รอด 24 ชม.',    examples: 'Ruptured AAA, massive trauma, fulminant liver failure' },
 };
 
 function rcriScore(f: FormState): number {
@@ -161,8 +341,12 @@ function labChecklist(f: FormState): string[] {
   return Array.from(new Set(labs));
 }
 
-function clearanceVerdict(score: number, anyRedFlag: boolean): string {
-  if (anyRedFlag) return 'Postpone / Optimize first';
+function clearanceVerdict(
+  score: number,
+  anyRedFlag: boolean,
+  labPostpone = false,
+): string {
+  if (anyRedFlag || labPostpone) return 'Postpone / Optimize first';
   if (score <= 1) return 'Proceed';
   if (score === 2) return 'Proceed with caution';
   return 'Optimize first';
@@ -179,15 +363,25 @@ function buildSummary(f: FormState): string {
   const anyFlag = activeFlags.length > 0;
   const lines: string[] = [];
   lines.push('Pre-op Clearance');
+  lines.push(`Patient: ${f.age || '?'}/${f.sex}, BW ${f.weight || '?'} kg`);
+  if (f.procedureName) lines.push(`Procedure: ${f.procedureName}`);
+  const asaLabel = f.asa === 'unknown' ? 'ไม่ทราบ' : f.asa;
   lines.push(
-    `Patient: ${f.age || '?'}/${f.sex}, BW ${f.weight || '?'} kg`,
+    `ASA: ${asaLabel}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
   );
-  lines.push(
-    `ASA: ${f.asa}, RCRI: ${score} points (${band.category}, ${band.pct}% 30-day MACE)`,
-  );
-  lines.push(
-    `Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`,
-  );
+  lines.push(`Surgery risk: ${f.surgery[0].toUpperCase() + f.surgery.slice(1)}`);
+  if (f.otherComorbids.length > 0) {
+    lines.push(`Other comorbidities: ${f.otherComorbids.join(', ')}`);
+  }
+  if (f.mets !== 'unknown') {
+    lines.push(`Functional: METs ${METS_INFO[f.mets].label}`);
+  }
+  if (f.allergies) lines.push(`Allergies: ${f.allergies}`);
+  if (f.prevAnesHx) lines.push(`Prev anesthesia hx: ${f.prevAnesHx}`);
+  if (f.disposition !== 'unknown') {
+    const dispMap = { ward: 'Ward ปกติ', stepdown: 'Step-down', icu: 'ICU' };
+    lines.push(`Disposition: ${dispMap[f.disposition]}`);
+  }
   lines.push('');
   lines.push('Recommendations:');
   recs.forEach((r) => lines.push(`- ${r}`));
@@ -204,8 +398,76 @@ function buildSummary(f: FormState): string {
       ),
     );
   }
+  const capScore = capriniTotal(f.caprini);
+  if (capScore > 0) {
+    lines.push('');
+    lines.push(`VTE prophylaxis — Caprini ${capScore} pt: ${capriniPlan(capScore)}`);
+  }
+
+  if (f.onAnticoag && f.anticoagDrug) {
+    lines.push('');
+    lines.push(`Anticoag: ${f.anticoagDrug}${f.needBridge ? ' → Bridge LMWH' : ''}`);
+    if (f.needTS) lines.push('  Type & Screen ✓');
+    if (f.needTC) lines.push('  Type & Cross-match ✓');
+    if (f.ebl) lines.push(`  Expected blood loss: ${f.ebl} mL`);
+  }
+
+  if (f.abxIndicated) {
+    lines.push('');
+    lines.push(`Antibiotic prophylaxis: ${f.abxAgent || 'ตามมาตรฐาน รพ.'}`);
+    lines.push('  ให้ภายใน 60 นาทีก่อน incision (120 นาที สำหรับ vanco/fluoroquinolone)');
+  }
+
+  if (f.hba1cValue) {
+    lines.push('');
+    lines.push(`DM: HbA1c ${f.hba1cValue}% — target BG peri-op 140–180 mg/dL`);
+  }
+
+  if (f.onChronicSteroid) {
+    lines.push('');
+    lines.push(
+      `Steroid stress dose: ${f.steroidDose || 'Hydrocortisone 100 mg IV q8h วันผ่าตัด (major sx)'}`,
+    );
+  }
+
+  if (f.confirmedMedPlan) {
+    const mp = f.confirmedMedPlan;
+    lines.push('');
+    lines.push('Medications peri-op plan:');
+    if (mp.continue.length) {
+      lines.push('  Continue:');
+      mp.continue.forEach((m) => lines.push(`    ✓ ${m}`));
+    }
+    if (mp.hold.length) {
+      lines.push('  Hold:');
+      mp.hold.forEach((m) => lines.push(`    ⏸ ${m}`));
+    }
+    if (mp.restart.length) {
+      lines.push('  Restart post-op:');
+      mp.restart.forEach((m) => lines.push(`    🔄 ${m}`));
+    }
+    if (mp.notes.length) {
+      lines.push('  Notes:');
+      mp.notes.forEach((n) => lines.push(`    ⚠ ${n}`));
+    }
+  }
+
+  const labFindings = f.confirmedLabFindings ?? [];
+  const labPostpone = labFindings.some((lf) => lf.verdict === 'postpone');
+  if (labFindings.length > 0) {
+    lines.push('');
+    lines.push('Lab abnormalities + correction plan:');
+    labFindings.forEach((lf) => {
+      const icon = lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢';
+      lines.push(`  ${icon} ${lf.lab} [${lf.severity}] → ${lf.verdict.toUpperCase()}`);
+      lines.push(`     Target: ${lf.target}`);
+      lines.push(`     Correction: ${lf.correction}`);
+      lines.push(`     Recheck: ${lf.recheck}`);
+    });
+  }
+
   lines.push('');
-  lines.push(`Clearance: ${clearanceVerdict(score, anyFlag)}`);
+  lines.push(`Clearance: ${clearanceVerdict(score, anyFlag, labPostpone)}`);
   return lines.join('\n');
 }
 
@@ -256,6 +518,18 @@ export default function PreopHelper() {
   const [toast, setToast] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [surgeryAi, setSurgeryAi] = useState<{
+    loading: boolean; error: string | null; suggest: ProcedureSuggestion | null;
+  }>({ loading: false, error: null, suggest: null });
+  const [comorbidAi, setComorbidAi] = useState<{
+    loading: boolean; error: string | null; suggest: ComorbidSuggestion | null;
+  }>({ loading: false, error: null, suggest: null });
+  const [medsAi, setMedsAi] = useState<{
+    loading: boolean; error: string | null; suggest: MedPlan | null;
+  }>({ loading: false, error: null, suggest: null });
+  const [labsAi, setLabsAi] = useState<{
+    loading: boolean; error: string | null; suggest: LabFinding[] | null;
+  }>({ loading: false, error: null, suggest: null });
 
   useEffect(() => {
     setHistory(loadHistory());
@@ -264,6 +538,123 @@ export default function PreopHelper() {
   // Auto-check "high-risk surgery" column internally; surgery=high drives
   // RCRI directly via rcriScore(). No separate checkbox needed since the
   // "surgery risk" select is the single source of truth for that criterion.
+
+  async function handleClassifyProcedure() {
+    if (!form.procedureName.trim()) return;
+    setSurgeryAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiClassifyProcedure(form.procedureName);
+      setSurgeryAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setSurgeryAi({ loading: false, error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด', suggest: null });
+    }
+  }
+
+  function confirmSurgeryLevel() {
+    if (!surgeryAi.suggest) return;
+    update('surgery', surgeryAi.suggest.level);
+    setSurgeryAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handleMapComorbid() {
+    if (!form.comorbidInput.trim()) return;
+    setComorbidAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiMapComorbidities(form.comorbidInput);
+      setComorbidAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setComorbidAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmComorbidMap() {
+    if (!comorbidAi.suggest) return;
+    const { rcri, other } = comorbidAi.suggest;
+    setForm((f) => {
+      const next = { ...f, otherComorbids: other };
+      rcri.forEach(({ key }) => {
+        if (key === 'ihd') next.ihd = true;
+        else if (key === 'hf') next.hf = true;
+        else if (key === 'cvd') next.cvd = true;
+        else if (key === 'insulinDm') next.insulinDm = true;
+        else if (key === 'crHigh') next.crHigh = true;
+      });
+      return next;
+    });
+    setComorbidAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handlePlanMeds() {
+    if (!form.medsInput.trim()) return;
+    setMedsAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiPlanMeds(form.medsInput, {
+        surgery: form.surgery,
+        hasCkd: form.crHigh,
+      });
+      setMedsAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setMedsAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmMedPlan() {
+    if (!medsAi.suggest) return;
+    const p = medsAi.suggest;
+    update('confirmedMedPlan', {
+      continue: p.continue.map((m) => `${m.name}: ${m.instruction}`),
+      hold: p.hold.map((m) => `${m.name}: ${m.instruction}`),
+      restart: p.restart.map((m) => `${m.name}: ${m.instruction}`),
+      notes: p.notes ?? [],
+    });
+    setMedsAi((s) => ({ ...s, suggest: null }));
+  }
+
+  async function handleAnalyzeLabs() {
+    const hasAny =
+      Object.values(form.labs).some((v) => v.trim() !== '') ||
+      form.labOther.trim() !== '';
+    if (!hasAny) return;
+    setLabsAi({ loading: true, error: null, suggest: null });
+    try {
+      const result = await aiAnalyzeLabs(
+        form.labs as unknown as Record<string, string>,
+        form.labOther,
+        { surgery: form.surgery, age: Number(form.age) || 0 },
+      );
+      setLabsAi({ loading: false, error: null, suggest: result });
+    } catch (e) {
+      setLabsAi({
+        loading: false,
+        error: e instanceof Error ? e.message : 'เกิดข้อผิดพลาด',
+        suggest: null,
+      });
+    }
+  }
+
+  function confirmLabFindings() {
+    if (!labsAi.suggest) return;
+    update(
+      'confirmedLabFindings',
+      labsAi.suggest.map((lf) => ({
+        lab: lf.lab,
+        severity: lf.severity,
+        verdict: lf.verdict,
+        target: lf.target,
+        correction: lf.correction.join('; '),
+        recheck: lf.recheck,
+      })),
+    );
+    setLabsAi((s) => ({ ...s, suggest: null }));
+  }
 
   const score = rcriScore(form);
   const band = useMemo(() => riskBand(score), [score]);
@@ -377,6 +768,64 @@ export default function PreopHelper() {
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
         <h2 className="text-sm font-semibold">Surgery risk</h2>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={form.procedureName}
+            onChange={(e) => {
+              update('procedureName', e.target.value);
+              setSurgeryAi({ loading: false, error: null, suggest: null });
+            }}
+            placeholder="ชื่อหัตถการ เช่น 'ผ่าตัดเปลี่ยนข้อสะโพก' หรือ 'appendectomy'"
+            className="flex-1 rounded-md border bg-background px-3 py-2 text-sm"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleClassifyProcedure}
+            disabled={!form.procedureName.trim() || surgeryAi.loading}
+          >
+            {surgeryAi.loading
+              ? <Loader2 className="h-4 w-4 animate-spin" />
+              : '🤖 AI จัดระดับ'}
+          </Button>
+        </div>
+
+        {surgeryAi.loading && (
+          <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+          </div>
+        )}
+        {surgeryAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {surgeryAi.error} —{' '}
+            <button type="button" className="underline"
+              onClick={() => setSurgeryAi({ loading: false, error: null, suggest: null })}>
+              ล้าง
+            </button>
+          </div>
+        )}
+        {surgeryAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI แนะนำ:{' '}
+              <span className="capitalize">{surgeryAi.suggest.level}</span> risk
+            </p>
+            <p className="text-xs text-amber-700 dark:text-amber-300">
+              {surgeryAi.suggest.reason}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={confirmSurgeryLevel}>
+                <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+              </Button>
+              <Button size="sm" variant="ghost"
+                onClick={() => setSurgeryAi({ loading: false, error: null, suggest: null })}>
+                ยกเลิก
+              </Button>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-2">
           {(Object.keys(SURGERY_LABELS) as SurgeryRisk[]).map((k) => (
             <label
@@ -403,9 +852,35 @@ export default function PreopHelper() {
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold">Comorbidities (RCRI)</h2>
           <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
-            {score} / 6 points
+            {score} / 6 คะแนน
           </span>
         </div>
+        <InfoCallout title="RCRI คืออะไร? + MACE endpoint">
+          <p className="mb-1 font-medium">Revised Cardiac Risk Index (Lee 1999)</p>
+          <p className="mb-2">ประเมินโอกาสเกิด <strong>30-day MACE</strong> (Major Adverse Cardiac Events) หลัง non-cardiac surgery</p>
+          <p className="mb-1 font-medium">MACE ในที่นี้ = 5 events:</p>
+          <ul className="mb-2 list-disc space-y-0.5 pl-4">
+            <li>MI — กล้ามเนื้อหัวใจตาย</li>
+            <li>Pulmonary edema — น้ำท่วมปอดจากหัวใจ</li>
+            <li>VF/VT arrest — หัวใจห้องล่างเต้นผิดจังหวะจนหยุด</li>
+            <li>Complete heart block — AV block ขั้น 3</li>
+            <li>Cardiac death</li>
+          </ul>
+          <p className="mb-0.5 text-[11px] italic opacity-70">
+            หมายเหตุ: MACE ที่ใช้ใน cardiology trial ทั่วไป (3-point MACE) = CV death + MI + stroke ซึ่งต่างจาก RCRI
+          </p>
+          <div className="mt-2 rounded bg-blue-100 p-2 dark:bg-blue-900/30 text-[11px]">
+            <table className="w-full">
+              <thead><tr className="font-medium"><td>Score</td><td>ระดับ</td><td>30-day MACE</td></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Very Low</td><td>0.4%</td></tr>
+                <tr><td>1</td><td>Low</td><td>0.9%</td></tr>
+                <tr><td>2</td><td>Intermediate</td><td>6.6%</td></tr>
+                <tr><td>≥3</td><td>High</td><td>&gt;11%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </InfoCallout>
         <div className="space-y-2 text-sm">
           <Checkbox
             checked={form.surgery === 'high'}
@@ -438,12 +913,125 @@ export default function PreopHelper() {
             label="Serum Cr > 2.0 mg/dL"
           />
         </div>
+
+        <div className="space-y-2 pt-2">
+          <p className="text-xs font-medium text-muted-foreground">
+            โรคประจำตัวอื่น ๆ (ไทย/Eng) — AI จะจับคู่ RCRI + แสดงโรคอื่น
+          </p>
+          <div className="flex gap-2">
+            <textarea
+              value={form.comorbidInput}
+              onChange={(e) => {
+                update('comorbidInput', e.target.value);
+                setComorbidAi({ loading: false, error: null, suggest: null });
+              }}
+              placeholder="เช่น AF on warfarin, COPD, CKD stage 3, DM ไม่ใช้ insulin, ตับแข็ง"
+              rows={2}
+              className="flex-1 resize-none rounded-md border bg-background px-3 py-2 text-sm"
+            />
+            <Button
+              size="sm"
+              variant="outline"
+              className="self-end"
+              onClick={handleMapComorbid}
+              disabled={!form.comorbidInput.trim() || comorbidAi.loading}
+            >
+              {comorbidAi.loading ? <Loader2 className="h-4 w-4 animate-spin" /> : '🤖 AI แปลง'}
+            </Button>
+          </div>
+
+          {comorbidAi.loading && (
+            <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+            </div>
+          )}
+          {comorbidAi.error && (
+            <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+              {comorbidAi.error} —{' '}
+              <button
+                type="button"
+                className="underline"
+                onClick={() => setComorbidAi({ loading: false, error: null, suggest: null })}
+              >
+                ล้าง
+              </button>
+            </div>
+          )}
+          {comorbidAi.suggest && (
+            <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+              <p className="font-medium text-amber-800 dark:text-amber-200">
+                🤖 AI แนะนำ — กดยืนยันเพื่อ apply
+              </p>
+              {comorbidAi.suggest.rcri.length > 0 && (
+                <div>
+                  <p className="font-medium text-amber-700 dark:text-amber-300">จับคู่ RCRI:</p>
+                  {comorbidAi.suggest.rcri.map((m) => (
+                    <p key={m.key} className="ml-2 text-amber-700 dark:text-amber-300">
+                      ✓ <strong>{m.key}</strong> — {m.reason}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {comorbidAi.suggest.other.length > 0 && (
+                <div>
+                  <p className="font-medium text-amber-700 dark:text-amber-300">โรคอื่น ๆ:</p>
+                  {comorbidAi.suggest.other.map((o) => (
+                    <p key={o} className="ml-2 text-amber-700 dark:text-amber-300">• {o}</p>
+                  ))}
+                </div>
+              )}
+              {comorbidAi.suggest.rcri.length === 0 && comorbidAi.suggest.other.length === 0 && (
+                <p className="text-amber-700 dark:text-amber-300">ไม่พบโรคที่จับคู่ได้</p>
+              )}
+              <div className="flex gap-2">
+                <Button size="sm" onClick={confirmComorbidMap}>
+                  <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setComorbidAi({ loading: false, error: null, suggest: null })}
+                >
+                  ยกเลิก
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {form.otherComorbids.length > 0 && (
+            <div className="rounded-md bg-muted/40 px-3 py-2 text-xs">
+              <span className="font-medium">โรคอื่น ๆ (confirmed): </span>
+              {form.otherComorbids.join(', ')}
+              <button
+                type="button"
+                className="ml-2 text-destructive underline"
+                onClick={() => update('otherComorbids', [])}
+              >
+                ลบ
+              </button>
+            </div>
+          )}
+        </div>
       </section>
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
-        <h2 className="text-sm font-semibold">ASA Class</h2>
-        <div className="grid grid-cols-5 gap-2">
-          {(['I', 'II', 'III', 'IV', 'V'] as AsaClass[]).map((c) => (
+        <h2 className="text-sm font-semibold">ASA Physical Status</h2>
+        <InfoCallout title="ASA Class คืออะไร?">
+          <p className="mb-2">American Society of Anesthesiologists — ประเมินความพร้อมก่อน anesthesia (ไม่เข้าสูตร RCRI แต่ใส่ใน summary)</p>
+          <div className="space-y-1.5">
+            {(Object.keys(ASA_INFO) as Exclude<AsaClass, 'unknown'>[]).map((k) => (
+              <div key={k} className="flex gap-2">
+                <span className="w-5 shrink-0 font-bold">{k}</span>
+                <span>
+                  {ASA_INFO[k].desc}
+                  <span className="text-blue-700/70 dark:text-blue-300/70"> — {ASA_INFO[k].examples}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </InfoCallout>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+          {(['I', 'II', 'III', 'IV', 'V', 'unknown'] as AsaClass[]).map((c) => (
             <button
               key={c}
               type="button"
@@ -456,10 +1044,19 @@ export default function PreopHelper() {
                   : 'bg-background',
               )}
             >
-              {c}
+              {c === 'unknown' ? '? ไม่ทราบ' : c}
             </button>
           ))}
         </div>
+        {form.asa !== 'unknown' && (
+          <p className="text-xs text-muted-foreground">
+            <strong>ASA {form.asa}</strong> — {ASA_INFO[form.asa].desc}
+            <span className="ml-1 opacity-70">({ASA_INFO[form.asa].examples})</span>
+          </p>
+        )}
+        <p className="text-[11px] text-muted-foreground">
+          ถ้าไม่ทราบ กด "? ไม่ทราบ" — ข้ามได้ ไม่กระทบคะแนน RCRI
+        </p>
       </section>
 
       <section className="space-y-3 rounded-lg border bg-card p-4">
@@ -477,6 +1074,552 @@ export default function PreopHelper() {
             />
           ))}
         </div>
+      </section>
+
+      {/* ── METs ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Functional Status (METs)</h2>
+        <InfoCallout title="METs คืออะไร? + ผลต่อ stress test decision">
+          <p>
+            <strong>METs</strong> = Metabolic Equivalents — ความสามารถในการออกแรง
+          </p>
+          <ul className="mt-1 list-disc space-y-0.5 pl-4">
+            <li><strong>METs ≥4</strong>: ไม่ต้อง stress test แม้ RCRI ≥2</li>
+            <li><strong>METs &lt;4 / ไม่ทราบ</strong> + RCRI ≥2 → พิจารณา stress test</li>
+          </ul>
+        </InfoCallout>
+        <div className="space-y-2">
+          {(Object.keys(METS_INFO) as MetLevel[]).map((k) => (
+            <label
+              key={k}
+              className={cn(
+                'flex cursor-pointer items-start gap-2 rounded-md border p-2 text-sm',
+                form.mets === k && 'border-primary bg-primary/5',
+              )}
+            >
+              <input
+                type="radio"
+                name="mets"
+                checked={form.mets === k}
+                onChange={() => update('mets', k)}
+                className="mt-1"
+              />
+              <span>
+                <span className="font-medium">{METS_INFO[k].label}</span>
+                {METS_INFO[k].examples && (
+                  <span className="text-muted-foreground"> — {METS_INFO[k].examples}</span>
+                )}
+                <br />
+                <span className="text-xs text-muted-foreground">{METS_INFO[k].impact}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Allergies + Prev anesthesia ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Allergies & ประวัติ Anesthesia</h2>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">แพ้ยา / แพ้สาร (ข้ามได้)</span>
+          <input
+            type="text"
+            value={form.allergies}
+            onChange={(e) => update('allergies', e.target.value)}
+            placeholder="เช่น PCN → rash, contrast → urticaria"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">ประวัติ anesthesia ที่ผ่านมา (ข้ามได้)</span>
+          <input
+            type="text"
+            value={form.prevAnesHx}
+            onChange={(e) => update('prevAnesHx', e.target.value)}
+            placeholder="เช่น PONV มาก, difficult intubation, MH family hx"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+      </section>
+
+      {/* ── Disposition ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Disposition หลังผ่าตัด (แนะนำ)</h2>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {([
+            { key: 'ward' as Disposition, label: 'Ward ปกติ' },
+            { key: 'stepdown' as Disposition, label: 'Step-down' },
+            { key: 'icu' as Disposition, label: 'ICU' },
+            { key: 'unknown' as Disposition, label: '? ไม่ทราบ' },
+          ]).map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => update('disposition', key)}
+              aria-pressed={form.disposition === key}
+              className={cn(
+                'rounded-md border py-2 text-sm',
+                form.disposition === key
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'bg-background',
+              )}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ── VTE Caprini ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-semibold">VTE Prophylaxis — Caprini score</h2>
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
+            {capriniTotal(form.caprini)} pts
+          </span>
+        </div>
+        <InfoCallout title="Caprini score คืออะไร?">
+          <p className="mb-1">
+            ประเมินความเสี่ยง DVT/PE หลังผ่าตัด → แนะนำว่าควรใช้ LMWH, SCD หรือ extended prophylaxis
+          </p>
+          <div className="mt-1 rounded bg-blue-100 p-2 dark:bg-blue-900/30 text-[11px]">
+            <table className="w-full">
+              <thead>
+                <tr className="font-medium">
+                  <td>Caprini</td>
+                  <td>Risk</td>
+                  <td>Plan</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>Very low</td><td>Early ambulation</td></tr>
+                <tr><td>1–2</td><td>Low</td><td>Ambulation + SCD</td></tr>
+                <tr><td>3–4</td><td>Moderate</td><td>LMWH + SCD</td></tr>
+                <tr><td>≥5</td><td>High</td><td>LMWH + SCD + extended (cancer sx: 4 wk)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-1 text-[11px]">
+            ⚠️ ติกเฉพาะ 1 ช่องอายุที่สูงที่สุด (เช่น อายุ 72 → ติก 61–74 เท่านั้น)
+          </p>
+        </InfoCallout>
+        <div className="space-y-1.5 text-sm">
+          {(Object.keys(CAPRINI_FACTORS) as CapriniKey[]).map((k) => {
+            const f = CAPRINI_FACTORS[k];
+            return (
+              <Checkbox
+                key={k}
+                checked={form.caprini[k]}
+                onChange={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    caprini: { ...prev.caprini, [k]: !prev.caprini[k] },
+                  }))
+                }
+                label={`${f.label} (${f.score} pt${f.score > 1 ? 's' : ''}${f.desc ? ` — ${f.desc}` : ''})`}
+              />
+            );
+          })}
+        </div>
+        <div className="rounded-md bg-muted/40 p-2 text-xs">
+          <span className="font-medium">Caprini {capriniTotal(form.caprini)} → </span>
+          {capriniPlan(capriniTotal(form.caprini))}
+        </div>
+      </section>
+
+      {/* ── Anticoag / Bleeding ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Anticoagulation & Bleeding Plan</h2>
+        <Checkbox
+          checked={form.onAnticoag}
+          onChange={() => update('onAnticoag', !form.onAnticoag)}
+          label="ใช้ยาต้านเลือดแข็ง / antiplatelet"
+        />
+        {form.onAnticoag && (
+          <div className="space-y-3 pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">ชื่อยา + indication</span>
+              <input
+                type="text"
+                value={form.anticoagDrug}
+                onChange={(e) => update('anticoagDrug', e.target.value)}
+                placeholder="เช่น Warfarin (AF, CHA₂DS₂-VASc 4), Apixaban (VTE), ASA"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+            <Checkbox
+              checked={form.needBridge}
+              onChange={() => update('needBridge', !form.needBridge)}
+              label="ต้อง Bridge LMWH (mech valve, CHA₂DS₂-VASc ≥4, VTE ใน 3 เดือน)"
+            />
+            <div className="flex gap-4 text-sm">
+              <Checkbox
+                checked={form.needTS}
+                onChange={() => update('needTS', !form.needTS)}
+                label="Type & Screen"
+              />
+              <Checkbox
+                checked={form.needTC}
+                onChange={() => update('needTC', !form.needTC)}
+                label="Type & Cross-match"
+              />
+            </div>
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">Expected blood loss (mL)</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={form.ebl}
+                onChange={(e) => update('ebl', e.target.value)}
+                placeholder="เช่น 500"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+          </div>
+        )}
+      </section>
+
+      {/* ── Antibiotic prophylaxis ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Antibiotic Prophylaxis</h2>
+        <Checkbox
+          checked={form.abxIndicated}
+          onChange={() => update('abxIndicated', !form.abxIndicated)}
+          label="มี indication (general: cefazolin; colorectal: + metronidazole; joint: cefazolin)"
+        />
+        {form.abxIndicated && (
+          <div className="space-y-2 pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">ยา + dose</span>
+              <input
+                type="text"
+                value={form.abxAgent}
+                onChange={(e) => update('abxAgent', e.target.value)}
+                placeholder="เช่น Cefazolin 2g IV (3g ถ้า >120 kg)"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+            <p className="text-xs text-muted-foreground">
+              ⏱ ให้ภายใน 60 นาทีก่อน incision — vanco/fluoroquinolone ให้ก่อน 120 นาที
+            </p>
+          </div>
+        )}
+      </section>
+
+      {/* ── DM Control ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">DM Control (ถ้ามี)</h2>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">HbA1c ล่าสุด (%)</span>
+          <input
+            type="number"
+            step="0.1"
+            inputMode="decimal"
+            value={form.hba1cValue}
+            onChange={(e) => update('hba1cValue', e.target.value)}
+            placeholder="เช่น 8.5"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <p className="text-xs text-muted-foreground">
+          Target peri-op BG: 140–180 mg/dL | HbA1c &gt;9% → พิจารณา postpone elective เพื่อ optimize
+        </p>
+      </section>
+
+      {/* ── Steroid stress dose ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Steroid Stress Dose</h2>
+        <Checkbox
+          checked={form.onChronicSteroid}
+          onChange={() => update('onChronicSteroid', !form.onChronicSteroid)}
+          label="ใช้ steroid เรื้อรัง > 5 mg prednisolone/day ≥ 3 สัปดาห์ ใน 12 เดือนที่ผ่านมา → เสี่ยง adrenal insufficiency"
+        />
+        {form.onChronicSteroid && (
+          <div className="pl-2">
+            <label className="space-y-1 block">
+              <span className="text-xs text-muted-foreground">Stress dose plan (หรือใช้ standard)</span>
+              <input
+                type="text"
+                value={form.steroidDose}
+                onChange={(e) => update('steroidDose', e.target.value)}
+                placeholder="Hydrocortisone 100 mg IV q8h วันผ่าตัด × 24 ชม. แล้ว taper"
+                className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+              />
+            </label>
+          </div>
+        )}
+      </section>
+
+      {/* ── Labs + AI correction ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">Lab Values & Correction Plan</h2>
+        <p className="text-xs text-muted-foreground">
+          ใส่ค่า lab ที่ผิดปกติ → AI flag + แนะนำ correction — ถ้า verdict = postpone ระบบจะเปลี่ยน clearance อัตโนมัติ
+        </p>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+          {([
+            { key: 'hb', label: 'Hb (g/dL)' },
+            { key: 'na', label: 'Na (mEq/L)' },
+            { key: 'k', label: 'K (mEq/L)' },
+            { key: 'ca', label: 'Ca (mg/dL)' },
+            { key: 'cr', label: 'Cr (mg/dL)' },
+            { key: 'egfr', label: 'eGFR' },
+            { key: 'platelet', label: 'Plt (×10³)' },
+            { key: 'inr', label: 'INR' },
+            { key: 'fbs', label: 'FBS' },
+            { key: 'albumin', label: 'Albumin' },
+            { key: 'ast', label: 'AST' },
+            { key: 'alt', label: 'ALT' },
+          ] as const).map(({ key, label }) => (
+            <label key={key} className="space-y-1">
+              <span className="text-[11px] text-muted-foreground">{label}</span>
+              <input
+                type="number"
+                step="any"
+                inputMode="decimal"
+                value={form.labs[key]}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    labs: { ...prev.labs, [key]: e.target.value },
+                  }))
+                }
+                className="w-full rounded-md border bg-background px-2 py-1.5 text-sm"
+                placeholder="—"
+              />
+            </label>
+          ))}
+        </div>
+        <label className="space-y-1 block">
+          <span className="text-xs text-muted-foreground">Lab อื่น / note เพิ่ม</span>
+          <input
+            type="text"
+            value={form.labOther}
+            onChange={(e) => update('labOther', e.target.value)}
+            placeholder="เช่น HbA1c 9.2%, TSH 0.02, LFT ผิดปกติ"
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+          />
+        </label>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleAnalyzeLabs}
+          disabled={
+            labsAi.loading ||
+            (!Object.values(form.labs).some((v) => v.trim()) && !form.labOther.trim())
+          }
+        >
+          {labsAi.loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> วิเคราะห์…
+            </>
+          ) : (
+            '🤖 AI วิเคราะห์ + Correction plan'
+          )}
+        </Button>
+
+        {labsAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {labsAi.error} —{' '}
+            <button
+              type="button"
+              className="underline"
+              onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
+            >
+              ล้าง
+            </button>
+          </div>
+        )}
+        {labsAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI วิเคราะห์ —{' '}
+              {labsAi.suggest.length === 0
+                ? 'ค่า lab ปกติทั้งหมด ✅'
+                : `พบ ${labsAi.suggest.length} รายการผิดปกติ`}
+            </p>
+            {labsAi.suggest.map((lf, i) => (
+              <div
+                key={i}
+                className={cn(
+                  'rounded-md p-2',
+                  lf.verdict === 'postpone'
+                    ? 'bg-red-100 dark:bg-red-950/40'
+                    : lf.verdict === 'optimize'
+                      ? 'bg-amber-100 dark:bg-amber-950/40'
+                      : 'bg-muted/60',
+                )}
+              >
+                <div className="font-medium">
+                  {lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢'}{' '}
+                  {lf.lab} [{lf.severity}] → {lf.verdict.toUpperCase()}
+                </div>
+                <div>Target: {lf.target}</div>
+                {lf.workup && lf.workup.length > 0 && (
+                  <div>Workup: {lf.workup.join(', ')}</div>
+                )}
+                <div>Correction: {lf.correction.join('; ')}</div>
+                <div>Recheck: {lf.recheck}</div>
+              </div>
+            ))}
+            {labsAi.suggest.length > 0 && (
+              <div className="flex gap-2">
+                <Button size="sm" onClick={confirmLabFindings}>
+                  <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setLabsAi({ loading: false, error: null, suggest: null })}
+                >
+                  ยกเลิก
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {form.confirmedLabFindings && form.confirmedLabFindings.length > 0 && (
+          <div className="space-y-1 rounded-md bg-muted/40 px-3 py-2 text-xs">
+            <div className="flex items-center justify-between font-medium">
+              <span>✅ Lab findings (confirmed)</span>
+              <button
+                type="button"
+                className="text-muted-foreground underline"
+                onClick={() => update('confirmedLabFindings', null)}
+              >
+                ลบ
+              </button>
+            </div>
+            {form.confirmedLabFindings.map((lf, i) => (
+              <p key={i}>
+                {lf.verdict === 'postpone' ? '🔴' : lf.verdict === 'optimize' ? '🟡' : '🟢'}{' '}
+                {lf.lab} → {lf.verdict}
+              </p>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ── Medications AI plan ── */}
+      <section className="space-y-3 rounded-lg border bg-card p-4">
+        <h2 className="text-sm font-semibold">ยาประจำ + Peri-op Plan (AI)</h2>
+        <p className="text-xs text-muted-foreground">
+          ใส่รายการยา (ไทย/Eng) → AI แบ่งเป็น Continue / Hold / Restart
+        </p>
+        <div className="flex gap-2">
+          <textarea
+            value={form.medsInput}
+            onChange={(e) => {
+              update('medsInput', e.target.value);
+              setMedsAi({ loading: false, error: null, suggest: null });
+            }}
+            placeholder={'เช่น\nAtenolol 50 mg OD\nMetformin 500 mg BID\nWarfarin 3 mg OD (AF)\nAmlodipine 5 mg OD'}
+            rows={4}
+            className="flex-1 resize-none rounded-md border bg-background px-3 py-2 font-mono text-sm"
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            className="self-end"
+            onClick={handlePlanMeds}
+            disabled={!form.medsInput.trim() || medsAi.loading}
+          >
+            {medsAi.loading ? <Loader2 className="h-4 w-4 animate-spin" /> : '🤖 AI วางแผน'}
+          </Button>
+        </div>
+
+        {medsAi.loading && (
+          <div className="flex items-center gap-2 rounded-md bg-muted/60 p-3 text-xs text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> AI กำลังวิเคราะห์…
+          </div>
+        )}
+        {medsAi.error && (
+          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+            {medsAi.error} —{' '}
+            <button
+              type="button"
+              className="underline"
+              onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
+            >
+              ล้าง
+            </button>
+          </div>
+        )}
+        {medsAi.suggest && (
+          <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              🤖 AI แนะนำ — กดยืนยันเพื่อ apply
+            </p>
+            {medsAi.suggest.continue.length > 0 && (
+              <div>
+                <p className="font-medium text-emerald-700 dark:text-emerald-300">✅ Continue</p>
+                {medsAi.suggest.continue.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {medsAi.suggest.hold.length > 0 && (
+              <div>
+                <p className="font-medium text-amber-700 dark:text-amber-300">⏸ Hold</p>
+                {medsAi.suggest.hold.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {medsAi.suggest.restart.length > 0 && (
+              <div>
+                <p className="font-medium text-blue-700 dark:text-blue-300">🔄 Restart post-op</p>
+                {medsAi.suggest.restart.map((m) => (
+                  <p key={m.name} className="ml-2">
+                    • <strong>{m.name}</strong>: {m.instruction}
+                  </p>
+                ))}
+              </div>
+            )}
+            {(medsAi.suggest.notes ?? []).length > 0 && (
+              <div>
+                <p className="font-medium text-red-700 dark:text-red-300">⚠️ Notes</p>
+                {medsAi.suggest.notes!.map((n) => (
+                  <p key={n} className="ml-2">• {n}</p>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-2">
+              <Button size="sm" onClick={confirmMedPlan}>
+                <CheckCircle className="mr-1 h-3 w-3" /> ยืนยัน — Apply
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setMedsAi({ loading: false, error: null, suggest: null })}
+              >
+                ยกเลิก
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {form.confirmedMedPlan && (
+          <div className="rounded-md bg-emerald-50 px-3 py-2 text-xs dark:bg-emerald-950/40">
+            <div className="flex items-center justify-between">
+              <span className="font-medium text-emerald-700 dark:text-emerald-300">
+                ✅ Confirmed med plan (บันทึกใน summary แล้ว)
+              </span>
+              <button
+                type="button"
+                className="text-muted-foreground underline"
+                onClick={() => update('confirmedMedPlan', null)}
+              >
+                ลบ
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* OUTPUT */}
@@ -620,6 +1763,27 @@ export default function PreopHelper() {
           className="pointer-events-none fixed bottom-24 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-4 py-2 text-xs text-background shadow-lg"
         >
           {toast}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function InfoCallout({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-md border border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950/30">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between px-3 py-2 text-left text-xs font-medium text-blue-700 dark:text-blue-300"
+      >
+        <span>ℹ️ {title}</span>
+        {open ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+      </button>
+      {open && (
+        <div className="border-t border-blue-200 px-3 pb-3 pt-2 text-xs text-blue-900 dark:border-blue-900 dark:text-blue-100">
+          {children}
         </div>
       )}
     </div>
