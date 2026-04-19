@@ -79,6 +79,41 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "dexmedetomidine-drip",
+    "path": "/src/content/drips/dexmedetomidine-drip.mdx",
+    "frontmatter": {
+      "id": "dexmedetomidine-drip",
+      "title": "Dexmedetomidine drip",
+      "titleTh": "Dexmedetomidine drip",
+      "category": "drip",
+      "subcategory": "sedation",
+      "tags": [
+        "dexmedetomidine",
+        "alpha-2 agonist",
+        "sedation",
+        "delirium"
+      ],
+      "keywords": [
+        "dexmedetomidine",
+        "precedex",
+        "alpha-2",
+        "sedation without respiratory depression",
+        "weaning",
+        "delirium"
+      ],
+      "related": [
+        "propofol-drip"
+      ],
+      "source": {
+        "name": "SCCM PADIS 2018 + SEDCOM trial",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
     "id": "dobutamine-drip",
     "path": "/src/content/drips/dobutamine-drip.mdx",
     "frontmatter": {
@@ -441,6 +476,75 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "phenylephrine-drip",
+    "path": "/src/content/drips/phenylephrine-drip.mdx",
+    "frontmatter": {
+      "id": "phenylephrine-drip",
+      "title": "Phenylephrine drip",
+      "titleTh": "Phenylephrine drip",
+      "category": "drip",
+      "subcategory": "vasopressor",
+      "tags": [
+        "phenylephrine",
+        "alpha agonist",
+        "vasopressor"
+      ],
+      "keywords": [
+        "phenylephrine",
+        "neosynephrine",
+        "alpha-1",
+        "vasopressor",
+        "post-spinal hypotension"
+      ],
+      "related": [
+        "norepinephrine-drip",
+        "vasopressin-drip"
+      ],
+      "source": {
+        "name": "ACLS + Stoelting's Pharmacology",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "propofol-drip",
+    "path": "/src/content/drips/propofol-drip.mdx",
+    "frontmatter": {
+      "id": "propofol-drip",
+      "title": "Propofol drip (ICU sedation)",
+      "titleTh": "Propofol drip",
+      "category": "drip",
+      "subcategory": "sedation",
+      "tags": [
+        "propofol",
+        "sedation",
+        "ICU",
+        "intubation"
+      ],
+      "keywords": [
+        "propofol",
+        "diprivan",
+        "sedation",
+        "ICU",
+        "propofol infusion syndrome",
+        "PRIS"
+      ],
+      "related": [
+        "dexmedetomidine-drip"
+      ],
+      "source": {
+        "name": "SCCM PADIS 2018 + Stoelting",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "vasopressin-drip",
     "path": "/src/content/drips/vasopressin-drip.mdx",
     "frontmatter": {
@@ -522,6 +626,42 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "acute-cholangitis",
+    "path": "/src/content/protocols/acute-cholangitis.mdx",
+    "frontmatter": {
+      "id": "acute-cholangitis",
+      "title": "Acute cholangitis",
+      "titleTh": "ท่อน้ำดีอักเสบเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "GI",
+      "tags": [
+        "cholangitis",
+        "biliary",
+        "ERCP",
+        "Charcot triad"
+      ],
+      "keywords": [
+        "cholangitis",
+        "Charcot",
+        "Reynold",
+        "ERCP",
+        "biliary sepsis",
+        "ท่อน้ำดี",
+        "ถุงน้ำดี"
+      ],
+      "related": [
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Tokyo Guidelines 2018 (TG18) + IDSA",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "acute-limb-ischemia",
     "path": "/src/content/protocols/acute-limb-ischemia.mdx",
     "frontmatter": {
@@ -555,6 +695,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "ACC/AHA Lower Extremity PAD Guideline (2016) + ESVS",
         "year": 2016
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "acute-pulmonary-edema",
+    "path": "/src/content/protocols/acute-pulmonary-edema.mdx",
+    "frontmatter": {
+      "id": "acute-pulmonary-edema",
+      "title": "Acute pulmonary edema (cardiogenic)",
+      "titleTh": "น้ำท่วมปอดเฉียบพลัน",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "pulmonary edema",
+        "CHF",
+        "NIV",
+        "lasix"
+      ],
+      "keywords": [
+        "pulmonary edema",
+        "CHF",
+        "heart failure",
+        "LASA",
+        "LMNOP",
+        "furosemide",
+        "nitroglycerin",
+        "NIV",
+        "BiPAP",
+        "น้ำท่วมปอด"
+      ],
+      "related": [
+        "stemi",
+        "cardiac-tamponade"
+      ],
+      "source": {
+        "name": "ESC 2021 Acute HF + AHA/ACC 2022",
+        "year": 2022
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -597,6 +777,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "alcoholic-ketoacidosis",
+    "path": "/src/content/protocols/alcoholic-ketoacidosis.mdx",
+    "frontmatter": {
+      "id": "alcoholic-ketoacidosis",
+      "title": "Alcoholic ketoacidosis (AKA)",
+      "titleTh": "ภาวะกรดคีโตนจากสุรา",
+      "category": "protocol",
+      "subcategory": "metabolic",
+      "tags": [
+        "AKA",
+        "ketoacidosis",
+        "alcohol",
+        "thiamine"
+      ],
+      "keywords": [
+        "alcoholic ketoacidosis",
+        "AKA",
+        "starvation ketosis",
+        "thiamine",
+        "Wernicke",
+        "dextrose",
+        "สุรา",
+        "เหล้า"
+      ],
+      "related": [
+        "dka",
+        "toxic-alcohol-ingestion"
+      ],
+      "source": {
+        "name": "Tintinalli EM + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -761,6 +979,76 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "cardiac-tamponade",
+    "path": "/src/content/protocols/cardiac-tamponade.mdx",
+    "frontmatter": {
+      "id": "cardiac-tamponade",
+      "title": "Cardiac tamponade",
+      "titleTh": "ภาวะหัวใจถูกบีบรัดจากน้ำรอบหัวใจ",
+      "category": "protocol",
+      "subcategory": "cardiac",
+      "tags": [
+        "tamponade",
+        "pericardial effusion",
+        "pericardiocentesis"
+      ],
+      "keywords": [
+        "cardiac tamponade",
+        "pericardial effusion",
+        "Beck's triad",
+        "pulsus paradoxus",
+        "pericardiocentesis",
+        "หัวใจถูกบีบ"
+      ],
+      "related": [
+        "acute-pulmonary-edema"
+      ],
+      "source": {
+        "name": "ESC 2015 pericardial + ACLS",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "diabetic-foot-infection",
+    "path": "/src/content/protocols/diabetic-foot-infection.mdx",
+    "frontmatter": {
+      "id": "diabetic-foot-infection",
+      "title": "Diabetic foot infection",
+      "titleTh": "แผลติดเชื้อที่เท้าในผู้ป่วยเบาหวาน",
+      "category": "protocol",
+      "subcategory": "ID",
+      "tags": [
+        "diabetic foot",
+        "cellulitis",
+        "osteomyelitis",
+        "necrotizing fasciitis"
+      ],
+      "keywords": [
+        "diabetic foot",
+        "cellulitis",
+        "osteomyelitis",
+        "gangrene",
+        "debridement",
+        "แผลเบาหวาน",
+        "แผลติดเชื้อ"
+      ],
+      "related": [
+        "septic-shock"
+      ],
+      "source": {
+        "name": "IDSA 2023 Diabetic Foot Infection guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "dka",
     "path": "/src/content/protocols/dka.mdx",
     "frontmatter": {
@@ -876,6 +1164,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "KDIGO Clinical Practice Guideline + Thai Nephrology Society",
         "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
+    "id": "hypertensive-emergency-pregnancy",
+    "path": "/src/content/protocols/hypertensive-emergency-pregnancy.mdx",
+    "frontmatter": {
+      "id": "hypertensive-emergency-pregnancy",
+      "title": "Hypertensive emergency in pregnancy (severe pre-eclampsia / eclampsia)",
+      "titleTh": "ความดันสูงวิกฤตในหญิงตั้งครรภ์",
+      "category": "protocol",
+      "subcategory": "OB",
+      "tags": [
+        "pregnancy",
+        "preeclampsia",
+        "eclampsia",
+        "MgSO4"
+      ],
+      "keywords": [
+        "preeclampsia",
+        "eclampsia",
+        "HELLP",
+        "magnesium sulfate",
+        "labetalol",
+        "hydralazine",
+        "ตั้งครรภ์",
+        "ครรภ์เป็นพิษ"
+      ],
+      "related": [
+        "severe-hypertension"
+      ],
+      "source": {
+        "name": "ACOG 2020 + Thai RTCOG guideline",
+        "year": 2022
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
@@ -1311,6 +1636,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "subarachnoid-hemorrhage",
+    "path": "/src/content/protocols/subarachnoid-hemorrhage.mdx",
+    "frontmatter": {
+      "id": "subarachnoid-hemorrhage",
+      "title": "Subarachnoid hemorrhage (SAH)",
+      "titleTh": "เลือดออกใต้เยื่อหุ้มสมอง",
+      "category": "protocol",
+      "subcategory": "neuro",
+      "tags": [
+        "SAH",
+        "thunderclap headache",
+        "aneurysm",
+        "nimodipine"
+      ],
+      "keywords": [
+        "SAH",
+        "aneurysm",
+        "thunderclap",
+        "worst headache",
+        "Hunt-Hess",
+        "vasospasm",
+        "ปวดหัว",
+        "เลือดออกสมอง"
+      ],
+      "related": [
+        "stroke-pathway",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "AHA/ASA 2023 SAH guidelines",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "svt",
     "path": "/src/content/protocols/svt.mdx",
     "frontmatter": {
@@ -1476,6 +1839,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "toxic-alcohol-ingestion",
+    "path": "/src/content/protocols/toxic-alcohol-ingestion.mdx",
+    "frontmatter": {
+      "id": "toxic-alcohol-ingestion",
+      "title": "Toxic alcohol ingestion (methanol, ethylene glycol)",
+      "titleTh": "พิษจากแอลกอฮอล์พิษ (เมทานอล, เอทิลีน ไกลคอล)",
+      "category": "protocol",
+      "subcategory": "toxicology",
+      "tags": [
+        "methanol",
+        "ethylene glycol",
+        "toxic alcohol",
+        "fomepizole"
+      ],
+      "keywords": [
+        "methanol",
+        "ethylene glycol",
+        "antifreeze",
+        "wood alcohol",
+        "fomepizole",
+        "ethanol antidote",
+        "osmolar gap",
+        "เมทานอล",
+        "แอลกอฮอล์ปลอม"
+      ],
+      "related": [
+        "acid-base-abg-interpretation",
+        "alcoholic-ketoacidosis"
+      ],
+      "source": {
+        "name": "AACT 2002 + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "critical"
+    }
+  },
+  {
     "id": "ugib-variceal",
     "path": "/src/content/protocols/ugib-variceal.mdx",
     "frontmatter": {
@@ -1560,6 +1962,215 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "critical"
+    }
+  },
+  {
+    "id": "acid-base-abg-interpretation",
+    "path": "/src/content/reference/acid-base-abg-interpretation.mdx",
+    "frontmatter": {
+      "id": "acid-base-abg-interpretation",
+      "title": "Acid-base / ABG interpretation",
+      "titleTh": "การแปลผล ABG + acid-base",
+      "category": "reference",
+      "subcategory": "internal-medicine",
+      "tags": [
+        "ABG",
+        "acid-base",
+        "anion gap",
+        "metabolic acidosis",
+        "respiratory"
+      ],
+      "keywords": [
+        "ABG",
+        "acid-base",
+        "anion gap",
+        "metabolic acidosis",
+        "respiratory acidosis",
+        "Winter's formula",
+        "compensation",
+        "HAGMA",
+        "NAGMA",
+        "MUDPILES",
+        "ABG",
+        "กรด-ด่าง"
+      ],
+      "related": [
+        "electrolyte-disturbance-quick-ref",
+        "dka",
+        "alcoholic-ketoacidosis",
+        "toxic-alcohol-ingestion"
+      ],
+      "source": {
+        "name": "Harrison's 21e + NEJM acid-base review",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "antibiotic-empirical-by-site",
+    "path": "/src/content/reference/antibiotic-empirical-by-site.mdx",
+    "frontmatter": {
+      "id": "antibiotic-empirical-by-site",
+      "title": "Empirical antibiotic by infection site",
+      "titleTh": "ยา antibiotic เริ่มต้นตามอวัยวะ",
+      "category": "reference",
+      "subcategory": "ID",
+      "tags": [
+        "antibiotic",
+        "empirical",
+        "infection",
+        "sepsis",
+        "pneumonia",
+        "UTI",
+        "meningitis"
+      ],
+      "keywords": [
+        "empirical antibiotic",
+        "CAP",
+        "HAP",
+        "VAP",
+        "pyelonephritis",
+        "meningitis",
+        "sepsis",
+        "skin soft tissue",
+        "intra-abdominal"
+      ],
+      "related": [
+        "septic-shock",
+        "diabetic-foot-infection",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "IDSA 2023 + Thai antibiogram + Sanford Guide",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "blood-product-indications",
+    "path": "/src/content/reference/blood-product-indications.mdx",
+    "frontmatter": {
+      "id": "blood-product-indications",
+      "title": "Blood product indications + transfusion reactions",
+      "titleTh": "การให้เลือด + ภาวะแทรกซ้อน",
+      "category": "reference",
+      "subcategory": "hematology",
+      "tags": [
+        "transfusion",
+        "PRBC",
+        "platelets",
+        "FFP",
+        "cryoprecipitate",
+        "TRALI",
+        "TACO"
+      ],
+      "keywords": [
+        "transfusion",
+        "PRBC",
+        "platelets",
+        "FFP",
+        "cryoprecipitate",
+        "TRALI",
+        "TACO",
+        "transfusion reaction",
+        "blood transfusion"
+      ],
+      "related": [
+        "ugib"
+      ],
+      "source": {
+        "name": "AABB 2018 + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "electrolyte-disturbance-quick-ref",
+    "path": "/src/content/reference/electrolyte-disturbance-quick-ref.mdx",
+    "frontmatter": {
+      "id": "electrolyte-disturbance-quick-ref",
+      "title": "Electrolyte disturbance quick reference",
+      "titleTh": "ตารางแก้ไข electrolyte",
+      "category": "reference",
+      "subcategory": "internal-medicine",
+      "tags": [
+        "electrolyte",
+        "sodium",
+        "potassium",
+        "calcium",
+        "magnesium"
+      ],
+      "keywords": [
+        "hyponatremia",
+        "hypernatremia",
+        "hypokalemia",
+        "hyperkalemia",
+        "hypocalcemia",
+        "hypercalcemia",
+        "hypomagnesemia",
+        "hypophosphatemia",
+        "SIADH",
+        "คำนวณ electrolyte"
+      ],
+      "related": [
+        "hyponatremia-symptomatic",
+        "hypocalcemia-symptomatic",
+        "acid-base-abg-interpretation"
+      ],
+      "source": {
+        "name": "Harrison's 21e + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "nicardipine-vs-labetalol",
+    "path": "/src/content/reference/nicardipine-vs-labetalol.mdx",
+    "frontmatter": {
+      "id": "nicardipine-vs-labetalol",
+      "title": "Nicardipine vs Labetalol — choosing IV antihypertensive",
+      "titleTh": "เลือก Nicardipine vs Labetalol",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "nicardipine",
+        "labetalol",
+        "antihypertensive",
+        "hypertensive emergency"
+      ],
+      "keywords": [
+        "nicardipine",
+        "labetalol",
+        "hypertensive emergency",
+        "stroke BP",
+        "aortic dissection BP",
+        "pregnancy BP"
+      ],
+      "related": [
+        "severe-hypertension",
+        "hypertensive-emergency-pregnancy",
+        "stroke-pathway",
+        "aortic-dissection"
+      ],
+      "source": {
+        "name": "AHA/ACC + ESC guidelines",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
@@ -2068,6 +2679,124 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "nausea-vomiting",
+    "path": "/src/content/symptoms/nausea-vomiting.mdx",
+    "frontmatter": {
+      "id": "nausea-vomiting",
+      "title": "Nausea / Vomiting",
+      "titleTh": "คลื่นไส้ อาเจียน",
+      "category": "symptom",
+      "subcategory": "GI",
+      "tags": [
+        "nausea",
+        "vomiting",
+        "GI"
+      ],
+      "keywords": [
+        "nausea",
+        "vomiting",
+        "emesis",
+        "antiemetic",
+        "คลื่นไส้",
+        "อาเจียน"
+      ],
+      "related": [
+        "ugib",
+        "dka",
+        "status-epilepticus",
+        "acute-cholangitis"
+      ],
+      "source": {
+        "name": "Tintinalli Emergency Medicine + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "rash",
+    "path": "/src/content/symptoms/rash.mdx",
+    "frontmatter": {
+      "id": "rash",
+      "title": "Rash",
+      "titleTh": "ผื่น",
+      "category": "symptom",
+      "subcategory": "dermatology",
+      "tags": [
+        "rash",
+        "dermatology",
+        "drug reaction",
+        "SJS",
+        "anaphylaxis"
+      ],
+      "keywords": [
+        "rash",
+        "urticaria",
+        "petechiae",
+        "purpura",
+        "SJS",
+        "TEN",
+        "DRESS",
+        "anaphylaxis",
+        "ผื่น",
+        "ลมพิษ"
+      ],
+      "related": [
+        "anaphylaxis",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Fitzpatrick Dermatology + UpToDate",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "urinary",
+    "path": "/src/content/symptoms/urinary.mdx",
+    "frontmatter": {
+      "id": "urinary",
+      "title": "Urinary symptoms",
+      "titleTh": "ปัสสาวะผิดปกติ",
+      "category": "symptom",
+      "subcategory": "GU",
+      "tags": [
+        "urinary",
+        "UTI",
+        "dysuria",
+        "hematuria"
+      ],
+      "keywords": [
+        "dysuria",
+        "frequency",
+        "urgency",
+        "hematuria",
+        "anuria",
+        "oliguria",
+        "UTI",
+        "pyelonephritis",
+        "ปัสสาวะ",
+        "ขัดเบา"
+      ],
+      "related": [
+        "septic-shock",
+        "dka"
+      ],
+      "source": {
+        "name": "IDSA UTI guidelines + Tintinalli EM",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   }
 ];

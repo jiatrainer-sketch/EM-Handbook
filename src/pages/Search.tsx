@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from '@/components/search/SearchBar';
 import SearchResults from '@/components/search/SearchResults';
+import { trackSearch } from '@/lib/analytics';
 import { search } from '@/lib/search';
 
 export default function Search() {
@@ -44,6 +45,13 @@ export default function Search() {
   }
 
   const hits = useMemo(() => search(value), [value]);
+
+  // Track search only for non-trivial queries (≥ 3 chars) to avoid noise
+  useEffect(() => {
+    if (value.trim().length < 3) return;
+    const t = window.setTimeout(() => trackSearch(hits.length > 0), 800);
+    return () => window.clearTimeout(t);
+  }, [value, hits.length]);
 
   return (
     <div className="space-y-4">

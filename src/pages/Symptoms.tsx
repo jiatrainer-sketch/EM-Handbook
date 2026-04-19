@@ -52,21 +52,21 @@ const SYMPTOMS: SymptomCard[] = [
     icon: '🤢',
     title: 'Nausea / vomiting',
     titleTh: 'คลื่นไส้ อาเจียน',
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'urinary',
     icon: '💧',
     title: 'Urinary symptoms',
     titleTh: 'ปัสสาวะผิดปกติ',
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'rash',
     icon: '🟥',
     title: 'Rash',
     titleTh: 'ผื่น',
-    comingSoon: true,
+    comingSoon: false,
   },
 ];
 
