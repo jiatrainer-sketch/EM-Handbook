@@ -3943,6 +3943,57 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "high-alert-drip-table",
+    "path": "/src/content/reference/high-alert-drip-table.mdx",
+    "frontmatter": {
+      "id": "high-alert-drip-table",
+      "title": "High Alert Drug Drip Table",
+      "titleTh": "ตารางยา Drip ความเสี่ยงสูง (BW 60 kg)",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "drip",
+        "vasopressor",
+        "sedation",
+        "inotrope",
+        "high-alert",
+        "fentanyl",
+        "norepinephrine",
+        "propofol"
+      ],
+      "keywords": [
+        "drip table",
+        "vasopressor drip",
+        "sedation drip",
+        "norepinephrine",
+        "dobutamine",
+        "fentanyl",
+        "midazolam",
+        "propofol",
+        "dexmedetomidine",
+        "cisatracurium",
+        "nitroglycerin",
+        "nicardipine",
+        "adrenaline",
+        "epinephrine",
+        "ตารางยา drip"
+      ],
+      "related": [
+        "icu-sedation-protocol",
+        "preop-drug-management",
+        "mechanical-ventilation-quickref",
+        "rsi-medications"
+      ],
+      "source": {
+        "name": "คณะแพทยศาสตร์ รพ.รามาธิบดี",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "mechanical-ventilation-quickref",
     "path": "/src/content/reference/mechanical-ventilation-quickref.mdx",
     "frontmatter": {
