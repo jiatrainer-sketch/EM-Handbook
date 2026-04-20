@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Camera, CheckCircle, ChevronDown, ChevronUp, Copy, History as HistoryIcon, Loader2, Trash2 } from 'lucide-react';
 import {
   aiAnalyzeLabs,
@@ -2049,6 +2050,14 @@ export default function PreopHelper() {
           bw: Number(form.weight) || 60,
         })}
       />
+
+      <div className="rounded-lg border bg-muted/40 p-3 text-xs space-y-1.5">
+        <div className="font-medium text-muted-foreground">📚 ดูเพิ่มเติม</div>
+        <div className="flex flex-col gap-1">
+          <Link to="/reference/preop-drug-management" className="text-primary hover:underline">🏥 Pre-op Drug Management — ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาด</Link>
+          <Link to="/reference/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสมยา drip ที่ใช้ใน OR/ICU</Link>
+        </div>
+      </div>
 
       {toast && (
         <div
