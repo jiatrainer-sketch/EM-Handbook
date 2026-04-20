@@ -1,0 +1,191 @@
+---
+id: sepsis-abx-ladder
+title: "Sepsis Antibiotics Ladder"
+titleTh: "ขั้นบันได antibiotic ใน sepsis — empirical ถึง de-escalation"
+category: ladder
+subcategory: id
+tags:
+  - sepsis
+  - antibiotics
+  - empirical
+  - de-escalation
+  - MRSA
+  - MDR
+keywords:
+  - sepsis antibiotics
+  - empirical antibiotic
+  - de-escalation
+  - vancomycin
+  - piperacillin-tazobactam
+  - meropenem
+  - septic shock
+  - antibiotic stewardship
+related:
+  - sepsis-protocol
+  - pneumonia-empiric
+source:
+  name: "SSC Guidelines 2021 + IDSA + Thai MOPH Sepsis Protocol"
+  year: 2021
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+แนวทาง antibiotic ใน sepsis แบบ **empirical → targeted → de-escalation → stop** ตาม source + culture result
+
+**หลักการ:**
+1. เริ่ม **ทันที** (ภายใน 1 hr ของ recognition)
+2. ครอบ source ที่น่าเป็นไปได้มากที่สุด
+3. De-escalate เมื่อมี culture result
+4. กำหนดระยะ duration ตั้งแต่วันแรก
+
+---
+
+## 🪜 ขั้นบันได (Ladder)
+
+### ขั้น 1 — Empirical โดย Source (ภายใน 1 ชั่วโมง)
+
+#### 🫁 Pneumonia (CAP)
+
+| ความรุนแรง | ยา | ขนาด | ระยะเวลา |
+|---|---|---|---|
+| **Non-severe (ward)** | Amoxicillin-clavulanate 1.2 g IV q 8 hr | + Azithromycin 500 mg IV/PO OD | 5–7 วัน |
+| **Severe (ICU)** | Piperacillin-tazobactam 4.5 g IV q 6 hr | + Azithromycin 500 mg IV OD | 7 วัน |
+| **HAP/VAP (no MDR risk)** | Piperacillin-tazobactam 4.5 g IV q 6 hr | หรือ Cefepime 2 g IV q 8 hr | 7–8 วัน |
+| **HAP/VAP (MDR risk)** | Meropenem 1 g IV q 8 hr | + Vancomycin 25 mg/kg load | 7–8 วัน |
+
+#### 🦠 UTI / Urosepsis
+
+| ความรุนแรง | ยา | ขนาด | ระยะเวลา |
+|---|---|---|---|
+| **Urosepsis (no MDR)** | Ceftriaxone 2 g IV OD | — | 7–10 วัน (จนหาย) |
+| **Complicated / MDR risk** | Piperacillin-tazobactam 4.5 g IV q 6 hr | — | 7–14 วัน |
+| **ESBL suspected** | Meropenem 1 g IV q 8 hr | — | ปรับตาม sensitivity |
+| **Obstruction** | + Urology consult + drainage | — | — |
+
+#### 🩸 Bacteremia / Unknown Source
+
+| สถานการณ์ | ยา | ขนาด | ระยะเวลา |
+|---|---|---|---|
+| **Community-acquired** | Ceftriaxone 2 g IV OD | + Metronidazole ถ้าสงสัย abdominal | 7–14 วัน |
+| **Healthcare-associated** | Piperacillin-tazobactam 4.5 g IV q 6 hr | + Vancomycin ถ้า MRSA risk | 14 วัน |
+| **MRSA risk** | Vancomycin 25–30 mg/kg IV load → 15–20 mg/kg q 8–12 hr | Target trough 15–20 mcg/mL | 14 วัน |
+| **Neutropenic fever** | Cefepime 2 g IV q 8 hr | + Vancomycin ถ้า MRSA risk | จน ANC &gt; 500 |
+
+#### 🦷 Abdominal / GI Source
+
+| สถานการณ์ | ยา | ขนาด | ระยะเวลา |
+|---|---|---|---|
+| **Mild-moderate** | Amoxicillin-clavulanate 1.2 g IV q 8 hr | — | 4–7 วัน |
+| **Severe / perforated** | Piperacillin-tazobactam 4.5 g IV q 6 hr | + Metronidazole 500 mg IV q 8 hr (ถ้าไม่มีใน pip-tazo) | 5–7 วัน หลัง source control |
+| **Post-op / hospital** | Meropenem 1 g IV q 8 hr | + Fluconazole 400 mg OD ถ้า Candida risk | ปรับตาม culture |
+
+<Callout type="danger" title="Source Control — บังคับก่อนหรือพร้อมกับ Abx">
+
+Abdominal source → drain abscess / decompress obstruction ทันที  
+→ Abx อย่างเดียวไม่พอถ้า undrained collection หรือ obstruction  
+→ Surgery/IR consult STAT
+
+</Callout>
+
+---
+
+### ขั้น 2 — Escalation (เมื่อไม่ตอบสนอง 48–72 hr หรือ MDR suspected)
+
+**เกณฑ์ escalate:**
+- Fever ยังสูง หรือ hemodynamics ไม่ดีขึ้นหลัง 48–72 hr
+- New organ dysfunction
+- Culture เบื้องต้นพบ resistant organism
+- ไม่มี source control
+
+| Escalation | ยา | ข้อบ่งชี้ |
+|---|---|---|
+| **Add anti-MRSA** | Vancomycin 25 mg/kg load IV | MRSA risk, skin/soft tissue, CIED, persistent bacteremia |
+| **Broaden to carbapenem** | Meropenem 1 g IV q 8 hr | ESBL, Pseudomonas risk, failed pip-tazo 48 hr |
+| **Add antifungal** | Fluconazole 400 mg IV OD หรือ Micafungin 100 mg OD | ICU &gt; 5 วัน, TPN, immunocompromised, Candida on culture |
+| **Double Gram-negative coverage** | + Amikacin 15–20 mg/kg OD IV | MDR Pseudomonas/Acinetobacter (ลด เมื่อ sensitive confirm) |
+| **Polymyxin B/Colistin** | Polymyxin B 1.5 mg/kg q 12 hr IV | Carbapenem-resistant organism (CRO) confirmed |
+
+---
+
+### ขั้น 3 — De-escalation (เมื่อ Culture กลับมา 48–72 hr)
+
+**เป้าหมาย:** ลด spectrum → ลด resistance, C. diff, ต้นทุน
+
+| จาก → ไป | ตัวอย่าง |
+|---|---|
+| Meropenem → Ceftriaxone | ถ้า E. coli/Klebsiella sensitive to cephalosporin |
+| Pip-tazo → Amoxicillin-clavulanate | ถ้า organism sensitive, stable |
+| Vancomycin → Cloxacillin | ถ้า MSSA confirmed |
+| Vancomycin → ไม่มี | ถ้า blood culture negative × 48–72 hr, ไม่มี MRSA |
+| Double coverage → Single | ถ้า sensitivities ยืนยัน |
+
+<Callout type="success" title="De-escalation — ควรทำทุกราย">
+
+De-escalation ลด: Clostridium difficile, antimicrobial resistance, ผลเสีย nephrotoxicity  
+→ Review culture ทุกวันตั้งแต่ day 2  
+→ ถ้า no growth × 48 hr + clinically improved → พิจารณาหยุด
+
+</Callout>
+
+---
+
+### ขั้น 4 — IV-to-PO Switch
+
+**เกณฑ์ switch เป็น oral (เมื่อ stable):**
+- Afebrile ≥ 24 hr
+- HR &lt; 100, BP stable
+- WBC trending down
+- ทนอาหาร/ยาทางปากได้
+
+| IV | PO equivalent |
+|---|---|
+| Ceftriaxone 2 g OD | Amoxicillin-clavulanate 1 g BID หรือตาม culture |
+| Pip-tazo 4.5 g q 6 hr | Amoxicillin-clavulanate 875/125 mg TID |
+| Metronidazole IV | Metronidazole 500 mg PO TID (same dose!) |
+| Fluconazole IV | Fluconazole PO (1:1 bioavailability) |
+
+---
+
+### ขั้น 5 — Duration + Stop
+
+**หลักการ Duration:**
+
+| Infection | Duration |
+|---|---|
+| Bacteremia (no focus) | 14 วัน |
+| Bacteremia + endocarditis | 4–6 wk |
+| Pneumonia (CAP) | 5–7 วัน |
+| HAP/VAP | 7–8 วัน |
+| Urosepsis | 7–14 วัน |
+| Abdominal (source controlled) | 4–7 วัน |
+| Skin/soft tissue (non-necrotizing) | 5–7 วัน |
+| Meningitis (bacterial) | 7–14 วัน |
+
+**Procalcitonin (PCT) guided stopping:**
+- PCT &lt; 0.5 mcg/L หรือ ลด ≥ 80% จาก peak → stop abx (ถ้า clinical ดี)
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="Sepsis Abx Pitfalls">
+
+**Delay abx เกิน 1 hr** → mortality ↑ 7% ต่อ hr ใน septic shock  
+→ Blood culture ก่อน abx แต่ **ไม่ delay abx** เกิน 45 min เพื่อรอ culture
+
+**ไม่ de-escalate เมื่อ culture กลับมา** → broad spectrum ทำให้ resistant organism  
+→ Review culture ทุกวัน; ปรับ narrow เมื่อ sensitivity ชัดเจน
+
+**ให้ aminoglycoside ในผู้ป่วย AKI** → nephrotoxicity แย่ลง  
+→ Aminoglycoside single-dose ถ้าจำเป็น; ติดตาม Cr q daily
+
+**Vancomycin dose ไม่พอ** → MIC creep, therapeutic failure  
+→ Load 25–30 mg/kg, target trough 15–20 หรือ AUC/MIC 400–600
+
+**หยุด abx เพราะ afebrile** โดยไม่ครบ course  
+→ ใช้ clinical endpoint: afebrile + WBC ปกติ + resolving source
+
+</Callout>

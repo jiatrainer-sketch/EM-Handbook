@@ -661,6 +661,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "cardiogenic-shock-ladder",
+    "path": "/src/content/ladders/cardiogenic-shock-ladder.mdx",
+    "frontmatter": {
+      "id": "cardiogenic-shock-ladder",
+      "title": "Cardiogenic Shock Inotrope Ladder",
+      "titleTh": "ขั้นบันได inotrope และ MCS ใน cardiogenic shock",
+      "category": "ladder",
+      "subcategory": "cardiac",
+      "tags": [
+        "cardiogenic shock",
+        "inotrope",
+        "dobutamine",
+        "norepinephrine",
+        "IABP",
+        "ECMO",
+        "MCS"
+      ],
+      "keywords": [
+        "cardiogenic shock",
+        "inotrope ladder",
+        "dobutamine",
+        "milrinone",
+        "norepinephrine",
+        "IABP",
+        "Impella",
+        "ECMO",
+        "ช็อคหัวใจ"
+      ],
+      "related": [
+        "stemi",
+        "acute-heart-failure",
+        "cardiac-arrest"
+      ],
+      "source": {
+        "name": "ESC Heart Failure Guidelines 2021 + SCAI Shock Classification 2019",
+        "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "cellulitis-treatment-ladder",
+    "path": "/src/content/ladders/cellulitis-treatment-ladder.mdx",
+    "frontmatter": {
+      "id": "cellulitis-treatment-ladder",
+      "title": "Cellulitis Treatment Ladder",
+      "titleTh": "ขั้นบันได cellulitis — Non-purulent ถึง Necrotizing Fasciitis",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "cellulitis",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis",
+        "antibiotics"
+      ],
+      "keywords": [
+        "cellulitis treatment",
+        "MRSA skin infection",
+        "purulent cellulitis",
+        "necrotizing fasciitis",
+        "clindamycin",
+        "TMP-SMX",
+        "vancomycin"
+      ],
+      "related": [
+        "sepsis-abx-ladder"
+      ],
+      "source": {
+        "name": "IDSA SSTI Guidelines 2014 + UpToDate 2024",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
     "id": "diuretic-ladder-chf",
     "path": "/src/content/ladders/diuretic-ladder-chf.mdx",
     "frontmatter": {
@@ -698,6 +778,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "insulin-initiation-ladder",
+    "path": "/src/content/ladders/insulin-initiation-ladder.mdx",
+    "frontmatter": {
+      "id": "insulin-initiation-ladder",
+      "title": "Insulin Initiation Ladder (T2DM)",
+      "titleTh": "ขั้นบันไดการเริ่มและปรับ insulin เบาหวานชนิดที่ 2",
+      "category": "ladder",
+      "subcategory": "endo",
+      "tags": [
+        "insulin",
+        "diabetes",
+        "T2DM",
+        "basal",
+        "DKA"
+      ],
+      "keywords": [
+        "insulin initiation",
+        "basal insulin",
+        "glargine",
+        "NPH",
+        "basal-bolus",
+        "T2DM insulin",
+        "เบาหวาน"
+      ],
+      "related": [
+        "dka-management",
+        "hyperglycemia"
+      ],
+      "source": {
+        "name": "ADA Standards of Care 2024 + Thai Diabetes Society",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
@@ -740,6 +858,85 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "sepsis-abx-ladder",
+    "path": "/src/content/ladders/sepsis-abx-ladder.mdx",
+    "frontmatter": {
+      "id": "sepsis-abx-ladder",
+      "title": "Sepsis Antibiotics Ladder",
+      "titleTh": "ขั้นบันได antibiotic ใน sepsis — empirical ถึง de-escalation",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "sepsis",
+        "antibiotics",
+        "empirical",
+        "de-escalation",
+        "MRSA",
+        "MDR"
+      ],
+      "keywords": [
+        "sepsis antibiotics",
+        "empirical antibiotic",
+        "de-escalation",
+        "vancomycin",
+        "piperacillin-tazobactam",
+        "meropenem",
+        "septic shock",
+        "antibiotic stewardship"
+      ],
+      "related": [
+        "sepsis-protocol",
+        "pneumonia-empiric"
+      ],
+      "source": {
+        "name": "SSC Guidelines 2021 + IDSA + Thai MOPH Sepsis Protocol",
+        "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "uti-treatment-ladder",
+    "path": "/src/content/ladders/uti-treatment-ladder.mdx",
+    "frontmatter": {
+      "id": "uti-treatment-ladder",
+      "title": "UTI Treatment Ladder",
+      "titleTh": "ขั้นบันได UTI — Cystitis ถึง Urosepsis + MDR",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "UTI",
+        "cystitis",
+        "pyelonephritis",
+        "urosepsis",
+        "antibiotics",
+        "MDR"
+      ],
+      "keywords": [
+        "UTI treatment",
+        "cystitis antibiotic",
+        "pyelonephritis",
+        "urosepsis",
+        "ESBL UTI",
+        "fosfomycin",
+        "nitrofurantoin"
+      ],
+      "related": [
+        "sepsis-abx-ladder",
+        "sepsis-protocol"
+      ],
+      "source": {
+        "name": "IDSA UTI Guidelines 2011 (updated 2023) + Thai MOPH Antibiogram",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
