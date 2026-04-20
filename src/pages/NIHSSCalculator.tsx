@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type ItemKey =
   | 'loc'
@@ -374,6 +375,17 @@ export default function NIHSSCalculator() {
           Reset
         </Button>
       </section>
+
+      <AITreatmentPanel
+        tool="nihss"
+        getInput={() => ({
+          data: {
+            'NIHSS Score': total,
+            Category: interp.category,
+            Description: interp.description,
+          },
+        })}
+      />
 
       <p className="rounded-lg border bg-muted/50 p-3 text-xs text-muted-foreground">
         ⚠️ เครื่องมือช่วยคำนวณเท่านั้น — ตรวจสอบการประเมิน + ตัดสินใจร่วมกับ stroke team

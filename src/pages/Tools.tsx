@@ -112,6 +112,30 @@ const TOOLS: ToolCard[] = [
     action: 'navigate',
     route: '/tools/fluid',
   },
+  {
+    icon: '❤️',
+    title: 'HEART Pathway',
+    description: 'HEART Score สำหรับ chest pain — low/moderate/high risk + 30-day MACE + AI Co-pilot',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/heart-pathway',
+  },
+  {
+    icon: '🩸',
+    title: 'Anticoagulation Manager',
+    description: 'Warfarin reversal, DOAC reversal, Heparin dosing, Bridging protocol + AI',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/anticoag',
+  },
+  {
+    icon: '📉',
+    title: 'Shock Index',
+    description: 'SI · Modified SI · Age-adjusted — hemodynamic assessment + AI Co-pilot',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/shock-index',
+  },
 ];
 
 export default function Tools() {

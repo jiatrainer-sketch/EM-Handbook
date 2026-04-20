@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type DrugId =
   | 'epi-arrest'
@@ -518,6 +519,19 @@ export default function DoseCalculator() {
           </div>
         )}
       </section>
+
+      <AITreatmentPanel
+        tool="dose-calc"
+        getInput={() => ({
+          data: {
+            Drug: selected.title,
+            'Drug (Thai)': selected.titleTh,
+            Weight: weight > 0 ? `${weight} kg` : undefined,
+            Concentration: selected.concentration ?? undefined,
+          },
+          bw: weight > 0 ? weight : 60,
+        })}
+      />
 
       <p className="rounded-lg border bg-muted/50 p-3 text-xs text-muted-foreground">
         ⚠️ เครื่องมือช่วยคำนวณเท่านั้น — ตรวจสอบ dose + ยืนยันกับแหล่งอ้างอิงทุกครั้ง
