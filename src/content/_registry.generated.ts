@@ -583,6 +583,166 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "analgesia-ladder",
+    "path": "/src/content/ladders/analgesia-ladder.mdx",
+    "frontmatter": {
+      "id": "analgesia-ladder",
+      "title": "Analgesia Ladder (Acute Pain, ED)",
+      "titleTh": "ขั้นบันไดยาแก้ปวดเฉียบพลัน",
+      "category": "ladder",
+      "subcategory": "general",
+      "tags": [
+        "analgesia",
+        "pain",
+        "opioid",
+        "NSAID",
+        "ladder"
+      ],
+      "keywords": [
+        "analgesia ladder",
+        "WHO pain ladder",
+        "morphine",
+        "tramadol",
+        "paracetamol",
+        "NSAID",
+        "opioid"
+      ],
+      "related": [
+        "opioid-overdose",
+        "acetaminophen-overdose"
+      ],
+      "source": {
+        "name": "WHO Pain Ladder (modified) + ACEP Acute Pain Guideline 2020",
+        "year": 2020
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
+    "id": "antihypertensive-iv-ladder",
+    "path": "/src/content/ladders/antihypertensive-iv-ladder.mdx",
+    "frontmatter": {
+      "id": "antihypertensive-iv-ladder",
+      "title": "IV Antihypertensive Ladder (HT Emergency)",
+      "titleTh": "ขั้นบันไดยาลดความดันฉีดในภาวะวิกฤต",
+      "category": "ladder",
+      "subcategory": "cardiac",
+      "tags": [
+        "antihypertensive",
+        "HT emergency",
+        "nicardipine",
+        "labetalol",
+        "ladder"
+      ],
+      "keywords": [
+        "hypertensive emergency",
+        "nicardipine",
+        "labetalol",
+        "esmolol",
+        "nitroglycerin",
+        "hydralazine",
+        "IV antihypertensive"
+      ],
+      "related": [
+        "ht-emergency",
+        "aortic-dissection",
+        "hypertensive-emergency-pregnancy",
+        "nicardipine-vs-labetalol"
+      ],
+      "source": {
+        "name": "AHA/ACC 2017 HT Guideline + JNC 8 + ESC 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "diuretic-ladder-chf",
+    "path": "/src/content/ladders/diuretic-ladder-chf.mdx",
+    "frontmatter": {
+      "id": "diuretic-ladder-chf",
+      "title": "Diuretic Ladder (ADHF, Refractory)",
+      "titleTh": "ขั้นบันไดยาขับปัสสาวะในภาวะหัวใจล้มเหลว",
+      "category": "ladder",
+      "subcategory": "cardiac",
+      "tags": [
+        "furosemide",
+        "diuretic",
+        "ADHF",
+        "loop",
+        "ladder"
+      ],
+      "keywords": [
+        "furosemide",
+        "Lasix",
+        "torsemide",
+        "bumetanide",
+        "thiazide",
+        "metolazone",
+        "loop diuretic",
+        "refractory edema"
+      ],
+      "related": [
+        "acute-heart-failure",
+        "acute-pulmonary-edema",
+        "acute-kidney-injury"
+      ],
+      "source": {
+        "name": "DOSE trial NEJM 2011 + AHA HF 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "sedation-agitation-ladder",
+    "path": "/src/content/ladders/sedation-agitation-ladder.mdx",
+    "frontmatter": {
+      "id": "sedation-agitation-ladder",
+      "title": "Sedation Ladder (Acute Agitation, ED)",
+      "titleTh": "ขั้นบันไดยาสงบระงับในภาวะกระวนกระวาย",
+      "category": "ladder",
+      "subcategory": "neuro",
+      "tags": [
+        "sedation",
+        "agitation",
+        "haloperidol",
+        "midazolam",
+        "ketamine",
+        "ladder"
+      ],
+      "keywords": [
+        "sedation",
+        "agitation",
+        "haloperidol",
+        "olanzapine",
+        "lorazepam",
+        "midazolam",
+        "ketamine",
+        "droperidol",
+        "restraint"
+      ],
+      "related": [
+        "acute-agitation",
+        "alcohol-withdrawal",
+        "status-epilepticus"
+      ],
+      "source": {
+        "name": "ACEP Agitation Guideline 2017 + Project BETA",
+        "year": 2017
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "acetaminophen-overdose",
     "path": "/src/content/protocols/acetaminophen-overdose.mdx",
     "frontmatter": {
@@ -3681,6 +3841,78 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "alvarado",
+    "path": "/src/content/scores/alvarado.mdx",
+    "frontmatter": {
+      "id": "alvarado",
+      "title": "Alvarado Score (Appendicitis)",
+      "titleTh": "ประเมินความน่าจะเป็นของไส้ติ่งอักเสบ",
+      "category": "score",
+      "subcategory": "GI",
+      "tags": [
+        "Alvarado",
+        "appendicitis",
+        "abdominal pain",
+        "RLQ"
+      ],
+      "keywords": [
+        "Alvarado",
+        "appendicitis",
+        "MANTRELS",
+        "RLQ pain",
+        "McBurney",
+        "ไส้ติ่ง"
+      ],
+      "related": [
+        "abdominal-pain"
+      ],
+      "source": {
+        "name": "Alvarado A. Ann Emerg Med 1986 + 2016 systematic review",
+        "year": 2016
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "medium",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "cha2ds2-vasc",
+    "path": "/src/content/scores/cha2ds2-vasc.mdx",
+    "frontmatter": {
+      "id": "cha2ds2-vasc",
+      "title": "CHA₂DS₂-VASc Score",
+      "titleTh": "ประเมินความเสี่ยง stroke ในภาวะหัวใจห้องบนสั่นพลิ้ว",
+      "category": "score",
+      "subcategory": "cardiac",
+      "tags": [
+        "CHA2DS2-VASc",
+        "atrial fibrillation",
+        "stroke",
+        "anticoagulation"
+      ],
+      "keywords": [
+        "CHA2DS2-VASc",
+        "stroke risk",
+        "atrial fibrillation",
+        "AF",
+        "anticoagulation",
+        "DOAC",
+        "warfarin"
+      ],
+      "related": [
+        "atrial-fibrillation",
+        "has-bled"
+      ],
+      "source": {
+        "name": "ESC 2020 AF Guideline + AHA/ACC/HRS 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "curb-65",
     "path": "/src/content/scores/curb-65.mdx",
     "frontmatter": {
@@ -3793,6 +4025,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "medium"
+    }
+  },
+  {
+    "id": "mews",
+    "path": "/src/content/scores/mews.mdx",
+    "frontmatter": {
+      "id": "mews",
+      "title": "Modified Early Warning Score (MEWS)",
+      "titleTh": "คะแนนเตือนภัยล่วงหน้า",
+      "category": "score",
+      "subcategory": "general",
+      "tags": [
+        "MEWS",
+        "early warning",
+        "deterioration",
+        "ward monitoring"
+      ],
+      "keywords": [
+        "MEWS",
+        "Modified Early Warning Score",
+        "NEWS",
+        "deterioration",
+        "sepsis",
+        "ward"
+      ],
+      "related": [
+        "qsofa",
+        "sofa",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Subbe CP et al. QJM 2001 + NEWS2 RCP 2017",
+        "year": 2017
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
@@ -3945,6 +4214,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "medium"
+    }
+  },
+  {
+    "id": "timi",
+    "path": "/src/content/scores/timi.mdx",
+    "frontmatter": {
+      "id": "timi",
+      "title": "TIMI Risk Score (UA/NSTEMI)",
+      "titleTh": "ประเมินความเสี่ยง UA/NSTEMI",
+      "category": "score",
+      "subcategory": "cardiac",
+      "tags": [
+        "TIMI",
+        "NSTEMI",
+        "UA",
+        "ACS",
+        "risk stratification"
+      ],
+      "keywords": [
+        "TIMI",
+        "TIMI risk score",
+        "UA",
+        "NSTEMI",
+        "ACS",
+        "risk stratification"
+      ],
+      "related": [
+        "acs-nstemi",
+        "heart-score",
+        "stemi"
+      ],
+      "source": {
+        "name": "Antman EM et al. JAMA 2000 + AHA/ACC NSTEMI 2014",
+        "year": 2014
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {
