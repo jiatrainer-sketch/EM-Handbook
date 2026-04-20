@@ -3952,6 +3952,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "bode-index",
+    "path": "/src/content/scores/bode-index.mdx",
+    "frontmatter": {
+      "id": "bode-index",
+      "title": "BODE Index (COPD)",
+      "titleTh": "ประเมินการพยากรณ์โรค COPD",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "BODE",
+        "COPD",
+        "prognosis",
+        "FEV1",
+        "6MWT"
+      ],
+      "keywords": [
+        "BODE index",
+        "COPD prognosis",
+        "4-year mortality",
+        "lung transplant",
+        "FEV1",
+        "mMRC dyspnea",
+        "โรคปอดอุดกั้นเรื้อรัง"
+      ],
+      "related": [
+        "copd-exacerbation",
+        "pulmonary-rehab"
+      ],
+      "source": {
+        "name": "Celli BR et al. N Engl J Med 2004",
+        "year": 2004
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "COPD prognosis — 4-year mortality prediction; better than FEV1 alone",
+      "clinicalContext": "OPD/ward — COPD stable/exacerbation; ช่วย prognosticate + ตัดสิน transplant"
+    }
+  },
+  {
     "id": "cha2ds2-vasc",
     "path": "/src/content/scores/cha2ds2-vasc.mdx",
     "frontmatter": {
@@ -4103,6 +4143,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "medium",
       "usedFor": "Severity of community-acquired pneumonia",
       "clinicalContext": "ผู้ป่วยปอดอักเสบ — ตัดสินใจ admit vs discharge vs ICU"
+    }
+  },
+  {
+    "id": "four-score",
+    "path": "/src/content/scores/four-score.mdx",
+    "frontmatter": {
+      "id": "four-score",
+      "title": "FOUR Score (Full Outline of UnResponsiveness)",
+      "titleTh": "ประเมินระดับความรู้สึกตัวในผู้ป่วยไม่รู้สึกตัว (ทางเลือก GCS)",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "FOUR score",
+        "coma",
+        "consciousness",
+        "GCS alternative",
+        "brainstem"
+      ],
+      "keywords": [
+        "FOUR score",
+        "coma assessment",
+        "GCS intubated",
+        "brainstem reflexes",
+        "locked-in syndrome",
+        "ไม่รู้สึกตัว"
+      ],
+      "related": [
+        "gcs",
+        "nihss",
+        "ich-score"
+      ],
+      "source": {
+        "name": "Wijdicks EF et al. Mayo Clin Proc 2005",
+        "year": 2005
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Coma assessment — better than GCS for intubated/non-verbal patients; detects locked-in",
+      "clinicalContext": "ICU/ED — ผู้ป่วยไม่รู้สึกตัว intubated; ใช้แทน GCS ที่ verbal ประเมินไม่ได้"
     }
   },
   {
