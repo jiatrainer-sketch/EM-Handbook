@@ -1,0 +1,193 @@
+---
+id: ich-score
+title: "ICH Score"
+titleTh: "ประเมินความรุนแรงและการพยากรณ์โรค intracerebral hemorrhage"
+category: score
+subcategory: neuro
+tags:
+  - ICH
+  - intracerebral hemorrhage
+  - stroke
+  - mortality
+keywords:
+  - ICH score
+  - intracerebral hemorrhage
+  - 30-day mortality
+  - goals of care
+  - neurosurgery
+  - เลือดออกในสมอง
+related:
+  - nihss
+  - hunt-hess
+  - gcs
+source:
+  name: "Hemphill JC et al. Stroke 2001; AHA/ASA ICH Guideline 2022"
+  year: 2022
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "ICH 30-day mortality prediction — guides ICU/comfort care discussion"
+clinicalContext: "ED/ICU — ICH diagnosis; ประเมิน prognosis + goals of care"
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+ทำนาย **30-day mortality** จาก intracerebral hemorrhage — ใช้เป็นพื้นฐานการพูดคุย goals of care กับครอบครัวและทีมแพทย์
+
+**สำคัญ:** ICH score เป็น prognostic tool ไม่ใช่ตัวตัดสินว่า "withdraw care" — ต้องพิจารณาร่วมกับปัจจัยอื่น
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria)
+
+| เกณฑ์ | รายละเอียด | คะแนน |
+|---|---|---|
+| **GCS** | 3–4 | **2** |
+| | 5–12 | **1** |
+| | 13–15 | 0 |
+| **ICH Volume** | ≥ 30 mL | **1** |
+| | &lt; 30 mL | 0 |
+| **Intraventricular Hemorrhage (IVH)** | มี IVH | **1** |
+| | ไม่มี | 0 |
+| **Infratentorial origin** | Brainstem / Cerebellum | **1** |
+| | Supratentorial | 0 |
+| **Age** | ≥ 80 ปี | **1** |
+| | &lt; 80 ปี | 0 |
+
+**คะแนนรวม: 0–6**
+
+### การคำนวณ ICH Volume (ABC/2 method)
+
+```
+Volume (mL) = A × B × C / 2
+
+A = diameter ยาวที่สุดบน axial slice ที่ใหญ่สุด (cm)
+B = diameter ตั้งฉากกับ A (cm)
+C = จำนวน slice ที่มี hemorrhage × ความหนา slice (cm)
+```
+
+---
+
+## 📊 การแปลผล (Interpretation) — 30-Day Mortality
+
+| ICH Score | 30-Day Mortality | การจัดการ |
+|---|---|---|
+| **0** | 0% | Aggressive treatment; ICU monitoring |
+| **1** | 13% | ICU; goals of care discussion early |
+| **2** | 26% | ICU; neurosurgery consult |
+| **3** | 72% | ICU; ประเมิน surgical candidacy; goals of care สำคัญ |
+| **4** | 97% | Goals of care discussion เต็มรูปแบบ |
+| **5–6** | 100% | Comfort-focused care เป็นตัวเลือกที่เหมาะสม |
+
+<Callout type="danger" title="ICH Score ≥ 4 = Prognosis Poor">
+
+ICH score ≥ 4 → mortality 97–100%  
+→ **Goals of care discussion กับครอบครัวทันที**  
+→ Neurosurgery + neurology consult; ห้าม withdraw care โดยไม่ปรึกษาทีม  
+→ Early DNR/DNI สำหรับผู้ป่วยที่ไม่ต้องการ aggressive treatment
+
+</Callout>
+
+---
+
+## 💊 การรักษา (Treatment) — ตาม AHA 2022
+
+### BP Control (Target SBP 130–140 mmHg)
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Nicardipine | 5 mg/hr IV → titrate 2.5 mg/hr q 5 min → max 15 mg/hr | IV drip | จนควบคุม BP ได้ | First-line IV agent |
+| Labetalol | 10–20 mg IV bolus q 10 min → max 300 mg | IV bolus | Acute phase | ทางเลือกถ้าไม่มี nicardipine |
+| Clevidipine | 1–2 mg/hr → titrate q 90 sec → max 32 mg/hr | IV drip | ทางเลือก | Titratable; ดีใน LV dysfunction |
+
+**Target SBP:** 130–140 mmHg ถ้า SBP 150–220 at presentation  
+**ห้าม** ลด SBP &lt; 130 mmHg (เพิ่ม ischemic injury)
+
+### ICP Management
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Mannitol 20% | 1 g/kg (= 300 mL) IV bolus → 0.25–0.5 g/kg q 6 hr | IV | จนกว่า ICP ลด | ลด cerebral edema; target Osm 300–320 |
+| Hypertonic Saline 3% | 250 mL bolus over 30 min | IV | Acute herniation | ทางเลือก mannitol; ดีกว่าถ้า hypotension |
+| Dexamethasone | **ห้ามใช้** ใน ICH | — | — | ไม่มี benefit + เพิ่ม infection |
+
+### Anticoagulation Reversal
+
+| สถานการณ์ | ยา | ขนาดยา | เหตุผล |
+|---|---|---|---|
+| Warfarin (INR &gt; 1.5) | 4-factor PCC (Octaplex) | 25–50 IU/kg IV | Rapid reversal &lt; 30 min |
+| | + Vitamin K | 10 mg IV slow | Sustained reversal |
+| Warfarin (ถ้าไม่มี PCC) | FFP | 15 mL/kg IV | ช้ากว่า PCC มาก |
+| Dabigatran | Idarucizumab (Praxbind) | 5 g IV (2 × 2.5 g) | Specific reversal |
+| Rivaroxaban/Apixaban | Andexanet alfa | 400–800 mg IV bolus + infusion | Specific reversal |
+| Rivaroxaban/Apixaban (ถ้าไม่มี) | 4-factor PCC | 50 IU/kg IV | Off-label; partial reversal |
+| Heparin | Protamine | 1 mg per 100 IU heparin ให้ใน 2 hr | ลด aPTT ทันที |
+
+<Callout type="warning" title="Anticoagulation Reversal — ด่วน">
+
+**เวลาคือสมอง** — reversal anticoag ทันทีที่ diagnosis ICH ใน anticoagulated patient  
+→ ทุก 1 ชั่วโมงที่ delay → hematoma expansion 30–40%  
+→ Call pharmacy + hematology พร้อมกัน; เตรียม reversal agent ก่อน CT กลับมา
+
+</Callout>
+
+---
+
+## 🏥 Neurosurgery Consult Criteria
+
+| สถานการณ์ | การจัดการ |
+|---|---|
+| Cerebellar ICH ≥ 3 cm | Surgical evacuation; life-saving |
+| Cerebellar ICH + brainstem compression | Urgent decompression |
+| Hydrocephalus ± IVH | EVD (external ventricular drain) |
+| Lobar ICH ≥ 30 mL + clinical deterioration | พิจารณา decompressive craniectomy |
+| GCS ลดลง ≥ 2 points | CT ซ้ำ → neurosurgery re-consult |
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+CT → ICH confirmed
+  ↓
+1. ABCS: Airway, BP control, Coag reversal, Surgery consult
+   ├── BP: nicardipine drip → target SBP 130–140
+   ├── Anticoag: reverse ถ้า on anticoagulant (ด่วน)
+   └── Neurosurgery: consult ทุกราย ICH
+  ↓
+2. คำนวณ ICH Score
+   ├── Score 0–2: ICU, aggressive management
+   ├── Score 3: ICU + goals of care early discussion
+   └── Score 4–6: Goals of care + comfort care option
+  ↓
+3. Monitor: ICP (EVD ถ้า hydrocephalus), glucose, temperature
+   ├── Target glucose 140–180 mg/dL
+   ├── Temp &lt; 37.5°C (fever → worse outcome)
+   └── DVT prophylaxis: compression stocking; LMWH after 24–48 hr
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="ICH — Critical Pitfalls">
+
+**ลืม reverse anticoagulation ด่วน** — ทุก delay คือ hematoma expansion  
+→ Reversal ก่อน CT กลับ; อย่ารอ INR result ถ้า suspect warfarin
+
+**BP ต่ำเกินไป (SBP &lt; 130)** — เพิ่ม ischemic penumbra injury  
+→ Target SBP 130–140; ไม่ใช่ "ยิ่งต่ำยิ่งดี"
+
+**ใช้ dexamethasone ใน ICH** — ไม่มี benefit; เพิ่ม infection, glucose สูง  
+→ Corticosteroid ห้ามใช้ใน hemorrhagic stroke
+
+**ICH score ต่ำ = ผลดี 100%** — ยังต้องการ ICU monitoring ทุกราย  
+→ Hematoma expansion ใน 24 hr แรกเกิดได้ 30–40%
+
+**Cerebellar ICH ≤ 3 cm = ไม่ต้อง consult** — ผิด  
+→ Cerebellar ICH ทุกรายต้อง neurosurgery consult (deteriorate ได้รวดเร็ว)
+
+**ลืม seizure prophylaxis** — prophylactic AED ไม่แนะนำ (AHA 2022)  
+→ ให้ AED เฉพาะเมื่อ clinical seizure หรือ EEG confirms
+
+</Callout>

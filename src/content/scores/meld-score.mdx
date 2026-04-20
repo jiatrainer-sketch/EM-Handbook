@@ -1,0 +1,212 @@
+---
+id: meld-score
+title: "MELD Score (MELD-Na)"
+titleTh: "ประเมินความรุนแรงโรคตับและลำดับ transplant"
+category: score
+subcategory: gi
+tags:
+  - MELD
+  - liver
+  - cirrhosis
+  - transplant
+  - hepatology
+keywords:
+  - MELD score
+  - MELD-Na
+  - liver failure
+  - cirrhosis
+  - transplant priority
+  - ตับแข็ง
+  - ตับวาย
+related:
+  - child-pugh
+  - hepatorenal-syndrome
+source:
+  name: "Kamath PS et al. Hepatology 2001; UNOS MELD-Na policy 2016"
+  year: 2016
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "Liver disease severity → transplant priority, short-term mortality"
+clinicalContext: "Hepatology / ward — ตับแข็ง decompensated; ใช้คู่กับ Child-Pugh"
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+ประเมินความรุนแรงของ **chronic liver disease** และทำนาย **3-month mortality** — ใช้เป็นเกณฑ์จัดลำดับ liver transplant ทั่วโลก
+
+**MELD-Na** เพิ่ม serum Na เข้าไปเพื่อปรับปรุงความแม่นยำใน patients ที่มี hyponatremia
+
+---
+
+## 📐 สูตรคำนวณ (Formula)
+
+### MELD (Original)
+
+```
+MELD = 3.78 × ln(Bilirubin mg/dL)
+     + 11.2 × ln(INR)
+     + 9.57 × ln(Creatinine mg/dL)
+     + 6.43
+```
+
+**ข้อกำหนด:**
+- ค่าต่ำสุดของแต่ละตัวแปร = **1.0** (ป้องกัน ln ติดลบ)
+- Creatinine สูงสุด = **4.0 mg/dL** (รวม dialysis ≥ 2×/wk → ใช้ 4.0)
+- ปัดผลลัพธ์เป็นจำนวนเต็ม
+
+### MELD-Na (ใช้ใน UNOS ปัจจุบัน)
+
+```
+MELD-Na = MELD + 1.32 × (137 − Na)
+          − [0.24 × MELD × (137 − Na)]
+```
+
+**ข้อกำหนด:**
+- Na ต่ำสุด = **125**, สูงสุด = **137** mEq/L (clamp ก่อนคำนวณ)
+- ถ้า Na &gt; 137 → MELD-Na = MELD (ไม่เปลี่ยน)
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| MELD | 3-Month Mortality | ความหมาย |
+|---|---|---|
+| **&lt; 10** | &lt; 5% | ความเสี่ยงต่ำ |
+| **10–19** | ~6% | ความเสี่ยงปานกลาง |
+| **20–29** | ~19% | ความเสี่ยงสูง |
+| **30–39** | ~52% | ความเสี่ยงสูงมาก |
+| **≥ 40** | ~100% | วิกฤต |
+
+### ลำดับ Transplant Priority
+
+| MELD | การจัดการ |
+|---|---|
+| **&lt; 15** | ติดตาม OPD; ยังไม่อยู่ในลำดับ transplant |
+| **≥ 15** | พิจารณาขึ้น transplant list |
+| **≥ 25** | Urgent listing; เร่งประเมิน |
+| **≥ 35** | Very urgent; MELD exception พิจารณา |
+
+<Callout type="danger" title="MELD ≥ 30 = ความเสี่ยงสูงมาก">
+
+MELD ≥ 30 → mortality 52% ใน 3 เดือน  
+→ **ICU/HDU, hepatology consult ด่วน, ประเมิน transplant eligibility ทันที**  
+→ หาและรักษา precipitating factor: SBP, HRS, variceal bleed, HE
+
+</Callout>
+
+---
+
+## 🔬 Labs ที่ต้องการ
+
+| Lab | หน่วย | หมายเหตุ |
+|---|---|---|
+| Bilirubin (total) | mg/dL | ต่ำสุด 1.0 |
+| INR | — | ต่ำสุด 1.0 |
+| Creatinine | mg/dL | ต่ำสุด 1.0, สูงสุด 4.0 |
+| Serum Na | mEq/L | สำหรับ MELD-Na; clamp 125–137 |
+
+---
+
+## 📋 Decompensation Triggers — ต้องรักษาและ recalculate MELD
+
+| Complication | การรักษา |
+|---|---|
+| **Spontaneous Bacterial Peritonitis (SBP)** | Cefotaxime + Albumin (ดูด้านล่าง) |
+| **Hepatorenal Syndrome (HRS)** | Terlipressin + Albumin |
+| **Hepatic Encephalopathy (HE)** | Lactulose, Rifaximin, treat precipitant |
+| **Variceal Bleeding** | Octreotide + banding/sclerotherapy + antibiotic |
+| **Ascites (refractory)** | Large-volume paracentesis + Albumin |
+
+---
+
+## 💊 การรักษา (Drug Dosing — BW 60 kg)
+
+### SBP Treatment
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Cefotaxime | 2 g q 8 hr | IV | 5 วัน | First-line SBP |
+| Albumin 20% | 1.5 g/kg วันที่ 1 (= 90 g) → 1 g/kg วันที่ 3 (= 60 g) | IV | 2 doses | ป้องกัน HRS |
+
+### HRS Treatment (Type 1 / AKI)
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Terlipressin | 1 mg q 6 hr → titrate ≤ 2 mg q 6 hr | IV bolus | จนกว่า Cr ลด หรือ max 14 วัน | Vasoconstrictor HRS |
+| Albumin 20% | 1 g/kg/day (max 100 g/day) | IV | ตลอดการรักษา | ขยาย intravascular volume |
+| Norepinephrine | 0.5–3 mg/hr | IV drip | ถ้าไม่มี terlipressin | ทดแทน terlipressin (ICU) |
+
+### Variceal Bleeding
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Octreotide | 50 mcg IV bolus → 50 mcg/hr drip | IV | 3–5 วัน | ลด portal pressure |
+| Ceftriaxone | 1 g OD | IV | 7 วัน | ลด infection (SBP prophylaxis) |
+| Terlipressin | 2 mg q 4 hr (acute) → 1 mg q 4 hr (maintenance) | IV | 24–48 hr | ทดแทน octreotide |
+
+### Hepatic Encephalopathy
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Lactulose | 30 mL q 1 hr จนถ่าย 2–3 ครั้ง/วัน (titrate) | PO/NG | ต่อเนื่อง | ลด ammonia absorption |
+| Rifaximin | 550 mg BID | PO | ป้องกัน relapse | Non-absorbable antibiotic |
+
+<Callout type="warning" title="Serum Na Correction">
+
+**Hyponatremia ใน cirrhosis** — เป็น dilutional; **ห้าม** correct อย่างรวดเร็ว  
+→ Na &lt; 120 + symptomatic → 3% NaCl ช้า (target +6–8 mEq/L/24 hr)  
+→ Na 120–130 → fluid restrict 1 L/day + vaptans (ถ้ามี)  
+→ Na &lt; 130 → add ไปใน MELD-Na calculation (ยิ่งต่ำ MELD ยิ่งสูง)
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+ตับแข็ง decompensated → คำนวณ MELD-Na
+
+MELD < 15:
+  → OPD follow-up, primary/secondary prophylaxis varices
+  → Salt restriction, diuretics (spironolactone ± furosemide)
+
+MELD 15–24:
+  → Admit ถ้า decompensation
+  → Hepatology consult; ประเมิน transplant candidacy
+  → Treat precipitant, recalculate MELD
+
+MELD 25–34:
+  → Admit (HDU/ICU depending on complication)
+  → Urgent hepatology + transplant team
+  → TIPS พิจารณาถ้า refractory ascites/variceal bleed
+
+MELD ≥ 35:
+  → ICU
+  → Urgent transplant evaluation
+  → Treat all reversible causes simultaneously
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="MELD Score — Pitfalls">
+
+**ลืม clamp ค่าตัวแปร** — Cr &lt; 1.0 ต้องใช้ 1.0; Cr &gt; 4.0 ต้องใช้ 4.0  
+→ ผลผิดพลาดได้มาก
+
+**MELD ต่ำ ≠ stable** — ดูแนวโน้ม (trend) และ precipitant  
+→ MELD เปลี่ยนอย่างรวดเร็วใน acute decompensation
+
+**ให้ albumin ใน SBP** — สำคัญมาก ลด HRS และ mortality  
+→ อย่าข้าม; ให้พร้อมกับ antibiotic วันแรก
+
+**Na ต่ำ → MELD-Na สูงขึ้น** — สะท้อน prognosis ที่แย่กว่า  
+→ รักษา Na แต่ห้าม rapid correction
+
+**MELD ≠ Child-Pugh** — ใช้ร่วมกันเสริมกัน  
+→ Child-Pugh ดู synthetic function + ascites; MELD ดู mortality
+
+</Callout>

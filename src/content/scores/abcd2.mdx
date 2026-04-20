@@ -1,0 +1,172 @@
+---
+id: abcd2
+title: "ABCD² Score (TIA)"
+titleTh: "ประเมินความเสี่ยง stroke หลัง TIA"
+category: score
+subcategory: neuro
+tags:
+  - ABCD2
+  - TIA
+  - stroke risk
+  - neurology
+keywords:
+  - ABCD2 score
+  - TIA
+  - transient ischemic attack
+  - stroke risk
+  - 2-day stroke
+  - เส้นเลือดสมอง
+  - TIA ไทย
+related:
+  - nihss
+  - wells-pe
+source:
+  name: "Johnston SC et al. Lancet 2007; AHA/ASA TIA Guideline 2009"
+  year: 2009
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "TIA short-term stroke risk (2-day, 7-day) → early intervention priority"
+clinicalContext: "ED — TIA diagnosis; ตัดสินใจ admit vs expedited OPD"
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+ประเมินความเสี่ยง **stroke ภายใน 2–7 วัน** หลัง TIA — ช่วยตัดสินใจว่าต้อง admit หรือ expedited workup ใน outpatient
+
+**จุดสำคัญ:** TIA = neurological emergency; "minor event" แต่ stroke risk สูงมากใน 48 hr แรก
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria)
+
+| ตัวอักษร | เกณฑ์ | คะแนน |
+|---|---|---|
+| **A** — Age | อายุ ≥ 60 ปี | 1 |
+| **B** — Blood Pressure | SBP ≥ 140 หรือ DBP ≥ 90 mmHg | 1 |
+| **C** — Clinical features | Unilateral weakness | **2** |
+| | Speech disturbance ไม่มี weakness | 1 |
+| | อาการอื่น | 0 |
+| **D** — Duration | ≥ 60 นาที | **2** |
+| | 10–59 นาที | 1 |
+| | &lt; 10 นาที | 0 |
+| **D** — Diabetes mellitus | มี DM | 1 |
+
+**คะแนนรวม: 0–7**
+
+---
+
+## 📊 การแปลผล (Interpretation) — Stroke Risk
+
+| ABCD² Score | 2-Day Stroke Risk | 7-Day Stroke Risk | การจัดการ |
+|---|---|---|---|
+| **0–3** (Low) | ~1% | ~1.2% | Expedited OPD ภายใน 24–72 hr |
+| **4–5** (Moderate) | ~4% | ~5.9% | **Admit** หรือ same-day workup |
+| **6–7** (High) | ~8% | ~11.7% | **Admit ทันที**; urgent workup |
+
+<Callout type="danger" title="ABCD² ≥ 4 หรือ Crescendo TIA = Admit">
+
+ABCD² ≥ 4 **หรือ** crescendo TIA (≥ 2 ครั้งใน 24 hr) **หรือ** TIA ครั้งแรก ที่ยังไม่มี workup  
+→ **Admit ทันที** สำหรับ urgent stroke workup + DAPT  
+→ ไม่ควรส่ง OPD โดยไม่มี same-day imaging + echo
+
+</Callout>
+
+---
+
+## 🔬 Urgent Workup ที่ต้องทำ
+
+| Investigation | จุดประสงค์ |
+|---|---|
+| Non-contrast CT brain | ตัด ICH, early infarct |
+| MRI brain + DWI | DWI positive ใน 50% ของ TIA → จริงๆ คือ infarct |
+| CTA head + neck | Carotid stenosis, intracranial stenosis |
+| 12-lead ECG | AF, ischemia |
+| Echocardiography | Cardiac source (thrombus, PFO) |
+| Telemetry / Holter 24–72 hr | Paroxysmal AF |
+| CBC, BMP, HbA1c, lipid, coag | Risk factors + baseline |
+
+---
+
+## 💊 การรักษา (Treatment)
+
+### Antiplatelet — DAPT for 21 Days (High-Moderate Risk)
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Aspirin (ASA) | **325 mg stat** → 81–100 mg OD | PO | ตลอดชีพ | First-line antiplatelet |
+| Clopidogrel | **300 mg loading** → 75 mg OD | PO | 21 วัน (DAPT) | POINT/CHANCE trial: ลด stroke 25% |
+
+**หลังจาก 21 วัน** → monotherapy (ASA หรือ clopidogrel 75 mg OD ต่อเนื่อง)
+
+### Statin (ทุกราย)
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Atorvastatin | **40–80 mg** OD | PO | ตลอดชีพ | Plaque stabilization; ลด stroke recurrence |
+
+### BP Control
+
+| เป้าหมาย | ยาที่แนะนำ |
+|---|---|
+| SBP &lt; 130/80 mmHg (ระยะยาว) | ACEi หรือ ARB + thiazide |
+| Acute: ไม่ aggressive ลด BP ใน 24–48 hr แรก | Observe ก่อน; เริ่ม antihypertensive หลัง 24 hr |
+
+<Callout type="warning" title="ไม่ให้ DAPT ถ้ามี AF">
+
+ถ้า TIA + AF → ไม่ให้ DAPT → ให้ **anticoagulant ทันที** (NOAC preferred)  
+→ Apixaban 5 mg BID หรือ rivaroxaban 20 mg OD  
+→ DAPT ไม่ป้องกัน cardioembolic stroke จาก AF
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+TIA diagnosis (อาการหายภายใน 24 hr; CT ไม่มี infarct)
+  ↓
+คำนวณ ABCD² Score
+  ├── Score 0–3 + ไม่ใช่ crescendo + มี follow-up plan
+  │     → Expedited OPD ภายใน 24–72 hr
+  │     → ASA 325 mg + statin ทันที
+  │     → MRI DWI + CTA ภายใน 24 hr
+  │
+  ├── Score 4–5 หรือ crescendo หรือ ครั้งแรก
+  │     → Admit / same-day workup
+  │     → ASA 325 mg + clopidogrel 300 mg load → DAPT 21 วัน
+  │     → Statin high-intensity
+  │     → Telemetry, echo
+  │
+  └── Score 6–7
+        → Admit ทันที → ICU/stroke unit
+        → DAPT ทันที (ถ้าไม่ใช่ AF / ไม่มี contraindication)
+        → Urgent CTA → ถ้า carotid stenosis ≥ 70% → CEA ใน 2 สัปดาห์
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="TIA / ABCD² — Critical Pitfalls">
+
+**ส่ง OPD ทุกราย ABCD² ต่ำ** — ผิด; crescendo TIA และ cardiac source ต้อง admit เสมอ  
+→ ประเมิน AF, carotid bruit, cardiac murmur ก่อนตัดสินใจ
+
+**ให้ ASA อย่างเดียว** — สำหรับ high-risk TIA ต้อง DAPT 21 วัน (POINT trial)  
+→ ลด 90-day stroke จาก 6.5% → 5.0%
+
+**ลืมตรวจ AF** — paroxysmal AF เป็น etiology บ่อย  
+→ Telemetry + Holter ทุกราย ไม่มี obvious cause
+
+**CT normal = no TIA** — ผิด; CT ปกติใน TIA; ต้องทำ MRI DWI  
+→ DWI positive ใน 30–50% ของ "TIA" = จริงๆ infarct แล้ว
+
+**ให้ DAPT ใน AF** — เพิ่ม bleeding ไม่ลด cardioembolic stroke  
+→ AF → anticoagulant (NOAC), ไม่ใช่ DAPT
+
+**BP ต่ำเกินใน 24 hr แรก** — hypoperfusion → infarct extension  
+→ อนุญาต BP สูงกว่าปกติเล็กน้อยใน 24–48 hr แรก
+
+</Callout>

@@ -1,0 +1,223 @@
+---
+id: psi-port
+title: "PSI / PORT Score (CAP)"
+titleTh: "ประเมินความรุนแรง community-acquired pneumonia"
+category: score
+subcategory: pulm
+tags:
+  - PSI
+  - PORT score
+  - CAP
+  - pneumonia
+  - severity
+keywords:
+  - PSI score
+  - PORT score
+  - CAP severity
+  - community-acquired pneumonia
+  - CURB-65
+  - ปอดบวม
+  - pneumonia severity
+related:
+  - curb-65
+  - pesi
+  - sofa
+source:
+  name: "Fine MJ et al. NEJM 1997; IDSA/ATS CAP Guideline 2019"
+  year: 2019
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "CAP severity → safe outpatient vs ward vs ICU; alternative to CURB-65"
+clinicalContext: "ED — CAP diagnosis; ตัดสิน discharge (class I-II) vs admit (III-V)"
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+ประเมินความรุนแรงของ **community-acquired pneumonia (CAP)** เพื่อตัดสินใจ disposition — มีหลักฐานแข็งแกร่งกว่า CURB-65 สำหรับ safe discharge แต่คำนวณซับซ้อนกว่า
+
+**ใช้ CURB-65** สำหรับความเร็ว; **ใช้ PSI/PORT** เมื่อต้องการความแม่นยำสูงในการ discharge safely
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria)
+
+### Step 1: Class I (ไม่ต้องคำนวณ)
+
+ผู้ป่วยที่มี **ทุกข้อ** ต่อไปนี้ = **Class I** → Outpatient ทันที:
+- อายุ &lt; 50 ปี
+- ไม่มี comorbidity (มะเร็ง, HF, CVD, renal disease, liver disease)
+- ไม่มี altered mental status
+- HR &lt; 125, RR &lt; 30, SBP ≥ 90, Temp 35–40°C
+- ไม่มี SpO₂ &lt; 90%
+
+### Step 2: คะแนน PSI (สำหรับผู้ที่ไม่ใช่ Class I)
+
+**Demographics**
+
+| เกณฑ์ | คะแนน |
+|---|---|
+| อายุ (ชาย) | +อายุ (ปี) |
+| อายุ (หญิง) | +อายุ − 10 |
+| Nursing home resident | +10 |
+
+**Comorbidities**
+
+| โรคร่วม | คะแนน |
+|---|---|
+| Neoplastic disease (active) | +30 |
+| Liver disease | +20 |
+| Congestive heart failure | +10 |
+| Cerebrovascular disease | +10 |
+| Renal disease | +10 |
+
+**Physical Examination Findings**
+
+| ผล Exam | คะแนน |
+|---|---|
+| Altered mental status | +20 |
+| RR ≥ 30/min | +20 |
+| SBP &lt; 90 mmHg | +20 |
+| Temp &lt; 35°C หรือ ≥ 40°C | +15 |
+| HR ≥ 125 bpm | +10 |
+
+**Laboratory / Radiology**
+
+| ผล Lab | คะแนน |
+|---|---|
+| pH &lt; 7.35 | +30 |
+| BUN ≥ 30 mg/dL | +20 |
+| Na &lt; 130 mEq/L | +20 |
+| Glucose ≥ 250 mg/dL | +10 |
+| Hematocrit &lt; 30% | +10 |
+| PaO₂ &lt; 60 mmHg หรือ SpO₂ &lt; 90% | +10 |
+| Pleural effusion | +10 |
+
+---
+
+## 📊 การแปลผล (Interpretation) — PSI Class
+
+| Class | คะแนน | 30-Day Mortality | Disposition |
+|---|---|---|---|
+| **I** | (Step 1 criteria) | 0.1% | Outpatient |
+| **II** | ≤ 70 | 0.6% | Outpatient |
+| **III** | 71–90 | 2.8% | Observe / short admission |
+| **IV** | 91–130 | 8.2% | Admit (ward) |
+| **V** | &gt; 130 | 29.2% | Admit (ICU พิจารณา) |
+
+<Callout type="danger" title="PSI Class V หรือ IDSA/ATS Major Criteria = ICU">
+
+**IDSA/ATS Major Criteria** (ICU indication) — ถ้ามี ≥ 1:
+- Invasive mechanical ventilation
+- Septic shock ต้องการ vasopressor
+
+**Minor Criteria** (ICU ถ้ามี ≥ 3):
+RR ≥ 30, PaO₂/FiO₂ &lt; 250, Multilobar infiltrate, BUN ≥ 20 mg/dL, WBC &lt; 4,000, Plt &lt; 100,000, Temp &lt; 36°C, Hypotension ต้อง aggressive resuscitation
+
+</Callout>
+
+---
+
+## 💊 การรักษา (Treatment) — Empiric Antibiotics (BW 60 kg)
+
+### Community CAP — Outpatient (Class I–II)
+
+| กลุ่มผู้ป่วย | ยา | ขนาดยา | Route | ระยะเวลา |
+|---|---|---|---|---|
+| ไม่มี comorbidity | Amoxicillin | 500 mg TID | PO | 5 วัน |
+| มี comorbidity หรือ ใช้ ATB ใน 3 เดือน | Amoxicillin-clavulanate | 875/125 mg BID | PO | 5–7 วัน |
+| | + Azithromycin | 500 mg OD | PO | 5 วัน |
+| Atypical concern | Levofloxacin | 750 mg OD | PO | 5 วัน |
+
+### Moderate CAP — Ward (Class III–IV)
+
+| regimen | ยา | ขนาดยา | Route | ระยะเวลา |
+|---|---|---|---|---|
+| Beta-lactam + Macrolide | Ampicillin-sulbactam | 1.5–3 g q 6 hr | IV | 5–7 วัน |
+| | + Azithromycin | 500 mg OD | IV/PO | 5 วัน |
+| Respiratory FQ (monotherapy) | Levofloxacin | 750 mg OD | IV/PO | 5 วัน |
+| | หรือ Moxifloxacin | 400 mg OD | IV/PO | 5 วัน |
+
+### Severe CAP — ICU (Class V / Major Criteria)
+
+| regimen | ยา | ขนาดยา | Route | ระยะเวลา |
+|---|---|---|---|---|
+| Standard severe | Piperacillin-tazobactam | 4.5 g q 6 hr | IV | 7 วัน |
+| | + Azithromycin | 500 mg OD | IV | 5 วัน |
+| MRSA risk (ICU + prior MRSA, necrotic infiltrate) | + Vancomycin | 15–20 mg/kg q 8–12 hr (titrate AUC) | IV | ตาม clinical |
+| HAP/VAP หรือ Pseudomonas risk | Meropenem | 1–2 g q 8 hr | IV | 7–10 วัน |
+| | + Vancomycin | 15–20 mg/kg q 8–12 hr | IV | ตาม clinical |
+
+### Corticosteroids — Severe CAP
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| Dexamethasone | **6 mg OD** | IV/PO | 3–7 วัน | ลด inflammatory response; RECOVERY-CAP / CAPE COD |
+| Methylprednisolone | 0.5 mg/kg BID | IV | 5 วัน | ทางเลือก (ใช้ถ้าไม่มี dex) |
+
+**Indication:** Severe CAP (ICU) + no contraindication (active fungal, TB, immunosuppressed high risk)
+
+<Callout type="warning" title="เลือก Beta-lactam + Macrolide vs FQ">
+
+**Beta-lactam + Macrolide ดีกว่า FQ monotherapy** สำหรับ severe CAP (mortality benefit)  
+→ ใช้ FQ monotherapy สำหรับ non-ICU ที่มี penicillin allergy  
+→ **ห้ามใช้ FQ ถ้า risk TB** — mask symptoms; เพิ่ม drug-resistant TB
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+CAP diagnosis (clinical + CXR)
+  ↓
+Step 1: Class I criteria?
+  ├── YES → Outpatient (PO amoxicillin หรือ azithromycin)
+  │
+  └── NO → คำนวณ PSI score
+        ├── Class I–II (≤ 70): Outpatient DOAC
+        │     → PO amoxicillin-clav + azithromycin
+        │     → F/U ใน 48–72 hr
+        │
+        ├── Class III (71–90): Short observation / admit
+        │     → IV beta-lactam + macrolide หรือ FQ
+        │     → IV → PO switch ใน 24–48 hr ถ้า stable
+        │
+        ├── Class IV (91–130): Admit ward
+        │     → IV beta-lactam + macrolide/FQ
+        │     → SpO₂ target ≥ 94%, fluid
+        │
+        └── Class V (> 130) หรือ IDSA/ATS major criteria:
+              → ICU admission
+              → Piperacillin-tazobactam + azithromycin
+              → MRSA / Pseudomonas coverage ถ้า risk factors
+              → Dexamethasone 6 mg OD × 3–7 วัน
+              → Mechanical ventilation ถ้า respiratory failure
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="CAP / PSI — Critical Pitfalls">
+
+**PSI Class I–II ≠ discharge ทุกราย** — ต้องมี social support + reliable follow-up  
+→ Elderly อยู่คนเดียว, ไม่เข้าใจ red flags → admit แม้ Class II
+
+**ลืม atypical coverage** — Legionella, Mycoplasma ต้องการ macrolide หรือ FQ  
+→ Beta-lactam อย่างเดียวไม่ cover atypical (Legionnaire's CAP = severe + no macrolide = worse outcome)
+
+**ให้ FQ ใน TB endemic area** — mask TB symptoms, สร้าง MDR-TB  
+→ ซักประวัติ TB exposure ก่อนให้ FQ; ถ้า suspect TB → sputum AFB ก่อน
+
+**ลืม steroid ใน severe CAP** — evidence ใหม่ (CAPE COD 2023) → dexamethasone ลด mortality  
+→ Dexamethasone 6 mg OD × 3–7 วัน ใน ICU CAP (ถ้าไม่มี contraindication)
+
+**IV → PO switch ช้า** — เพิ่ม length of stay โดยไม่จำเป็น  
+→ Switch เมื่อ: HR &lt; 100, RR &lt; 24, T &lt; 37.8, BP stable, tolerating PO
+
+**ไม่ส่ง blood culture ก่อน ATB** — เสียโอกาส de-escalate  
+→ Blood culture × 2 ก่อน antibiotic ทุกราย Class IV–V
+
+</Callout>

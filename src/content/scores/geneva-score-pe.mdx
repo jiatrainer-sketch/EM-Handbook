@@ -1,0 +1,201 @@
+---
+id: geneva-score-pe
+title: "Revised Geneva Score (PE)"
+titleTh: "ประเมินความน่าจะเป็น pulmonary embolism ก่อน CT-PA"
+category: score
+subcategory: pulm
+tags:
+  - Geneva score
+  - pulmonary embolism
+  - PE
+  - pre-test probability
+  - DVT
+keywords:
+  - Revised Geneva Score
+  - pulmonary embolism
+  - PE probability
+  - CT-PA
+  - D-dimer
+  - ปอดอุดตัน
+related:
+  - wells-pe
+  - pesi
+  - dvt
+source:
+  name: "Le Gal G et al. Ann Intern Med 2006"
+  year: 2006
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "Pre-test probability of PE — guide CT-PA decision; alternative to Wells PE"
+clinicalContext: "ED — สงสัย PE; ใช้ร่วมกับ D-dimer ถ้า low probability"
+---
+
+## 🎯 Purpose
+
+ประเมิน **pre-test probability ของ PE** ก่อนตัดสินใจทำ CT-PA — ใช้ร่วมกับ D-dimer เพื่อ rule out PE โดยไม่ต้องฉายรังสี
+
+**ข้อดีเหนือ Wells:** Fully objective (ไม่มี "PE most likely diagnosis" subjective criterion) — เหมาะสำหรับหลายผู้ประเมิน
+
+---
+
+## 📋 เกณฑ์คะแนน Revised Geneva Score
+
+| เกณฑ์ | คะแนน |
+|---|---|
+| **Age &gt; 65 ปี** | 1 |
+| **Previous DVT or PE** | 3 |
+| **Surgery or fracture ≤ 1 เดือน** (general anesthesia หรือ lower limb fracture) | 2 |
+| **Active malignancy** (solid หรือ hematologic, ≤ 1 ปี หรือ palliative) | 2 |
+| **Unilateral lower limb pain** | 3 |
+| **Hemoptysis** | 2 |
+| **Heart rate 75–94 bpm** | 3 |
+| **Heart rate ≥ 95 bpm** | 5 |
+| **Pain on deep palpation of lower limb + unilateral edema** | 4 |
+
+**คะแนนรวม 0–22**
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| Score | Probability | ความน่าจะเป็น PE | แนวทาง |
+|---|---|---|---|
+| **0–3** | Low | ~8% | D-dimer → ถ้าลบ = excluded |
+| **4–10** | Intermediate | ~29% | D-dimer → ถ้าลบ = excluded; ถ้าบวก = CT-PA |
+| **≥ 11** | High | ~74% | **CT-PA ทันที** (ไม่ต้อง D-dimer) |
+
+<Callout type="danger" title="High probability (≥ 11) → CT-PA ทันที">
+
+Geneva ≥ 11 → ความน่าจะเป็น PE ~74%  
+→ **ทำ CT-PA ทันที** — D-dimer ไม่มีประโยชน์ใน high pre-test probability  
+→ ถ้า hemodynamically unstable → **ECHO bedside** ก่อน CT-PA  
+→ ถ้า high suspicion + unstable → พิจารณา empiric anticoagulation ก่อน imaging
+
+</Callout>
+
+---
+
+## 🔍 PERC Rule (Pulmonary Embolism Rule-Out Criteria)
+
+ใช้เฉพาะ **low pre-test probability** — ถ้าทุกข้อลบ → ไม่ต้อง D-dimer
+
+| เกณฑ์ PERC | ถ้า "ใช่" → ไม่ใช้ PERC |
+|---|---|
+| อายุ ≥ 50 ปี | ✗ |
+| HR ≥ 100 bpm | ✗ |
+| O₂ saturation &lt; 95% | ✗ |
+| Unilateral leg swelling | ✗ |
+| Hemoptysis | ✗ |
+| Recent surgery/trauma ≤ 4 weeks | ✗ |
+| Prior DVT/PE | ✗ |
+| Exogenous estrogen | ✗ |
+
+**PERC negative ทุกข้อ + Geneva low → PE excluded โดยไม่ต้อง D-dimer**
+
+---
+
+## 🔍 D-dimer Strategy
+
+```
+Geneva Low (0–3):
+  → PERC negative ทุกข้อ? → PE excluded (ไม่ต้อง D-dimer)
+  → PERC positive ≥ 1? → D-dimer
+    D-dimer negative → PE excluded
+    D-dimer positive → CT-PA
+
+Geneva Intermediate (4–10):
+  → D-dimer
+    D-dimer negative → PE excluded
+    D-dimer positive → CT-PA
+
+Geneva High (≥ 11):
+  → CT-PA ทันที (ข้าม D-dimer)
+```
+
+<Callout type="warning" title="D-dimer — ข้อควรระวัง">
+
+**D-dimer positive ไม่ = PE** — sensitivity สูง (97%) แต่ specificity ต่ำ (40%)  
+→ False positive สูงใน: pregnancy, post-surgery, malignancy, sepsis, อายุสูง  
+→ **Age-adjusted D-dimer**: ≥ 50 ปี → ใช้ cutoff = age × 10 μg/L  
+→ D-dimer ใน high probability ไม่มีประโยชน์ — ทำ CT-PA เลย
+
+</Callout>
+
+---
+
+## 🔍 เปรียบเทียบ Geneva vs Wells PE
+
+| | Revised Geneva | Wells PE |
+|---|---|---|
+| **ปี** | 2006 (revised) | 2000 |
+| **Objectivity** | Fully objective | มี subjective 1 criterion |
+| **HR scoring** | 75–94 vs ≥ 95 | ≥ 100 |
+| **Prior DVT/PE** | 3 pts | 1.5 pts |
+| **Unilateral leg sx** | แยก pain vs edema | combined |
+| **"PE most likely"** | ❌ ไม่มี | ✅ 3 pts (subjective) |
+| **Validated** | Multi-center Europe | Multi-center North America |
+| **Accuracy** | เทียบเท่า | เทียบเท่า |
+
+---
+
+## 💊 Drug Dosing — Anticoagulation ใน PE
+
+| ยา | ขนาด | Route | Duration | เหตุผล |
+|---|---|---|---|---|
+| **Heparin (UFH)** | 80 units/kg bolus → 18 units/kg/hr | IV | จนได้ LMWH/DOAC | Massive PE / hemodynamically unstable |
+| **Enoxaparin** | 1 mg/kg | SC | q 12 hr × 5 วัน ขั้นต่ำ | Submassive/non-massive PE (bridge) |
+| **Rivaroxaban** | 15 mg bid × 21 วัน | PO | bid | จากนั้น 20 mg od × ≥ 3 เดือน |
+| **Apixaban** | 10 mg bid × 7 วัน | PO | bid | จากนั้น 5 mg bid × ≥ 3 เดือน |
+| **Alteplase (tPA)** | 100 mg | IV | infuse 2 hr | Massive PE (cardiac arrest / shock) |
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+สงสัย PE → Revised Geneva Score
+
+Geneva 0–3 (Low):
+  → PERC: ทุกข้อลบ? → PE excluded
+  → PERC บวก → D-dimer
+    ลบ → excluded; บวก → CT-PA
+
+Geneva 4–10 (Intermediate):
+  → D-dimer
+    ลบ → excluded; บวก → CT-PA
+
+Geneva ≥ 11 (High):
+  → CT-PA ทันที
+  → Hemodynamically unstable → ECHO bedside
+  → CT confirm PE → anticoagulation ทันที
+
+Massive PE (PE + shock/arrest):
+  → tPA 100 mg IV over 2 hr
+  → UFH ต่อเนื่อง
+  → ICU admission
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="PE — Pitfalls">
+
+**ไม่ทำ D-dimer ใน high probability** — ไม่มีประโยชน์  
+→ D-dimer negative ใน high pretest prob ไม่ rule out PE  
+→ CT-PA ทันทีใน Geneva ≥ 11
+
+**ลืม age-adjusted D-dimer ในผู้สูงอายุ**  
+→ ≥ 50 ปี: cutoff = age × 10 μg/L (เช่น 70 ปี → 700 μg/L)  
+→ ลด unnecessary CT-PA ในผู้สูงอายุ
+
+**Empiric anticoagulation ใน high suspicion + unstable**  
+→ ถ้า PE สูงมาก + hemodynamic unstable → ให้ heparin ก่อน confirm  
+→ อย่ารอ CT-PA ถ้าผู้ป่วย deteriorate
+
+**CT-PA ใน CKD/contrast allergy**  
+→ eGFR &lt; 30 → V/Q scan แทน  
+→ Contrast allergy → premedicate หรือ V/Q scan
+
+</Callout>

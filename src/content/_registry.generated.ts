@@ -661,6 +661,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "cardiogenic-shock-ladder",
+    "path": "/src/content/ladders/cardiogenic-shock-ladder.mdx",
+    "frontmatter": {
+      "id": "cardiogenic-shock-ladder",
+      "title": "Cardiogenic Shock Inotrope Ladder",
+      "titleTh": "ขั้นบันได inotrope และ MCS ใน cardiogenic shock",
+      "category": "ladder",
+      "subcategory": "cardiac",
+      "tags": [
+        "cardiogenic shock",
+        "inotrope",
+        "dobutamine",
+        "norepinephrine",
+        "IABP",
+        "ECMO",
+        "MCS"
+      ],
+      "keywords": [
+        "cardiogenic shock",
+        "inotrope ladder",
+        "dobutamine",
+        "milrinone",
+        "norepinephrine",
+        "IABP",
+        "Impella",
+        "ECMO",
+        "ช็อคหัวใจ"
+      ],
+      "related": [
+        "stemi",
+        "acute-heart-failure",
+        "cardiac-arrest"
+      ],
+      "source": {
+        "name": "ESC Heart Failure Guidelines 2021 + SCAI Shock Classification 2019",
+        "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "cellulitis-treatment-ladder",
+    "path": "/src/content/ladders/cellulitis-treatment-ladder.mdx",
+    "frontmatter": {
+      "id": "cellulitis-treatment-ladder",
+      "title": "Cellulitis Treatment Ladder",
+      "titleTh": "ขั้นบันได cellulitis — Non-purulent ถึง Necrotizing Fasciitis",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "cellulitis",
+        "skin infection",
+        "MRSA",
+        "necrotizing fasciitis",
+        "antibiotics"
+      ],
+      "keywords": [
+        "cellulitis treatment",
+        "MRSA skin infection",
+        "purulent cellulitis",
+        "necrotizing fasciitis",
+        "clindamycin",
+        "TMP-SMX",
+        "vancomycin"
+      ],
+      "related": [
+        "sepsis-abx-ladder"
+      ],
+      "source": {
+        "name": "IDSA SSTI Guidelines 2014 + UpToDate 2024",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
+    }
+  },
+  {
     "id": "diuretic-ladder-chf",
     "path": "/src/content/ladders/diuretic-ladder-chf.mdx",
     "frontmatter": {
@@ -698,6 +778,44 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "insulin-initiation-ladder",
+    "path": "/src/content/ladders/insulin-initiation-ladder.mdx",
+    "frontmatter": {
+      "id": "insulin-initiation-ladder",
+      "title": "Insulin Initiation Ladder (T2DM)",
+      "titleTh": "ขั้นบันไดการเริ่มและปรับ insulin เบาหวานชนิดที่ 2",
+      "category": "ladder",
+      "subcategory": "endo",
+      "tags": [
+        "insulin",
+        "diabetes",
+        "T2DM",
+        "basal",
+        "DKA"
+      ],
+      "keywords": [
+        "insulin initiation",
+        "basal insulin",
+        "glargine",
+        "NPH",
+        "basal-bolus",
+        "T2DM insulin",
+        "เบาหวาน"
+      ],
+      "related": [
+        "dka-management",
+        "hyperglycemia"
+      ],
+      "source": {
+        "name": "ADA Standards of Care 2024 + Thai Diabetes Society",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
@@ -740,6 +858,85 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "high"
+    }
+  },
+  {
+    "id": "sepsis-abx-ladder",
+    "path": "/src/content/ladders/sepsis-abx-ladder.mdx",
+    "frontmatter": {
+      "id": "sepsis-abx-ladder",
+      "title": "Sepsis Antibiotics Ladder",
+      "titleTh": "ขั้นบันได antibiotic ใน sepsis — empirical ถึง de-escalation",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "sepsis",
+        "antibiotics",
+        "empirical",
+        "de-escalation",
+        "MRSA",
+        "MDR"
+      ],
+      "keywords": [
+        "sepsis antibiotics",
+        "empirical antibiotic",
+        "de-escalation",
+        "vancomycin",
+        "piperacillin-tazobactam",
+        "meropenem",
+        "septic shock",
+        "antibiotic stewardship"
+      ],
+      "related": [
+        "sepsis-protocol",
+        "pneumonia-empiric"
+      ],
+      "source": {
+        "name": "SSC Guidelines 2021 + IDSA + Thai MOPH Sepsis Protocol",
+        "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "uti-treatment-ladder",
+    "path": "/src/content/ladders/uti-treatment-ladder.mdx",
+    "frontmatter": {
+      "id": "uti-treatment-ladder",
+      "title": "UTI Treatment Ladder",
+      "titleTh": "ขั้นบันได UTI — Cystitis ถึง Urosepsis + MDR",
+      "category": "ladder",
+      "subcategory": "id",
+      "tags": [
+        "UTI",
+        "cystitis",
+        "pyelonephritis",
+        "urosepsis",
+        "antibiotics",
+        "MDR"
+      ],
+      "keywords": [
+        "UTI treatment",
+        "cystitis antibiotic",
+        "pyelonephritis",
+        "urosepsis",
+        "ESBL UTI",
+        "fosfomycin",
+        "nitrofurantoin"
+      ],
+      "related": [
+        "sepsis-abx-ladder",
+        "sepsis-protocol"
+      ],
+      "source": {
+        "name": "IDSA UTI Guidelines 2011 (updated 2023) + Thai MOPH Antibiogram",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "medium"
     }
   },
   {
@@ -3841,6 +4038,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "abcd2",
+    "path": "/src/content/scores/abcd2.mdx",
+    "frontmatter": {
+      "id": "abcd2",
+      "title": "ABCD² Score (TIA)",
+      "titleTh": "ประเมินความเสี่ยง stroke หลัง TIA",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "ABCD2",
+        "TIA",
+        "stroke risk",
+        "neurology"
+      ],
+      "keywords": [
+        "ABCD2 score",
+        "TIA",
+        "transient ischemic attack",
+        "stroke risk",
+        "2-day stroke",
+        "เส้นเลือดสมอง",
+        "TIA ไทย"
+      ],
+      "related": [
+        "nihss",
+        "wells-pe"
+      ],
+      "source": {
+        "name": "Johnston SC et al. Lancet 2007; AHA/ASA TIA Guideline 2009",
+        "year": 2009
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "TIA short-term stroke risk (2-day, 7-day) → early intervention priority",
+      "clinicalContext": "ED — TIA diagnosis; ตัดสินใจ admit vs expedited OPD"
+    }
+  },
+  {
     "id": "alvarado",
     "path": "/src/content/scores/alvarado.mdx",
     "frontmatter": {
@@ -3910,6 +4146,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "Acute pancreatitis severity (simple, modern alternative to Ranson's)",
       "clinicalContext": "ED / admission — ตัดสินใจ ward vs ICU ภายใน 24 hr แรก"
+    }
+  },
+  {
+    "id": "bode-index",
+    "path": "/src/content/scores/bode-index.mdx",
+    "frontmatter": {
+      "id": "bode-index",
+      "title": "BODE Index (COPD)",
+      "titleTh": "ประเมินการพยากรณ์โรค COPD",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "BODE",
+        "COPD",
+        "prognosis",
+        "FEV1",
+        "6MWT"
+      ],
+      "keywords": [
+        "BODE index",
+        "COPD prognosis",
+        "4-year mortality",
+        "lung transplant",
+        "FEV1",
+        "mMRC dyspnea",
+        "โรคปอดอุดกั้นเรื้อรัง"
+      ],
+      "related": [
+        "copd-exacerbation",
+        "pulmonary-rehab"
+      ],
+      "source": {
+        "name": "Celli BR et al. N Engl J Med 2004",
+        "year": 2004
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "COPD prognosis — 4-year mortality prediction; better than FEV1 alone",
+      "clinicalContext": "OPD/ward — COPD stable/exacerbation; ช่วย prognosticate + ตัดสิน transplant"
     }
   },
   {
@@ -4067,6 +4343,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "four-score",
+    "path": "/src/content/scores/four-score.mdx",
+    "frontmatter": {
+      "id": "four-score",
+      "title": "FOUR Score (Full Outline of UnResponsiveness)",
+      "titleTh": "ประเมินระดับความรู้สึกตัวในผู้ป่วยไม่รู้สึกตัว (ทางเลือก GCS)",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "FOUR score",
+        "coma",
+        "consciousness",
+        "GCS alternative",
+        "brainstem"
+      ],
+      "keywords": [
+        "FOUR score",
+        "coma assessment",
+        "GCS intubated",
+        "brainstem reflexes",
+        "locked-in syndrome",
+        "ไม่รู้สึกตัว"
+      ],
+      "related": [
+        "gcs",
+        "nihss",
+        "ich-score"
+      ],
+      "source": {
+        "name": "Wijdicks EF et al. Mayo Clin Proc 2005",
+        "year": 2005
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Coma assessment — better than GCS for intubated/non-verbal patients; detects locked-in",
+      "clinicalContext": "ICU/ED — ผู้ป่วยไม่รู้สึกตัว intubated; ใช้แทน GCS ที่ verbal ประเมินไม่ได้"
+    }
+  },
+  {
     "id": "gcs",
     "path": "/src/content/scores/gcs.mdx",
     "frontmatter": {
@@ -4109,6 +4425,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "geneva-score-pe",
+    "path": "/src/content/scores/geneva-score-pe.mdx",
+    "frontmatter": {
+      "id": "geneva-score-pe",
+      "title": "Revised Geneva Score (PE)",
+      "titleTh": "ประเมินความน่าจะเป็น pulmonary embolism ก่อน CT-PA",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "Geneva score",
+        "pulmonary embolism",
+        "PE",
+        "pre-test probability",
+        "DVT"
+      ],
+      "keywords": [
+        "Revised Geneva Score",
+        "pulmonary embolism",
+        "PE probability",
+        "CT-PA",
+        "D-dimer",
+        "ปอดอุดตัน"
+      ],
+      "related": [
+        "wells-pe",
+        "pesi",
+        "dvt"
+      ],
+      "source": {
+        "name": "Le Gal G et al. Ann Intern Med 2006",
+        "year": 2006
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Pre-test probability of PE — guide CT-PA decision; alternative to Wells PE",
+      "clinicalContext": "ED — สงสัย PE; ใช้ร่วมกับ D-dimer ถ้า low probability"
+    }
+  },
+  {
     "id": "glasgow-blatchford",
     "path": "/src/content/scores/glasgow-blatchford.mdx",
     "frontmatter": {
@@ -4145,6 +4501,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "UGIB — ตัดสินใจ admit vs discharge ก่อน endoscopy",
       "clinicalContext": "ED — ก่อน scope; GBS 0 = discharge ได้ปลอดภัย"
+    }
+  },
+  {
+    "id": "has-bled",
+    "path": "/src/content/scores/has-bled.mdx",
+    "frontmatter": {
+      "id": "has-bled",
+      "title": "HAS-BLED Score",
+      "titleTh": "ประเมินความเสี่ยงเลือดออกในผู้ป่วยกินยา anticoagulant (AF)",
+      "category": "score",
+      "subcategory": "cardiac",
+      "tags": [
+        "HAS-BLED",
+        "bleeding risk",
+        "anticoagulation",
+        "atrial fibrillation",
+        "AF"
+      ],
+      "keywords": [
+        "HAS-BLED",
+        "bleeding risk score",
+        "anticoagulation AF",
+        "atrial fibrillation",
+        "warfarin",
+        "DOAC",
+        "ความเสี่ยงเลือดออก"
+      ],
+      "related": [
+        "cha2ds2-vasc",
+        "atrial-fibrillation"
+      ],
+      "source": {
+        "name": "Pisters R et al. Chest 2010",
+        "year": 2010
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Anticoagulation bleeding risk in AF — identify modifiable risk factors (NOT to withhold OAC)",
+      "clinicalContext": "OPD/ward — AF on OAC; ≥3 = high bleed risk; modify reversible RF, don't stop OAC"
     }
   },
   {
@@ -4187,6 +4583,85 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "hunt-hess",
+    "path": "/src/content/scores/hunt-hess.mdx",
+    "frontmatter": {
+      "id": "hunt-hess",
+      "title": "Hunt & Hess Grade (SAH)",
+      "titleTh": "ประเมินความรุนแรง subarachnoid hemorrhage ทางคลินิก",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "Hunt Hess",
+        "SAH",
+        "subarachnoid hemorrhage",
+        "neurosurgery",
+        "grading"
+      ],
+      "keywords": [
+        "Hunt Hess",
+        "subarachnoid hemorrhage",
+        "SAH grading",
+        "aneurysm",
+        "vasospasm",
+        "เลือดออกใต้เยื่อหุ้มสมอง"
+      ],
+      "related": [
+        "nihss",
+        "ich-score",
+        "gcs"
+      ],
+      "source": {
+        "name": "Hunt WE & Hess RM. J Neurosurg 1968; AHA/ASA SAH Guideline 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "SAH clinical severity grading — prognosis, surgical timing, ICU need",
+      "clinicalContext": "ED/neurosurgery — SAH confirmed; ใช้ร่วมกับ WFNS + Fisher grade"
+    }
+  },
+  {
+    "id": "ich-score",
+    "path": "/src/content/scores/ich-score.mdx",
+    "frontmatter": {
+      "id": "ich-score",
+      "title": "ICH Score",
+      "titleTh": "ประเมินความรุนแรงและการพยากรณ์โรค intracerebral hemorrhage",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "ICH",
+        "intracerebral hemorrhage",
+        "stroke",
+        "mortality"
+      ],
+      "keywords": [
+        "ICH score",
+        "intracerebral hemorrhage",
+        "30-day mortality",
+        "goals of care",
+        "neurosurgery",
+        "เลือดออกในสมอง"
+      ],
+      "related": [
+        "nihss",
+        "hunt-hess",
+        "gcs"
+      ],
+      "source": {
+        "name": "Hemphill JC et al. Stroke 2001; AHA/ASA ICH Guideline 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "ICH 30-day mortality prediction — guides ICU/comfort care discussion",
+      "clinicalContext": "ED/ICU — ICH diagnosis; ประเมิน prognosis + goals of care"
+    }
+  },
+  {
     "id": "lrinec-score",
     "path": "/src/content/scores/lrinec-score.mdx",
     "frontmatter": {
@@ -4221,6 +4696,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "Necrotizing fasciitis — lab-based risk stratification (rule in, not rule out)",
       "clinicalContext": "ED / ward — ผู้ป่วย soft tissue infection ที่สงสัย NF; ไม่แทน clinical judgment"
+    }
+  },
+  {
+    "id": "meld-score",
+    "path": "/src/content/scores/meld-score.mdx",
+    "frontmatter": {
+      "id": "meld-score",
+      "title": "MELD Score (MELD-Na)",
+      "titleTh": "ประเมินความรุนแรงโรคตับและลำดับ transplant",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "MELD",
+        "liver",
+        "cirrhosis",
+        "transplant",
+        "hepatology"
+      ],
+      "keywords": [
+        "MELD score",
+        "MELD-Na",
+        "liver failure",
+        "cirrhosis",
+        "transplant priority",
+        "ตับแข็ง",
+        "ตับวาย"
+      ],
+      "related": [
+        "child-pugh",
+        "hepatorenal-syndrome"
+      ],
+      "source": {
+        "name": "Kamath PS et al. Hepatology 2001; UNOS MELD-Na policy 2016",
+        "year": 2016
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Liver disease severity → transplant priority, short-term mortality",
+      "clinicalContext": "Hepatology / ward — ตับแข็ง decompensated; ใช้คู่กับ Child-Pugh"
     }
   },
   {
@@ -4302,6 +4817,86 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "pesi",
+    "path": "/src/content/scores/pesi.mdx",
+    "frontmatter": {
+      "id": "pesi",
+      "title": "PESI / sPESI (Pulmonary Embolism)",
+      "titleTh": "ประเมินความรุนแรงและการพยากรณ์ PE",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "PESI",
+        "sPESI",
+        "pulmonary embolism",
+        "PE",
+        "mortality"
+      ],
+      "keywords": [
+        "PESI score",
+        "sPESI",
+        "pulmonary embolism severity",
+        "PE outpatient",
+        "anticoagulation",
+        "ลิ่มเลือดอุดปอด"
+      ],
+      "related": [
+        "wells-pe",
+        "psi-port"
+      ],
+      "source": {
+        "name": "Aujesky D et al. Am J Respir Crit Care Med 2005; ESC PE Guideline 2019",
+        "year": 2019
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "PE 30-day mortality → outpatient vs ICU disposition",
+      "clinicalContext": "ED — PE confirmed (CT-PA); ตัดสิน low-risk discharge vs ICU"
+    }
+  },
+  {
+    "id": "psi-port",
+    "path": "/src/content/scores/psi-port.mdx",
+    "frontmatter": {
+      "id": "psi-port",
+      "title": "PSI / PORT Score (CAP)",
+      "titleTh": "ประเมินความรุนแรง community-acquired pneumonia",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "PSI",
+        "PORT score",
+        "CAP",
+        "pneumonia",
+        "severity"
+      ],
+      "keywords": [
+        "PSI score",
+        "PORT score",
+        "CAP severity",
+        "community-acquired pneumonia",
+        "CURB-65",
+        "ปอดบวม",
+        "pneumonia severity"
+      ],
+      "related": [
+        "curb-65",
+        "pesi",
+        "sofa"
+      ],
+      "source": {
+        "name": "Fine MJ et al. NEJM 1997; IDSA/ATS CAP Guideline 2019",
+        "year": 2019
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "CAP severity → safe outpatient vs ward vs ICU; alternative to CURB-65",
+      "clinicalContext": "ED — CAP diagnosis; ตัดสิน discharge (class I-II) vs admit (III-V)"
+    }
+  },
+  {
     "id": "qsofa",
     "path": "/src/content/scores/qsofa.mdx",
     "frontmatter": {
@@ -4337,6 +4932,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "medium",
       "usedFor": "Quick sepsis screening outside ICU",
       "clinicalContext": "สงสัย sepsis ใน ward/ER — triage เพื่อ escalate care"
+    }
+  },
+  {
+    "id": "ransons-criteria",
+    "path": "/src/content/scores/ransons-criteria.mdx",
+    "frontmatter": {
+      "id": "ransons-criteria",
+      "title": "Ranson's Criteria (Pancreatitis)",
+      "titleTh": "ประเมินความรุนแรง acute pancreatitis แบบคลาสสิก",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "Ranson",
+        "pancreatitis",
+        "severity",
+        "48-hour"
+      ],
+      "keywords": [
+        "Ranson criteria",
+        "acute pancreatitis",
+        "severity scoring",
+        "ตับอ่อนอักเสบ",
+        "BISAP"
+      ],
+      "related": [
+        "bisap-score",
+        "acute-pancreatitis"
+      ],
+      "source": {
+        "name": "Ranson JH et al. Surg Gynecol Obstet 1974",
+        "year": 1974
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Acute pancreatitis severity (classical, 48-hr; superseded by BISAP in modern practice)",
+      "clinicalContext": "Ward — admission + 48-hr; ใช้เมื่อไม่มี CT; BISAP ใช้ง่ายกว่าใน ED"
     }
   },
   {
@@ -4415,6 +5047,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "UGIB mortality prediction + rebleed risk",
       "clinicalContext": "ED / Ward — ประเมินหลัง endoscopy; ตัดสินใจ discharge vs admit"
+    }
+  },
+  {
+    "id": "sirs-criteria",
+    "path": "/src/content/scores/sirs-criteria.mdx",
+    "frontmatter": {
+      "id": "sirs-criteria",
+      "title": "SIRS Criteria",
+      "titleTh": "เกณฑ์การวินิจฉัย systemic inflammatory response syndrome",
+      "category": "score",
+      "subcategory": "id",
+      "tags": [
+        "SIRS",
+        "sepsis",
+        "systemic inflammation",
+        "screening"
+      ],
+      "keywords": [
+        "SIRS criteria",
+        "systemic inflammatory response",
+        "sepsis screening",
+        "qSOFA",
+        "SOFA",
+        "ภาวะอักเสบทั่วร่างกาย"
+      ],
+      "related": [
+        "qsofa",
+        "sofa",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Bone RC et al. ACCP/SCCM Consensus Conference. Chest 1992",
+        "year": 1992
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "SIRS identification — screen for sepsis; historical but still used clinically",
+      "clinicalContext": "ED/ward — ผู้ป่วยมีสัญญาณ systemic inflammation; ใช้ร่วมกับ qSOFA/SOFA"
     }
   },
   {
