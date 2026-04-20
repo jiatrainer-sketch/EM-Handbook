@@ -3841,6 +3841,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "abcd2",
+    "path": "/src/content/scores/abcd2.mdx",
+    "frontmatter": {
+      "id": "abcd2",
+      "title": "ABCD² Score (TIA)",
+      "titleTh": "ประเมินความเสี่ยง stroke หลัง TIA",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "ABCD2",
+        "TIA",
+        "stroke risk",
+        "neurology"
+      ],
+      "keywords": [
+        "ABCD2 score",
+        "TIA",
+        "transient ischemic attack",
+        "stroke risk",
+        "2-day stroke",
+        "เส้นเลือดสมอง",
+        "TIA ไทย"
+      ],
+      "related": [
+        "nihss",
+        "wells-pe"
+      ],
+      "source": {
+        "name": "Johnston SC et al. Lancet 2007; AHA/ASA TIA Guideline 2009",
+        "year": 2009
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "TIA short-term stroke risk (2-day, 7-day) → early intervention priority",
+      "clinicalContext": "ED — TIA diagnosis; ตัดสินใจ admit vs expedited OPD"
+    }
+  },
+  {
     "id": "alvarado",
     "path": "/src/content/scores/alvarado.mdx",
     "frontmatter": {
@@ -4187,6 +4226,85 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "hunt-hess",
+    "path": "/src/content/scores/hunt-hess.mdx",
+    "frontmatter": {
+      "id": "hunt-hess",
+      "title": "Hunt & Hess Grade (SAH)",
+      "titleTh": "ประเมินความรุนแรง subarachnoid hemorrhage ทางคลินิก",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "Hunt Hess",
+        "SAH",
+        "subarachnoid hemorrhage",
+        "neurosurgery",
+        "grading"
+      ],
+      "keywords": [
+        "Hunt Hess",
+        "subarachnoid hemorrhage",
+        "SAH grading",
+        "aneurysm",
+        "vasospasm",
+        "เลือดออกใต้เยื่อหุ้มสมอง"
+      ],
+      "related": [
+        "nihss",
+        "ich-score",
+        "gcs"
+      ],
+      "source": {
+        "name": "Hunt WE & Hess RM. J Neurosurg 1968; AHA/ASA SAH Guideline 2023",
+        "year": 2023
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "SAH clinical severity grading — prognosis, surgical timing, ICU need",
+      "clinicalContext": "ED/neurosurgery — SAH confirmed; ใช้ร่วมกับ WFNS + Fisher grade"
+    }
+  },
+  {
+    "id": "ich-score",
+    "path": "/src/content/scores/ich-score.mdx",
+    "frontmatter": {
+      "id": "ich-score",
+      "title": "ICH Score",
+      "titleTh": "ประเมินความรุนแรงและการพยากรณ์โรค intracerebral hemorrhage",
+      "category": "score",
+      "subcategory": "neuro",
+      "tags": [
+        "ICH",
+        "intracerebral hemorrhage",
+        "stroke",
+        "mortality"
+      ],
+      "keywords": [
+        "ICH score",
+        "intracerebral hemorrhage",
+        "30-day mortality",
+        "goals of care",
+        "neurosurgery",
+        "เลือดออกในสมอง"
+      ],
+      "related": [
+        "nihss",
+        "hunt-hess",
+        "gcs"
+      ],
+      "source": {
+        "name": "Hemphill JC et al. Stroke 2001; AHA/ASA ICH Guideline 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "ICH 30-day mortality prediction — guides ICU/comfort care discussion",
+      "clinicalContext": "ED/ICU — ICH diagnosis; ประเมิน prognosis + goals of care"
+    }
+  },
+  {
     "id": "lrinec-score",
     "path": "/src/content/scores/lrinec-score.mdx",
     "frontmatter": {
@@ -4221,6 +4339,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "Necrotizing fasciitis — lab-based risk stratification (rule in, not rule out)",
       "clinicalContext": "ED / ward — ผู้ป่วย soft tissue infection ที่สงสัย NF; ไม่แทน clinical judgment"
+    }
+  },
+  {
+    "id": "meld-score",
+    "path": "/src/content/scores/meld-score.mdx",
+    "frontmatter": {
+      "id": "meld-score",
+      "title": "MELD Score (MELD-Na)",
+      "titleTh": "ประเมินความรุนแรงโรคตับและลำดับ transplant",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "MELD",
+        "liver",
+        "cirrhosis",
+        "transplant",
+        "hepatology"
+      ],
+      "keywords": [
+        "MELD score",
+        "MELD-Na",
+        "liver failure",
+        "cirrhosis",
+        "transplant priority",
+        "ตับแข็ง",
+        "ตับวาย"
+      ],
+      "related": [
+        "child-pugh",
+        "hepatorenal-syndrome"
+      ],
+      "source": {
+        "name": "Kamath PS et al. Hepatology 2001; UNOS MELD-Na policy 2016",
+        "year": 2016
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Liver disease severity → transplant priority, short-term mortality",
+      "clinicalContext": "Hepatology / ward — ตับแข็ง decompensated; ใช้คู่กับ Child-Pugh"
     }
   },
   {
@@ -4299,6 +4457,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "Stroke severity + tPA eligibility",
       "clinicalContext": "Acute stroke — baseline score + monitor หลัง treatment"
+    }
+  },
+  {
+    "id": "pesi",
+    "path": "/src/content/scores/pesi.mdx",
+    "frontmatter": {
+      "id": "pesi",
+      "title": "PESI / sPESI (Pulmonary Embolism)",
+      "titleTh": "ประเมินความรุนแรงและการพยากรณ์ PE",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "PESI",
+        "sPESI",
+        "pulmonary embolism",
+        "PE",
+        "mortality"
+      ],
+      "keywords": [
+        "PESI score",
+        "sPESI",
+        "pulmonary embolism severity",
+        "PE outpatient",
+        "anticoagulation",
+        "ลิ่มเลือดอุดปอด"
+      ],
+      "related": [
+        "wells-pe",
+        "psi-port"
+      ],
+      "source": {
+        "name": "Aujesky D et al. Am J Respir Crit Care Med 2005; ESC PE Guideline 2019",
+        "year": 2019
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "PE 30-day mortality → outpatient vs ICU disposition",
+      "clinicalContext": "ED — PE confirmed (CT-PA); ตัดสิน low-risk discharge vs ICU"
     }
   },
   {
@@ -4415,6 +4612,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "UGIB mortality prediction + rebleed risk",
       "clinicalContext": "ED / Ward — ประเมินหลัง endoscopy; ตัดสินใจ discharge vs admit"
+    }
+  },
+  {
+    "id": "sirs-criteria",
+    "path": "/src/content/scores/sirs-criteria.mdx",
+    "frontmatter": {
+      "id": "sirs-criteria",
+      "title": "SIRS Criteria",
+      "titleTh": "เกณฑ์การวินิจฉัย systemic inflammatory response syndrome",
+      "category": "score",
+      "subcategory": "id",
+      "tags": [
+        "SIRS",
+        "sepsis",
+        "systemic inflammation",
+        "screening"
+      ],
+      "keywords": [
+        "SIRS criteria",
+        "systemic inflammatory response",
+        "sepsis screening",
+        "qSOFA",
+        "SOFA",
+        "ภาวะอักเสบทั่วร่างกาย"
+      ],
+      "related": [
+        "qsofa",
+        "sofa",
+        "septic-shock"
+      ],
+      "source": {
+        "name": "Bone RC et al. ACCP/SCCM Consensus Conference. Chest 1992",
+        "year": 1992
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "SIRS identification — screen for sepsis; historical but still used clinically",
+      "clinicalContext": "ED/ward — ผู้ป่วยมีสัญญาณ systemic inflammation; ใช้ร่วมกับ qSOFA/SOFA"
     }
   },
   {

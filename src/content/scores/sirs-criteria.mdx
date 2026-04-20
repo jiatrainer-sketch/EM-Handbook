@@ -1,0 +1,157 @@
+---
+id: sirs-criteria
+title: "SIRS Criteria"
+titleTh: "เกณฑ์การวินิจฉัย systemic inflammatory response syndrome"
+category: score
+subcategory: id
+tags:
+  - SIRS
+  - sepsis
+  - systemic inflammation
+  - screening
+keywords:
+  - SIRS criteria
+  - systemic inflammatory response
+  - sepsis screening
+  - qSOFA
+  - SOFA
+  - ภาวะอักเสบทั่วร่างกาย
+related:
+  - qsofa
+  - sofa
+  - septic-shock
+source:
+  name: "Bone RC et al. ACCP/SCCM Consensus Conference. Chest 1992"
+  year: 1992
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "SIRS identification — screen for sepsis; historical but still used clinically"
+clinicalContext: "ED/ward — ผู้ป่วยมีสัญญาณ systemic inflammation; ใช้ร่วมกับ qSOFA/SOFA"
+---
+
+## 🎯 Purpose
+
+ระบุภาวะ **systemic inflammatory response** ก่อนจะลุกลามเป็น sepsis — เป็น **เกณฑ์ประวัติศาสตร์ (1992)** แต่ยังใช้ทางคลินิกในหลายโรงพยาบาล
+
+**หมายเหตุ:** Sepsis-3 (2016) แทนที่ SIRS ด้วย **qSOFA + SOFA** แต่ SIRS ยังมีประโยชน์ในการคัดกรองเบื้องต้น
+
+---
+
+## 📋 เกณฑ์ SIRS (Criteria)
+
+| เกณฑ์ | ค่าผิดปกติ |
+|---|---|
+| **อุณหภูมิกาย (Temp)** | &gt; 38°C หรือ &lt; 36°C |
+| **อัตราหัวใจ (HR)** | &gt; 90 ครั้ง/นาที |
+| **อัตราหายใจ (RR)** | &gt; 20 ครั้ง/นาที หรือ PaCO₂ &lt; 32 mmHg |
+| **เม็ดเลือดขาว (WBC)** | &gt; 12,000/mm³ หรือ &lt; 4,000/mm³ หรือ band &gt; 10% |
+
+**SIRS = เกณฑ์ ≥ 2 ใน 4 ข้อ**
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| ภาวะ | คำนิยาม | หมายเหตุ |
+|---|---|---|
+| **SIRS** | ≥ 2 เกณฑ์ SIRS | อาจไม่ใช่ infection |
+| **Sepsis (เดิม)** | SIRS + suspected infection | ใช้ก่อน Sepsis-3 |
+| **Sepsis (Sepsis-3)** | SOFA ≥ 2 + suspected infection | ปัจจุบันใช้นิยามนี้ |
+| **Septic shock** | Sepsis + vasopressor + lactate &gt; 2 mmol/L | mortality &gt; 40% |
+
+<Callout type="danger" title="SIRS ≥ 2 + สงสัย infection → ประเมิน qSOFA/SOFA ทันที">
+
+SIRS เป็นเพียง **screening** — sensitivity สูงแต่ specificity ต่ำ  
+→ SIRS บวกหลาย non-infectious causes (trauma, pancreatitis, surgery)  
+→ ต้องประเมินด้วย **qSOFA ≥ 2** หรือ **SOFA ≥ 2** เพื่อยืนยัน sepsis
+
+</Callout>
+
+---
+
+## 🔍 เปรียบเทียบ SIRS vs qSOFA vs SOFA
+
+| | SIRS | qSOFA | SOFA |
+|---|---|---|---|
+| **ปี** | 1992 | 2016 (Sepsis-3) | 2016 (Sepsis-3) |
+| **เกณฑ์** | 4 | 3 | 6 organ systems |
+| **ใช้ที่** | ทุกที่ | Non-ICU / ED | ICU |
+| **Sensitivity** | สูง | ปานกลาง | สูง (ICU) |
+| **Specificity** | ต่ำ | ปานกลาง | สูง |
+| **Lab ต้องการ** | WBC, PaCO₂ | ไม่ต้อง | ต้องการหลาย lab |
+| **Prognostic** | น้อย | มีประโยชน์ | ดี |
+| **Sepsis-3 role** | ถูกแทนที่ | Screening | Diagnosis/severity |
+
+---
+
+## ⚡ Hour-1 Bundle (ถ้า SIRS + suspected infection)
+
+1. **Lactate** วัด (repeat ถ้า &gt; 2 mmol/L)
+2. **Blood cultures × 2** ก่อนให้ยาปฏิชีวนะ
+3. **ยาปฏิชีวนะ broad-spectrum** ภายใน 1 ชั่วโมง
+4. **IV fluid 30 mL/kg** crystalloid (LR) ถ้า hypotension หรือ lactate ≥ 4
+5. **Vasopressor** ถ้า MAP &lt; 65 mmHg หลัง fluid
+
+---
+
+## 💊 Drug Dosing — Empiric Antibiotics
+
+| ยา | ขนาด | Route | ความถี่ | เหตุผล |
+|---|---|---|---|---|
+| **Piperacillin-tazobactam** | 4.5 g | IV (infuse 4 hr) | q 6 hr | Gram-negative + anaerobe cover |
+| **Vancomycin** | 25–30 mg/kg (load) | IV | q 8–12 hr | MRSA / Gram-positive cover |
+| **Meropenem** | 1–2 g | IV | q 8 hr | MDR / carbapenem-sensitive |
+| **Norepinephrine** | 0.01–3 mcg/kg/min | IV infusion | titrate | First-line vasopressor (MAP ≥ 65) |
+
+<Callout type="warning" title="Source Control ก่อนยาปฏิชีวนะ">
+
+แหล่งที่มาของ infection ที่ drain ได้ (abscess, biliary, urinary obstruction)  
+→ **ต้อง control source ภายใน 6–12 hr** — antibiotic alone ไม่พอ  
+→ ถ้า delay → ยาไม่ได้ผล + mortality สูงขึ้น
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+ผู้ป่วยมีอาการป่วย → ตรวจ SIRS
+
+SIRS 0–1:
+  → Low suspicion; ประเมินซ้ำถ้าอาการไม่ดีขึ้น
+  → ดู clinical picture รวม
+
+SIRS ≥ 2:
+  → สงสัย infection? → ใช่ → qSOFA
+    qSOFA ≥ 2 → Suspect sepsis → Hour-1 bundle
+    qSOFA 0–1 → ยังเสี่ยง → ตรวจ SOFA, ติดตามใกล้ชิด
+
+  → สงสัย infection? → ไม่แน่ใจ → ค้นหา infection source
+    - ตรวจ CXR, UA, blood culture, imaging ตามอาการ
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="SIRS — Pitfalls">
+
+**SIRS ≠ sepsis**  
+→ Trauma, burn, pancreatitis, surgery ก็ทำให้ SIRS ≥ 2 ได้  
+→ ต้องมี suspected/confirmed infection
+
+**SIRS sensitivity ดีแต่ specificity ต่ำ**  
+→ ใช้เป็น screening เท่านั้น  
+→ ยืนยันด้วย clinical context + SOFA
+
+**Afebrile sepsis พบได้**  
+→ Elderly, immunocompromised, uremia → temp ไม่สูง  
+→ อย่าใช้ SIRS อย่างเดียวตัดสิน
+
+**อย่าล่าช้าเพราะรอ lab ครบ**  
+→ ถ้าสงสัย sepsis → เริ่ม fluid + antibiotic ทันที  
+→ SIRS/qSOFA เป็น bedside tool, ไม่ใช่ lab-dependent
+
+</Callout>
