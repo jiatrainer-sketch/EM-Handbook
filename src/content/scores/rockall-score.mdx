@@ -1,0 +1,119 @@
+---
+id: rockall-score
+title: "Rockall Score (UGIB)"
+titleTh: "ประเมินความรุนแรงและการตายของ UGIB"
+category: score
+subcategory: gi
+tags:
+  - Rockall
+  - UGIB
+  - GI bleed
+  - upper GI
+keywords:
+  - Rockall score
+  - UGIB
+  - upper GI bleeding
+  - mortality
+  - rebleed
+related:
+  - ugib-nonvariceal
+  - ugib-variceal
+source:
+  name: "Rockall TA et al. Gut 1996"
+  year: 1996
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "UGIB mortality prediction + rebleed risk"
+clinicalContext: "ED / Ward — ประเมินหลัง endoscopy; ตัดสินใจ discharge vs admit"
+---
+
+## 🎯 Purpose
+
+ประเมิน **30-day mortality** และความเสี่ยง **rebleed** ใน upper GI bleeding (UGIB) — ช่วยตัดสิน admit / discharge / ICU
+
+**ใช้ใน:** หลังได้ endoscopy (complete score); ก่อน endoscopy ใช้ได้เฉพาะ pre-endoscopy component
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria)
+
+### ส่วนก่อน Endoscopy (max 7 pts)
+
+| Parameter | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| **อายุ** | &lt; 60 | 60–79 | ≥ 80 | — |
+| **Shock** | ไม่มี (HR &lt; 100, SBP ≥ 100) | Tachycardia (HR ≥ 100, SBP ≥ 100) | Hypotension (SBP &lt; 100) | — |
+| **Comorbidities** | ไม่มี | — | HF, IHD, major illness | CKD, liver failure, metastatic CA |
+
+### ส่วนหลัง Endoscopy (max 4 pts เพิ่มเติม, รวม max 11)
+
+| Parameter | 0 | 1 | 2 |
+|---|---|---|---|
+| **Diagnosis** | Mallory-Weiss, ไม่พบสาเหตุ | แผลกระเพาะ, esophagitis, varices | Malignancy |
+| **Stigmata of recent hemorrhage (SRH)** | Clean base, flat spot | — | Active bleeding, visible vessel, clot |
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| Score | Rebleed | Mortality | Management |
+|---|---|---|---|
+| **0** | 4.9% | 0% | อาจ discharge เร็ว (post-endoscopy) |
+| **1** | 3.4% | 0% | Observe |
+| **2** | 5.4% | 0.2% | Admit ward |
+| **3** | 11.2% | 2.9% | Admit ward |
+| **4** | 14.1% | 5.3% | Admit ward / HDU |
+| **5** | 24.1% | 10.8% | HDU / ICU |
+| **≥ 6** | 32.9% | 17.3–32% | **ICU** |
+
+<Callout type="success" title="Rockall 0 หลัง endoscopy">
+
+Pre-endoscopy score 0 + endoscopy: clean base, Mallory-Weiss → total score 0  
+→ **พิจารณา early discharge** (mortality ~0%, rebleed &lt; 5%)  
+→ ต้องมี: stable vitals, no NSAID/anticoag, good social support
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+Rockall 0 (post-scope): → discharge ± OPD 1–2 wk
+Rockall 1–2:            → ward 24–48 hr, repeat Hb
+Rockall 3–4:            → admit ≥ 48 hr, GI consult
+Rockall ≥ 5:            → ICU/HDU, aggressive resuscitation
+Rockall ≥ 8 (max 11):   → poor prognosis, family counseling
+```
+
+---
+
+## 🔗 เปรียบเทียบ Glasgow-Blatchford vs Rockall
+
+| | Glasgow-Blatchford (GBS) | Rockall |
+|---|---|---|
+| ใช้เมื่อ | ก่อน endoscopy | หลัง endoscopy (complete) |
+| สิ่งที่ประเมิน | ต้องการ intervention / transfusion | Mortality + rebleed |
+| GBS 0 | Low risk → discharge | — |
+| ข้อดี | ไม่ต้อง endoscopy ก่อน | Accurate prognosis |
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="Rockall Pitfalls">
+
+**ใช้ pre-endoscopy score เพื่อ discharge** — complete score ต้องมี endoscopy  
+→ Pre-endoscopy ใช้ได้แค่ triage; ต้อง scope ก่อน discharge decision
+
+**Discharge Rockall 0 ทุกคน** — ต้องมี criteria ครบ  
+→ ต้องมี: social support, no anticoag, ไม่มี comorbidity รุนแรง, เข้าถึง f/u ได้
+
+**ลืม rebleed risk** — mortality score ≠ ปลอดภัยจาก rebleed  
+→ Score ต่ำ แต่ visible vessel / active bleed → rebleed risk สูง → repeat scope plan
+
+**ไม่ได้ใช้ร่วมกับ GBS** — ควรใช้คู่กัน  
+→ GBS สำหรับ triage/discharge decision, Rockall สำหรับ prognosis
+
+</Callout>

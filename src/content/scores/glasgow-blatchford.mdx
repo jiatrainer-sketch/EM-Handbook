@@ -1,0 +1,151 @@
+---
+id: glasgow-blatchford
+title: "Glasgow-Blatchford Score (GBS)"
+titleTh: "ประเมิน UGIB เพื่อตัดสินใจ admit"
+category: score
+subcategory: gi
+tags:
+  - Glasgow-Blatchford
+  - GBS
+  - UGIB
+  - GI bleed
+keywords:
+  - Glasgow-Blatchford
+  - GBS
+  - UGIB
+  - upper GI bleeding
+  - discharge
+  - low risk
+related:
+  - ugib-nonvariceal
+  - ugib-variceal
+  - rockall-score
+source:
+  name: "Blatchford O et al. Lancet 2000"
+  year: 2000
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "UGIB — ตัดสินใจ admit vs discharge ก่อน endoscopy"
+clinicalContext: "ED — ก่อน scope; GBS 0 = discharge ได้ปลอดภัย"
+---
+
+## 🎯 Purpose
+
+ประเมิน **ความจำเป็นต้องรักษาใน รพ.** ใน UGIB ก่อนทำ endoscopy — ใช้ตัดสินใจ **discharge vs admit**
+
+**GBS 0 = low risk → อาจ discharge** โดยไม่ต้อง scope ใน ED
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria)
+
+| Parameter | Criteria | Points |
+|---|---|---|
+| **BUN (mg/dL)** | 18.2–22.4 | 2 |
+| | 22.4–28 | 3 |
+| | 28–70 | 4 |
+| | ≥ 70 | 6 |
+| **Hemoglobin (g/dL) ♂** | 12–13 | 1 |
+| | 10–12 | 3 |
+| | &lt; 10 | 6 |
+| **Hemoglobin (g/dL) ♀** | 10–12 | 1 |
+| | &lt; 10 | 6 |
+| **SBP (mmHg)** | 100–109 | 1 |
+| | 90–99 | 2 |
+| | &lt; 90 | 3 |
+| **Pulse ≥ 100** | Yes | 1 |
+| **Melena** | Yes | 1 |
+| **Syncope** | Yes | 2 |
+| **Hepatic disease** | Yes | 2 |
+| **Cardiac failure** | Yes | 2 |
+
+**คะแนนสูงสุด: 23**
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| Score | Risk | Action |
+|---|---|---|
+| **0** | Low risk | **Discharge** — outpatient scope ภายใน 24–72 hr |
+| **1–5** | Moderate | **Admit** — elective inpatient scope |
+| **≥ 6** | High | **Admit + urgent scope** &lt; 24 hr |
+| **≥ 12** | Very high | **Urgent ICU/HDU consideration** |
+
+<Callout type="success" title="GBS = 0 → Safe discharge">
+
+GBS 0 ต้องครบเงื่อนไข:
+- Hb ≥ 13 (♂) หรือ ≥ 12 (♀)
+- BUN ปกติ (BUN &lt; 18.2 mg/dL)
+- SBP ≥ 110, HR &lt; 100
+- ไม่มี: melena, syncope, liver disease, heart failure
+
+→ Sensitivity 99% สำหรับ exclude need for intervention
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+UGIB → GBS
+
+GBS = 0:
+  → Discharge, OPD scope 24–72 hr
+  → Safety-net: return if re-bleed (melena/hematemesis)
+
+GBS 1–5:
+  → Admit, NPO, GI consult
+  → Scope within 24 hr (elective inpatient)
+
+GBS ≥ 6:
+  → Admit, IV access ×2, cross-match
+  → PPI drip (เช่น omeprazole 80 mg bolus → 8 mg/hr)
+  → GI consult, scope < 24 hr (urgent)
+
+GBS ≥ 12:
+  → ICU/HDU, large-bore IV, fluid resuscitation
+  → Scope ASAP (hemodynamic instability)
+```
+
+---
+
+## 💊 การรักษาเบื้องต้นระหว่างรอ scope (ถ้า admit)
+
+**PPI (Proton Pump Inhibitor):**
+- **Omeprazole 80 mg IV bolus** → 8 mg/hr infusion × 72 hr (ถ้า high-risk stigmata)
+- หรือ Esomeprazole 40 mg IV q 12 hr (ถ้าไม่มี infusion pump)
+- PO PPI ถ้า low-risk, stable
+
+**Transfusion:**
+- Target Hb ≥ 7–8 g/dL (restrictive; ยกเว้น ACS → target ≥ 9)
+- ไม่ให้เลือดถ้า Hb ≥ 9 + stable + no cardiac comorbidity
+
+**Terlipressin/Octreotide** (ถ้าสงสัย variceal):
+- Terlipressin 2 mg IV bolus → 1–2 mg q 4–6 hr
+- Octreotide 50 mcg bolus → 50 mcg/hr infusion
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="GBS Pitfalls">
+
+**Discharge GBS 0 ทุกคนโดยไม่ประเมิน clinical** — ต้อง clinical judgment ร่วม  
+→ ถ้ามี anticoag, liver disease, หรือ poor social support → reconsider admit
+
+**ใช้ GBS หลัง endoscopy** — ใช้ Rockall แทน (more accurate post-scope)  
+→ GBS = pre-endoscopy triage; Rockall = post-endoscopy prognosis
+
+**ไม่ให้ PPI ก่อน scope** — ลด stigmata, อาจ delay diagnosis  
+→ ให้ PPI ก่อน scope ถ้า high-risk → reduce active bleeding ขณะ scope
+
+**Variceal bleeding ไม่ตอบ PPI** — ต้องการ vasoactive drug  
+→ ถ้าสงสัย variceal (cirrhosis, spider nevi) → add terlipressin/octreotide ทันที
+
+**BUN สูง ≠ UGIB** — BUN สูงได้จากสาเหตุอื่น (CKD, dehydration)  
+→ ใช้ BUN เป็นส่วนหนึ่งของ score ร่วมกับ clinical picture
+
+</Callout>

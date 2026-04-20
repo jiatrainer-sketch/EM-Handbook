@@ -3878,6 +3878,41 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "bisap-score",
+    "path": "/src/content/scores/bisap-score.mdx",
+    "frontmatter": {
+      "id": "bisap-score",
+      "title": "BISAP Score",
+      "titleTh": "ประเมินความรุนแรงตับอ่อนอักเสบ",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "BISAP",
+        "pancreatitis",
+        "severity"
+      ],
+      "keywords": [
+        "BISAP",
+        "acute pancreatitis",
+        "severity",
+        "ICU",
+        "ตับอ่อนอักเสบ"
+      ],
+      "related": [
+        "acute-pancreatitis"
+      ],
+      "source": {
+        "name": "Wu BU et al. Arch Intern Med 2008",
+        "year": 2008
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Acute pancreatitis severity (simple, modern alternative to Ranson's)",
+      "clinicalContext": "ED / admission — ตัดสินใจ ward vs ICU ภายใน 24 hr แรก"
+    }
+  },
+  {
     "id": "cha2ds2-vasc",
     "path": "/src/content/scores/cha2ds2-vasc.mdx",
     "frontmatter": {
@@ -3914,6 +3949,81 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "AF stroke risk → OAC decision",
       "clinicalContext": "AF — ตัดสินใจให้ anticoagulation หรือไม่"
+    }
+  },
+  {
+    "id": "child-pugh",
+    "path": "/src/content/scores/child-pugh.mdx",
+    "frontmatter": {
+      "id": "child-pugh",
+      "title": "Child-Pugh Score",
+      "titleTh": "ประเมินความรุนแรงของโรคตับแข็ง",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "Child-Pugh",
+        "cirrhosis",
+        "liver disease",
+        "hepatic function"
+      ],
+      "keywords": [
+        "Child-Pugh",
+        "cirrhosis",
+        "liver failure",
+        "hepatic reserve",
+        "portal hypertension",
+        "ตับแข็ง"
+      ],
+      "related": [
+        "liver-cirrhosis",
+        "ugib-variceal"
+      ],
+      "source": {
+        "name": "Child CG, Turcotte JG. Surgery and Portal Hypertension 1964; modified Pugh 1973",
+        "year": 1973
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Cirrhosis severity + surgical risk + prognosis; MELD complement",
+      "clinicalContext": "Ward / OPD — ตับแข็ง; ใช้คู่กับ MELD ในการตัดสินใจ transplant / surgical risk"
+    }
+  },
+  {
+    "id": "ciwa-ar",
+    "path": "/src/content/scores/ciwa-ar.mdx",
+    "frontmatter": {
+      "id": "ciwa-ar",
+      "title": "CIWA-Ar Score",
+      "titleTh": "ประเมินความรุนแรงของการถอนสุรา",
+      "category": "score",
+      "subcategory": "tox",
+      "tags": [
+        "CIWA",
+        "alcohol withdrawal",
+        "delirium tremens",
+        "benzo"
+      ],
+      "keywords": [
+        "CIWA-Ar",
+        "alcohol withdrawal",
+        "DT",
+        "delirium tremens",
+        "benzodiazepine",
+        "ถอนเหล้า"
+      ],
+      "related": [
+        "alcohol-withdrawal"
+      ],
+      "source": {
+        "name": "Sullivan JT et al. Br J Addict 1989",
+        "year": 1989
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Alcohol withdrawal severity + benzodiazepine dosing guide",
+      "clinicalContext": "ED / Ward / Detox — ตัดสินใจให้ benzo หรือไม่ + ขนาดยา"
     }
   },
   {
@@ -3999,6 +4109,45 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "glasgow-blatchford",
+    "path": "/src/content/scores/glasgow-blatchford.mdx",
+    "frontmatter": {
+      "id": "glasgow-blatchford",
+      "title": "Glasgow-Blatchford Score (GBS)",
+      "titleTh": "ประเมิน UGIB เพื่อตัดสินใจ admit",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "Glasgow-Blatchford",
+        "GBS",
+        "UGIB",
+        "GI bleed"
+      ],
+      "keywords": [
+        "Glasgow-Blatchford",
+        "GBS",
+        "UGIB",
+        "upper GI bleeding",
+        "discharge",
+        "low risk"
+      ],
+      "related": [
+        "ugib-nonvariceal",
+        "ugib-variceal",
+        "rockall-score"
+      ],
+      "source": {
+        "name": "Blatchford O et al. Lancet 2000",
+        "year": 2000
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "UGIB — ตัดสินใจ admit vs discharge ก่อน endoscopy",
+      "clinicalContext": "ED — ก่อน scope; GBS 0 = discharge ได้ปลอดภัย"
+    }
+  },
+  {
     "id": "heart-score",
     "path": "/src/content/scores/heart-score.mdx",
     "frontmatter": {
@@ -4035,6 +4184,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "medium",
       "usedFor": "ED chest pain low-risk stratification",
       "clinicalContext": "Chest pain ใน ER — ตัดสินใจ discharge หรือ observe"
+    }
+  },
+  {
+    "id": "lrinec-score",
+    "path": "/src/content/scores/lrinec-score.mdx",
+    "frontmatter": {
+      "id": "lrinec-score",
+      "title": "LRINEC Score",
+      "titleTh": "ประเมิน necrotizing fasciitis จากผลแล็บ",
+      "category": "score",
+      "subcategory": "surgical",
+      "tags": [
+        "LRINEC",
+        "necrotizing fasciitis",
+        "soft tissue infection",
+        "surgical emergency"
+      ],
+      "keywords": [
+        "LRINEC",
+        "necrotizing fasciitis",
+        "NF",
+        "flesh-eating disease",
+        "surgical emergency",
+        "fasciitis"
+      ],
+      "related": [
+        "necrotizing-fasciitis"
+      ],
+      "source": {
+        "name": "Wong CH et al. Crit Care Med 2004",
+        "year": 2004
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Necrotizing fasciitis — lab-based risk stratification (rule in, not rule out)",
+      "clinicalContext": "ED / ward — ผู้ป่วย soft tissue infection ที่สงสัย NF; ไม่แทน clinical judgment"
     }
   },
   {
@@ -4192,6 +4378,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "medium",
       "usedFor": "Pre-op cardiac risk (non-cardiac surgery)",
       "clinicalContext": "ประเมินก่อนผ่าตัด — ส่ง cardiology consult หรือไม่"
+    }
+  },
+  {
+    "id": "rockall-score",
+    "path": "/src/content/scores/rockall-score.mdx",
+    "frontmatter": {
+      "id": "rockall-score",
+      "title": "Rockall Score (UGIB)",
+      "titleTh": "ประเมินความรุนแรงและการตายของ UGIB",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "Rockall",
+        "UGIB",
+        "GI bleed",
+        "upper GI"
+      ],
+      "keywords": [
+        "Rockall score",
+        "UGIB",
+        "upper GI bleeding",
+        "mortality",
+        "rebleed"
+      ],
+      "related": [
+        "ugib-nonvariceal",
+        "ugib-variceal"
+      ],
+      "source": {
+        "name": "Rockall TA et al. Gut 1996",
+        "year": 1996
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "UGIB mortality prediction + rebleed risk",
+      "clinicalContext": "ED / Ward — ประเมินหลัง endoscopy; ตัดสินใจ discharge vs admit"
     }
   },
   {
