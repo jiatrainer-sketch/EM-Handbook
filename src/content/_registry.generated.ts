@@ -3994,6 +3994,50 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "icu-sedation-protocol",
+    "path": "/src/content/reference/icu-sedation-protocol.mdx",
+    "frontmatter": {
+      "id": "icu-sedation-protocol",
+      "title": "ICU Sedation Protocol",
+      "titleTh": "แนวทาง sedation ใน ICU — Analgosedation ถึง NMB",
+      "category": "reference",
+      "subcategory": "icu",
+      "tags": [
+        "sedation",
+        "icu",
+        "analgosedation",
+        "fight ventilator",
+        "RASS",
+        "delirium",
+        "NMB"
+      ],
+      "keywords": [
+        "ICU sedation",
+        "analgosedation",
+        "RASS",
+        "CPOT",
+        "fight vent",
+        "delirium",
+        "CAM-ICU",
+        "propofol PRIS",
+        "cisatracurium TOF",
+        "ยา sedation"
+      ],
+      "related": [
+        "high-alert-drip-table",
+        "mechanical-ventilation-quickref",
+        "rsi-medications"
+      ],
+      "source": {
+        "name": "PADIS Guidelines 2018 + SCCM + คณะแพทยศาสตร์ รพ.รามาธิบดี 2024",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "mechanical-ventilation-quickref",
     "path": "/src/content/reference/mechanical-ventilation-quickref.mdx",
     "frontmatter": {
