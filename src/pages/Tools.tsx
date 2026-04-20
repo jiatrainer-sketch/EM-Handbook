@@ -72,6 +72,46 @@ const TOOLS: ToolCard[] = [
     action: 'navigate',
     route: '/tools/abg',
   },
+  {
+    icon: '🧂',
+    title: 'Electrolyte Calculator',
+    description: 'Na correction, K replacement, Ca/Mg/Phos — ขนาดยา + วิธีให้ + ข้อควรระวัง',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/electrolyte',
+  },
+  {
+    icon: '🧠',
+    title: 'GCS Calculator',
+    description: 'Glasgow Coma Scale — E/V/M + interpretation + intubation threshold',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/gcs',
+  },
+  {
+    icon: '🫘',
+    title: 'CrCl / eGFR Calculator',
+    description: 'Cockcroft-Gault, MDRD, CKD-EPI 2021 — CKD staging + drug dosing thresholds',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/crcl',
+  },
+  {
+    icon: '⏱',
+    title: 'Sepsis Bundle Timer',
+    description: 'SSC 1-hr/3-hr/6-hr bundle checklist พร้อม timer นับจาก T0',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/sepsis-timer',
+  },
+  {
+    icon: '💧',
+    title: 'Fluid Calculator',
+    description: 'Maintenance (Holliday-Segar), Deficit, Bolus, Free water deficit, Transfusion',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/fluid',
+  },
 ];
 
 export default function Tools() {

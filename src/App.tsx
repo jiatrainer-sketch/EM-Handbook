@@ -11,6 +11,11 @@ import VentilatorQuickStart from '@/pages/VentilatorQuickStart';
 import NIHSSCalculator from '@/pages/NIHSSCalculator';
 import DoseCalculator from '@/pages/DoseCalculator';
 import AbgAnalyzer from '@/pages/AbgAnalyzer';
+import ElectrolyteCalculator from '@/pages/ElectrolyteCalculator';
+import GCSCalculator from '@/pages/GCSCalculator';
+import CrClCalculator from '@/pages/CrClCalculator';
+import SepsisBundleTimer from '@/pages/SepsisBundleTimer';
+import FluidCalculator from '@/pages/FluidCalculator';
 import Symptoms from '@/pages/Symptoms';
 import NotFound from '@/pages/NotFound';
 
@@ -30,6 +35,11 @@ function App() {
           <Route path="/tools/nihss" element={<NIHSSCalculator />} />
           <Route path="/tools/dose-calc" element={<DoseCalculator />} />
           <Route path="/tools/abg" element={<AbgAnalyzer />} />
+          <Route path="/tools/electrolyte" element={<ElectrolyteCalculator />} />
+          <Route path="/tools/gcs" element={<GCSCalculator />} />
+          <Route path="/tools/crcl" element={<CrClCalculator />} />
+          <Route path="/tools/sepsis-timer" element={<SepsisBundleTimer />} />
+          <Route path="/tools/fluid" element={<FluidCalculator />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
         </Route>
