@@ -1,0 +1,138 @@
+---
+id: mews
+title: "Modified Early Warning Score (MEWS)"
+titleTh: "คะแนนเตือนภัยล่วงหน้า"
+category: score
+subcategory: general
+tags:
+  - MEWS
+  - early warning
+  - deterioration
+  - ward monitoring
+keywords:
+  - MEWS
+  - Modified Early Warning Score
+  - NEWS
+  - deterioration
+  - sepsis
+  - ward
+related:
+  - qsofa
+  - sofa
+  - septic-shock
+source:
+  name: "Subbe CP et al. QJM 2001 + NEWS2 RCP 2017"
+  year: 2017
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+---
+
+## 🎯 Purpose
+
+**Bedside vital-sign score** คัดกรอง clinical deterioration ใน ward/ER → ผู้ป่วยที่ต้อง escalate care (MET/ICU call, senior review)
+
+**ใช้ใน:** ward nurse round, ER triage reassessment, หลัง admission
+
+---
+
+## 📋 Criteria (sum 5 parameters)
+
+| Parameter | 3 | 2 | 1 | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|---|---|---|
+| **SBP (mmHg)** | &lt;70 | 71–80 | 81–100 | 101–199 | — | ≥200 | — |
+| **HR (bpm)** | — | &lt;40 | 41–50 | 51–100 | 101–110 | 111–129 | ≥130 |
+| **RR (/min)** | — | &lt;9 | — | 9–14 | 15–20 | 21–29 | ≥30 |
+| **Temp (°C)** | — | &lt;35.0 | — | 35.1–38.4 | — | ≥38.5 | — |
+| **AVPU / consciousness** | — | — | — | **A**lert | — | **V**erbal / confused | **P**ain / **U**nresponsive |
+
+**Total: 0–14**
+
+---
+
+## 📊 Action Threshold
+
+| MEWS | Action |
+|---|---|
+| **0–2** | Continue routine monitoring (q 4–12 hr) |
+| **3** | Inform nurse in charge; recheck q 1 hr |
+| **4** | **Inform doctor**; recheck q 30 min |
+| **≥ 5** | **Urgent doctor review** + consider ICU / MET call |
+| **≥ 7** | **Call MET / rapid response**; ICU evaluation |
+
+<Callout type="warning" title="Single parameter score 3">
+
+**Single parameter = 3** (เช่น RR ≥ 30 แม้ vitals อื่นปกติ) → ก็ต้อง urgent review  
+เช่น RR 32 + BP ok → MEWS 3 แต่เป็น marker ของ respiratory distress / impending failure
+
+</Callout>
+
+---
+
+## 🗺 NEWS2 (UK version — recommended)
+
+**NEWS2** เพิ่ม:
+- **SpO₂** (90 ≤ / 92 / 94–95 / ≥ 96)
+- **Supplemental O₂** (+2)
+- **Separate scale 2** สำหรับผู้ป่วย COPD target 88–92%
+
+NEWS2 score ≥ 5 → **sepsis alert, urgent review within 30 min**
+
+---
+
+## 📝 Clinical Use — Example
+
+**ผู้ป่วย ward:** BP 88/50, HR 118, RR 26, T 38.7, GCS 14 (confused)
+
+- SBP 88: 2
+- HR 118: 2
+- RR 26: 2
+- Temp 38.7: 2
+- V (verbal): 2
+- **MEWS = 10 → call MET / senior ทันที; suspect sepsis**
+
+---
+
+## 🎯 Strengths / Limitations
+
+### Strengths
+- ใช้ vitals ที่มีอยู่แล้ว, ไม่ต้อง labs
+- Simple, rapid
+- Predicts ICU admission + mortality
+- ใช้ได้ในทุก diagnosis
+
+### Limitations
+- **Not for pediatrics** (ใช้ PEWS)
+- **Not for pregnant** (ใช้ MEOWS)
+- ไม่ sensitive ใน chronic stable tachypnea (COPD), therapy-induced BP changes
+- Age-independent → ผู้สูงอายุอาจ deteriorate ที่ lower score
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="MEWS Pitfalls">
+
+**Score ต่ำ ≠ ปลอดภัย** — trajectory สำคัญ  
+→ Score ที่เพิ่มขึ้น 2 จากเดิม = alarm signal แม้ absolute score ต่ำ
+
+**ไม่ทำ MEWS ซ้ำ** — single snapshot ไม่เพียงพอ  
+→ Reassess q 4–8 hr (routine), q 30 min–1 hr ถ้า elevated
+
+**ใช้ MEWS แทน clinical judgment** — score เป็น adjunct  
+→ Gut feeling + clinical change → escalate แม้ MEWS ไม่ high
+
+**MEWS สูงแต่ไม่มีคนทำอะไร** — documentation without action  
+→ Clear escalation pathway: nurse → resident → senior → MET
+
+**Single parameter high ไม่ถือว่าสำคัญ** — ผิด  
+→ RR ≥ 30 หรือ GCS drop alone = urgent review
+
+</Callout>
+
+---
+
+## 📚 Related
+
+- See **qsofa** for sepsis-specific screening (BP &lt; 100, RR ≥ 22, AMS)
+- See **sofa** for organ dysfunction scoring (ICU)
