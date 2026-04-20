@@ -1,0 +1,187 @@
+---
+id: pesi
+title: "PESI / sPESI (Pulmonary Embolism)"
+titleTh: "ประเมินความรุนแรงและการพยากรณ์ PE"
+category: score
+subcategory: pulm
+tags:
+  - PESI
+  - sPESI
+  - pulmonary embolism
+  - PE
+  - mortality
+keywords:
+  - PESI score
+  - sPESI
+  - pulmonary embolism severity
+  - PE outpatient
+  - anticoagulation
+  - ลิ่มเลือดอุดปอด
+related:
+  - wells-pe
+  - psi-port
+source:
+  name: "Aujesky D et al. Am J Respir Crit Care Med 2005; ESC PE Guideline 2019"
+  year: 2019
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "PE 30-day mortality → outpatient vs ICU disposition"
+clinicalContext: "ED — PE confirmed (CT-PA); ตัดสิน low-risk discharge vs ICU"
+---
+
+## 🎯 จุดประสงค์ (Purpose)
+
+ทำนาย **30-day mortality** จาก pulmonary embolism — ใช้ตัดสินใจ disposition: outpatient anticoagulation (low risk) vs ward vs ICU
+
+**sPESI** (simplified PESI) ใช้ได้ง่ายกว่าใน ED — 6 criteria ได้เลยไม่ต้องคำนวณซับซ้อน
+
+---
+
+## 📋 sPESI (Simplified PESI) — 6 Items
+
+| เกณฑ์ | คะแนน |
+|---|---|
+| อายุ &gt; 80 ปี | 1 |
+| มะเร็ง (active cancer) | 1 |
+| Chronic cardiopulmonary disease (HF หรือ chronic lung disease) | 1 |
+| HR ≥ 110 bpm | 1 |
+| SBP &lt; 100 mmHg | 1 |
+| SpO₂ &lt; 90% | 1 |
+
+**sPESI 0 = Low risk** → 30-day mortality ~1%; พิจารณา outpatient anticoag  
+**sPESI ≥ 1 = Not low risk** → Admit; ประเมิน intermediate/high risk
+
+---
+
+## 📋 PESI (Original) — 11 Items
+
+| เกณฑ์ | คะแนน |
+|---|---|
+| อายุ (ปี) | +อายุ |
+| ชาย | +10 |
+| มะเร็ง | +30 |
+| Heart failure | +10 |
+| Chronic lung disease | +10 |
+| HR ≥ 110 bpm | +20 |
+| SBP &lt; 100 mmHg | +30 |
+| RR ≥ 30/min | +20 |
+| Temp &lt; 36°C | +20 |
+| Altered mental status | +60 |
+| SpO₂ &lt; 90% | +20 |
+
+---
+
+## 📊 การแปลผล (Interpretation) — PESI Class
+
+| PESI Class | คะแนน | 30-Day Mortality | การจัดการ |
+|---|---|---|---|
+| **Class I** | ≤ 65 | 0–1.6% | Outpatient anticoagulation |
+| **Class II** | 66–85 | 1.7–3.5% | Outpatient หรือ short admission |
+| **Class III** | 86–105 | 3.2–7.1% | Admit; ประเมิน RV function |
+| **Class IV** | 106–125 | 4–11.4% | Admit; monitor ใกล้ชิด |
+| **Class V** | &gt; 125 | 10–24.5% | ICU; พิจารณา thrombolysis |
+
+### ESC Risk Stratification
+
+| Risk | เกณฑ์ | การจัดการ |
+|---|---|---|
+| **Low** | sPESI 0 + ไม่มี RV dysfunction | Outpatient DOAC |
+| **Intermediate-low** | sPESI ≥ 1 + RV dysfunction หรือ troponin สูง (ไม่ใช่ทั้งคู่) | Admit; anticoag |
+| **Intermediate-high** | sPESI ≥ 1 + RV dysfunction **และ** troponin สูง | ICU; monitor; เตรียม rescue thrombolysis |
+| **High** | Shock / SBP &lt; 90 (massive PE) | ICU; thrombolysis ทันที หรือ surgical embolectomy |
+
+<Callout type="danger" title="Massive PE = Haemodynamic Instability">
+
+SBP &lt; 90 mmHg (&gt; 15 min) หรือ shock + PE  
+→ **Alteplase 100 mg IV over 2 hr ทันที** (ถ้าไม่มี absolute contraindication)  
+→ CPR + PE → ให้ alteplase 50 mg IV push ทันที (cardiac arrest protocol)  
+→ เตรียม surgical embolectomy หรือ ECMO ถ้า thrombolysis ล้มเหลว
+
+</Callout>
+
+---
+
+## 💊 การรักษา (Treatment) — Drug Dosing (BW 60 kg)
+
+### Anticoagulation — Non-massive PE
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| **Apixaban** | 10 mg BID × 7 วัน → 5 mg BID | PO | 3–6 เดือน (หรือตลอดชีพถ้า unprovoked) | AMPLIFY trial; ไม่ต้อง bridge |
+| **Rivaroxaban** | 15 mg BID × 21 วัน → 20 mg OD (กับอาหาร) | PO | 3–6 เดือน | EINSTEIN trial; ไม่ต้อง bridge |
+| **LMWH → Warfarin** | Enoxaparin 1 mg/kg BID SC → Warfarin 5 mg OD (titrate to INR 2–3) | SC/PO | Bridge 5 วัน จนกว่า INR ≥ 2 × 24 hr | Classic regimen; ใช้ถ้า DOAC ไม่เหมาะ |
+| Enoxaparin (monotherapy) | 1 mg/kg (= 60 mg) BID SC | SC | 3–6 เดือน | มะเร็ง; ไตวาย CrCl &lt; 30 พิจารณา UFH |
+
+### Thrombolysis — Massive PE
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| **Alteplase (tPA)** | **100 mg IV over 2 hr** | IV infusion | 1 dose | Standard systemic thrombolysis |
+| Alteplase (cardiac arrest) | **50 mg IV push** → CPR ต่อ 90 min | IV bolus | Emergency | Intra-arrest PE |
+
+**หลัง thrombolysis:** รอ 2 hr → UFH drip (ไม่ bolus) → transition to DOAC/warfarin
+
+### UFH Drip (Bridge/Massive PE)
+
+| ยา | ขนาดยา | Route | ระยะเวลา | เหตุผล |
+|---|---|---|---|---|
+| UFH | 80 IU/kg IV bolus (= 4,800 IU) → 18 IU/kg/hr drip (= 1,080 IU/hr) | IV | จนกว่า transition | Reversible; ใช้ใน massive PE + post-thrombolysis |
+
+<Callout type="warning" title="DOAC Contraindications ใน PE">
+
+**ห้ามใช้ DOAC ถ้า:**  
+- CrCl &lt; 15–30 mL/min (ขึ้นกับยา)  
+- ตั้งครรภ์ → ใช้ LMWH ตลอด  
+- มะเร็ง GI/GU → LMWH หรือ edoxaban/rivaroxaban (SELECT-D)  
+- Antiphospholipid syndrome → warfarin เท่านั้น
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+PE confirmed (CT-PA)
+  ↓
+Haemodynamic unstable? (SBP < 90 หรือ shock)
+  ├── YES (Massive PE)
+  │     → Alteplase 100 mg over 2 hr ทันที
+  │     → UFH drip (ไม่ bolus) หลัง tPA 2 hr
+  │     → ICU; เตรียม surgical embolectomy ถ้า tPA ล้มเหลว
+  │
+  └── NO → คำนวณ sPESI + RV dysfunction (Echo/CT-PA) + Troponin
+        ├── sPESI 0 + RV ปกติ + Trop ปกติ
+        │     → Low risk → Outpatient DOAC
+        │     → Apixaban 10 mg BID × 7 d → 5 mg BID
+        │
+        ├── sPESI ≥ 1 + RV dysfunction หรือ Trop สูง (ไม่ใช่ทั้งคู่)
+        │     → Intermediate-low → Admit; anticoag; monitor
+        │
+        └── sPESI ≥ 1 + RV dysfunction + Trop สูง (ทั้งคู่)
+              → Intermediate-high → ICU; anticoag; rescue thrombolysis plan
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="PE — Critical Pitfalls">
+
+**ส่ง discharge ทุกราย sPESI 0** — ต้องมี good follow-up plan + ไม่มี social risk  
+→ sPESI 0 ≠ discharge ทุกราย; ประเมิน bleeding risk ก่อน
+
+**ให้ alteplase ใน intermediate risk routine** — เพิ่ม major bleeding ไม่ลด mortality (PEITHO)  
+→ Thrombolysis เฉพาะ massive PE หรือ rescue (deteriorate ขณะ anticoag)
+
+**ลืม DOAC contraindication** — severe renal failure, pregnancy, APS → ใช้ LMWH/warfarin  
+→ ตรวจ CrCl ทุกราย ก่อนเลือก DOAC
+
+**Rivaroxaban กับอาหาร** — absorption ต่ำมากถ้ากินตอนท้องว่าง (dose 15–20 mg)  
+→ ต้องกินพร้อมมื้ออาหารเสมอ
+
+**Heparin ใน HIT** — ใช้ argatroban หรือ fondaparinux แทน  
+→ ถ้าสงสัย HIT → หยุด heparin ทันที
+
+</Callout>

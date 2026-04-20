@@ -4499,6 +4499,47 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "psi-port",
+    "path": "/src/content/scores/psi-port.mdx",
+    "frontmatter": {
+      "id": "psi-port",
+      "title": "PSI / PORT Score (CAP)",
+      "titleTh": "ประเมินความรุนแรง community-acquired pneumonia",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "PSI",
+        "PORT score",
+        "CAP",
+        "pneumonia",
+        "severity"
+      ],
+      "keywords": [
+        "PSI score",
+        "PORT score",
+        "CAP severity",
+        "community-acquired pneumonia",
+        "CURB-65",
+        "ปอดบวม",
+        "pneumonia severity"
+      ],
+      "related": [
+        "curb-65",
+        "pesi",
+        "sofa"
+      ],
+      "source": {
+        "name": "Fine MJ et al. NEJM 1997; IDSA/ATS CAP Guideline 2019",
+        "year": 2019
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "CAP severity → safe outpatient vs ward vs ICU; alternative to CURB-65",
+      "clinicalContext": "ED — CAP diagnosis; ตัดสิน discharge (class I-II) vs admit (III-V)"
+    }
+  },
+  {
     "id": "qsofa",
     "path": "/src/content/scores/qsofa.mdx",
     "frontmatter": {
@@ -4534,6 +4575,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "medium",
       "usedFor": "Quick sepsis screening outside ICU",
       "clinicalContext": "สงสัย sepsis ใน ward/ER — triage เพื่อ escalate care"
+    }
+  },
+  {
+    "id": "ransons-criteria",
+    "path": "/src/content/scores/ransons-criteria.mdx",
+    "frontmatter": {
+      "id": "ransons-criteria",
+      "title": "Ranson's Criteria (Pancreatitis)",
+      "titleTh": "ประเมินความรุนแรง acute pancreatitis แบบคลาสสิก",
+      "category": "score",
+      "subcategory": "gi",
+      "tags": [
+        "Ranson",
+        "pancreatitis",
+        "severity",
+        "48-hour"
+      ],
+      "keywords": [
+        "Ranson criteria",
+        "acute pancreatitis",
+        "severity scoring",
+        "ตับอ่อนอักเสบ",
+        "BISAP"
+      ],
+      "related": [
+        "bisap-score",
+        "acute-pancreatitis"
+      ],
+      "source": {
+        "name": "Ranson JH et al. Surg Gynecol Obstet 1974",
+        "year": 1974
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Acute pancreatitis severity (classical, 48-hr; superseded by BISAP in modern practice)",
+      "clinicalContext": "Ward — admission + 48-hr; ใช้เมื่อไม่มี CT; BISAP ใช้ง่ายกว่าใน ED"
     }
   },
   {
