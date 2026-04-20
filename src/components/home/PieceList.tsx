@@ -60,6 +60,11 @@ export default function PieceList({ ids, variant = 'tile', emptyText }: Props) {
             {m.titleTh ? (
               <span className="text-xs text-muted-foreground">{m.titleTh}</span>
             ) : null}
+            {m.clinicalContext ? (
+              <span className="text-[11px] text-muted-foreground/70 leading-snug">
+                ใช้ใน: {m.clinicalContext}
+              </span>
+            ) : null}
           </Link>
         </li>
       ))}

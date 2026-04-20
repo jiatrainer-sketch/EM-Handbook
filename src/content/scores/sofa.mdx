@@ -29,6 +29,8 @@ source:
 last_reviewed: "2026-04"
 confidence: high
 severity: medium
+usedFor: "ICU organ failure severity + sepsis definition"
+clinicalContext: "Sepsis-3 diagnosis + ICU prognosis + monitoring"
 ---
 
 ## 🎯 Purpose
@@ -164,40 +166,42 @@ Compare to baseline (day 0: all 0) → ΔSOFA = 14 → severe sepsis-3
 
 ## ⚠️ ข้อควรระวัง (Critical Pitfalls)
 
-```
-🚩 Don't use SOFA in non-ICU settings at bedside
-   - Requires labs (bilirubin, platelets, creatinine)
-   - Use qSOFA for rapid bedside screen
+<Callout type="danger" title="SOFA Score — Pitfalls">
 
-🚩 GCS in sedated patients
-   - Technically invalid (iatrogenic)
-   - Common practice: use best GCS when sedation lightened
-   - Or document as sedated (3 pts typical)
+**Don't use SOFA in non-ICU settings at bedside**
+→ Requires labs (bilirubin, platelets, creatinine)
+→ Use qSOFA for rapid bedside screen
 
-🚩 Cr + urine output — use worst
-   - If both available, take worst-scoring component
-   - Not both added
+**GCS in sedated patients**
+→ Technically invalid (iatrogenic)
+→ Common practice: use best GCS when sedation lightened
+→ Or document as sedated (3 pts typical)
 
-🚩 Vasopressor categories can overlap
-   - Use highest applicable category
-   - Example: NE 0.1 + dobutamine = use 3 (NE ≤ 0.1)
+**Cr + urine output — use worst**
+→ If both available, take worst-scoring component
+→ Not both added
 
-🚩 Serial > single SOFA
-   - Trajectory matters
-   - One snapshot = limited info
+**Vasopressor categories can overlap**
+→ Use highest applicable category
+→ Example: NE 0.1 + dobutamine = use 3 (NE ≤ 0.1)
 
-🚩 Not diagnostic of sepsis
-   - SOFA ≥ 2 change + infection = sepsis
-   - High SOFA without infection ≠ sepsis
+**Serial > single SOFA**
+→ Trajectory matters
+→ One snapshot = limited info
 
-🚩 PaO₂/FiO₂ requires ABG
-   - Use SpO₂/FiO₂ ratio as surrogate if needed
-   - Less validated
+**Not diagnostic of sepsis**
+→ SOFA ≥ 2 change + infection = sepsis
+→ High SOFA without infection ≠ sepsis
 
-🚩 Daily SOFA — automate from EMR
-   - Manual calc time-consuming
-   - Many EMRs calculate; verify values
-```
+**PaO₂/FiO₂ requires ABG**
+→ Use SpO₂/FiO₂ ratio as surrogate if needed
+→ Less validated
+
+**Daily SOFA — automate from EMR**
+→ Manual calc time-consuming
+→ Many EMRs calculate; verify values
+
+</Callout>
 
 ---
 
