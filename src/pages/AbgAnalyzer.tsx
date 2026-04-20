@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
-import { Copy } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { Camera, Copy, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { trackToolUsed } from '@/lib/analytics';
+import { extractAbgFromImage } from '@/lib/ventAi';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type AbgForm = {
   pH: string;
@@ -273,6 +275,10 @@ function interpret(f: AbgForm): Interpretation | null {
 
 export default function AbgAnalyzer() {
   const [form, setForm] = useState<AbgForm>(EMPTY);
+  const [ocrLoading, setOcrLoading] = useState(false);
+  const [ocrError, setOcrError] = useState<string | null>(null);
+  const [ocrHighlight, setOcrHighlight] = useState<Set<keyof AbgForm>>(new Set());
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const result = useMemo(() => interpret(form), [form]);
 
@@ -280,6 +286,56 @@ export default function AbgAnalyzer() {
     setForm((prev) => ({ ...prev, [k]: v }));
     trackToolUsed('abg-analyzer');
   };
+
+  async function compressImageToBase64(file: File): Promise<{ data: string; mediaType: 'image/jpeg' }> {
+    const bitmap = await createImageBitmap(file);
+    const maxDim = 1280;
+    const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('canvas unavailable');
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+    if (!blob) throw new Error('compress ไม่สำเร็จ');
+    const buf = await blob.arrayBuffer();
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return { data: btoa(binary), mediaType: 'image/jpeg' };
+  }
+
+  async function handlePhotoSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setOcrError(null);
+    setOcrLoading(true);
+    setOcrHighlight(new Set());
+    try {
+      const { data, mediaType } = await compressImageToBase64(file);
+      const values = await extractAbgFromImage(data, mediaType);
+      const filled = new Set<keyof AbgForm>();
+      setForm((prev) => {
+        const next = { ...prev };
+        if (values.pH != null) { next.pH = String(values.pH); filled.add('pH'); }
+        if (values.paco2 != null) { next.paco2 = String(values.paco2); filled.add('paco2'); }
+        if (values.hco3 != null) { next.hco3 = String(values.hco3); filled.add('hco3'); }
+        if (values.pao2 != null) { next.pao2 = String(values.pao2); filled.add('pao2'); }
+        if (values.fio2 != null) { next.fio2 = String(values.fio2 > 1 ? values.fio2 / 100 : values.fio2); filled.add('fio2'); }
+        if (values.lactate != null) { next.lactate = String(values.lactate); filled.add('lactate'); }
+        if (values.na != null) { next.na = String(values.na); filled.add('na'); }
+        return next;
+      });
+      setOcrHighlight(filled);
+      setTimeout(() => setOcrHighlight(new Set()), 4000);
+    } catch (err) {
+      setOcrError(err instanceof Error ? err.message : 'OCR ล้มเหลว');
+    } finally {
+      setOcrLoading(false);
+    }
+  }
 
   const summary = useMemo(() => {
     if (!result) return '';
@@ -308,15 +364,29 @@ export default function AbgAnalyzer() {
         </p>
       </div>
 
+      {/* Photo OCR */}
+      <section className="rounded-lg border bg-card p-3">
+        <div className="flex items-center gap-2 mb-2">
+          <h2 className="text-sm font-semibold flex-1">📷 Photo OCR</h2>
+          <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoSelected} />
+          <Button size="sm" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={ocrLoading} className="h-7 px-3 text-xs">
+            {ocrLoading ? <><Loader2 className="mr-1 h-3 w-3 animate-spin" /> กำลัง OCR...</> : <><Camera className="mr-1 h-3 w-3" /> ถ่าย/อัปโหลดรูป ABG</>}
+          </Button>
+        </div>
+        {ocrError && <p className="text-xs text-destructive">{ocrError}</p>}
+        {ocrHighlight.size > 0 && <p className="text-xs text-green-600 dark:text-green-400">OCR เติมค่าแล้ว (ไฮไลต์เขียว) — ตรวจสอบก่อนใช้</p>}
+        <p className="text-xs text-muted-foreground">ถ่ายรูปหน้าจอ ABG machine → AI แตกค่าอัตโนมัติ</p>
+      </section>
+
       <section className="rounded-lg border bg-card p-4">
         <h2 className="mb-3 text-sm font-semibold">ค่า ABG หลัก</h2>
         <div className="grid grid-cols-3 gap-3">
-          <NumberInput label="pH" value={form.pH} onChange={(v) => update('pH', v)} placeholder="7.40" />
-          <NumberInput label="PaCO₂ (mmHg)" value={form.paco2} onChange={(v) => update('paco2', v)} placeholder="40" />
-          <NumberInput label="HCO₃ (mEq/L)" value={form.hco3} onChange={(v) => update('hco3', v)} placeholder="24" />
-          <NumberInput label="PaO₂ (mmHg)" value={form.pao2} onChange={(v) => update('pao2', v)} placeholder="90" />
-          <NumberInput label="FiO₂ (0.21–1.0)" value={form.fio2} onChange={(v) => update('fio2', v)} placeholder="0.21" />
-          <NumberInput label="Lactate (mmol/L)" value={form.lactate} onChange={(v) => update('lactate', v)} placeholder="1.0" />
+          <NumberInput label="pH" value={form.pH} onChange={(v) => update('pH', v)} placeholder="7.40" highlight={ocrHighlight.has('pH')} />
+          <NumberInput label="PaCO₂ (mmHg)" value={form.paco2} onChange={(v) => update('paco2', v)} placeholder="40" highlight={ocrHighlight.has('paco2')} />
+          <NumberInput label="HCO₃ (mEq/L)" value={form.hco3} onChange={(v) => update('hco3', v)} placeholder="24" highlight={ocrHighlight.has('hco3')} />
+          <NumberInput label="PaO₂ (mmHg)" value={form.pao2} onChange={(v) => update('pao2', v)} placeholder="90" highlight={ocrHighlight.has('pao2')} />
+          <NumberInput label="FiO₂ (0.21–1.0)" value={form.fio2} onChange={(v) => update('fio2', v)} placeholder="0.21" highlight={ocrHighlight.has('fio2')} />
+          <NumberInput label="Lactate (mmol/L)" value={form.lactate} onChange={(v) => update('lactate', v)} placeholder="1.0" highlight={ocrHighlight.has('lactate')} />
         </div>
       </section>
 
@@ -432,6 +502,26 @@ export default function AbgAnalyzer() {
         </p>
       )}
 
+      <AITreatmentPanel
+        tool="abg"
+        getInput={() => ({
+          data: {
+            pH: form.pH || undefined,
+            PaCO2: form.paco2 ? `${form.paco2} mmHg` : undefined,
+            HCO3: form.hco3 ? `${form.hco3} mEq/L` : undefined,
+            PaO2: form.pao2 ? `${form.pao2} mmHg` : undefined,
+            FiO2: form.fio2 || undefined,
+            Lactate: form.lactate ? `${form.lactate} mmol/L` : undefined,
+            Na: form.na ? `${form.na} mEq/L` : undefined,
+            Cl: form.cl ? `${form.cl} mEq/L` : undefined,
+            Albumin: form.albumin ? `${form.albumin} g/dL` : undefined,
+            'Primary disorder': result?.primaryLabel || undefined,
+            'Anion Gap': result?.anionGap != null ? String(result.anionGap.toFixed(1)) : undefined,
+            'P/F ratio': result?.pfRatio != null ? String(result.pfRatio.toFixed(0)) : undefined,
+          },
+        })}
+      />
+
       <footer className="space-y-1 rounded-lg border bg-muted/30 p-3 text-xs text-muted-foreground">
         <p>
           <strong>Formulas ที่ใช้:</strong>
@@ -456,11 +546,13 @@ function NumberInput({
   value,
   onChange,
   placeholder,
+  highlight,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
+  highlight?: boolean;
 }) {
   return (
     <label className="block text-xs">
@@ -471,7 +563,10 @@ function NumberInput({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border bg-background px-2 py-1.5 text-sm"
+        className={cn(
+          'w-full rounded-md border bg-background px-2 py-1.5 text-sm transition-colors',
+          highlight && 'border-green-500 bg-green-50 dark:bg-green-950/30',
+        )}
       />
     </label>
   );
