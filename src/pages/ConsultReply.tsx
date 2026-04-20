@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Copy, Save, Trash2, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Specialty =
   | 'Cardiology'
@@ -606,6 +607,30 @@ export default function ConsultReply() {
           )}
         </div>
       </div>
+
+      <AITreatmentPanel
+        tool="consult"
+        getInput={() => ({
+          data: {
+            Specialty: form.specialty === 'Other' ? form.specialtyOther : form.specialty,
+            Ward: form.ward || undefined,
+            CC: form.cc || undefined,
+            HPI: form.hpi || undefined,
+            PMH: form.pmh || undefined,
+            Vitals:
+              [form.bp && `BP ${form.bp}`, form.hr && `HR ${form.hr}`, form.rr && `RR ${form.rr}`, form.spo2 && `SpO₂ ${form.spo2}`, form.temp && `T ${form.temp}`]
+                .filter(Boolean)
+                .join(', ') || undefined,
+            Labs: form.labs || undefined,
+            Imaging: form.imaging || undefined,
+            Assessment: form.assessment || undefined,
+            Question: form.question || undefined,
+            'Current Mgmt': form.currentMgmt || undefined,
+            Action: form.action || undefined,
+          },
+          bw: 60,
+        })}
+      />
 
       {toast && (
         <div
