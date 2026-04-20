@@ -136,6 +136,14 @@ const TOOLS: ToolCard[] = [
     action: 'navigate',
     route: '/tools/shock-index',
   },
+  {
+    icon: '💊',
+    title: 'Sedation Helper',
+    description: 'AI แนะนำ sedation regimen + dose สำหรับ ICU — Fentanyl, Propofol, Dexmed, NMB ตามบริบทคนไข้',
+    comingSoon: false,
+    action: 'navigate',
+    route: '/tools/sedation-helper',
+  },
 ];
 
 export default function Tools() {
