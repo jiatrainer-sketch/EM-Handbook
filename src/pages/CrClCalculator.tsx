@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Form = {
   age: string;
@@ -188,6 +189,23 @@ export default function CrClCalculator() {
         <div>CrCl &lt; 15: dialysis consideration; dabigatran/rivaroxaban → avoid</div>
         <div>MDRD/CKD-EPI เหมาะสำหรับ staging CKD; CG ใช้สำหรับ drug dosing</div>
       </div>
+
+      <AITreatmentPanel
+        tool="crcl"
+        getInput={() => ({
+          data: {
+            Age: form.age,
+            Weight: form.weight ? `${form.weight} kg` : undefined,
+            Creatinine: form.creatinine ? `${form.creatinine} mg/dL` : undefined,
+            Sex: form.sex,
+            'CG (CrCl)': results.cg ? `${results.cg} mL/min` : undefined,
+            'MDRD (eGFR)': results.mdrd ? `${results.mdrd} mL/min/1.73m²` : undefined,
+            'CKD-EPI (eGFR)': results.ckdepi ? `${results.ckdepi} mL/min/1.73m²` : undefined,
+            'CKD Stage': ckdFromEpi ? `${ckdFromEpi.stage} — ${ckdFromEpi.label}` : undefined,
+          },
+          bw: toNum(form.weight) ?? 60,
+        })}
+      />
 
       <Button variant="outline" size="sm" onClick={() => setForm(EMPTY)} className="w-full">Reset</Button>
       <p className="text-xs text-muted-foreground">⚠️ ตรวจสอบผลและ adapt ให้ตรงบริบทคนไข้จริงทุกครั้ง</p>

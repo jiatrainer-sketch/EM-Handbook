@@ -3,6 +3,7 @@ import { ArrowLeft, CheckCircle2, Circle, Timer } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type BundleItem = {
   id: string;
@@ -193,6 +194,17 @@ export default function SepsisBundleTimer() {
         checks={checks}
         onToggle={toggle}
         elapsedMin={elapsedMin}
+      />
+
+      <AITreatmentPanel
+        tool="sepsis-timer"
+        getInput={() => ({
+          data: {
+            'เวลาที่ผ่านมา': `${elapsedMin} นาที`,
+            'Tasks completed': `${doneCount}/${allItems.length}`,
+            'Bundle 1-hr': BUNDLE_1HR.filter(i => checks[i.id]).map(i => i.label).join(', ') || 'ยังไม่ทำ',
+          },
+        })}
       />
 
       <div className="rounded-lg border bg-muted/40 p-3 text-xs space-y-1">

@@ -16,6 +16,9 @@ import GCSCalculator from '@/pages/GCSCalculator';
 import CrClCalculator from '@/pages/CrClCalculator';
 import SepsisBundleTimer from '@/pages/SepsisBundleTimer';
 import FluidCalculator from '@/pages/FluidCalculator';
+import HEARTPathway from '@/pages/HEARTPathway';
+import AnticoagManager from '@/pages/AnticoagManager';
+import ShockIndex from '@/pages/ShockIndex';
 import Symptoms from '@/pages/Symptoms';
 import NotFound from '@/pages/NotFound';
 
@@ -40,6 +43,9 @@ function App() {
           <Route path="/tools/crcl" element={<CrClCalculator />} />
           <Route path="/tools/sepsis-timer" element={<SepsisBundleTimer />} />
           <Route path="/tools/fluid" element={<FluidCalculator />} />
+          <Route path="/tools/heart-pathway" element={<HEARTPathway />} />
+          <Route path="/tools/anticoag" element={<AnticoagManager />} />
+          <Route path="/tools/shock-index" element={<ShockIndex />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
         </Route>

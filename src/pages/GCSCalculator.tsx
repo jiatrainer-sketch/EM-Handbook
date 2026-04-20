@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Eye = 1 | 2 | 3 | 4;
 type Verbal = 1 | 2 | 3 | 4 | 5;
@@ -130,6 +131,19 @@ export default function GCSCalculator() {
         <div>GCS ≤ 8 → พิจารณา definitive airway</div>
         <div>GCS &lt; 15 + deteriorating → monitor q 1 hr, CT หากเหมาะสม</div>
       </div>
+
+      <AITreatmentPanel
+        tool="gcs"
+        getInput={() => ({
+          data: {
+            'Eye (E)': eye ?? '—',
+            'Verbal (V)': verbal ?? '—',
+            'Motor (M)': motor ?? '—',
+            'GCS Total': gcs ?? '—',
+            Interpretation: gcs != null ? interpretGCS(gcs).label : '—',
+          },
+        })}
+      />
 
       <Button variant="outline" size="sm" onClick={reset} className="w-full">
         Reset
