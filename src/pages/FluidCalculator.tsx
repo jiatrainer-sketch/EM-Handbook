@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Tab = 'maintenance' | 'deficit' | 'bolus' | 'fwd' | 'transfusion';
 
@@ -81,6 +82,13 @@ function MaintenanceTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="fluid"
+        getInput={() => ({
+          data: { 'Type': 'Maintenance', Weight: wt ? `${wt} kg` : undefined, 'Daily': result ? `${result.daily} mL/day` : undefined, 'Hourly rate': result ? `${result.hourly} mL/hr` : undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -126,6 +134,13 @@ function DeficitTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="fluid"
+        getInput={() => ({
+          data: { 'Type': 'Deficit replacement', Weight: wt ? `${wt} kg` : undefined, 'Dehydration': `${percent}%`, 'Deficit': result ? `${result.deficit} mL` : undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -169,6 +184,13 @@ function BolusTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="fluid"
+        getInput={() => ({
+          data: { 'Type': 'Bolus', Weight: wt ? `${wt} kg` : undefined, 'Dose': `${dosePerKg} mL/kg`, 'Volume': result ? `${result.volume} mL` : undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -221,6 +243,13 @@ function FWDTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="fluid"
+        getInput={() => ({
+          data: { 'Type': 'Free water deficit', Na: na ? `${na} mEq/L` : undefined, Weight: wt ? `${wt} kg` : undefined, Sex: sex, 'Deficit': result ? `${result.deficit} L` : undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -279,6 +308,13 @@ function TransfusionTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="fluid"
+        getInput={() => ({
+          data: { 'Type': 'Transfusion', 'Hb current': hb ? `${hb} g/dL` : undefined, 'Target Hb': `${targetHb} g/dL`, Weight: wt ? `${wt} kg` : undefined, 'pRBC needed': result && !result.note ? `${result.units} units` : 'ไม่จำเป็น' },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }

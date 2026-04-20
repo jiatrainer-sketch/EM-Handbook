@@ -1,0 +1,230 @@
+import { useCallback, useRef, useState } from 'react';
+import { Bot, ChevronDown, ChevronUp, Copy, RefreshCw, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { streamToolSuggestions } from '@/lib/aiSuggestions/api';
+import { ChatError } from '@/lib/aiClient';
+import type { AIToolInput } from '@/lib/aiSuggestions/types';
+
+interface Props {
+  /** Tool name — used for prompt routing */
+  tool: string;
+  /** Call this to get current tool data snapshot when user clicks Generate */
+  getInput: () => Omit<AIToolInput, 'tool'>;
+  /** Additional CSS class for the container */
+  className?: string;
+}
+
+type Status = 'idle' | 'loading' | 'done' | 'error';
+
+// Minimal markdown renderer — handles the standardized AI output format
+function renderMarkdown(text: string) {
+  const lines = text.split('\n');
+  const elements: React.ReactNode[] = [];
+  let inCode = false;
+  let codeLines: string[] = [];
+  let key = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.startsWith('```')) {
+      if (!inCode) {
+        inCode = true;
+        codeLines = [];
+      } else {
+        inCode = false;
+        elements.push(
+          <pre key={key++} className="my-2 overflow-x-auto rounded-md bg-muted p-3 text-xs leading-relaxed">
+            <code>{codeLines.join('\n')}</code>
+          </pre>,
+        );
+      }
+      continue;
+    }
+
+    if (inCode) {
+      codeLines.push(line);
+      continue;
+    }
+
+    if (line.startsWith('### ')) {
+      elements.push(
+        <div key={key++} className="mt-3 mb-1 text-sm font-semibold text-foreground">
+          {line.slice(4)}
+        </div>,
+      );
+    } else if (line.startsWith('## ')) {
+      elements.push(
+        <div key={key++} className="mt-3 mb-1 text-base font-bold text-foreground">
+          {line.slice(3)}
+        </div>,
+      );
+    } else if (line.startsWith('**') && line.endsWith('**') && line.length > 4) {
+      elements.push(
+        <div key={key++} className="mt-2 text-sm font-semibold">
+          {line.slice(2, -2)}
+        </div>,
+      );
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      elements.push(
+        <div key={key++} className="flex gap-1.5 text-xs leading-relaxed">
+          <span className="mt-0.5 shrink-0 text-muted-foreground">•</span>
+          <span>{formatInline(line.slice(2))}</span>
+        </div>,
+      );
+    } else if (line.match(/^---+$/)) {
+      elements.push(<hr key={key++} className="my-2 border-border" />);
+    } else if (line.trim() === '') {
+      elements.push(<div key={key++} className="h-1" />);
+    } else {
+      elements.push(
+        <div key={key++} className="text-xs leading-relaxed">
+          {formatInline(line)}
+        </div>,
+      );
+    }
+  }
+
+  if (inCode && codeLines.length > 0) {
+    elements.push(
+      <pre key={key++} className="my-2 overflow-x-auto rounded-md bg-muted p-3 text-xs">
+        <code>{codeLines.join('\n')}</code>
+      </pre>,
+    );
+  }
+
+  return elements;
+}
+
+function formatInline(text: string): React.ReactNode {
+  // Handle **bold** inline
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  if (parts.length === 1) return text;
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return <strong key={i}>{part.slice(2, -2)}</strong>;
+        }
+        return part;
+      })}
+    </>
+  );
+}
+
+export default function AITreatmentPanel({ tool, getInput, className }: Props) {
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const [content, setContent] = useState('');
+  const [error, setError] = useState('');
+  const abortRef = useRef<AbortController | null>(null);
+
+  const generate = useCallback(async () => {
+    if (abortRef.current) abortRef.current.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setStatus('loading');
+    setContent('');
+    setError('');
+    setOpen(true);
+
+    try {
+      const input = getInput();
+      await streamToolSuggestions(
+        { tool, ...input },
+        (acc) => setContent(acc),
+        controller.signal,
+      );
+      setStatus('done');
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setStatus('idle');
+        return;
+      }
+      setStatus('error');
+      setError(e instanceof ChatError ? e.message : e instanceof Error ? e.message : 'เกิดข้อผิดพลาด');
+    }
+  }, [tool, getInput]);
+
+  const cancel = useCallback(() => {
+    abortRef.current?.abort();
+    setStatus('idle');
+  }, []);
+
+  const copyAll = useCallback(() => {
+    if (content) navigator.clipboard.writeText(content).catch(() => undefined);
+  }, [content]);
+
+  return (
+    <div className={cn('rounded-lg border bg-card', className)}>
+      {/* Header bar */}
+      <div className="flex items-center gap-2 px-3 py-2.5">
+        <Bot className="h-4 w-4 shrink-0 text-primary" />
+        <span className="flex-1 text-sm font-medium">AI Co-pilot</span>
+
+        {status === 'loading' ? (
+          <Button size="sm" variant="ghost" onClick={cancel} className="h-7 px-2 text-xs text-muted-foreground">
+            <X className="mr-1 h-3 w-3" /> ยกเลิก
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            variant={status === 'idle' ? 'default' : 'outline'}
+            onClick={generate}
+            className="h-7 px-3 text-xs"
+          >
+            {status === 'done' || status === 'error' ? (
+              <><RefreshCw className="mr-1 h-3 w-3" /> ทำใหม่</>
+            ) : (
+              <><Bot className="mr-1 h-3 w-3" /> สร้างคำแนะนำ</>
+            )}
+          </Button>
+        )}
+
+        {(status === 'done' || status === 'loading') && content && (
+          <Button size="sm" variant="ghost" onClick={copyAll} className="h-7 px-2">
+            <Copy className="h-3 w-3" />
+          </Button>
+        )}
+
+        {(status === 'done' || status === 'loading') && (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setOpen((o) => !o)}
+            className="h-7 px-2"
+          >
+            {open ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+          </Button>
+        )}
+      </div>
+
+      {/* Content area */}
+      {open && (
+        <div className="border-t px-3 py-3">
+          {status === 'loading' && !content && (
+            <div className="space-y-2 py-2">
+              {[80, 60, 90, 50].map((w, i) => (
+                <div key={i} className={`h-3 animate-pulse rounded bg-muted`} style={{ width: `${w}%` }} />
+              ))}
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="rounded-md bg-destructive/10 p-3 text-xs text-destructive">
+              {error || 'เกิดข้อผิดพลาด — ลองใหม่'}
+            </div>
+          )}
+
+          {content && (
+            <div className="space-y-0.5 text-sm">
+              {renderMarkdown(content)}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

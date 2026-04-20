@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Tab = 'na' | 'k' | 'ca' | 'mg' | 'phos';
 
@@ -127,6 +128,13 @@ function NaTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="electrolyte"
+        getInput={() => ({
+          data: { Electrolyte: 'Na', 'Na measured': na ? `${na} mEq/L` : undefined, Glucose: glucose ? `${glucose} mg/dL` : undefined, Weight: wt ? `${wt} kg` : undefined, Sex: sex, 'Corrected Na': result.corrected ? `${result.corrected.toFixed(1)} mEq/L` : undefined, Severity: result.severity || undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -168,6 +176,13 @@ function KTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="electrolyte"
+        getInput={() => ({
+          data: { Electrolyte: 'K', 'K measured': k ? `${k} mEq/L` : undefined, Weight: wt || undefined, Severity: result?.severity || undefined },
+          bw: toNum(wt) ?? 60,
+        })}
+      />
     </div>
   );
 }
@@ -213,6 +228,12 @@ function CaTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="electrolyte"
+        getInput={() => ({
+          data: { Electrolyte: 'Ca', 'Ca measured': ca ? `${ca} mg/dL` : undefined, Albumin: albumin ? `${albumin} g/dL` : undefined, 'Corrected Ca': result?.corrected ? `${result.corrected.toFixed(1)} mg/dL` : undefined, Severity: result?.severity || undefined },
+        })}
+      />
     </div>
   );
 }
@@ -250,6 +271,12 @@ function MgTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="electrolyte"
+        getInput={() => ({
+          data: { Electrolyte: 'Mg', 'Mg measured': mg ? `${mg} mEq/L` : undefined, Severity: result?.severity || undefined },
+        })}
+      />
     </div>
   );
 }
@@ -287,6 +314,12 @@ function PhosTab() {
           </div>
         </ResultBox>
       )}
+      <AITreatmentPanel
+        tool="electrolyte"
+        getInput={() => ({
+          data: { Electrolyte: 'Phosphorus', 'Phos measured': phos ? `${phos} mg/dL` : undefined, Severity: result?.severity || undefined },
+        })}
+      />
     </div>
   );
 }
