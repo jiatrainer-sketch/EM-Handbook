@@ -4,7 +4,7 @@ import PieceList from '@/components/home/PieceList';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { listByCategory } from '@/lib/content';
-import { CATEGORIES, type Category } from '@/types/content';
+import { CATEGORIES, type Category, type ContentMeta } from '@/types/content';
 
 const LABELS: Record<Category, { en: string; th: string }> = {
   score: { en: 'Scores', th: 'คะแนนประเมิน' },
@@ -43,6 +43,42 @@ const DRIP_GROUPS: { key: string; label: string; emoji: string; match: string[] 
 
 function isCategory(value: string | undefined): value is Category {
   return !!value && (CATEGORIES as readonly string[]).includes(value);
+}
+
+/** Group items alphabetically by first letter of English title */
+function groupAlpha(
+  items: ContentMeta[],
+): { letter: string; items: ContentMeta[] }[] {
+  const map = new Map<string, ContentMeta[]>();
+  for (const item of items) {
+    const letter = item.title.match(/[A-Za-z]/)
+      ? item.title[0].toUpperCase()
+      : '#';
+    if (!map.has(letter)) map.set(letter, []);
+    map.get(letter)!.push(item);
+  }
+  return Array.from(map.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([letter, its]) => ({
+      letter,
+      items: its.sort((a, b) => a.title.localeCompare(b.title)),
+    }));
+}
+
+function AlphaNav({ letters }: { letters: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1">
+      {letters.map((l) => (
+        <a
+          key={l}
+          href={`#alpha-${l}`}
+          className="rounded px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+        >
+          {l}
+        </a>
+      ))}
+    </div>
+  );
 }
 
 type GroupSpec = typeof PROTOCOL_GROUPS;
@@ -99,6 +135,10 @@ export default function Browse() {
   const groupSpec = category === 'drip' ? DRIP_GROUPS : PROTOCOL_GROUPS;
   const grouped = useGroups ? groupItems(items, groupSpec) : [];
 
+  const useAlpha = !useGroups && items.length >= 6;
+  const alphaGroups = useAlpha ? groupAlpha(items) : [];
+  const alphaLetters = alphaGroups.map((g) => g.letter);
+
   // Filter chips
   const visibleGroups =
     activeFilter === 'all'
@@ -153,6 +193,20 @@ export default function Browse() {
               <PieceList ids={ids} variant="row" />
             </section>
           ))}
+        </div>
+      ) : useAlpha ? (
+        <div className="space-y-1">
+          <AlphaNav letters={alphaLetters} />
+          <div className="space-y-4 pt-2">
+            {alphaGroups.map(({ letter, items: its }) => (
+              <section key={letter} id={`alpha-${letter}`}>
+                <h2 className="mb-1.5 border-b pb-0.5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  {letter}
+                </h2>
+                <PieceList ids={its.map((m) => m.id)} variant="row" />
+              </section>
+            ))}
+          </div>
         </div>
       ) : (
         <PieceList

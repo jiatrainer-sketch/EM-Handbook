@@ -39,6 +39,10 @@ export interface ContentFrontmatter {
   last_reviewed?: string;
   confidence?: Confidence;
   severity?: Severity;
+  /** One-line English clinical use summary (scores) */
+  usedFor?: string;
+  /** Thai clinical scenario where this score is applied */
+  clinicalContext?: string;
 }
 
 export interface ContentMeta extends ContentFrontmatter {

@@ -3872,7 +3872,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "medium",
-      "severity": "high"
+      "severity": "high",
+      "usedFor": "Appendicitis pre-test probability",
+      "clinicalContext": "RLQ pain — ตัดสินใจ observe / US / CT / surgical consult"
     }
   },
   {
@@ -3909,7 +3911,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "high"
+      "severity": "high",
+      "usedFor": "AF stroke risk → OAC decision",
+      "clinicalContext": "AF — ตัดสินใจให้ anticoagulation หรือไม่"
     }
   },
   {
@@ -3947,7 +3951,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "Severity of community-acquired pneumonia",
+      "clinicalContext": "ผู้ป่วยปอดอักเสบ — ตัดสินใจ admit vs discharge vs ICU"
     }
   },
   {
@@ -3987,7 +3993,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "Consciousness level assessment",
+      "clinicalContext": "ทุก case ที่มี altered consciousness, trauma, coma"
     }
   },
   {
@@ -4024,7 +4032,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "ED chest pain low-risk stratification",
+      "clinicalContext": "Chest pain ใน ER — ตัดสินใจ discharge หรือ observe"
     }
   },
   {
@@ -4061,7 +4071,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "high"
+      "severity": "high",
+      "usedFor": "Early clinical deterioration detection",
+      "clinicalContext": "Ward/ER — เตือนก่อน decompensate, เรียก MET call"
     }
   },
   {
@@ -4098,7 +4110,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "high"
+      "severity": "high",
+      "usedFor": "Stroke severity + tPA eligibility",
+      "clinicalContext": "Acute stroke — baseline score + monitor หลัง treatment"
     }
   },
   {
@@ -4134,7 +4148,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "Quick sepsis screening outside ICU",
+      "clinicalContext": "สงสัย sepsis ใน ward/ER — triage เพื่อ escalate care"
     }
   },
   {
@@ -4173,7 +4189,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "Pre-op cardiac risk (non-cardiac surgery)",
+      "clinicalContext": "ประเมินก่อนผ่าตัด — ส่ง cardiology consult หรือไม่"
     }
   },
   {
@@ -4213,7 +4231,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "ICU organ failure severity + sepsis definition",
+      "clinicalContext": "Sepsis-3 diagnosis + ICU prognosis + monitoring"
     }
   },
   {
@@ -4251,7 +4271,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "high"
+      "severity": "high",
+      "usedFor": "UA/NSTEMI 14-day risk stratification",
+      "clinicalContext": "ACS ที่ไม่ใช่ STEMI — ตัดสินใจ early invasive vs conservative"
     }
   },
   {
@@ -4287,7 +4309,9 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       },
       "last_reviewed": "2026-04",
       "confidence": "high",
-      "severity": "medium"
+      "severity": "medium",
+      "usedFor": "PE pre-test probability",
+      "clinicalContext": "สงสัย PE — ตัดสินใจ D-dimer vs CTPA"
     }
   },
   {
