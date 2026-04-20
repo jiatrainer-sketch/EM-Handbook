@@ -1,0 +1,153 @@
+---
+id: bisap-score
+title: "BISAP Score"
+titleTh: "ประเมินความรุนแรงตับอ่อนอักเสบ"
+category: score
+subcategory: gi
+tags:
+  - BISAP
+  - pancreatitis
+  - severity
+keywords:
+  - BISAP
+  - acute pancreatitis
+  - severity
+  - ICU
+  - ตับอ่อนอักเสบ
+related:
+  - acute-pancreatitis
+source:
+  name: "Wu BU et al. Arch Intern Med 2008"
+  year: 2008
+last_reviewed: "2026-04"
+confidence: high
+severity: high
+usedFor: "Acute pancreatitis severity (simple, modern alternative to Ranson's)"
+clinicalContext: "ED / admission — ตัดสินใจ ward vs ICU ภายใน 24 hr แรก"
+---
+
+## 🎯 Purpose
+
+ประเมินความรุนแรงของ **acute pancreatitis** ภายใน 24 hr แรก — ง่ายกว่า Ranson's, ไม่ต้องรอ 48 hr
+
+**ข้อดีเหนือ Ranson's:** คะแนนได้ทันทีที่รับ, ไม่ต้องรอ labs 48 hr
+
+---
+
+## 📋 เกณฑ์คะแนน (Scoring Criteria) — BISAP Mnemonic
+
+| Letter | Criterion | 1 Point if... |
+|---|---|---|
+| **B** | **B**UN | BUN &gt; 25 mg/dL |
+| **I** | **I**mpaired mental status | GCS &lt; 15 |
+| **S** | **S**IRS | ≥ 2 of 4 SIRS criteria |
+| **A** | **A**ge | อายุ &gt; 60 ปี |
+| **P** | **P**leural effusion | พบบน chest X-ray หรือ CT |
+
+**คะแนน 0–5**
+
+### SIRS Criteria (≥ 2 ของ 4)
+- Temp &gt; 38°C หรือ &lt; 36°C
+- HR &gt; 90
+- RR &gt; 20 หรือ PaCO₂ &lt; 32
+- WBC &gt; 12,000 หรือ &lt; 4,000 หรือ band &gt; 10%
+
+---
+
+## 📊 การแปลผล (Interpretation)
+
+| Score | In-hospital Mortality | Severe Pancreatitis | Management |
+|---|---|---|---|
+| **0** | &lt; 1% | &lt; 1% | Ward, pain control, NPO vs clear liquid |
+| **1** | 1.9% | 4% | Ward, close monitor |
+| **2** | 3.6% | 10% | Ward vs HDU, GI/surgery consult |
+| **3** | 7.4% | 26% | **HDU / ICU** consider |
+| **4** | 12.7% | 50% | **ICU** |
+| **5** | 22.5% | 90%+ | **ICU, aggressive support** |
+
+<Callout type="danger" title="BISAP ≥ 3 = ความเสี่ยงสูง">
+
+BISAP ≥ 3 → mortality 7–22%, severe pancreatitis 26–90%  
+→ **ICU admission, early CT, surgery/GI consult ทันที**
+
+</Callout>
+
+---
+
+## 💊 การรักษา (Treatment) ตาม severity
+
+### Mild (BISAP 0–1)
+- **IV fluid:** LR 250–500 mL/hr × 24–48 hr (target UOP ≥ 0.5 mL/kg/hr)
+- **Pain:** Morphine 2–4 mg IV PRN หรือ Tramadol 50–100 mg IV q 6 hr
+- **Diet:** Clear liquid เร็ว (ไม่ต้อง NPO นาน) → soft diet เมื่อทนได้
+- **Monitor:** HR, BP, UOP, creatinine q 6–8 hr
+
+### Moderate-Severe (BISAP 2–3)
+- **IV fluid aggressive:** LR 500 mL/hr × 4 hr → titrate to UOP ≥ 1 mL/kg/hr
+- **Pain:** Morphine IV หรือ Fentanyl 25–50 mcg IV PRN
+- **NPO** ถ้า ileus / intractable vomiting
+- **CT abdomen** ถ้า diagnosis ไม่ชัด หรือ ไม่ดีขึ้นใน 48–72 hr
+- GI/surgery consult
+
+### Severe (BISAP ≥ 3)
+- **ICU admission**
+- **Aggressive IV fluid** (LR preferred over NSS)
+- Enteral nutrition via NGT เร็วที่สุด (≤ 24–48 hr)
+- **Monitor:** glucose q 4 hr (ลด insulin หรือเพิ่มถ้า DM)
+- **ห้ามให้ antibiotic prophylactic** (ไม่ลด mortality)
+- Antibiotic เฉพาะถ้า infected necrosis (CT-guided aspiration confirm)
+
+<Callout type="warning" title="Fluid ใน pancreatitis">
+
+**LR ดีกว่า NSS** (WATERFALL trial) — ลด SIRS, ลด progression  
+→ NSS อาจทำให้ hyperchloremic acidosis  
+→ LR first-line ยกเว้น hypercalcemia (Ca ใน LR)
+
+</Callout>
+
+---
+
+## 🗺 อัลกอริทึม (Algorithm)
+
+```
+Pancreatitis → BISAP ใน 24 hr แรก
+
+BISAP 0–1:
+  → Ward, LR 250–500 mL/hr
+  → Pain control, early diet
+  → Discharge เมื่อ pain-free, tolerating diet
+
+BISAP 2:
+  → Admit (HDU ถ้าได้), GI consult
+  → CT ถ้า severe abdominal pain / uncertain dx
+  → IV fluid aggressive
+
+BISAP ≥ 3:
+  → ICU, aggressive fluid
+  → CT abdomen with contrast
+  → Surgery/IR consult (necrotizing pancreatitis?)
+  → Enteral nutrition เร็ว
+```
+
+---
+
+## ⚠️ ข้อควรระวัง (Critical Pitfalls)
+
+<Callout type="danger" title="BISAP / Pancreatitis Pitfalls">
+
+**ให้ antibiotic prophylactic** — ไม่มี benefit + เพิ่ม resistance  
+→ ให้เฉพาะ infected necrosis (CT + aspiration confirm)
+
+**NPO ยาว** — ลดผลดีของ enteral nutrition  
+→ เริ่ม clear liquid เร็ว; NG feed ถ้า severe
+
+**BISAP ต่ำ = ไม่รุนแรง 100%** — reassess ซ้ำถ้า deteriorate  
+→ Trend ใน 24–48 hr สำคัญกว่า single score
+
+**ใช้ NSS แทน LR** — hyperchloremic acidosis เพิ่ม severity  
+→ LR preferred (ยกเว้น hypercalcemia)
+
+**ลืม etiology** — gallstone vs alcohol vs other  
+→ US ทุกราย; alcohol = 1st episode? พิจารณา ERCP ถ้า cholangitis
+
+</Callout>
