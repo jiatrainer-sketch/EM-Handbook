@@ -3943,6 +3943,101 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "high-alert-drip-table",
+    "path": "/src/content/reference/high-alert-drip-table.mdx",
+    "frontmatter": {
+      "id": "high-alert-drip-table",
+      "title": "High Alert Drug Drip Table",
+      "titleTh": "ตารางยา Drip ความเสี่ยงสูง (BW 60 kg)",
+      "category": "reference",
+      "subcategory": "pharmacology",
+      "tags": [
+        "drip",
+        "vasopressor",
+        "sedation",
+        "inotrope",
+        "high-alert",
+        "fentanyl",
+        "norepinephrine",
+        "propofol"
+      ],
+      "keywords": [
+        "drip table",
+        "vasopressor drip",
+        "sedation drip",
+        "norepinephrine",
+        "dobutamine",
+        "fentanyl",
+        "midazolam",
+        "propofol",
+        "dexmedetomidine",
+        "cisatracurium",
+        "nitroglycerin",
+        "nicardipine",
+        "adrenaline",
+        "epinephrine",
+        "ตารางยา drip"
+      ],
+      "related": [
+        "icu-sedation-protocol",
+        "preop-drug-management",
+        "mechanical-ventilation-quickref",
+        "rsi-medications"
+      ],
+      "source": {
+        "name": "คณะแพทยศาสตร์ รพ.รามาธิบดี",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "icu-sedation-protocol",
+    "path": "/src/content/reference/icu-sedation-protocol.mdx",
+    "frontmatter": {
+      "id": "icu-sedation-protocol",
+      "title": "ICU Sedation Protocol",
+      "titleTh": "แนวทาง sedation ใน ICU — Analgosedation ถึง NMB",
+      "category": "reference",
+      "subcategory": "icu",
+      "tags": [
+        "sedation",
+        "icu",
+        "analgosedation",
+        "fight ventilator",
+        "RASS",
+        "delirium",
+        "NMB"
+      ],
+      "keywords": [
+        "ICU sedation",
+        "analgosedation",
+        "RASS",
+        "CPOT",
+        "fight vent",
+        "delirium",
+        "CAM-ICU",
+        "propofol PRIS",
+        "cisatracurium TOF",
+        "ยา sedation"
+      ],
+      "related": [
+        "high-alert-drip-table",
+        "mechanical-ventilation-quickref",
+        "rsi-medications"
+      ],
+      "source": {
+        "name": "PADIS Guidelines 2018 + SCCM + คณะแพทยศาสตร์ รพ.รามาธิบดี 2024",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "mechanical-ventilation-quickref",
     "path": "/src/content/reference/mechanical-ventilation-quickref.mdx",
     "frontmatter": {
@@ -4019,6 +4114,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "last_reviewed": "2026-04",
       "confidence": "high",
       "severity": "medium"
+    }
+  },
+  {
+    "id": "preop-drug-management",
+    "path": "/src/content/reference/preop-drug-management.mdx",
+    "frontmatter": {
+      "id": "preop-drug-management",
+      "title": "Pre-op Drug Management",
+      "titleTh": "การจัดการยาก่อนผ่าตัด — หยุด / ให้ต่อ / ปรับขนาด",
+      "category": "reference",
+      "subcategory": "surgical",
+      "tags": [
+        "preop",
+        "anticoagulant",
+        "antiplatelet",
+        "diabetes",
+        "cardiac",
+        "drug management"
+      ],
+      "keywords": [
+        "preop medication",
+        "hold before surgery",
+        "antiplatelet preop",
+        "warfarin bridging",
+        "DOAC preop",
+        "insulin preop",
+        "antihypertensive preop",
+        "ยาก่อนผ่าตัด"
+      ],
+      "related": [
+        "high-alert-drip-table",
+        "icu-sedation-protocol"
+      ],
+      "source": {
+        "name": "คณะแพทยศาสตร์ รพ.รามาธิบดี + ACC/AHA Perioperative Guidelines 2024",
+        "year": 2024
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
     }
   },
   {

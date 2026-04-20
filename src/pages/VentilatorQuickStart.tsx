@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { Camera, Copy, Loader2, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import {
@@ -687,6 +688,15 @@ export default function VentilatorQuickStart() {
           bw: Number(form.actualKg) || Number(ibw) || 60,
         })}
       />
+
+      <div className="rounded-lg border bg-muted/40 p-3 text-xs space-y-1.5">
+        <div className="font-medium text-muted-foreground">📚 ดูเพิ่มเติม</div>
+        <div className="flex flex-col gap-1">
+          <Link to="/reference/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสม vasopressor + sedative ครบ</Link>
+          <Link to="/reference/icu-sedation-protocol" className="text-primary hover:underline">🛏️ ICU Sedation Protocol — analgosedation stepwise</Link>
+          <Link to="/tools/sedation-helper" className="text-primary hover:underline">🤖 AI Sedation Helper — แนะนำ regimen ตามคนไข้</Link>
+        </div>
+      </div>
 
       {toast && (
         <div

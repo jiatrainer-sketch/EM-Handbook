@@ -60,10 +60,37 @@ export default function Home() {
 
       <section>
         <h2 className="mb-2 text-sm font-medium text-muted-foreground">
+          ⚡ Quick Reference (ใช้บ่อย)
+        </h2>
+        <ul className="divide-y rounded-lg border bg-card text-sm">
+          {[
+            { icon: '💊', title: 'High Alert Drip Table', desc: 'ตารางยา drip 11 ตัว — สูตรผสม + อัตราหยด BW 60 kg', to: '/reference/high-alert-drip-table' },
+            { icon: '🛏️', title: 'ICU Sedation Protocol', desc: 'ลำดับ analgosedation — Fentanyl → Sedative → NMB', to: '/reference/icu-sedation-protocol' },
+            { icon: '🏥', title: 'Pre-op Drug Management', desc: 'ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาดก่อนผ่าตัด', to: '/reference/preop-drug-management' },
+            { icon: '🤖', title: 'AI Sedation Helper', desc: 'AI แนะนำ regimen + dose ตามบริบทคนไข้ ICU', to: '/tools/sedation-helper' },
+          ].map((item) => (
+            <li key={item.to}>
+              <Link
+                to={item.to}
+                className="flex items-center gap-3 px-3 py-2.5 hover:bg-accent active:bg-accent/80"
+              >
+                <span className="text-base" aria-hidden>{item.icon}</span>
+                <div className="min-w-0">
+                  <div className="font-medium text-foreground">{item.title}</div>
+                  <div className="truncate text-[11px] text-muted-foreground">{item.desc}</div>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">
           📂 Browse
         </h2>
         <ul className="divide-y rounded-lg border bg-card text-sm">
-          {CATEGORIES.filter((c) => c !== 'reference').map((c) => {
+          {CATEGORIES.map((c) => {
             const count = listByCategory(c).length;
             return (
               <li key={c}>

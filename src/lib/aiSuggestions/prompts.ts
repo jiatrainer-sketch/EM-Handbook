@@ -63,6 +63,7 @@ const TOOL_CONTEXT: Record<string, string> = {
   preop: `แนะนำ pre-op optimization ตาม cardiac risk — labs, consult, medications to hold/continue`,
   consult: `ช่วยสรุป consult note — problem, assessment, recommendation แบบกระชับ`,
   vent: `แนะนำ ventilator settings ตาม scenario — lung-protective, weaning readiness, ABG targets`,
+  'sedation-helper': `แนะนำ sedation regimen สำหรับผู้ป่วย ICU/intubated — ระบุ analgesia first (Fentanyl/Morphine), เลือก sedative (Midazolam/Propofol/Dexmedetomidine) ตาม comorbidity และ context, NMB ถ้า ARDS รุนแรง. คำนวณ dose + mixing formula + mL/hr จาก BW ที่ระบุ. ระบุ monitoring targets (RASS, CPOT, BIS, TOF) และ pitfalls เฉพาะราย`,
 };
 
 export function buildToolPrompt(input: AIToolInput): string {
