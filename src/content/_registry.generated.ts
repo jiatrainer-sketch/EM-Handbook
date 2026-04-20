@@ -4148,6 +4148,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "geneva-score-pe",
+    "path": "/src/content/scores/geneva-score-pe.mdx",
+    "frontmatter": {
+      "id": "geneva-score-pe",
+      "title": "Revised Geneva Score (PE)",
+      "titleTh": "ประเมินความน่าจะเป็น pulmonary embolism ก่อน CT-PA",
+      "category": "score",
+      "subcategory": "pulm",
+      "tags": [
+        "Geneva score",
+        "pulmonary embolism",
+        "PE",
+        "pre-test probability",
+        "DVT"
+      ],
+      "keywords": [
+        "Revised Geneva Score",
+        "pulmonary embolism",
+        "PE probability",
+        "CT-PA",
+        "D-dimer",
+        "ปอดอุดตัน"
+      ],
+      "related": [
+        "wells-pe",
+        "pesi",
+        "dvt"
+      ],
+      "source": {
+        "name": "Le Gal G et al. Ann Intern Med 2006",
+        "year": 2006
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Pre-test probability of PE — guide CT-PA decision; alternative to Wells PE",
+      "clinicalContext": "ED — สงสัย PE; ใช้ร่วมกับ D-dimer ถ้า low probability"
+    }
+  },
+  {
     "id": "glasgow-blatchford",
     "path": "/src/content/scores/glasgow-blatchford.mdx",
     "frontmatter": {
@@ -4184,6 +4224,46 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "severity": "high",
       "usedFor": "UGIB — ตัดสินใจ admit vs discharge ก่อน endoscopy",
       "clinicalContext": "ED — ก่อน scope; GBS 0 = discharge ได้ปลอดภัย"
+    }
+  },
+  {
+    "id": "has-bled",
+    "path": "/src/content/scores/has-bled.mdx",
+    "frontmatter": {
+      "id": "has-bled",
+      "title": "HAS-BLED Score",
+      "titleTh": "ประเมินความเสี่ยงเลือดออกในผู้ป่วยกินยา anticoagulant (AF)",
+      "category": "score",
+      "subcategory": "cardiac",
+      "tags": [
+        "HAS-BLED",
+        "bleeding risk",
+        "anticoagulation",
+        "atrial fibrillation",
+        "AF"
+      ],
+      "keywords": [
+        "HAS-BLED",
+        "bleeding risk score",
+        "anticoagulation AF",
+        "atrial fibrillation",
+        "warfarin",
+        "DOAC",
+        "ความเสี่ยงเลือดออก"
+      ],
+      "related": [
+        "cha2ds2-vasc",
+        "atrial-fibrillation"
+      ],
+      "source": {
+        "name": "Pisters R et al. Chest 2010",
+        "year": 2010
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high",
+      "usedFor": "Anticoagulation bleeding risk in AF — identify modifiable risk factors (NOT to withhold OAC)",
+      "clinicalContext": "OPD/ward — AF on OAC; ≥3 = high bleed risk; modify reversible RF, don't stop OAC"
     }
   },
   {
