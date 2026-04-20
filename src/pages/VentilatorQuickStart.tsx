@@ -8,6 +8,7 @@ import {
   type AbgInterpretation,
   type AbgValues,
 } from '@/lib/ventAi';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Sex = 'M' | 'F';
 type Scenario = 'normal' | 'ards' | 'obstructive' | 'neuro';
@@ -663,6 +664,29 @@ export default function VentilatorQuickStart() {
           className="h-56 w-full resize-none rounded-md border bg-muted/40 p-3 font-mono text-xs"
         />
       </section>
+
+      <AITreatmentPanel
+        tool="vent"
+        getInput={() => ({
+          data: {
+            Height: form.heightCm ? `${form.heightCm} cm` : undefined,
+            Weight: form.actualKg ? `${form.actualKg} kg` : undefined,
+            Sex: form.sex,
+            Scenario: SCENARIOS[form.scenario],
+            IBW: ibw ? `${ibw} kg` : undefined,
+            Mode: settings.mode,
+            VT: settings.vtRange,
+            PEEP: settings.peep,
+            FiO2: settings.fio2,
+            pH: abg.pH || undefined,
+            PaCO2: abg.paco2 || undefined,
+            PaO2: abg.pao2 || undefined,
+            HCO3: abg.hco3 || undefined,
+            'AI Interp': interpResult?.primaryDisorder || undefined,
+          },
+          bw: Number(form.actualKg) || Number(ibw) || 60,
+        })}
+      />
 
       {toast && (
         <div

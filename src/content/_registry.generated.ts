@@ -621,6 +621,40 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "anaphylaxis-ladder",
+    "path": "/src/content/ladders/anaphylaxis-ladder.mdx",
+    "frontmatter": {
+      "id": "anaphylaxis-ladder",
+      "title": "Anaphylaxis Treatment Ladder",
+      "titleTh": "ขั้นบันได anaphylaxis — epinephrine ถึง refractory",
+      "category": "ladder",
+      "subcategory": "allergy",
+      "tags": [
+        "anaphylaxis",
+        "epinephrine",
+        "refractory anaphylaxis",
+        "biphasic reaction"
+      ],
+      "keywords": [
+        "anaphylaxis",
+        "epinephrine IM",
+        "refractory anaphylaxis",
+        "biphasic",
+        "glucagon beta-blocker"
+      ],
+      "related": [
+        "airway-management"
+      ],
+      "source": {
+        "name": "WAO Anaphylaxis Guidelines 2020 + Thai Allergy Society 2022",
+        "year": 2022
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "antihypertensive-iv-ladder",
     "path": "/src/content/ladders/antihypertensive-iv-ladder.mdx",
     "frontmatter": {
@@ -781,6 +815,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
     }
   },
   {
+    "id": "hypertensive-emergency-ladder",
+    "path": "/src/content/ladders/hypertensive-emergency-ladder.mdx",
+    "frontmatter": {
+      "id": "hypertensive-emergency-ladder",
+      "title": "Hypertensive Emergency Ladder",
+      "titleTh": "ขั้นบันได hypertensive emergency — IV antihypertensive",
+      "category": "ladder",
+      "subcategory": "cardiac",
+      "tags": [
+        "hypertensive emergency",
+        "hypertensive urgency",
+        "nicardipine",
+        "labetalol",
+        "nitroprusside"
+      ],
+      "keywords": [
+        "hypertensive emergency",
+        "HTN crisis",
+        "nicardipine",
+        "labetalol",
+        "nitroprusside",
+        "aortic dissection BP"
+      ],
+      "related": [
+        "stemi",
+        "stroke-tpa-ladder"
+      ],
+      "source": {
+        "name": "ACC/AHA Hypertension Guidelines 2017 + Neurocritical Care Society 2016",
+        "year": 2017
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
     "id": "insulin-initiation-ladder",
     "path": "/src/content/ladders/insulin-initiation-ladder.mdx",
     "frontmatter": {
@@ -894,6 +965,43 @@ export const CONTENT_REGISTRY: RegistryEntry[] = [
       "source": {
         "name": "SSC Guidelines 2021 + IDSA + Thai MOPH Sepsis Protocol",
         "year": 2021
+      },
+      "last_reviewed": "2026-04",
+      "confidence": "high",
+      "severity": "high"
+    }
+  },
+  {
+    "id": "stroke-tpa-ladder",
+    "path": "/src/content/ladders/stroke-tpa-ladder.mdx",
+    "frontmatter": {
+      "id": "stroke-tpa-ladder",
+      "title": "Acute Ischemic Stroke Thrombolysis Ladder",
+      "titleTh": "ขั้นบันได tPA และ thrombectomy ใน ischemic stroke",
+      "category": "ladder",
+      "subcategory": "neurology",
+      "tags": [
+        "stroke",
+        "tPA",
+        "alteplase",
+        "tenecteplase",
+        "thrombectomy",
+        "NIHSS"
+      ],
+      "keywords": [
+        "ischemic stroke",
+        "alteplase",
+        "tenecteplase",
+        "thrombectomy",
+        "stroke code",
+        "last known well"
+      ],
+      "related": [
+        "hypertensive-emergency-ladder"
+      ],
+      "source": {
+        "name": "AHA/ASA Stroke Guidelines 2019 (updated 2023)",
+        "year": 2023
       },
       "last_reviewed": "2026-04",
       "confidence": "high",

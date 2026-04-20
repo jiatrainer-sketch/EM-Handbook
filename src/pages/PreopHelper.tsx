@@ -14,6 +14,7 @@ import {
 } from '@/lib/preopAi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import AITreatmentPanel from '@/components/AITreatmentPanel';
 
 type Sex = 'M' | 'F';
 type SurgeryRisk = 'low' | 'intermediate' | 'high';
@@ -2026,6 +2027,28 @@ export default function PreopHelper() {
           </div>
         )}
       </section>
+
+      <AITreatmentPanel
+        tool="preop"
+        getInput={() => ({
+          data: {
+            Age: form.age || undefined,
+            Sex: form.sex,
+            Weight: form.weight ? `${form.weight} kg` : undefined,
+            Procedure: form.procedureName || undefined,
+            'Surgery Risk': form.surgery,
+            ASA: form.asa,
+            'RCRI Score': String(score),
+            'Risk Band': `${band.category} (${band.pct}%)`,
+            METs: form.mets,
+            'Red Flags': activeFlags.join(', ') || undefined,
+            Disposition: form.disposition,
+            Comorbidities: form.comorbidInput || undefined,
+            Medications: form.medsInput || undefined,
+          },
+          bw: Number(form.weight) || 60,
+        })}
+      />
 
       {toast && (
         <div
