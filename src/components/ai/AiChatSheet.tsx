@@ -24,6 +24,7 @@ import {
   useCurrentContentContext,
   type ContentContext,
 } from '@/hooks/useCurrentContentContext';
+import { useActiveCase } from '@/hooks/useActiveCase';
 import { useAiChat } from './AiChatProvider';
 
 type Role = 'user' | 'assistant';
@@ -50,15 +51,20 @@ function newId() {
  * Kept out of the cached system prompt so the system-prompt cache prefix
  * stays stable across sessions regardless of which piece the user is on.
  */
-function withContext(question: string, ctx: ContentContext | null): string {
-  if (!ctx) return question;
-  const titleTh = ctx.titleTh ? ` (${ctx.titleTh})` : '';
-  return `[ผู้ใช้กำลังเปิดหน้า: ${ctx.title}${titleTh} · id=${ctx.id}]\n\n${question}`;
+function withContext(question: string, ctx: ContentContext | null, caseLabel?: string): string {
+  const lines: string[] = [];
+  if (caseLabel) lines.push(`[Active case: ${caseLabel}]`);
+  if (ctx) {
+    const titleTh = ctx.titleTh ? ` (${ctx.titleTh})` : '';
+    lines.push(`[ผู้ใช้กำลังเปิดหน้า: ${ctx.title}${titleTh} · id=${ctx.id}]`);
+  }
+  return lines.length > 0 ? `${lines.join('\n')}\n\n${question}` : question;
 }
 
 export default function AiChatSheet() {
   const { isOpen, close } = useAiChat();
   const context = useCurrentContentContext();
+  const { activeCase } = useActiveCase();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [draft, setDraft] = useState('');
@@ -114,9 +120,20 @@ export default function AiChatSheet() {
     abortRef.current = controller;
 
     // Attach the context only to the latest turn.
+    const activeCaseLabel = activeCase
+      ? [
+          activeCase.name,
+          activeCase.age ? `${activeCase.age}y` : '',
+          activeCase.sex && activeCase.sex !== 'unknown' ? activeCase.sex : '',
+          activeCase.weight ? `${activeCase.weight}kg` : '',
+          activeCase.renal?.egfr != null ? `eGFR ${activeCase.renal.egfr}` : '',
+          activeCase.renal?.onDialysis ? 'on dialysis' : '',
+          activeCase.comorbidities?.length ? activeCase.comorbidities.join(', ') : '',
+        ].filter(Boolean).join(' · ')
+      : undefined;
     const apiMessages: ChatMessage[] = nextHistory.map((m, i, arr) =>
       i === arr.length - 1
-        ? { role: 'user', content: withContext(prompt, attachedContext) }
+        ? { role: 'user', content: withContext(prompt, attachedContext, activeCaseLabel) }
         : { role: m.role, content: m.content },
     );
 
@@ -217,9 +234,11 @@ export default function AiChatSheet() {
         <header className="flex items-center gap-2 border-b px-4 py-3">
           <Sparkles size={18} className="text-primary" aria-hidden />
           <div className="flex-1">
-            <SheetTitle className="text-base">ถาม AI</SheetTitle>
+            <SheetTitle className="text-base">Dr. AI</SheetTitle>
             <SheetDescription className="text-xs">
-              ผู้ช่วยหมอ med รพ.ชุมชน — ตอบเร็ว กระชับ
+              {activeCase
+                ? `เคส: ${activeCase.name}${activeCase.age ? ` · ${activeCase.age}y` : ''}${activeCase.renal?.egfr != null ? ` · eGFR ${activeCase.renal.egfr}` : ''}`
+                : 'อาจารย์อาวุโส internal med + EM — ตอบเร็ว กระชับ'}
             </SheetDescription>
           </div>
           <Button

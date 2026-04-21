@@ -20,6 +20,7 @@ import HEARTPathway from '@/pages/HEARTPathway';
 import AnticoagManager from '@/pages/AnticoagManager';
 import ShockIndex from '@/pages/ShockIndex';
 import SedationHelper from '@/pages/SedationHelper';
+import Cases from '@/pages/Cases';
 import Symptoms from '@/pages/Symptoms';
 import NotFound from '@/pages/NotFound';
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/tools/anticoag" element={<AnticoagManager />} />
           <Route path="/tools/shock-index" element={<ShockIndex />} />
           <Route path="/tools/sedation-helper" element={<SedationHelper />} />
+          <Route path="/cases" element={<Cases />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
         </Route>
