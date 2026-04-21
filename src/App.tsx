@@ -21,6 +21,7 @@ import AnticoagManager from '@/pages/AnticoagManager';
 import ShockIndex from '@/pages/ShockIndex';
 import SedationHelper from '@/pages/SedationHelper';
 import Cases from '@/pages/Cases';
+import CaseDetail from '@/pages/CaseDetail';
 import Symptoms from '@/pages/Symptoms';
 import NotFound from '@/pages/NotFound';
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/tools/shock-index" element={<ShockIndex />} />
           <Route path="/tools/sedation-helper" element={<SedationHelper />} />
           <Route path="/cases" element={<Cases />} />
+          <Route path="/cases/:id" element={<CaseDetail />} />
           <Route path="/symptoms" element={<Symptoms />} />
           <Route path="*" element={<NotFound />} />
         </Route>

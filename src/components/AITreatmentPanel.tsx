@@ -1,12 +1,23 @@
 import { useCallback, useRef, useState } from 'react';
-import { Bot, ChevronDown, ChevronUp, Copy, RefreshCw, X } from 'lucide-react';
+import { Bookmark, BookmarkCheck, Bot, ChevronDown, ChevronUp, Copy, RefreshCw, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { streamToolSuggestions } from '@/lib/aiSuggestions/api';
 import { ChatError } from '@/lib/aiClient';
 import { useActiveCase } from '@/hooks/useActiveCase';
+import { addToolSession } from '@/lib/caseManager';
+import CaseSelector from './CaseSelector';
 import type { AIToolInput } from '@/lib/aiSuggestions/types';
 import type { PatientCase } from '@/types/case';
+
+const TOOL_NAMES: Record<string, string> = {
+  abg: 'ABG Analyzer', vent: 'Ventilator', preop: 'Pre-op Helper',
+  consult: 'Consult Reply', nihss: 'NIHSS', 'dose-calc': 'Drug Dose Calc',
+  electrolyte: 'Electrolyte Calc', gcs: 'GCS', crcl: 'CrCl/eGFR',
+  'sepsis-timer': 'Sepsis Bundle', fluid: 'Fluid Calc',
+  'heart-pathway': 'HEART Pathway', anticoag: 'Anticoag Manager',
+  'shock-index': 'Shock Index', 'sedation-helper': 'Sedation Helper',
+};
 
 interface Props {
   /** Tool name — used for prompt routing */
@@ -133,8 +144,9 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
   const [status, setStatus] = useState<Status>('idle');
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
+  const [saved, setSaved] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
-  const { activeCase } = useActiveCase();
+  const { activeCase, activeId } = useActiveCase();
 
   const generate = useCallback(async () => {
     if (abortRef.current) abortRef.current.abort();
@@ -144,6 +156,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
     setStatus('loading');
     setContent('');
     setError('');
+    setSaved(false);
     setOpen(true);
 
     try {
@@ -183,7 +196,8 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
       {/* Header bar */}
       <div className="flex items-center gap-2 px-3 py-2.5">
         <Bot className="h-4 w-4 shrink-0 text-primary" />
-        <span className="flex-1 text-sm font-medium">Dr. AI{activeCase ? ` · ${activeCase.name}` : ''}</span>
+        <span className="flex-1 text-sm font-medium">Dr. AI</span>
+        <CaseSelector />
 
         {status === 'loading' ? (
           <Button size="sm" variant="ghost" onClick={cancel} className="h-7 px-2 text-xs text-muted-foreground">
@@ -201,6 +215,27 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
             ) : (
               <><Bot className="mr-1 h-3 w-3" /> สร้างคำแนะนำ</>
             )}
+          </Button>
+        )}
+
+        {status === 'done' && content && activeId && (
+          <Button
+            size="sm"
+            variant="ghost"
+            disabled={saved}
+            onClick={() => {
+              if (!activeId || !content) return;
+              addToolSession(activeId, {
+                toolId: tool,
+                toolName: TOOL_NAMES[tool] ?? tool,
+                summary: content.slice(0, 300).replace(/\n+/g, ' '),
+              });
+              setSaved(true);
+            }}
+            className="h-7 px-2"
+            aria-label={saved ? 'บันทึกแล้ว' : 'บันทึกลงเคส'}
+          >
+            {saved ? <BookmarkCheck className="h-3 w-3 text-emerald-500" /> : <Bookmark className="h-3 w-3" />}
           </Button>
         )}
 
