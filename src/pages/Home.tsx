@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Search as SearchIcon } from 'lucide-react';
 import PieceList from '@/components/home/PieceList';
+import CaseBanner from '@/components/CaseBanner';
 import { useFavorites } from '@/hooks/useFavorites';
 import { listByCategory } from '@/lib/content';
 import { CATEGORIES, type Category } from '@/types/content';
@@ -20,6 +21,8 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
+      <CaseBanner />
+
       <section>
         <Link
           to="/search"
@@ -119,6 +122,12 @@ export default function Home() {
           className="rounded-lg border bg-card px-3 py-3 hover:bg-accent"
         >
           🆘 By symptom →
+        </Link>
+        <Link
+          to="/cases"
+          className="rounded-lg border bg-card px-3 py-3 hover:bg-accent"
+        >
+          🏥 Cases →
         </Link>
       </nav>
     </div>
