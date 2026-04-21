@@ -2054,8 +2054,8 @@ export default function PreopHelper() {
       <div className="rounded-lg border bg-muted/40 p-3 text-xs space-y-1.5">
         <div className="font-medium text-muted-foreground">📚 ดูเพิ่มเติม</div>
         <div className="flex flex-col gap-1">
-          <Link to="/reference/preop-drug-management" className="text-primary hover:underline">🏥 Pre-op Drug Management — ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาด</Link>
-          <Link to="/reference/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสมยา drip ที่ใช้ใน OR/ICU</Link>
+          <Link to="/content/preop-drug-management" className="text-primary hover:underline">🏥 Pre-op Drug Management — ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาด</Link>
+          <Link to="/content/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสมยา drip ที่ใช้ใน OR/ICU</Link>
         </div>
       </div>
 

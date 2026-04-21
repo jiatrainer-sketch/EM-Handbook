@@ -64,9 +64,9 @@ export default function Home() {
         </h2>
         <ul className="divide-y rounded-lg border bg-card text-sm">
           {[
-            { icon: '💊', title: 'High Alert Drip Table', desc: 'ตารางยา drip 11 ตัว — สูตรผสม + อัตราหยด BW 60 kg', to: '/reference/high-alert-drip-table' },
-            { icon: '🛏️', title: 'ICU Sedation Protocol', desc: 'ลำดับ analgosedation — Fentanyl → Sedative → NMB', to: '/reference/icu-sedation-protocol' },
-            { icon: '🏥', title: 'Pre-op Drug Management', desc: 'ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาดก่อนผ่าตัด', to: '/reference/preop-drug-management' },
+            { icon: '💊', title: 'High Alert Drip Table', desc: 'ตารางยา drip 11 ตัว — สูตรผสม + อัตราหยด BW 60 kg', to: '/content/high-alert-drip-table' },
+            { icon: '🛏️', title: 'ICU Sedation Protocol', desc: 'ลำดับ analgosedation — Fentanyl → Sedative → NMB', to: '/content/icu-sedation-protocol' },
+            { icon: '🏥', title: 'Pre-op Drug Management', desc: 'ยาที่ต้องหยุด / ให้ต่อ / ปรับขนาดก่อนผ่าตัด', to: '/content/preop-drug-management' },
             { icon: '🤖', title: 'AI Sedation Helper', desc: 'AI แนะนำ regimen + dose ตามบริบทคนไข้ ICU', to: '/tools/sedation-helper' },
           ].map((item) => (
             <li key={item.to}>

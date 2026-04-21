@@ -5,8 +5,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import {
   extractAbgFromImage,
-  interpretAbgAndAdjustVent,
-  type AbgInterpretation,
   type AbgValues,
 } from '@/lib/ventAi';
 import AITreatmentPanel from '@/components/AITreatmentPanel';
@@ -189,9 +187,6 @@ export default function VentilatorQuickStart() {
   const [abg, setAbg] = useState<AbgForm>(DEFAULT_ABG);
   const [ocrLoading, setOcrLoading] = useState(false);
   const [ocrError, setOcrError] = useState<string | null>(null);
-  const [interpLoading, setInterpLoading] = useState(false);
-  const [interpError, setInterpError] = useState<string | null>(null);
-  const [interpResult, setInterpResult] = useState<AbgInterpretation | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const height = Number(form.heightCm) || 0;
@@ -252,40 +247,6 @@ export default function VentilatorQuickStart() {
       setOcrError(err instanceof Error ? err.message : 'OCR ล้มเหลว');
     } finally {
       setOcrLoading(false);
-    }
-  }
-
-  async function handleInterpret() {
-    const hasAny = Object.values(abg).some((v) => v.trim() !== '');
-    if (!hasAny) return;
-    setInterpError(null);
-    setInterpLoading(true);
-    setInterpResult(null);
-    try {
-      const abgParsed: Partial<AbgValues> = {
-        pH: abg.pH ? Number(abg.pH) : null,
-        paco2: abg.paco2 ? Number(abg.paco2) : null,
-        pao2: abg.pao2 ? Number(abg.pao2) : null,
-        hco3: abg.hco3 ? Number(abg.hco3) : null,
-        fio2: abg.fio2 ? Number(abg.fio2) : null,
-      };
-      const result = await interpretAbgAndAdjustVent(
-        abgParsed,
-        {
-          mode: settings.mode,
-          vt: settings.vtRange,
-          rr: settings.rr,
-          peep: settings.peep,
-          fio2: settings.fio2,
-          ie: settings.ie,
-        },
-        { scenario: SCENARIOS[form.scenario], ibwKg: ibw || null },
-      );
-      setInterpResult(result);
-    } catch (err) {
-      setInterpError(err instanceof Error ? err.message : 'AI ล้มเหลว');
-    } finally {
-      setInterpLoading(false);
     }
   }
 
@@ -541,113 +502,14 @@ export default function VentilatorQuickStart() {
           ))}
         </div>
 
-        <div className="flex gap-2">
+        {Object.values(abg).some((v) => v.trim()) && (
           <Button
             size="sm"
-            onClick={handleInterpret}
-            disabled={interpLoading || !Object.values(abg).some((v) => v.trim())}
+            variant="ghost"
+            onClick={() => setAbg(DEFAULT_ABG)}
           >
-            {interpLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> วิเคราะห์…
-              </>
-            ) : (
-              '🤖 AI แปล + แนะนำปรับ vent'
-            )}
+            <X className="mr-1 h-3 w-3" /> ล้างค่า
           </Button>
-          {(interpResult || Object.values(abg).some((v) => v.trim())) && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => {
-                setAbg(DEFAULT_ABG);
-                setInterpResult(null);
-                setInterpError(null);
-              }}
-            >
-              <X className="mr-1 h-3 w-3" /> ล้างค่า
-            </Button>
-          )}
-        </div>
-
-        {interpError && (
-          <div className="rounded-md bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
-            {interpError}
-          </div>
-        )}
-
-        {interpResult && (
-          <div className="space-y-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950">
-            <div>
-              <p className="font-medium text-amber-800 dark:text-amber-200">🧠 Interpretation</p>
-              <p className="mt-1">
-                <strong>Primary disorder:</strong> {interpResult.primaryDisorder}
-              </p>
-              <p>
-                <strong>Compensation:</strong> {interpResult.compensation}
-              </p>
-              {interpResult.pfRatio != null && (
-                <p>
-                  <strong>P/F ratio:</strong> {interpResult.pfRatio}
-                  {interpResult.ardsGrade && interpResult.ardsGrade !== 'none' && (
-                    <span className="ml-1 text-red-700 dark:text-red-300">
-                      → ARDS {interpResult.ardsGrade}
-                    </span>
-                  )}
-                </p>
-              )}
-            </div>
-
-            {interpResult.redFlags.length > 0 && (
-              <div>
-                <p className="font-medium text-red-700 dark:text-red-300">⚠️ Red flags</p>
-                <ul className="ml-4 list-disc">
-                  {interpResult.redFlags.map((r, i) => (
-                    <li key={i}>{r}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {interpResult.adjustments.length > 0 && (
-              <div>
-                <p className="font-medium text-blue-700 dark:text-blue-300">🔧 แนะนำปรับ</p>
-                <div className="space-y-1">
-                  {interpResult.adjustments.map((a, i) => (
-                    <div key={i} className="rounded bg-background/60 p-2">
-                      <p>
-                        <strong>{a.param}:</strong>{' '}
-                        {a.from ? `${a.from} → ` : ''}
-                        <span className="font-semibold text-blue-800 dark:text-blue-200">
-                          {a.to}
-                        </span>
-                      </p>
-                      <p className="text-muted-foreground">{a.reason}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <p>
-              <strong>Recheck:</strong> {interpResult.recheck}
-            </p>
-
-            {interpResult.notes.length > 0 && (
-              <div>
-                <p className="font-medium">Notes</p>
-                <ul className="ml-4 list-disc">
-                  {interpResult.notes.map((n, i) => (
-                    <li key={i}>{n}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <p className="text-[11px] italic text-muted-foreground">
-              ⚠️ AI เป็นตัวช่วยคิด — ตรวจสอบและ adapt ให้เข้ากับคนไข้จริงเสมอ
-            </p>
-          </div>
         )}
       </section>
 
@@ -683,7 +545,6 @@ export default function VentilatorQuickStart() {
             PaCO2: abg.paco2 || undefined,
             PaO2: abg.pao2 || undefined,
             HCO3: abg.hco3 || undefined,
-            'AI Interp': interpResult?.primaryDisorder || undefined,
           },
           bw: Number(form.actualKg) || Number(ibw) || 60,
         })}
@@ -692,8 +553,8 @@ export default function VentilatorQuickStart() {
       <div className="rounded-lg border bg-muted/40 p-3 text-xs space-y-1.5">
         <div className="font-medium text-muted-foreground">📚 ดูเพิ่มเติม</div>
         <div className="flex flex-col gap-1">
-          <Link to="/reference/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสม vasopressor + sedative ครบ</Link>
-          <Link to="/reference/icu-sedation-protocol" className="text-primary hover:underline">🛏️ ICU Sedation Protocol — analgosedation stepwise</Link>
+          <Link to="/content/high-alert-drip-table" className="text-primary hover:underline">💊 High Alert Drip Table — สูตรผสม vasopressor + sedative ครบ</Link>
+          <Link to="/content/icu-sedation-protocol" className="text-primary hover:underline">🛏️ ICU Sedation Protocol — analgosedation stepwise</Link>
           <Link to="/tools/sedation-helper" className="text-primary hover:underline">🤖 AI Sedation Helper — แนะนำ regimen ตามคนไข้</Link>
         </div>
       </div>
