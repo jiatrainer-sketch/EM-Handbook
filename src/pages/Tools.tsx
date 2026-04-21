@@ -17,9 +17,9 @@ type ToolCard = {
 const TOOLS: ToolCard[] = [
   {
     icon: '🤖',
-    title: 'ถาม AI',
+    title: 'ถาม Dr. AI',
     description:
-      'ถาม AI เกี่ยวกับ dose, protocol, workup, หรือ consult — ตอบเร็ว กระชับ',
+      'Dr. AI — อาจารย์อาวุโส internal med + EM: dose, protocol, workup, consult ตอบเร็ว กระชับ',
     comingSoon: false,
     action: 'ai',
   },
@@ -115,7 +115,7 @@ const TOOLS: ToolCard[] = [
   {
     icon: '❤️',
     title: 'HEART Pathway',
-    description: 'HEART Score สำหรับ chest pain — low/moderate/high risk + 30-day MACE + AI Co-pilot',
+    description: 'HEART Score สำหรับ chest pain — low/moderate/high risk + 30-day MACE + Dr. AI',
     comingSoon: false,
     action: 'navigate',
     route: '/tools/heart-pathway',
@@ -131,7 +131,7 @@ const TOOLS: ToolCard[] = [
   {
     icon: '📉',
     title: 'Shock Index',
-    description: 'SI · Modified SI · Age-adjusted — hemodynamic assessment + AI Co-pilot',
+    description: 'SI · Modified SI · Age-adjusted — hemodynamic assessment + Dr. AI',
     comingSoon: false,
     action: 'navigate',
     route: '/tools/shock-index',

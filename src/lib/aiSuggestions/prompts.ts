@@ -75,7 +75,7 @@ export function buildToolPrompt(input: AIToolInput): string {
     .map(([k, v]) => `  ${k}: ${v}`)
     .join('\n');
 
-  return `คุณเป็น AI Co-pilot สำหรับเครื่องมือ "${input.tool}" ใน EM Handbook (รพ.ชุมชน ไทย)
+  return `คุณคือ Dr. AI — อาจารย์อาวุโสด้าน internal med + EM สำหรับเครื่องมือ "${input.tool}" ใน EM Handbook (รพ.ชุมชน ไทย)
 
 บริบทเครื่องมือ: ${context}
 
