@@ -125,6 +125,18 @@ function caseContextLines(c: PatientCase): Record<string, string | number | null
   if (c.renal?.egfr != null) extra['Case: eGFR'] = `${c.renal.egfr} mL/min`;
   if (c.renal?.onDialysis) extra['Case: Dialysis'] = 'Yes — dose accordingly';
   if (c.renal?.ckdStage) extra['Case: CKD stage'] = c.renal.ckdStage;
+  // Include recent cross-tool / Dr. AI sessions so the tool panel can reference
+  // earlier recommendations about the same patient. Mirrors what the floating
+  // Dr. AI Resume mode already injects, so history flows in both directions.
+  if (c.toolSessions?.length) {
+    const recent = c.toolSessions.slice(0, 5);
+    const lines = recent.map((s) => {
+      const t = new Date(s.timestamp);
+      const hhmm = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`;
+      return `[${hhmm} ${s.toolName}] ${s.summary.slice(0, 180)}`;
+    });
+    extra['Case: Previous sessions'] = lines.join(' || ');
+  }
   return extra;
 }
 
