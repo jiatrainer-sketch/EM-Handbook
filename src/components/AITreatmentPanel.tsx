@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { streamToolSuggestions } from '@/lib/aiSuggestions/api';
 import { ChatError } from '@/lib/aiClient';
+import { useActiveCase } from '@/hooks/useActiveCase';
 import type { AIToolInput } from '@/lib/aiSuggestions/types';
+import type { PatientCase } from '@/types/case';
 
 interface Props {
   /** Tool name — used for prompt routing */
@@ -113,12 +115,26 @@ function formatInline(text: string): React.ReactNode {
   );
 }
 
+function caseContextLines(c: PatientCase): Record<string, string | number | null | undefined> {
+  const extra: Record<string, string | number | null | undefined> = {};
+  if (c.age) extra['Case: Age'] = `${c.age} ปี`;
+  if (c.sex && c.sex !== 'unknown') extra['Case: Sex'] = c.sex === 'M' ? 'ชาย' : 'หญิง';
+  if (c.weight) extra['Case: BW'] = `${c.weight} kg`;
+  if (c.chiefComplaint) extra['Case: Chief complaint'] = c.chiefComplaint;
+  if (c.comorbidities?.length) extra['Case: Comorbidities'] = c.comorbidities.join(', ');
+  if (c.renal?.egfr != null) extra['Case: eGFR'] = `${c.renal.egfr} mL/min`;
+  if (c.renal?.onDialysis) extra['Case: Dialysis'] = 'Yes — dose accordingly';
+  if (c.renal?.ckdStage) extra['Case: CKD stage'] = c.renal.ckdStage;
+  return extra;
+}
+
 export default function AITreatmentPanel({ tool, getInput, className }: Props) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>('idle');
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
   const abortRef = useRef<AbortController | null>(null);
+  const { activeCase } = useActiveCase();
 
   const generate = useCallback(async () => {
     if (abortRef.current) abortRef.current.abort();
@@ -132,8 +148,13 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
 
     try {
       const input = getInput();
+      const mergedData = activeCase
+        ? { ...caseContextLines(activeCase), ...input.data }
+        : input.data;
+      const mergedBw = input.bw ?? activeCase?.weight ?? undefined;
+      const mergedInput: AIToolInput = { tool, data: mergedData, bw: mergedBw };
       await streamToolSuggestions(
-        { tool, ...input },
+        mergedInput,
         (acc) => setContent(acc),
         controller.signal,
       );
@@ -162,7 +183,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
       {/* Header bar */}
       <div className="flex items-center gap-2 px-3 py-2.5">
         <Bot className="h-4 w-4 shrink-0 text-primary" />
-        <span className="flex-1 text-sm font-medium">AI Co-pilot</span>
+        <span className="flex-1 text-sm font-medium">Dr. AI{activeCase ? ` · ${activeCase.name}` : ''}</span>
 
         {status === 'loading' ? (
           <Button size="sm" variant="ghost" onClick={cancel} className="h-7 px-2 text-xs text-muted-foreground">
