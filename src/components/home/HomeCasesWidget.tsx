@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Plus, UserRound } from 'lucide-react';
 import { useActiveCase } from '@/hooks/useActiveCase';
@@ -18,7 +17,10 @@ function caseSubline(c: PatientCase): string {
 
 export default function HomeCasesWidget() {
   const { activeCase, activeId, setActive } = useActiveCase();
-  const [cases] = useState(() => listCases());
+  // Read fresh on every render — cheap localStorage read, and keeps the widget
+  // in sync when a case is created from the floating Dr. AI sheet without
+  // requiring the Home page to remount.
+  const cases = listCases();
 
   const recentOthers = cases.filter((c) => c.id !== activeId).slice(0, 3);
 
