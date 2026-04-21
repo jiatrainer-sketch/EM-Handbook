@@ -83,13 +83,29 @@ function buildCaseLabel(c: PatientCase): string {
   return parts.filter(Boolean).join(' · ');
 }
 
+// Compact briefing of what the team previously discussed about this patient.
+// Injected into the first user turn of Resume mode so the AI can pick up
+// where the last session left off (tool recommendations, earlier Dr. AI chats).
+function buildCaseHistory(c: PatientCase): string {
+  if (!c.toolSessions?.length) return '';
+  const recent = c.toolSessions.slice(0, 5);
+  const lines = recent.map((s) => {
+    const t = new Date(s.timestamp);
+    const time = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`;
+    return `• [${time} ${s.toolName}] ${s.summary}`;
+  });
+  return lines.join('\n');
+}
+
 function withContext(
   question: string,
   ctx: ContentContext | null,
   caseLabel?: string,
+  caseHistory?: string,
 ): string {
   const lines: string[] = [];
   if (caseLabel) lines.push(`[Active case: ${caseLabel}]`);
+  if (caseHistory) lines.push(`[Previous sessions with this case:\n${caseHistory}]`);
   if (ctx) {
     const titleTh = ctx.titleTh ? ` (${ctx.titleTh})` : '';
     lines.push(`[ผู้ใช้กำลังเปิดหน้า: ${ctx.title}${titleTh} · id=${ctx.id}]`);
@@ -180,10 +196,16 @@ export default function AiChatSheet() {
 
     const caseLabel =
       mode === 'resume' && activeCase ? buildCaseLabel(activeCase) : undefined;
+    // Only inject case history on the FIRST user turn — subsequent turns
+    // already have the context in the conversation, re-sending burns tokens.
+    const caseHistory =
+      mode === 'resume' && activeCase && messages.length === 0
+        ? buildCaseHistory(activeCase)
+        : undefined;
 
     const apiMessages: ChatMessage[] = nextHistory.map((m, i, arr) =>
       i === arr.length - 1
-        ? { role: 'user', content: withContext(prompt, attachedCtx, caseLabel) }
+        ? { role: 'user', content: withContext(prompt, attachedCtx, caseLabel, caseHistory || undefined) }
         : { role: m.role, content: m.content },
     );
 
@@ -202,12 +224,14 @@ export default function AiChatSheet() {
       setMessages((prev) =>
         prev.map((m) => (m.id === streamingId ? { ...m, streaming: false } : m)),
       );
-      // Auto-save to case in resume mode
+      // Auto-save to case in resume mode — include the user question alongside
+      // the AI answer so a later Resume session can re-inject meaningful context.
       if (mode === 'resume' && activeCase && accumulated) {
+        const qa = `Q: ${prompt.slice(0, 150)} — A: ${accumulated.slice(0, 350)}`;
         addToolSession(activeCase.id, {
           toolId: 'dr-ai',
           toolName: 'Dr. AI',
-          summary: accumulated.slice(0, 120),
+          summary: qa.replace(/\n+/g, ' ').slice(0, 500),
         });
       }
     } catch (e) {
@@ -483,6 +507,12 @@ function SelectorView({
       </header>
 
       <div className="flex-1 space-y-2 overflow-y-auto p-4">
+        {cases.length === 0 && (
+          <p className="rounded-lg border border-dashed bg-muted/30 p-3 text-center text-[11px] text-muted-foreground">
+            💡 ยังไม่มีเคส — สร้างเคสเพื่อบันทึกบทสนทนา แล้วกลับมา resume ต่อได้ภายหลัง
+          </p>
+        )}
+
         {/* Active case — shown prominently */}
         {activeCase && (
           <button
