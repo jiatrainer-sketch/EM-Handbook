@@ -118,11 +118,13 @@ export default function AiChatSheet() {
   const abortRef = useRef<AbortController | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // When sheet opens: auto-go to resume if there's an active case
+  // When sheet opens: always show the mode selector first.
+  // User picks explicitly — avoids surprise context switches and makes all
+  // three modes (resume / general / new) discoverable every session.
   useEffect(() => {
     if (isOpen) {
       setCases(listCases());
-      setMode(activeCase ? 'resume' : 'selector');
+      setMode('selector');
     }
   }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -141,6 +143,7 @@ export default function AiChatSheet() {
 
   function switchMode(next: SheetMode) {
     if (isLoading) abortRef.current?.abort();
+    if (next === 'selector') setCases(listCases());
     setMode(next);
     setMessages([]);
     setDraft('');
