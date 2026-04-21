@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { buildToolPrompt } from '@/lib/aiSuggestions/prompts';
 import { ChatError, streamChat, type ChatMessage } from '@/lib/aiClient';
 import { useActiveCase } from '@/hooks/useActiveCase';
-import { addToolSession } from '@/lib/caseManager';
+import { addToolSession, createCase } from '@/lib/caseManager';
 import CaseSelector from './CaseSelector';
 import type { AIToolInput } from '@/lib/aiSuggestions/types';
 import type { PatientCase } from '@/types/case';
@@ -140,7 +140,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
   const abortRef = useRef<AbortController | null>(null);
   const followUpInputRef = useRef<HTMLTextAreaElement | null>(null);
   const scrollBottomRef = useRef<HTMLDivElement | null>(null);
-  const { activeCase, activeId } = useActiveCase();
+  const { activeCase, activeId, setActive } = useActiveCase();
 
   useEffect(() => {
     scrollBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -263,18 +263,40 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
   }, [initialResponse, turns]);
 
   const handleSave = useCallback(() => {
-    if (!activeId || !initialResponse) return;
+    if (!initialResponse) return;
+    // If no active case yet, create a quick anonymous one so the user isn't
+    // blocked from saving. Named by tool + time so the entry is traceable.
+    let targetId = activeId;
+    if (!targetId) {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const newCase = createCase({
+        name: `${TOOL_NAMES[tool] ?? tool} ${hh}:${mm}`,
+      });
+      setActive(newCase.id);
+      targetId = newCase.id;
+    }
     const convoExtra = turns.length
       ? ' · ' + turns.map((t) => `${t.role === 'user' ? '❓' : '💬'} ${t.content.slice(0, 80)}`).join(' · ')
       : '';
     const summary = (initialResponse.slice(0, 300) + convoExtra).replace(/\n+/g, ' ').slice(0, 500);
-    addToolSession(activeId, {
+    addToolSession(targetId, {
       toolId: tool,
       toolName: TOOL_NAMES[tool] ?? tool,
       summary,
     });
     setSaved(true);
-  }, [activeId, initialResponse, turns, tool]);
+  }, [activeId, initialResponse, turns, tool, setActive]);
+
+  const focusFollowUp = useCallback(() => {
+    setOpen(true);
+    // Defer to next frame so the textarea is mounted if body was just expanded.
+    requestAnimationFrame(() => {
+      followUpInputRef.current?.focus();
+      followUpInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }, []);
 
   const clearConvo = useCallback(() => {
     setTurns([]);
@@ -318,22 +340,36 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
           </Button>
         )}
 
-        {status === 'done' && hasContent && activeId && (
+        {hasContent && status !== 'loading' && (
           <Button
             size="sm"
             variant="ghost"
             disabled={saved}
             onClick={handleSave}
             className="h-7 px-2"
-            aria-label={saved ? 'บันทึกแล้ว' : 'บันทึกลงเคส'}
+            aria-label={saved ? 'บันทึกแล้ว' : activeId ? `บันทึกลงเคส ${activeCase?.name ?? ''}` : 'บันทึกเป็นเคสใหม่'}
+            title={saved ? 'บันทึกแล้ว' : activeId ? `บันทึกลง ${activeCase?.name ?? 'เคส'}` : 'บันทึกเป็นเคสใหม่'}
           >
             {saved ? <BookmarkCheck className="h-3 w-3 text-emerald-500" /> : <Bookmark className="h-3 w-3" />}
           </Button>
         )}
 
         {hasContent && (
-          <Button size="sm" variant="ghost" onClick={copyAll} className="h-7 px-2" aria-label="คัดลอก">
+          <Button size="sm" variant="ghost" onClick={copyAll} className="h-7 px-2" aria-label="คัดลอก" title="คัดลอก">
             <Copy className="h-3 w-3" />
+          </Button>
+        )}
+
+        {hasContent && status !== 'loading' && (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={focusFollowUp}
+            className="h-7 px-2"
+            aria-label="ถามต่อ"
+            title="ถามต่อ"
+          >
+            <MessageCircle className="h-3 w-3" />
           </Button>
         )}
 
