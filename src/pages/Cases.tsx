@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Plus, Trash2, UserRound, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { listCases, createCase, deleteCase } from '@/lib/caseManager';
@@ -201,17 +202,22 @@ export default function Cases() {
           {cases.map((c) => (
             <li
               key={c.id}
-              className={`flex items-center gap-3 px-3 py-3 hover:bg-accent active:bg-accent/80 cursor-pointer ${activeId === c.id ? 'bg-blue-50 dark:bg-blue-950/30' : ''}`}
-              onClick={() => setActive(activeId === c.id ? null : c.id)}
+              className={`flex items-center gap-3 px-3 py-3 ${activeId === c.id ? 'bg-blue-50 dark:bg-blue-950/30' : ''}`}
             >
-              <UserRound size={16} className={`shrink-0 ${activeId === c.id ? 'text-blue-500' : 'text-muted-foreground'}`} />
-              <div className="flex-1 min-w-0">
+              <button
+                onClick={() => setActive(activeId === c.id ? null : c.id)}
+                className="shrink-0"
+                aria-label={activeId === c.id ? 'ปิดใช้งาน' : 'เปิดใช้งาน'}
+              >
+                <UserRound size={16} className={activeId === c.id ? 'text-blue-500' : 'text-muted-foreground'} />
+              </button>
+              <Link to={`/cases/${c.id}`} className="flex-1 min-w-0 hover:opacity-80">
                 <div className="font-medium truncate">{c.name}</div>
                 <div className="text-[11px] text-muted-foreground">{caseLabel(c)}{c.chiefComplaint ? ` · ${c.chiefComplaint}` : ''}</div>
                 <div className="text-[10px] text-muted-foreground/70">{formatDate(c.updatedAt)}</div>
-              </div>
+              </Link>
               {activeId === c.id && (
-                <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400 shrink-0">กำลังใช้งาน</span>
+                <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400 shrink-0">ใช้งานอยู่</span>
               )}
               <ChevronRight size={14} className="shrink-0 text-muted-foreground" />
               <button
