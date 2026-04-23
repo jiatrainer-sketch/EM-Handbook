@@ -43,12 +43,12 @@ const EMPTY_FORM: NewCaseForm = {
 };
 
 export default function Cases() {
-  const [cases, setCases] = useState(() => listCases());
+  // Reactive via useActiveCase's subscription to the cases store — any mutation
+  // (createCase/deleteCase/...) re-renders this component automatically.
+  const cases = listCases();
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<NewCaseForm>(EMPTY_FORM);
   const { activeId, setActive } = useActiveCase();
-
-  function refresh() { setCases(listCases()); }
 
   function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -70,14 +70,12 @@ export default function Cases() {
     setActive(c.id);
     setForm(EMPTY_FORM);
     setShowForm(false);
-    refresh();
   }
 
   function handleDelete(id: string, e: React.MouseEvent) {
     e.stopPropagation();
     deleteCase(id);
     if (activeId === id) setActive(null);
-    refresh();
   }
 
   return (

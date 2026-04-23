@@ -3,6 +3,37 @@ import type { PatientCase, ToolSession } from '@/types/case';
 const STORAGE_KEY = 'em-handbook-cases';
 const MAX_CASES = 20;
 
+// ─── Reactive store plumbing ─────────────────────────────────────────────────
+//
+// Every mutation bumps `version` and notifies subscribers. Hooks plug in via
+// `useSyncExternalStore(subscribeCases, getCasesVersion)` so any component
+// that reads case data re-renders when another component mutates it. Without
+// this, `HomeCasesWidget`, `CaseBanner`, `Cases`, `CaseDetail` all held stale
+// data until an unrelated re-render happened.
+
+const listeners = new Set<() => void>();
+let version = 0;
+let cachedSorted: PatientCase[] | null = null;
+
+export function subscribeCases(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+export function getCasesVersion(): number {
+  return version;
+}
+
+export function notifyCaseChange(): void {
+  cachedSorted = null;
+  version += 1;
+  listeners.forEach((l) => l());
+}
+
+// ─── Storage ─────────────────────────────────────────────────────────────────
+
 function load(): PatientCase[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -21,8 +52,14 @@ function save(cases: PatientCase[]): void {
   }
 }
 
+// ─── Public API ──────────────────────────────────────────────────────────────
+
 export function listCases(): PatientCase[] {
-  return load().sort((a, b) => b.updatedAt - a.updatedAt);
+  // Cached so useSyncExternalStore getSnapshot returns a stable reference
+  // between renders when nothing changed (Object.is equality).
+  if (cachedSorted) return cachedSorted;
+  cachedSorted = load().sort((a, b) => b.updatedAt - a.updatedAt);
+  return cachedSorted;
 }
 
 export function getCase(id: string): PatientCase | undefined {
@@ -41,6 +78,7 @@ export function createCase(data: Omit<PatientCase, 'id' | 'toolSessions' | 'crea
   };
   const trimmed = [newCase, ...cases].slice(0, MAX_CASES);
   save(trimmed);
+  notifyCaseChange();
   return newCase;
 }
 
@@ -51,11 +89,13 @@ export function updateCase(id: string, patch: Partial<Omit<PatientCase, 'id' | '
   const updated = { ...cases[idx], ...patch, id, updatedAt: Date.now() };
   cases[idx] = updated;
   save(cases);
+  notifyCaseChange();
   return updated;
 }
 
 export function deleteCase(id: string): void {
   save(load().filter((c) => c.id !== id));
+  notifyCaseChange();
 }
 
 export function addToolSession(caseId: string, session: Omit<ToolSession, 'timestamp'>): void {
@@ -70,4 +110,5 @@ export function addToolSession(caseId: string, session: Omit<ToolSession, 'times
     updatedAt: Date.now(),
   };
   save(cases);
+  notifyCaseChange();
 }

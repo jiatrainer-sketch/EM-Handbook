@@ -148,7 +148,11 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
   const [followUpDraft, setFollowUpDraft] = useState('');
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
-  const [toolPromptRef, setToolPromptRef] = useState<string>('');
+  // Original tool prompt kept as a ref (not state) so follow-up requests can
+  // re-send it as the first user turn without triggering re-renders. Previously
+  // this was useState, which made sendFollowUp's deps fragile and misleadingly
+  // named "Ref" despite being state.
+  const toolPromptRef = useRef<string>('');
   const abortRef = useRef<AbortController | null>(null);
   const followUpInputRef = useRef<HTMLTextAreaElement | null>(null);
   const scrollBottomRef = useRef<HTMLDivElement | null>(null);
@@ -178,7 +182,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
       const mergedBw = input.bw ?? activeCase?.weight ?? undefined;
       const mergedInput: AIToolInput = { tool, data: mergedData, bw: mergedBw };
       const prompt = buildToolPrompt(mergedInput);
-      setToolPromptRef(prompt);
+      toolPromptRef.current = prompt;
 
       let accumulated = '';
       await streamChat(
@@ -218,7 +222,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
     setError('');
 
     const messages: ChatMessage[] = [
-      { role: 'user', content: toolPromptRef },
+      { role: 'user', content: toolPromptRef.current },
       { role: 'assistant', content: initialResponse },
       ...priorTurns.map((t) => ({ role: t.role, content: t.content })),
     ];
@@ -260,7 +264,7 @@ export default function AITreatmentPanel({ tool, getInput, className }: Props) {
       setStatus('error');
       setError(e instanceof ChatError ? e.message : e instanceof Error ? e.message : 'เกิดข้อผิดพลาด');
     }
-  }, [followUpDraft, initialResponse, status, turns, toolPromptRef, activeId, tool]);
+  }, [followUpDraft, initialResponse, status, turns, activeId, tool]);
 
   const cancel = useCallback(() => {
     abortRef.current?.abort();

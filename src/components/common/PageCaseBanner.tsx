@@ -1,17 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import CaseBanner from '@/components/CaseBanner';
 
-// Routes where the persistent case banner should appear.
-// Home has its own cases widget; Cases pages manage state directly.
-const HIDE_PREFIXES = ['/', '/cases', '/search', '/browse', '/symptoms'];
+// Routes (and their sub-routes) where the persistent case banner should be
+// hidden. Home has its own cases widget; Cases pages manage state directly;
+// content pieces render their own header.
+const HIDE_PREFIXES = ['/cases', '/content', '/search', '/browse', '/symptoms'];
 
 function shouldShow(pathname: string): boolean {
   if (pathname === '/') return false;
-  if (pathname.startsWith('/cases')) return false;
-  if (pathname.startsWith('/content/')) return false;
-  if (HIDE_PREFIXES.includes(pathname)) return false;
-  // Show on /tools, /tools/*, and anywhere else by default
-  return true;
+  return !HIDE_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(p + '/'),
+  );
 }
 
 export default function PageCaseBanner() {
