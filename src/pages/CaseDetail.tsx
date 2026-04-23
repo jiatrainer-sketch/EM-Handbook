@@ -16,7 +16,9 @@ export default function CaseDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { activeId, setActive } = useActiveCase();
-  const [caseData, setCaseData] = useState(() => id ? getCase(id) : undefined);
+  // Derived from the reactive store — `updateCase` triggers a re-render via
+  // useActiveCase's subscription, so we always read the fresh case.
+  const caseData = id ? getCase(id) : undefined;
   const [editName, setEditName] = useState(false);
   const [nameInput, setNameInput] = useState(caseData?.name ?? '');
 
@@ -33,8 +35,7 @@ export default function CaseDetail() {
 
   function saveName() {
     if (!id || !nameInput.trim()) return;
-    const updated = updateCase(id, { name: nameInput.trim() });
-    if (updated) setCaseData(updated);
+    updateCase(id, { name: nameInput.trim() });
     setEditName(false);
   }
 
