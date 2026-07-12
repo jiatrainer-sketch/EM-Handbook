@@ -128,7 +128,10 @@ export default function AiChatSheet() {
   const [contextEnabled, setContextEnabled] = useState(true);
   const [savedIds, setSavedIds] = useState<Set<string>>(() => new Set());
   const [newCaseForm, setNewCaseForm] = useState<NewCaseFormData>(EMPTY_NEW_CASE);
-  const [cases, setCases] = useState<PatientCase[]>(() => listCases());
+  // Read straight from the reactive store — useActiveCase subscribes this
+  // component to case mutations, so the selector list is always fresh even
+  // when a case is created from another surface while the sheet is open.
+  const cases = listCases();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -138,11 +141,8 @@ export default function AiChatSheet() {
   // User picks explicitly — avoids surprise context switches and makes all
   // three modes (resume / general / new) discoverable every session.
   useEffect(() => {
-    if (isOpen) {
-      setCases(listCases());
-      setMode('selector');
-    }
-  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (isOpen) setMode('selector');
+  }, [isOpen]);
 
   // Re-enable context chip on page change
   useEffect(() => {
@@ -159,7 +159,6 @@ export default function AiChatSheet() {
 
   function switchMode(next: SheetMode) {
     if (isLoading) abortRef.current?.abort();
-    if (next === 'selector') setCases(listCases());
     setMode(next);
     setMessages([]);
     setDraft('');
